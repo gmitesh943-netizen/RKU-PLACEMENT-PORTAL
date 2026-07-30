@@ -4,6 +4,12 @@ obj/
 packages/
 *.user
 *.suo
-*.cache
-*.pdb
+*.userosscache
+*.sln.docstates
 *.log
+*.vspscc
+*.vssscc
+_ReSharper*/
+*.cache
+*.dbmdl
+TestResults/

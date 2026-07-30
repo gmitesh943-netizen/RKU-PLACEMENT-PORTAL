@@ -177,6 +177,7 @@
     <Content Include="PlacementStudentSelection.aspx" />
     <Content Include="PlacmentProminentRecruiters.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="StudentDashboard.aspx" />
     <Content Include="SuccessStories.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -272,6 +273,13 @@
     </Compile>
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StudentDashboard.aspx.cs">
+      <DependentUpon>StudentDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentDashboard.aspx.designer.cs">
+      <DependentUpon>StudentDashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Studentpanel.Master.cs">
       <DependentUpon>Studentpanel.Master</DependentUpon>
