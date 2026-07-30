@@ -1,0 +1,345 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6A95806A-9531-4888-A915-C0D6EF5CD130}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RKU_PLACEMENT_PORTAL</RootNamespace>
+    <AssemblyName>RKU_PLACEMENT_PORTAL</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44319</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.aspx" />
+    <Content Include="assets\images\1000579953.jpg" />
+    <Content Include="assets\images\1000579955.jpg" />
+    <Content Include="assets\images\1000579956.jpg" />
+    <Content Include="assets\images\1000579957.jpg" />
+    <Content Include="assets\images\1000579958.jpg" />
+    <Content Include="assets\images\1000579959.jpg" />
+    <Content Include="assets\images\1000579960.jpg" />
+    <Content Include="assets\images\1000579961.jpg" />
+    <Content Include="assets\images\1000579962.jpg" />
+    <Content Include="assets\images\1000579963.jpg" />
+    <Content Include="assets\images\1000579964.jpg" />
+    <Content Include="assets\images\1000579964.png" />
+    <Content Include="assets\images\1000579965.jpg" />
+    <Content Include="assets\images\1000579966.jpg" />
+    <Content Include="assets\images\1000579967.jpg" />
+    <Content Include="assets\images\1000579990.jpg" />
+    <Content Include="assets\images\1000579991.jpg" />
+    <Content Include="assets\images\1000579994.jpg" />
+    <Content Include="assets\images\1000586206.jpg" />
+    <Content Include="assets\images\About-Plcment.jpg" />
+    <Content Include="assets\images\ABOUT-VIDEO.mp4" />
+    <Content Include="assets\images\about_hero_campus.jpg" />
+    <Content Include="assets\images\Amit SIR-Plcment %281%29.png" />
+    <Content Include="assets\images\company-visit-1.jpeg" />
+    <Content Include="assets\images\company-visit-2.jpeg" />
+    <Content Include="assets\images\company-visit-3.jpeg" />
+    <Content Include="assets\images\company-visit-4.jpeg" />
+    <Content Include="assets\images\company-visit-5jpeg.jpeg" />
+    <Content Include="assets\images\contact-form.png" />
+    <Content Include="assets\images\Dipati mem -plcment.png" />
+    <Content Include="assets\images\Galary-img-1 RKU.jpeg" />
+    <Content Include="assets\images\Galary-img-2 RKU.jpeg" />
+    <Content Include="assets\images\Galary-img-3 RKU.jpeg" />
+    <Content Include="assets\images\Galary-img-4 RKU.jpeg" />
+    <Content Include="assets\images\Homera mem-Plcment.png" />
+    <Content Include="assets\images\hr_representative.png" />
+    <Content Include="assets\images\Lision officer 1.jpeg" />
+    <Content Include="assets\images\LIsion officer.jpeg" />
+    <Content Include="assets\images\mission_library.jpg" />
+    <Content Include="assets\images\placement_brochure_cover.png" />
+    <Content Include="assets\images\placment -1 galary.jpeg" />
+    <Content Include="assets\images\placment -2 galary.jpeg" />
+    <Content Include="assets\images\placment -3 galary.jpeg" />
+    <Content Include="assets\images\prevezSIR-Plcment.png" />
+    <Content Include="assets\images\rku logo 2.png" />
+    <Content Include="assets\images\RKU LOGO.png" />
+    <Content Include="assets\images\Rq-rku-comony.png" />
+    <Content Include="assets\images\slider_1.jpg" />
+    <Content Include="assets\images\slider_2.jpg" />
+    <Content Include="assets\images\slider_3.jpg" />
+    <Content Include="assets\images\slider_4.jpg" />
+    <Content Include="assets\images\St-pl-1.1.jpeg" />
+    <Content Include="assets\images\St-pl-1.2.jpeg" />
+    <Content Include="assets\images\St-pl-1.3.jpeg" />
+    <Content Include="assets\images\St-pl-1.4.jpeg" />
+    <Content Include="assets\images\St-pl-2.1.jpeg" />
+    <Content Include="assets\images\St-pl-2.2.jpeg" />
+    <Content Include="assets\images\St-pl-2.3.jpeg" />
+    <Content Include="assets\images\St-pl-2.4.jpeg" />
+    <Content Include="assets\images\St-pl-3.1.jpeg" />
+    <Content Include="assets\images\St-pl-3.2.jpeg" />
+    <Content Include="assets\images\St-pl-3.3.jpeg" />
+    <Content Include="assets\images\St-pl-3.4.jpeg" />
+    <Content Include="assets\images\St-pl-4.1.jpeg" />
+    <Content Include="assets\images\St-pl-4.2.jpeg" />
+    <Content Include="assets\images\St-pl-4.3.jpeg" />
+    <Content Include="assets\images\St-pl-4.4.jpeg" />
+    <Content Include="assets\images\St-pl-5.1.jpeg" />
+    <Content Include="assets\images\St-pl-5.2.jpeg" />
+    <Content Include="assets\images\St-pl-5.3.jpeg" />
+    <Content Include="assets\images\St-pl-5.4.jpeg" />
+    <Content Include="assets\images\St-pl-6.1.jpeg" />
+    <Content Include="assets\images\St-pl-6.2.jpeg" />
+    <Content Include="assets\images\St-pl-6.3.jpeg" />
+    <Content Include="assets\images\St-pl-6.4.jpeg" />
+    <Content Include="assets\images\St-pl-7.1.jpeg" />
+    <Content Include="assets\images\St-pl-7.2.jpeg" />
+    <Content Include="assets\images\St-pl-7.3.jpeg" />
+    <Content Include="assets\images\St-pl-7.4.jpeg" />
+    <Content Include="assets\images\St-pl-8.1.jpeg" />
+    <Content Include="assets\images\St-pl-8.2.jpeg" />
+    <Content Include="assets\images\St-pl-8.3.jpeg" />
+    <Content Include="assets\images\St-pl-8.4.jpeg" />
+    <Content Include="assets\images\students_collaboration.png" />
+    <Content Include="assets\images\student_disha.png" />
+    <Content Include="assets\images\student_harshil.png" />
+    <Content Include="assets\images\student_krish.png" />
+    <Content Include="assets\images\student_new_1.png" />
+    <Content Include="assets\images\student_new_2.png" />
+    <Content Include="assets\images\student_new_3.png" />
+    <Content Include="assets\images\tanna SIR-Plcment %281%29.png" />
+    <Content Include="assets\images\team_tpo_profile.png" />
+    <Content Include="assets\images\white logo rku.png" />
+    <Content Include="Companies.aspx" />
+    <Content Include="Contact.aspx" />
+    <Content Include="css\student-panel.css" />
+    <Content Include="css\style.css" />
+    <Content Include="ForgotPassword.aspx" />
+    <Content Include="Index.aspx" />
+    <Content Include="js\main.js" />
+    <Content Include="js\portal-db.js" />
+    <Content Include="js\student-panel.js" />
+    <Content Include="Login.aspx" />
+    <Content Include="PlacementAbout.aspx" />
+    <Content Include="PlacementCampusDrives.aspx" />
+    <Content Include="PlacementLiaisonOfficers.aspx" />
+    <Content Include="PlacementStudentSelection.aspx" />
+    <Content Include="PlacmentProminentRecruiters.aspx" />
+    <Content Include="Register.aspx" />
+    <Content Include="SuccessStories.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Companies.aspx.cs">
+      <DependentUpon>Companies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Companies.aspx.designer.cs">
+      <DependentUpon>Companies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contact.aspx.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact.aspx.designer.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MainMaster.Master.cs">
+      <DependentUpon>MainMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MainMaster.Master.designer.cs">
+      <DependentUpon>MainMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="PlacementAbout.aspx.cs">
+      <DependentUpon>PlacementAbout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PlacementAbout.aspx.designer.cs">
+      <DependentUpon>PlacementAbout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PlacementCampusDrives.aspx.cs">
+      <DependentUpon>PlacementCampusDrives.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PlacementCampusDrives.aspx.designer.cs">
+      <DependentUpon>PlacementCampusDrives.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PlacementLiaisonOfficers.aspx.cs">
+      <DependentUpon>PlacementLiaisonOfficers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PlacementLiaisonOfficers.aspx.designer.cs">
+      <DependentUpon>PlacementLiaisonOfficers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PlacementStudentSelection.aspx.cs">
+      <DependentUpon>PlacementStudentSelection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PlacementStudentSelection.aspx.designer.cs">
+      <DependentUpon>PlacementStudentSelection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PlacmentProminentRecruiters.aspx.cs">
+      <DependentUpon>PlacmentProminentRecruiters.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PlacmentProminentRecruiters.aspx.designer.cs">
+      <DependentUpon>PlacmentProminentRecruiters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Studentpanel.Master.cs">
+      <DependentUpon>Studentpanel.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Studentpanel.Master.designer.cs">
+      <DependentUpon>Studentpanel.Master</DependentUpon>
+    </Compile>
+    <Compile Include="SuccessStories.aspx.cs">
+      <DependentUpon>SuccessStories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuccessStories.aspx.designer.cs">
+      <DependentUpon>SuccessStories.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MainMaster.Master" />
+    <Content Include="assets\images\1000579954.webp" />
+    <None Include="packages.config" />
+    <Content Include="Studentpanel.Master" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".agents\" />
+    <Folder Include=".git\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>62895</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44319/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,1233 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainMaster.master.cs" Inherits="RKU_PLACEMENT_PORTAL.MainMaster" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Placement Portal | RK University</title>
+
+                    <!-- Meta Tags for SEO -->
+                    <meta name="description" content="RK University Placement Portal - Connecting talent with opportunities. Empowering students with industry-ready careers, internships, and campus placements.">
+                    <meta name="keywords" content="RK University, Placement Portal, University Placements, Rajkot College, Gujarat Placements, Job Portal, Student Internships, Top Recruiters">
+                    <meta name="author" content="RK University">
+
+                    <!-- Bootstrap 5 CSS -->
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+                    <!-- FontAwesome Icons -->
+                    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+                    <!-- Custom CSS -->
+                    <link href="css/style.css" rel="stylesheet">
+
+                    <style>
+                        .home-stories-scroll {
+                            overflow: hidden;
+                        }
+
+                        .home-stories-track {
+                            display: flex;
+                            flex-wrap: nowrap;
+                            transition: transform 0.65s ease;
+                            will-change: transform;
+                        }
+
+                        .home-story-slide {
+                            flex: 0 0 100%;
+                            width: 100%;
+                            padding-right: 0;
+                        }
+
+                        .home-story-card {
+                            background: #fff;
+                            border-radius: 18px;
+                            box-shadow: 0 8px 26px rgba(0, 0, 0, 0.04);
+                            height: 100%;
+                            padding: 1rem;
+                            border: 1px solid #eef0f3;
+                            max-width: 420px;
+                            margin: 0 auto;
+                        }
+
+                        .home-story-img,
+                        .home-story-placeholder {
+                            width: 100%;
+                            height: 260px;
+                            object-fit: cover;
+                            object-position: top center;
+                            border-radius: 14px;
+                            margin-bottom: 1rem;
+                            display: block;
+                        }
+
+                        .home-story-placeholder {
+                            background: #f1f3f5;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #94a3b8;
+                        }
+
+                        .home-story-name {
+                            font-family: var(--font-heading);
+                            font-weight: 800;
+                            font-size: 1.05rem;
+                            color: var(--rku-dark);
+                            margin: 0 0 0.25rem 0;
+                        }
+
+                        .home-story-course {
+                            font-size: 0.84rem;
+                            font-weight: 600;
+                            color: #6b7280;
+                            margin: 0;
+                        }
+
+                        .home-story-company {
+                            font-family: var(--font-heading);
+                            font-weight: 800;
+                            font-size: 0.95rem;
+                            color: var(--rku-maroon);
+                            margin: 0.5rem 0 0.2rem 0;
+                        }
+
+                        .home-story-package {
+                            font-family: var(--font-heading);
+                            font-weight: 800;
+                            font-size: 1.1rem;
+                            color: var(--rku-dark);
+                            margin: 0.15rem 0 0;
+                        }
+
+                        @media (max-width: 767.98px) {
+                            .home-story-card {
+                                max-width: 100%;
+                            }
+
+                            .home-story-img,
+                            .home-story-placeholder {
+                                height: 210px;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+
+                    <!-- ==========================================
+         1. HEADER / NAVBAR
+         ========================================== -->
+                    <nav class="navbar navbar-expand-lg sticky-top">
+                        <div class="container-fluid px-lg-5">
+                            <!-- Brand Logo -->
+                            <a class="navbar-brand d-flex align-items-center" href="#" id="navbarBrandLink">
+                                <img src="assets/images/RKU LOGO.png" alt="RK University Placement Portal" class="me-2" style="height: 48px; width: auto; max-width: 240px; object-fit: contain;">
+                            </a>
+
+                            <!-- Mobile Toggle -->
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggleButton">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <!-- Navigation Links -->
+                            <div class="collapse navbar-collapse" id="mainNavbar">
+                                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="Index.aspx" id="navHome">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="About.aspx" id="navAbout">About Us</a>
+                                    </li>
+
+                                    <li class="nav-item dropdown" id="navItemPlacement">
+                                        <a class="nav-link nav-placement-btn dropdown-toggle" href="#" id="navDrives" data-bs-toggle="dropdown" aria-expanded="false">Placement <i class="fa-solid fa-chevron-down placement-caret"></i>
+                                        </a>
+                                        <ul class="dropdown-menu nav-placement-dropdown" aria-labelledby="navDrives">
+                                <li><a class="dropdown-item" href="PlacementAbout.aspx" id="navPlacementAbout">About Us</a></li>
+                                            <li><a class="dropdown-item" href="PlacementCampusDrives.aspx" id="navPlacementCampus">Campus Drives</a></li>
+                                            <li><a class="dropdown-item" href="PlacementStudentSelection.aspx" id="navPlacementSelection">Student Selection</a></li>
+                                            <li><a class="dropdown-item" href="PlacementLiaisonOfficers.aspx" id="navPlacementLiaison">Liaison Officers</a></li>
+                                            <li><a class="dropdown-item" href="PlacmentProminentRecruiters.aspx" id="navPlacementRecruiters">Prominent Recruiters</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="Companies.aspx" id="navCompanies">Companies</a>
+                                    </li>
+
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="SuccessStories.aspx" id="navStories">Success Stories</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="Contact.aspx" id="navContact">Contact</a>
+                                    </li>
+                                </ul>
+
+                                <!-- User Actions -->
+                                <div class="navbar-actions d-flex align-items-center">
+                                    <a href="#" class="icon-btn" title="Search" id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                    <a href="#" class="icon-btn position-relative" title="Notifications" id="btnNotifications">
+                                        <i class="fa-regular fa-bell"></i>
+                                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-rku-red border border-light rounded-circle"></span>
+                                    </a>
+                                    <a href="Login.aspx" class="btn btn-login" id="btnLogin">Login</a>
+                                    <a href="Register.aspx" class="btn btn-register" id="btnRegister">Register</a>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+            </asp:ContentPlaceHolder>
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                <!-- ==========================================
+         2. HERO SECTION
+         ========================================== -->
+                <section class="hero-section" id="heroSection">
+
+                    <!-- Background Image Slides (only images change, not content) -->
+                    <div class="hero-bg-slides" id="heroBgSlides">
+                        <div class="hero-bg-slide active" style="background-image: url('assets/images/1000579953.jpg');"></div>
+                        <div class="hero-bg-slide" style="background-image: url('assets/images/1000579960.jpg');"></div>
+                        <div class="hero-bg-slide" style="background-image: url('assets/images/1000579964.jpg');"></div>
+                        <div class="hero-bg-slide" style="background-image: url('assets/images/1000579965.jpg');"></div>
+                    </div>
+
+                    <!-- Dot Indicators -->
+                    <div class="hero-slide-dots" id="heroSlideDots">
+                        <span class="hero-dot active" data-slide="0"></span>
+                        <span class="hero-dot" data-slide="1"></span>
+                        <span class="hero-dot" data-slide="2"></span>
+                        <span class="hero-dot" data-slide="3"></span>
+                    </div>
+
+                    <div class="container px-lg-5" style="position: relative; z-index: 2;">
+                        <div class="row align-items-center">
+                            <div class="col-lg-7">
+                                <div class="hero-eyebrow">- RK UNIVERSITY -</div>
+                                <h1 class="hero-title" id="heroTitle">Connecting Talent with <span class="text-rku-red">Opportunities</span></h1>
+                                <p class="hero-subtitle" id="heroSubtitle">Empowering students with industry-ready careers, internships, and campus placements.</p>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <button class="btn btn-rku" id="btnHeroExplore" onclick="window.location.href='PlacementCampusDrives.aspx'">Explore Placement Drives <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                                    <button class="hero-btn-outline" id="btnHeroReg" onclick="window.location.href='Register.aspx'">Student Registration <i class="fa-regular fa-user ms-2"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats Strip -->
+                        <div class="hero-stats-strip" id="heroStatsStrip">
+                            <div class="row g-4 text-center text-lg-start">
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="hero-stat-item justify-content-center justify-content-lg-start">
+                                        <div class="hero-stat-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                                        <div>
+                                            <div class="hero-stat-num counter-value" data-target="5000" data-target-type="plus">0</div>
+                                            <div class="hero-stat-label">Students Placed</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="hero-stat-item justify-content-center justify-content-lg-start">
+                                        <div class="hero-stat-icon"><i class="fa-solid fa-building"></i></div>
+                                        <div>
+                                            <div class="hero-stat-num counter-value" data-target="300" data-target-type="plus">0</div>
+                                            <div class="hero-stat-label">Top Recruiters</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="hero-stat-item justify-content-center justify-content-lg-start">
+                                        <div class="hero-stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+                                        <div>
+                                            <div class="hero-stat-num counter-value" data-target="85" data-target-type="percent">0</div>
+                                            <div class="hero-stat-label">Placement Rate</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="hero-stat-item justify-content-center justify-content-lg-start">
+                                        <div class="hero-stat-icon"><i class="fa-solid fa-award"></i></div>
+                                        <div>
+                                            <div class="hero-stat-num counter-value" data-target="20" data-target-type="currency">0</div>
+                                            <div class="hero-stat-label">Highest Package</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ==========================================
+         3. TOP RECRUITERS
+         ========================================== -->
+                <section class="py-5 bg-white" id="recruitersSection">
+                    <div class="container-fluid px-lg-5">
+                        <div class="section-title-wrapper mb-4">
+                            <h2 class="section-title">Our Top Recruiters</h2>
+                                <a href="Companies.aspx" class="section-link" id="linkViewAllRecruiters">All Companies <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+
+                        <!-- Recruiter Logo Marquee -->
+                        <div class="recruiters-marquee">
+                            <div class="recruiters-track" id="indexRecruitersTrack">
+                                <!-- TCS -->
+                                <div class="recruiter-logo-card">
+                                    <svg viewBox="0 0 200 80" width="120" height="40">
+                                        <path d="M20,15 L50,15 L50,25 L38,25 L38,65 L28,65 L28,25 L20,25 Z" fill="#1b365d" />
+                                        <path d="M70,15 C85,15 95,25 95,40 C95,55 85,65 70,65 C55,65 45,55 45,40 C45,25 55,15 70,15 Z M70,25 C60,25 56,31 56,40 C56,49 60,55 70,55 C80,55 84,49 84,40 C84,31 80,25 70,25 Z" fill="#1b365d" />
+                                        <path d="M100,50 L110,50 C112,56 117,60 124,60 C130,60 134,57 134,53 C134,49 131,47 121,45 C109,42 102,38 102,28 C102,18 111,13 124,13 C136,13 144,19 146,29 L136,29 C134,23 130,20 124,20 C118,20 114,23 114,27 C114,31 118,33 127,35 C139,38 146,41 146,51 C146,62 137,67 124,67 C111,67 102,61 100,50 Z" fill="#1b365d" />
+                                        <text x="25" y="76" font-family="sans-serif" font-weight="bold" font-size="8" fill="#ef3724" letter-spacing="3">TATA</text>
+                                    </svg>
+                                </div>
+                                <!-- Infosys -->
+                                <div class="recruiter-logo-card">
+                                    <svg viewBox="0 0 200 80" width="120" height="40">
+                                        <text x="10" y="55" font-family="'Outfit', sans-serif" font-weight="800" font-size="42" fill="#007cc3" letter-spacing="-1">Infosys</text>
+                                        <path d="M165,25 L180,25 L180,30 L165,30 Z" fill="#ef3724" />
+                                    </svg>
+                                </div>
+                                <!-- Wipro -->
+                                <div class="recruiter-logo-card">
+                                    <svg viewBox="0 0 200 80" width="120" height="40">
+                                        <circle cx="60" cy="40" r="25" fill="none" stroke="#253858" stroke-width="4" />
+                                        <circle cx="50" cy="28" r="4" fill="#172b4d" />
+                                        <circle cx="70" cy="28" r="5" fill="#0052cc" />
+                                        <circle cx="45" cy="42" r="3" fill="#00875a" />
+                                        <circle cx="75" cy="42" r="6" fill="#de350b" />
+                                        <circle cx="60" cy="55" r="4" fill="#ffab00" />
+                                        <text x="95" y="48" font-family="'Outfit', sans-serif" font-weight="700" font-size="28" fill="#253858">wipro</text>
+                                    </svg>
+                                </div>
+                                <!-- Accenture -->
+                                <div class="recruiter-logo-card">
+                                    <svg viewBox="0 0 200 80" width="120" height="40">
+                                        <text x="20" y="50" font-family="sans-serif" font-weight="bold" font-size="32" fill="#000000">accenture</text>
+                                        <path d="M165,22 L178,32 L165,42 L160,37 L168,32 L160,27 Z" fill="#a100ff" />
+                                    </svg>
+                                </div>
+                                <!-- HCL -->
+                                <div class="recruiter-logo-card">
+                                    <svg viewBox="0 0 200 80" width="120" height="40">
+                                        <text x="40" y="55" font-family="sans-serif" font-weight="900" font-size="52" fill="#002d72" italic="true">HCL</text>
+                                    </svg>
+                                </div>
+                                <!-- Tech Mahindra -->
+                                <div class="recruiter-logo-card">
+                                    <svg viewBox="0 0 200 80" width="140" height="40">
+                                        <text x="10" y="40" font-family="sans-serif" font-weight="bold" font-size="20" fill="#e21a22">Tech</text>
+                                        <text x="10" y="60" font-family="sans-serif" font-weight="bold" font-size="20" fill="#231f20">Mahindra</text>
+                                        <circle cx="130" cy="45" r="12" fill="#e21a22" />
+                                        <circle cx="130" cy="45" r="6" fill="#ffffff" />
+                                    </svg>
+                                </div>
+                                <!-- Capgemini -->
+                                <div class="recruiter-logo-card">
+                                    <svg viewBox="0 0 200 80" width="140" height="40">
+                                        <path d="M20,40 C20,30 30,20 40,20 C50,20 60,30 60,40 C60,50 50,60 40,60 C30,60 20,50 20,40 Z" fill="#0070ad" />
+                                        <path d="M40,25 C45,30 45,40 40,45 C35,40 35,30 40,25 Z" fill="#ffffff" />
+                                        <text x="70" y="50" font-family="sans-serif" font-weight="bold" font-size="24" fill="#0070ad">Capgemini</text>
+                                    </svg>
+                                </div>
+                                <!-- IBM -->
+                                <div class="recruiter-logo-card">
+                                    <svg viewBox="0 0 200 80" width="120" height="40">
+                                        <text x="30" y="55" font-family="sans-serif" font-weight="900" font-size="56" fill="#006699" letter-spacing="-2">IBM</text>
+                                        <!-- IBM Stripe lines -->
+                                        <rect x="25" y="12" width="140" height="2" fill="#ffffff" />
+                                        <rect x="25" y="18" width="140" height="2" fill="#ffffff" />
+                                        <rect x="25" y="24" width="140" height="2" fill="#ffffff" />
+                                        <rect x="25" y="30" width="140" height="2" fill="#ffffff" />
+                                        <rect x="25" y="36" width="140" height="2" fill="#ffffff" />
+                                        <rect x="25" y="42" width="140" height="2" fill="#ffffff" />
+                                        <rect x="25" y="48" width="140" height="2" fill="#ffffff" />
+                                    </svg>
+                                </div>
+
+                                <!-- Repeat For Infinite Loop -->
+                                <!-- TCS -->
+                                <div class="recruiter-logo-card">
+                                    <svg viewBox="0 0 200 80" width="120" height="40">
+                                        <path d="M20,15 L50,15 L50,25 L38,25 L38,65 L28,65 L28,25 L20,25 Z" fill="#1b365d" />
+                                        <path d="M70,15 C85,15 95,25 95,40 C95,55 85,65 70,65 C55,65 45,55 45,40 C45,25 55,15 70,15 Z M70,25 C60,25 56,31 56,40 C56,49 60,55 70,55 C80,55 84,49 84,40 C84,31 80,25 70,25 Z" fill="#1b365d" />
+                                        <path d="M100,50 L110,50 C112,56 117,60 124,60 C130,60 134,57 134,53 C134,49 131,47 121,45 C109,42 102,38 102,28 C102,18 111,13 124,13 C136,13 144,19 146,29 L136,29 C134,23 130,20 124,20 C118,20 114,23 114,27 C114,31 118,33 127,35 C139,38 146,41 146,51 C146,62 137,67 124,67 C111,67 102,61 100,50 Z" fill="#1b365d" />
+                                        <text x="25" y="76" font-family="sans-serif" font-weight="bold" font-size="8" fill="#ef3724" letter-spacing="3">TATA</text>
+                                    </svg>
+                                </div>
+                                <!-- Infosys -->
+                                <div class="recruiter-logo-card">
+                                    <svg viewBox="0 0 200 80" width="120" height="40">
+                                        <text x="10" y="55" font-family="'Outfit', sans-serif" font-weight="800" font-size="42" fill="#007cc3" letter-spacing="-1">Infosys</text>
+                                        <path d="M165,25 L180,25 L180,30 L165,30 Z" fill="#ef3724" />
+                                    </svg>
+                                </div>
+                                <!-- Wipro -->
+                                <div class="recruiter-logo-card">
+                                    <svg viewBox="0 0 200 80" width="120" height="40">
+                                        <circle cx="60" cy="40" r="25" fill="none" stroke="#253858" stroke-width="4" />
+                                        <circle cx="50" cy="28" r="4" fill="#172b4d" />
+                                        <circle cx="70" cy="28" r="5" fill="#0052cc" />
+                                        <circle cx="45" cy="42" r="3" fill="#00875a" />
+                                        <circle cx="75" cy="42" r="6" fill="#de350b" />
+                                        <circle cx="60" cy="55" r="4" fill="#ffab00" />
+                                        <text x="95" y="48" font-family="'Outfit', sans-serif" font-weight="700" font-size="28" fill="#253858">wipro</text>
+                                    </svg>
+                                </div>
+                                <!-- Accenture -->
+                                <div class="recruiter-logo-card">
+                                    <svg viewBox="0 0 200 80" width="120" height="40">
+                                        <text x="20" y="50" font-family="sans-serif" font-weight="bold" font-size="32" fill="#000000">accenture</text>
+                                        <path d="M165,22 L178,32 L165,42 L160,37 L168,32 L160,27 Z" fill="#a100ff" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ==========================================
+         4. PLACEMENT STATISTICS
+         ========================================== -->
+                <section class="py-5" id="statisticsSection">
+                    <div class="container px-lg-5">
+                        <div class="section-title-wrapper">
+                            <h2 class="section-title">Placement Statistics</h2>
+                        </div>
+
+                        <div class="row g-4">
+                            <!-- Stat 1 -->
+                            <div class="col-xl-3 col-sm-6">
+                                <div class="stat-card" id="statCardStudents">
+                                    <div class="stat-card-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
+                                    <h3 class="stat-card-num counter-value" data-target="5000">0</h3>
+                                    <p class="stat-card-label">Students Placed</p>
+                                    <div class="stat-card-trend"><i class="fa-solid fa-arrow-trend-up me-1"></i>650 this year</div>
+                                </div>
+                            </div>
+                            <!-- Stat 2 -->
+                            <div class="col-xl-3 col-sm-6">
+                                <div class="stat-card" id="statCardRecruiters">
+                                    <div class="stat-card-icon-box"><i class="fa-solid fa-handshake"></i></div>
+                                    <h3 class="stat-card-num counter-value" data-target="300">0</h3>
+                                    <p class="stat-card-label">Top Recruiters</p>
+                                    <div class="stat-card-trend"><i class="fa-solid fa-arrow-trend-up me-1"></i>35 new recruiters</div>
+                                </div>
+                            </div>
+                            <!-- Stat 3 -->
+                            <div class="col-xl-3 col-sm-6">
+                                <div class="stat-card" id="statCardRate">
+                                    <div class="stat-card-icon-box"><i class="fa-solid fa-chart-simple"></i></div>
+                                    <h3 class="stat-card-num counter-value" data-target="85" data-target-type="percent">0</h3>
+                                    <p class="stat-card-label">Placement Rate</p>
+                                    <div class="stat-card-trend"><i class="fa-solid fa-arrow-trend-up me-1"></i>8% from last year</div>
+                                </div>
+                            </div>
+                            <!-- Stat 4 -->
+                            <div class="col-xl-3 col-sm-6">
+                                <div class="stat-card" id="statCardPackage">
+                                    <div class="stat-card-icon-box"><i class="fa-solid fa-sack-dollar"></i></div>
+                                    <h3 class="stat-card-num counter-value" data-target="20" data-target-type="currency">0</h3>
+                                    <p class="stat-card-label">Highest Package</p>
+                                    <div class="stat-card-trend"><i class="fa-solid fa-arrow-trend-up me-1"></i>3 LPA from last year</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ==========================================
+         5. FEATURED PLACEMENT DRIVES
+         ========================================== -->
+                <section class="py-5 bg-white" id="drivesSection">
+                    <div class="container px-lg-5">
+                        <div class="section-title-wrapper mb-5">
+                            <h2 class="section-title">Featured Placement Drives</h2>
+                                <a href="PlacementCampusDrives.aspx" class="section-link" id="linkViewAllDrives">View All Drives <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+
+                        <!-- Drives Cards Grid (5 columns in one line on desktop) -->
+                        <div class="row row-cols-xl-5 row-cols-lg-3 row-cols-md-2 row-cols-1 g-3 justify-content-center">
+
+                            <!-- Card 1: TCS -->
+                            <div class="col">
+                                <div class="drive-card" id="driveCardTcs">
+                                    <span class="drive-badge">20+ Openings</span>
+                                    <div class="mt-2 mb-3">
+                                        <svg viewBox="0 0 160 35" width="110" height="28">
+                                            <text x="0" y="25" font-family="'Outfit', sans-serif" font-weight="800" font-size="28" fill="#ef3724">tcs</text>
+                                            <text x="44" y="14" font-family="'Inter', sans-serif" font-weight="800" font-size="6" fill="#0f2942">TATA</text>
+                                            <text x="44" y="21" font-family="'Inter', sans-serif" font-weight="800" font-size="6" fill="#0f2942">CONSULTANCY</text>
+                                            <text x="44" y="28" font-family="'Inter', sans-serif" font-weight="800" font-size="6" fill="#0f2942">SERVICES</text>
+                                        </svg>
+                                    </div>
+                                    <h4 class="drive-title">Software Engineer</h4>
+                                    <p class="drive-subtitle">BCA, MCA, B.Tech</p>
+                                    <div class="drive-meta">
+                                        <div class="drive-package-val">7.00 LPA</div>
+                                        <div class="drive-package-lbl">Package</div>
+                                    </div>
+                                    <button class="btn btn-rku w-100 mb-3" style="border-radius: 8px; font-weight: 700; font-size: 0.95rem; padding: 0.65rem;" id="btnApplyTcs">Apply Now</button>
+                                    <div class="drive-footer">
+                                        <i class="fa-regular fa-calendar me-2" style="color: var(--rku-red);"></i>Last Date: 31 May 2024
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2: Infosys -->
+                            <div class="col">
+                                <div class="drive-card" id="driveCardInfosys">
+                                    <span class="drive-badge">15+ Openings</span>
+                                    <div class="mt-2 mb-3">
+                                        <svg viewBox="0 0 120 35" width="90" height="26">
+                                            <text x="0" y="25" font-family="'Outfit', sans-serif" font-weight="800" font-size="24" fill="#007cc3">Infosys</text>
+                                        </svg>
+                                    </div>
+                                    <h4 class="drive-title">System Engineer</h4>
+                                    <p class="drive-subtitle">BCA, MCA, B.Tech</p>
+                                    <div class="drive-meta">
+                                        <div class="drive-package-val">6.50 LPA</div>
+                                        <div class="drive-package-lbl">Package</div>
+                                    </div>
+                                    <button class="btn btn-rku w-100 mb-3" style="border-radius: 8px; font-weight: 700; font-size: 0.95rem; padding: 0.65rem;" id="btnApplyInfosys">Apply Now</button>
+                                    <div class="drive-footer">
+                                        <i class="fa-regular fa-calendar me-2" style="color: var(--rku-red);"></i>Last Date: 29 May 2024
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 3: Wipro -->
+                            <div class="col">
+                                <div class="drive-card" id="driveCardWipro">
+                                    <span class="drive-badge">25+ Openings</span>
+                                    <div class="mt-2 mb-3">
+                                        <svg viewBox="0 0 140 35" width="105" height="28">
+                                            <g transform="translate(12, 16)">
+                                                <circle cx="0" cy="0" r="10" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="2 2" />
+                                                <circle cx="0" cy="0" r="7" fill="none" stroke="#ec4899" stroke-width="1.5" stroke-dasharray="1.5 1.5" />
+                                                <circle cx="0" cy="0" r="4" fill="none" stroke="#f59e0b" stroke-width="1.5" />
+                                            </g>
+                                            <text x="30" y="24" font-family="'Outfit', sans-serif" font-weight="800" font-size="18" fill="#1e293b">wipro</text>
+                                        </svg>
+                                    </div>
+                                    <h4 class="drive-title">Project Engineer</h4>
+                                    <p class="drive-subtitle">BCA, MCA, B.Tech</p>
+                                    <div class="drive-meta">
+                                        <div class="drive-package-val">6.00 LPA</div>
+                                        <div class="drive-package-lbl">Package</div>
+                                    </div>
+                                    <button class="btn btn-rku w-100 mb-3" style="border-radius: 8px; font-weight: 700; font-size: 0.95rem; padding: 0.65rem;" id="btnApplyWipro">Apply Now</button>
+                                    <div class="drive-footer">
+                                        <i class="fa-regular fa-calendar me-2" style="color: var(--rku-red);"></i>Last Date: 27 May 2024
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 4: Accenture -->
+                            <div class="col">
+                                <div class="drive-card" id="driveCardAccenture">
+                                    <span class="drive-badge">25+ Openings</span>
+                                    <div class="mt-2 mb-3">
+                                        <svg viewBox="0 0 140 35" width="100" height="26">
+                                            <text x="0" y="24" font-family="'Inter', sans-serif" font-weight="800" font-size="18" fill="#000000">accenture</text>
+                                            <path d="M68,8 L72,4 L76,8" stroke="#a855f7" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </div>
+                                    <h4 class="drive-title">Associate Software Engg.</h4>
+                                    <p class="drive-subtitle">BCA, MCA, B.Tech</p>
+                                    <div class="drive-meta">
+                                        <div class="drive-package-val">4.50 LPA</div>
+                                        <div class="drive-package-lbl">Package</div>
+                                    </div>
+                                    <button class="btn btn-rku w-100 mb-3" style="border-radius: 8px; font-weight: 700; font-size: 0.95rem; padding: 0.65rem;" id="btnApplyAccenture">Apply Now</button>
+                                    <div class="drive-footer">
+                                        <i class="fa-regular fa-calendar me-2" style="color: var(--rku-red);"></i>Last Date: 25 May 2024
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 5: HCL -->
+                            <div class="col">
+                                <div class="drive-card" id="driveCardHcl">
+                                    <span class="drive-badge">18+ Openings</span>
+                                    <div class="mt-2 mb-3">
+                                        <svg viewBox="0 0 100 35" width="80" height="28">
+                                            <text x="0" y="25" font-family="'Outfit', sans-serif" font-weight="900" font-size="26" fill="#0f2942" font-style="italic">HCL</text>
+                                        </svg>
+                                    </div>
+                                    <h4 class="drive-title">Graduate Engineer Trainee</h4>
+                                    <p class="drive-subtitle">BCA, MCA, B.Tech</p>
+                                    <div class="drive-meta">
+                                        <div class="drive-package-val">5.50 LPA</div>
+                                        <div class="drive-package-lbl">Package</div>
+                                    </div>
+                                    <button class="btn btn-rku w-100 mb-3" style="border-radius: 8px; font-weight: 700; font-size: 0.95rem; padding: 0.65rem;" id="btnApplyHcl">Apply Now</button>
+                                    <div class="drive-footer">
+                                        <i class="fa-regular fa-calendar me-2" style="color: var(--rku-red);"></i>Last Date: 25 May 2024
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ==========================================
+         6. WHY RK UNIVERSITY
+         ========================================== -->
+                <section class="py-5" id="whyRkuSection">
+                    <div class="container px-lg-5">
+                        <h2 class="section-title text-center mb-5" style="display: table; margin: 0 auto;">Why RK University?</h2>
+
+                        <div class="row g-4 mt-2">
+                            <!-- Point 1 -->
+                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                <div class="why-circle-box" id="whyPoint1">
+                                    <div class="why-circle-icon"><i class="fa-solid fa-book-open"></i></div>
+                                    <h4 class="why-circle-title">Industry Aligned Curriculum</h4>
+                                    <p class="why-circle-desc">Program designed with industry collaboration.</p>
+                                </div>
+                            </div>
+                            <!-- Point 2 -->
+                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                <div class="why-circle-box" id="whyPoint2">
+                                    <div class="why-circle-icon"><i class="fa-solid fa-users-gear"></i></div>
+                                    <h4 class="why-circle-title">Aptitude & Soft Skills Training</h4>
+                                    <p class="why-circle-desc">Regular training for aptitude, communication & more.</p>
+                                </div>
+                            </div>
+                            <!-- Point 3 -->
+                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                <div class="why-circle-box" id="whyPoint3">
+                                    <div class="why-circle-icon"><i class="fa-solid fa-briefcase"></i></div>
+                                    <h4 class="why-circle-title">Internship Assistance</h4>
+                                    <p class="why-circle-desc">Strong internship network with top companies.</p>
+                                </div>
+                            </div>
+                            <!-- Point 4 -->
+                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                <div class="why-circle-box" id="whyPoint4">
+                                    <div class="why-circle-icon"><i class="fa-solid fa-network-wired"></i></div>
+                                    <h4 class="why-circle-title">Strong Corporate Network</h4>
+                                    <p class="why-circle-desc">300+ recruiters and industry partnerships.</p>
+                                </div>
+                            </div>
+                            <!-- Point 5 -->
+                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                <div class="why-circle-box" id="whyPoint5">
+                                    <div class="why-circle-icon"><i class="fa-solid fa-chart-line"></i></div>
+                                    <h4 class="why-circle-title">Career Development</h4>
+                                    <p class="why-circle-desc">Workshops, seminars & career guidance.</p>
+                                </div>
+                            </div>
+                            <!-- Point 6 -->
+                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                <div class="why-circle-box" id="whyPoint6">
+                                    <div class="why-circle-icon"><i class="fa-solid fa-headset"></i></div>
+                                    <h4 class="why-circle-title">100% Placement Support</h4>
+                                    <p class="why-circle-desc">End-to-end support till you get placed.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ==========================================
+         7. SUCCESS STORIES & PLACEMENT PROCESS
+         ========================================== -->
+                <section class="py-5 bg-white" id="storiesProcessSection">
+                    <div class="container px-lg-5">
+                        <div class="row g-4">
+
+                            <!-- Left Column: Success Stories -->
+                            <div class="col-lg-6">
+                                <div class="section-title-wrapper mb-4">
+                                    <h2 class="section-title">Success Stories</h2>
+                                    <a href="SuccessStories.aspx" class="section-link" id="linkViewAllStories" style="color: var(--rku-red); font-weight: 700;">View All <i class="fa-solid fa-arrow-right ms-1" style="font-size: 0.8rem;"></i></a>
+                                </div>
+
+                                <div class="home-stories-scroll">
+                                    <div class="home-stories-track" id="indexSuccessStoriesRow">
+                                        <!-- Student 1 -->
+                                        <div class="col-4">
+                                            <div class="drive-card p-2" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); height: 100%;">
+                                                <img src="assets/images/student_new_1.png" alt="Krishna Patel" style="width: 100%; height: 140px; object-fit: cover; object-position: top center; border-radius: 10px; margin-bottom: 0.6rem;">
+                                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                                    <h5 class="m-0 text-truncate" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.82rem; color: var(--rku-dark);" title="Krishna Patel">Krishna Patel</h5>
+                                                    <i class="fa-regular fa-user" style="font-size: 0.6rem; color: #a0aec0; border: 1px solid #e2e8f0; border-radius: 50%; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center;"></i>
+                                                </div>
+                                                <p class="text-muted m-0 text-truncate" style="font-size: 0.72rem; font-weight: 500;">BCA</p>
+                                                <div class="my-2" style="height: 18px; display: flex; align-items: center;">
+                                                    <svg viewBox="0 0 160 35" width="80" height="18">
+                                                        <text x="0" y="25" font-family="'Outfit', sans-serif" font-weight="800" font-size="28" fill="#ef3724">tcs</text>
+                                                        <text x="44" y="14" font-family="'Inter', sans-serif" font-weight="800" font-size="6" fill="#0f2942">TATA</text>
+                                                        <text x="44" y="21" font-family="'Inter', sans-serif" font-weight="800" font-size="6" fill="#0f2942">CONSULTANCY</text>
+                                                        <text x="44" y="28" font-family="'Inter', sans-serif" font-weight="800" font-size="6" fill="#0f2942">SERVICES</text>
+                                                    </svg>
+                                                </div>
+                                                <div style="font-family: var(--font-heading); font-weight: 800; font-size: 0.88rem; color: var(--rku-dark); margin-top: 0.4rem;">₹ 12 LPA</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Student 2 -->
+                                        <div class="col-4">
+                                            <div class="drive-card p-2" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); height: 100%;">
+                                                <img src="assets/images/student_new_2.png" alt="Meet Shah" style="width: 100%; height: 140px; object-fit: cover; object-position: top center; border-radius: 10px; margin-bottom: 0.6rem;">
+                                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                                    <h5 class="m-0 text-truncate" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.82rem; color: var(--rku-dark);" title="Meet Shah">Meet Shah</h5>
+                                                    <i class="fa-regular fa-user" style="font-size: 0.6rem; color: #a0aec0; border: 1px solid #e2e8f0; border-radius: 50%; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center;"></i>
+                                                </div>
+                                                <p class="text-muted m-0 text-truncate" style="font-size: 0.72rem; font-weight: 500;">B.Tech AI &amp; ML</p>
+                                                <div class="my-2" style="height: 18px; display: flex; align-items: center;">
+                                                    <span class="fw-bold font-heading text-rku-maroon" style="font-size: 0.82rem;">Capgemini</span>
+                                                </div>
+                                                <div style="font-family: var(--font-heading); font-weight: 800; font-size: 0.88rem; color: var(--rku-dark); margin-top: 0.4rem;">₹ 18 LPA</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Student 3 -->
+                                        <div class="col-4">
+                                            <div class="drive-card p-2" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); height: 100%;">
+                                                <img src="assets/images/student_new_3.png" alt="Neha Patel" style="width: 100%; height: 140px; object-fit: cover; object-position: top center; border-radius: 10px; margin-bottom: 0.6rem;">
+                                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                                    <h5 class="m-0 text-truncate" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.82rem; color: var(--rku-dark);" title="Neha Patel">Neha Patel</h5>
+                                                    <i class="fa-regular fa-user" style="font-size: 0.6rem; color: #a0aec0; border: 1px solid #e2e8f0; border-radius: 50%; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center;"></i>
+                                                </div>
+                                                <p class="text-muted m-0 text-truncate" style="font-size: 0.72rem; font-weight: 500;">MBA</p>
+                                                <div class="my-2" style="height: 18px; display: flex; align-items: center;">
+                                                    <span class="fw-bold font-heading text-rku-maroon" style="font-size: 0.82rem;">Deloitte</span>
+                                                </div>
+                                                <div style="font-family: var(--font-heading); font-weight: 800; font-size: 0.88rem; color: var(--rku-dark); margin-top: 0.4rem;">₹ 16 LPA</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Red carousel indicators at bottom -->
+                                <div class="d-flex justify-content-center gap-1 mt-3" id="indexStoryDots">
+                                    <span style="width: 16px; height: 6px; background-color: var(--rku-red); border-radius: 50px;"></span>
+                                    <span style="width: 6px; height: 6px; background-color: #cbd5e1; border-radius: 50%;"></span>
+                                    <span style="width: 6px; height: 6px; background-color: #cbd5e1; border-radius: 50%;"></span>
+                                    <span style="width: 6px; height: 6px; background-color: #cbd5e1; border-radius: 50%;"></span>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Placement Process -->
+                            <div class="col-lg-6">
+                                <div class="section-title-wrapper mb-4">
+                                    <h2 class="section-title">Placement Process</h2>
+                                </div>
+
+                                <!-- Timeline Horizontal Row with connecting line -->
+                                <div class="process-timeline mt-4" id="placementProcessTimeline">
+                                    <div class="row g-0 justify-content-between position-relative">
+
+                                        <!-- Step 1 -->
+                                        <div class="col" style="flex: 1; text-align: center; position: relative; z-index: 2;">
+                                            <div class="process-step">
+                                                <div class="process-dot" style="width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; background: #fff; margin-bottom: 0.75rem;">
+                                                    <i class="fa-regular fa-id-badge" style="color: var(--rku-red); font-size: 1.1rem;"></i>
+                                                </div>
+                                                <div class="process-num" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--rku-dark); margin-bottom: 0.2rem;">01</div>
+                                                <div class="process-label" style="font-size: 0.7rem; font-weight: 600; color: #475569; line-height: 1.2;">Registration</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Step 2 -->
+                                        <div class="col" style="flex: 1; text-align: center; position: relative; z-index: 2;">
+                                            <div class="process-step">
+                                                <div class="process-dot" style="width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; background: #fff; margin-bottom: 0.75rem;">
+                                                    <i class="fa-regular fa-user" style="color: var(--rku-red); font-size: 1.1rem;"></i>
+                                                </div>
+                                                <div class="process-num" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--rku-dark); margin-bottom: 0.2rem;">02</div>
+                                                <div class="process-label" style="font-size: 0.7rem; font-weight: 600; color: #475569; line-height: 1.2;">Profile Completion</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Step 3 -->
+                                        <div class="col" style="flex: 1; text-align: center; position: relative; z-index: 2;">
+                                            <div class="process-step">
+                                                <div class="process-dot" style="width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; background: #fff; margin-bottom: 0.75rem;">
+                                                    <i class="fa-regular fa-file-lines" style="color: var(--rku-red); font-size: 1.1rem;"></i>
+                                                </div>
+                                                <div class="process-num" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--rku-dark); margin-bottom: 0.2rem;">03</div>
+                                                <div class="process-label" style="font-size: 0.7rem; font-weight: 600; color: #475569; line-height: 1.2;">Eligibility Check</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Step 4 -->
+                                        <div class="col" style="flex: 1; text-align: center; position: relative; z-index: 2;">
+                                            <div class="process-step">
+                                                <div class="process-dot" style="width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; background: #fff; margin-bottom: 0.75rem;">
+                                                    <i class="fa-solid fa-user-plus" style="color: var(--rku-red); font-size: 1.1rem;"></i>
+                                                </div>
+                                                <div class="process-num" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--rku-dark); margin-bottom: 0.2rem;">04</div>
+                                                <div class="process-label" style="font-size: 0.7rem; font-weight: 600; color: #475569; line-height: 1.2;">Apply for Jobs</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Step 5 -->
+                                        <div class="col" style="flex: 1; text-align: center; position: relative; z-index: 2;">
+                                            <div class="process-step">
+                                                <div class="process-dot" style="width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; background: #fff; margin-bottom: 0.75rem;">
+                                                    <i class="fa-solid fa-location-dot" style="color: var(--rku-red); font-size: 1.1rem;"></i>
+                                                </div>
+                                                <div class="process-num" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--rku-dark); margin-bottom: 0.2rem;">05</div>
+                                                <div class="process-label" style="font-size: 0.7rem; font-weight: 600; color: #475569; line-height: 1.2;">Interview Process</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Step 6 -->
+                                        <div class="col" style="flex: 1; text-align: center; position: relative; z-index: 2;">
+                                            <div class="process-step">
+                                                <div class="process-dot" style="width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; background: #fff; margin-bottom: 0.75rem;">
+                                                    <i class="fa-solid fa-award" style="color: var(--rku-red); font-size: 1.1rem;"></i>
+                                                </div>
+                                                <div class="process-num" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--rku-dark); margin-bottom: 0.2rem;">06</div>
+                                                <div class="process-label" style="font-size: 0.7rem; font-weight: 600; color: #475569; line-height: 1.2;">Final Selection</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ==========================================
+         10. BROCHURE BANNER SECTION
+         ========================================== -->
+                <section class="py-4" id="brochureSection">
+                    <div class="container px-lg-5">
+                        <div class="brochure-banner" id="placementBrochureBanner">
+                            <div class="row align-items-center g-0">
+
+                                <!-- Left: Brochure Book Mockup -->
+                                <div class="col-lg-3 col-md-3 d-flex align-items-center justify-content-center">
+                                    <div class="brochure-book-wrap" id="brochureBookWrap">
+                                        <div class="brochure-book" id="brochureBookMockup">
+                                            <div class="brochure-book-cover">
+                                                <div class="brochure-book-logo">RK</div>
+                                                <div class="brochure-book-university">RK UNIVERSITY</div>
+                                                <div class="brochure-book-line"></div>
+                                                <div class="brochure-book-title">PLACEMENT<br>
+                                                    BROCHURE</div>
+                                                <div class="brochure-book-year">2026</div>
+                                                <div class="brochure-book-img-strip"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Center: Title, Description, Button -->
+                                <div class="col-lg-4 col-md-5 brochure-center-col">
+                                    <h2 class="brochure-heading" id="brochureHeading">Placement Brochure 2026</h2>
+                                    <p class="brochure-desc" id="brochureDesc">Explore detailed placement reports, top recruiters, student success stories and much more.</p>
+                                    <a href="assets/images/placement_brochure_cover.png" download class="brochure-download-btn" id="btnDownloadBrochure">Download Brochure <i class="fa-solid fa-download ms-2"></i>
+                                    </a>
+                                </div>
+
+                                <!-- Right: 4 Quick Links in one horizontal row -->
+                                <div class="col-lg-5 col-md-4">
+                                    <div class="brochure-links-row">
+                                        <a href="#" class="brochure-link-item" id="brochureLinkStats">
+                                            <div class="brochure-link-icon"><i class="fa-solid fa-chart-column"></i></div>
+                                            <span>Placement<br>
+                                                Statistics</span>
+                                        </a>
+                                        <a href="PlacmentProminentRecruiters.aspx" class="brochure-link-item" id="brochureLinkRecruiters">
+                                            <div class="brochure-link-icon"><i class="fa-solid fa-handshake"></i></div>
+                                            <span>Top<br>
+                                                Recruiters</span>
+                                        </a>
+                                        <a href="SuccessStories.aspx" class="brochure-link-item" id="brochureLinkStories">
+                                            <div class="brochure-link-icon"><i class="fa-regular fa-user"></i></div>
+                                            <span>Success<br>
+                                                Stories</span>
+                                        </a>
+                                        <a href="#" class="brochure-link-item" id="brochureLinkTraining">
+                                            <div class="brochure-link-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                                            <span>Training &amp;<br>
+                                                Development</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ==========================================
+         11. FREQUENTLY ASKED QUESTIONS (FAQ)
+         ========================================== -->
+                <section class="py-5 bg-white" id="faqSection">
+                    <div class="container px-lg-5">
+                        <div class="section-title-wrapper mb-5">
+                            <h2 class="section-title">Frequently Asked Questions</h2>
+                            <a href="#" class="section-link" id="linkViewAllFaq">View All FAQs <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+
+                        <div class="row justify-content-center mt-2">
+                            <div class="col-lg-10">
+                                <div class="accordion" id="faqAccordion">
+                                    <!-- FAQ 1 -->
+                                    <div class="accordion-item" id="faqItem1">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1" id="faqBtn1">
+                                                How can I register for placement drives?
+                                            </button>
+                                        </h2>
+                                        <div id="faqCollapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body">
+                                                Eligible students can register directly through the Student Registration option on the homepage. Once registered, log in to your profile, complete your details, and apply for active drives listing in the portal.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- FAQ 2 -->
+                                    <div class="accordion-item" id="faqItem2">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2" id="faqBtn2">
+                                                What is the eligibility criteria for placements?
+                                            </button>
+                                        </h2>
+                                        <div id="faqCollapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body">
+                                                The eligibility criteria vary depending on the recruiting company. Commonly, companies require a minimum CGPA (often 6.0 or above), no active backlogs, and specific branch/degree requirements (such as BCA, MCA, or B.Tech).
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- FAQ 3 -->
+                                    <div class="accordion-item" id="faqItem3">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3" id="faqBtn3">
+                                                How does the placement process work?
+                                            </button>
+                                        </h2>
+                                        <div id="faqCollapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body">
+                                                The placement process involves 6 key steps: 1) Portal Registration, 2) Profile Completion, 3) Eligibility Check by TPO, 4) Applying for specific drives, 5) Participating in written test/interviews, and 6) Final selection and offer letter distribution.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- FAQ 4 -->
+                                    <div class="accordion-item" id="faqItem4">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4" id="faqBtn4">
+                                                What documents are required?
+                                            </button>
+                                        </h2>
+                                        <div id="faqCollapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body">
+                                                Generally, you will need updated resumes (hard and soft copies), passport-size photographs, college ID card, all marksheets (10th, 12th, and semesters), and Government ID proofs (Aadhar, PAN card, or Passport).
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </asp:ContentPlaceHolder>
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder3" runat="server">
+                <footer class="footer pt-5" id="siteFooter">
+                    <div class="container px-lg-5">
+                        <div class="row g-4 pb-5">
+
+                            <!-- Column 1: About Info -->
+                            <div class="col-lg-3 col-md-6">
+                                <div class="footer-logo d-flex align-items-center mb-3">
+                                    <img src="assets/images/RKU LOGO.png" alt="RK University" class="me-2" style="height: 36px; width: auto; max-width: 220px; object-fit: contain;">
+                                </div>
+                                <p class="mb-4">Empowering students by bridging the gap between academia and corporate world. Providing quality training and dream placements.</p>
+                                <div class="footer-social-links" id="footerSocials">
+                                    <a href="#" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#" title="Twitter" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
+                                    <a href="#" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
+                                    <a href="#" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
+                                </div>
+                            </div>
+
+                            <!-- Column 2: Quick Links -->
+                            <div class="col-lg-3 col-md-6">
+                                <h5>Quick Links</h5>
+                                <ul class="footer-links" id="footerQuickLinks">
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Academics</a></li>
+                                    <li><a href="#">Placement Drives</a></li>
+                                    <li><a href="#">Companies</a></li>
+
+                                    <li><a href="#">Contact Us</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Column 3: Students Links -->
+                            <div class="col-lg-3 col-md-6">
+                                <h5>Students</h5>
+                                <ul class="footer-links" id="footerStudentLinks">
+                                    <li><a href="Register.aspx">Student Registration</a></li>
+                                    <li><a href="#">Student Login</a></li>
+                                    <li><a href="#">Available Jobs</a></li>
+                                    <li><a href="#">Applied Jobs</a></li>
+                                    <li><a href="#">Interview Schedule</a></li>
+                                    <li><a href="#">Resume Builder</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Column 4: Contact Placement Cell -->
+                            <div class="col-lg-3 col-md-6">
+                                <h5>Placement Cell</h5>
+                                <div class="footer-contact-info" id="footerContactInfo">
+                                    <p>
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <span>RK University, Rajkot - 360020,<br>
+                                            Gujarat, India</span>
+                                    </p>
+                                    <p>
+                                        <i class="fa-solid fa-phone"></i>
+                                        <span>+91 98765 43210</span>
+                                    </p>
+                                    <p>
+                                        <i class="fa-solid fa-envelope"></i>
+                                        <a href="mailto:placement@rku.ac.in" class="text-white-50" id="linkFooterEmail">placement@rku.ac.in</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Bottom Copyright -->
+                    <div class="footer-bottom">
+                        <div class="container px-lg-5">
+                            <div class="row align-items-center">
+                                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                                    <p class="mb-0" id="copyrightText">&copy; 2026 RK University Placement Portal. All Rights Reserved.</p>
+                                </div>
+                                <div class="col-md-6 text-center text-md-end">
+                                    <div class="footer-links d-inline-flex gap-3 mb-0" id="footerBottomLinks">
+                                        <a href="#" class="text-white-50" style="font-size: 0.8rem;">Privacy Policy</a>
+                                        <span class="text-white-50">|</span>
+                                        <a href="#" class="text-white-50" style="font-size: 0.8rem;">Terms of Service</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+                <!-- Database -->
+                <script src="js/portal-db.js"></script>
+
+                <!-- Chart.js Library -->
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                <!-- Bootstrap 5 Bundle JS -->
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+                <!-- Custom JS -->
+                <script src="js/main.js"></script>
+
+                <!-- Dynamic Data Loading -->
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        renderDynamicIndexData();
+                    });
+
+                    function renderDynamicIndexData() {
+                        const stories = PortalDB.getStories();
+                        const companies = PortalDB.getCompanies();
+
+                        // Render Success Stories as an auto-scrolling one-card carousel
+                        const storiesRow = document.getElementById('indexSuccessStoriesRow');
+                        const storyDots = document.getElementById('indexStoryDots');
+                        if (storiesRow) {
+                            storiesRow.innerHTML = '';
+                            const displayStories = stories;
+
+                            if (displayStories.length === 0) {
+                                storiesRow.innerHTML = '<div class="home-story-slide"><div class="home-story-card d-flex align-items-center justify-content-center" style="min-height: 320px;"><div class="text-muted small">No success stories listed yet.</div></div></div>';
+                            } else {
+                                displayStories.forEach(s => {
+                                    const avatarHtml = s.studentPhoto
+                                        ? `<img class="home-story-img" src="${s.studentPhoto}" alt="${s.studentName}">`
+                                        : `<div class="home-story-placeholder"><i class="fa-solid fa-user text-muted fs-1"></i></div>`;
+
+                                    storiesRow.innerHTML += `
+                        <div class="home-story-slide">
+                            <div class="home-story-card">
+                                ${avatarHtml}
+                                <h5 class="home-story-name" title="${s.studentName}">${s.studentName}</h5>
+                                <p class="home-story-course" title="${s.degreeBranch}">${s.degreeBranch.split('|')[0]}</p>
+                                <div class="home-story-company" title="${s.recruiterName}">${s.recruiterName}</div>
+                                <div class="home-story-package">${s.packageLpa}</div>
+                            </div>
+                        </div>
+                        `;
+                                });
+                            }
+
+                            if (storyDots) {
+                                storyDots.innerHTML = displayStories.map((_, i) => `
+                        <span style="width: ${i === 0 ? '16px' : '6px'}; height: 6px; background-color: ${i === 0 ? 'var(--rku-red)' : '#cbd5e1'}; border-radius: ${i === 0 ? '50px' : '50%'};"></span>
+                    `).join('');
+                            }
+
+                            const slides = Array.from(storiesRow.children);
+                            const totalSlides = slides.length;
+                            let currentSlide = 0;
+
+                            function setActiveDot(index) {
+                                if (!storyDots) return;
+                                Array.from(storyDots.children).forEach((dot, i) => {
+                                    dot.style.width = i === index ? '16px' : '6px';
+                                    dot.style.borderRadius = i === index ? '50px' : '50%';
+                                    dot.style.backgroundColor = i === index ? 'var(--rku-red)' : '#cbd5e1';
+                                });
+                            }
+
+                            function goToSlide(index) {
+                                if (totalSlides <= 0) return;
+                                currentSlide = (index + totalSlides) % totalSlides;
+                                storiesRow.style.transform = `translateX(-${currentSlide * 100}%)`;
+                                setActiveDot(currentSlide);
+                            }
+
+                            if (window.__homeStoriesTimer) {
+                                clearInterval(window.__homeStoriesTimer);
+                                window.__homeStoriesTimer = null;
+                            }
+
+                            goToSlide(0);
+
+                            if (totalSlides > 1) {
+                                window.__homeStoriesTimer = setInterval(() => {
+                                    goToSlide(currentSlide + 1);
+                                }, 3500);
+                            }
+                        }
+
+                        // Render Top Recruiters Marquee
+                        const recruitersTrack = document.getElementById('indexRecruitersTrack');
+                        if (recruitersTrack && companies.length > 0) {
+                            let trackHtml = '';
+                            const marqueeCompanies = companies.slice(0, 10); // Show up to 10 companies
+
+                            // Helper function to create items
+                            const createMarqueeItems = () => {
+                                return marqueeCompanies.map(c => `
+                        <div class="recruiter-logo-card d-flex align-items-center justify-content-center" style="width:150px; height:80px; padding:10px;">
+                            ${c.logoBase64
+                                        ? `<img src="${c.logoBase64}" alt="${c.name}" style="max-width:100%; max-height:100%; object-fit:contain;">`
+                                        : `<span style="font-family: var(--font-heading); font-weight:bold; font-size:1.2rem; color: var(--rku-dark); text-align:center;">${c.name}</span>`
+                                    }
+                        </div>
+                    `).join('');
+                            };
+
+                            // Add items twice for infinite loop effect
+                            trackHtml = createMarqueeItems() + createMarqueeItems();
+                            recruitersTrack.innerHTML = trackHtml;
+                        }
+                    }
+                </script>
+
+                <!-- Hero Background Image Slideshow -->
+                <script>
+                    (function () {
+                        const slides = document.querySelectorAll('.hero-bg-slide');
+                        const dots = document.querySelectorAll('.hero-dot');
+                        let current = 0;
+                        const total = slides.length;
+
+                        function goTo(index) {
+                            slides[current].classList.remove('active');
+                            dots[current].classList.remove('active');
+                            current = (index + total) % total;
+                            slides[current].classList.add('active');
+                            dots[current].classList.add('active');
+                        }
+
+                        // Auto-advance every 3 seconds
+                        let timer = setInterval(() => goTo(current + 1), 3000);
+
+                        // Click on dots to jump to slide
+                        dots.forEach((dot, i) => {
+                            dot.addEventListener('click', () => {
+                                clearInterval(timer);
+                                goTo(i);
+                                timer = setInterval(() => goTo(current + 1), 3000);
+                            });
+                        });
+                    })();
+                </script>
+                <!-- Code injected by live-server -->
+                <script>
+                    // <![CDATA[  <-- For SVG support
+                    if ('WebSocket' in window) {
+                        (function () {
+                            function refreshCSS() {
+                                var sheets = [].slice.call(document.getElementsByTagName("link"));
+                                var head = document.getElementsByTagName("head")[0];
+                                for (var i = 0; i < sheets.length; ++i) {
+                                    var elem = sheets[i];
+                                    var parent = elem.parentElement || head;
+                                    parent.removeChild(elem);
+                                    var rel = elem.rel;
+                                    if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                                        var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                                    }
+                                    parent.appendChild(elem);
+                                }
+                            }
+                            var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+                            var address = protocol + window.location.host + window.location.pathname + '/ws';
+                            var socket = new WebSocket(address);
+                            socket.onmessage = function (msg) {
+                                if (msg.data == 'reload') window.location.reload();
+                                else if (msg.data == 'refreshcss') refreshCSS();
+                            };
+                            if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                                console.log('Live reload enabled.');
+                                sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+                            }
+                        })();
+                    }
+                    else {
+                        console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+                    }
+                    // ]]>
+                </script>
+</body>
+</html>
+
+
+
+</asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
