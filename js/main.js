@@ -21,7 +21,7 @@ function updateNavbarSession() {
     if (sessionData) {
         try {
             const user = JSON.parse(sessionData);
-            const dashboardUrl = 'Studentdashboard.aspx';
+            const dashboardUrl = 'StudentDashboard.aspx';
 
             // Find login button
             const loginBtn = document.getElementById('btnLogin');
@@ -46,7 +46,7 @@ function updateNavbarSession() {
                         } else {
                             localStorage.removeItem('rku_placement_session');
                         }
-                        window.location.href = 'Studentdashboard.aspx';
+                        window.location.href = 'StudentDashboard.aspx';
                     }
                 });
             }

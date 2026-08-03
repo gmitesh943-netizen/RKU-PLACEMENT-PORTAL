@@ -68,6 +68,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="AdminDashboard.aspx" />
+    <Content Include="AdminManageContent.aspx" />
+    <Content Include="AdminManageDrives.aspx" />
+    <Content Include="AdminNotifications.aspx" />
+    <Content Include="AdminReports.aspx" />
+    <Content Include="AdminStudentDirectory.aspx" />
+    <Content Include="AdminTrackApplications.aspx" />
     <Content Include="assets\images\1000579953.jpg" />
     <Content Include="assets\images\1000579955.jpg" />
     <Content Include="assets\images\1000579956.jpg" />
@@ -162,6 +169,9 @@
     <Content Include="assets\images\team_tpo_profile.png" />
     <Content Include="assets\images\white logo rku.png" />
     <Content Include="Companies.aspx" />
+    <Content Include="CompanyOverview.aspx" />
+    <Content Include="CompanyProfile.aspx" />
+    <Content Include="CompanyStudentDirectory.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="css\student-panel.css" />
     <Content Include="css\style.css" />
@@ -177,7 +187,11 @@
     <Content Include="PlacementStudentSelection.aspx" />
     <Content Include="PlacmentProminentRecruiters.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="StudentApplications.aspx" />
     <Content Include="StudentDashboard.aspx" />
+    <Content Include="StudentDrives.aspx" />
+    <Content Include="StudentProfile.aspx" />
+    <Content Include="StudentTraining.aspx" />
     <Content Include="SuccessStories.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -189,12 +203,94 @@
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin-panel.Master.cs">
+      <DependentUpon>Admin-panel.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin-panel.Master.designer.cs">
+      <DependentUpon>Admin-panel.Master</DependentUpon>
+    </Compile>
+    <Compile Include="AdminDashboard.aspx.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminDashboard.aspx.designer.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminManageContent.aspx.cs">
+      <DependentUpon>AdminManageContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminManageContent.aspx.designer.cs">
+      <DependentUpon>AdminManageContent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminManageDrives.aspx.cs">
+      <DependentUpon>AdminManageDrives.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminManageDrives.aspx.designer.cs">
+      <DependentUpon>AdminManageDrives.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminNotifications.aspx.cs">
+      <DependentUpon>AdminNotifications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminNotifications.aspx.designer.cs">
+      <DependentUpon>AdminNotifications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminReports.aspx.cs">
+      <DependentUpon>AdminReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminReports.aspx.designer.cs">
+      <DependentUpon>AdminReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminStudentDirectory.aspx.cs">
+      <DependentUpon>AdminStudentDirectory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminStudentDirectory.aspx.designer.cs">
+      <DependentUpon>AdminStudentDirectory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminTrackApplications.aspx.cs">
+      <DependentUpon>AdminTrackApplications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminTrackApplications.aspx.designer.cs">
+      <DependentUpon>AdminTrackApplications.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Companies.aspx.cs">
       <DependentUpon>Companies.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Companies.aspx.designer.cs">
       <DependentUpon>Companies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Company-Panel.Master.cs">
+      <DependentUpon>Company-Panel.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Company-Panel.Master.designer.cs">
+      <DependentUpon>Company-Panel.Master</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyOverview.aspx.cs">
+      <DependentUpon>CompanyOverview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyOverview.aspx.designer.cs">
+      <DependentUpon>CompanyOverview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyProfile.aspx.cs">
+      <DependentUpon>CompanyProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyProfile.aspx.designer.cs">
+      <DependentUpon>CompanyProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyStudentDirectory.aspx.cs">
+      <DependentUpon>CompanyStudentDirectory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyStudentDirectory.aspx.designer.cs">
+      <DependentUpon>CompanyStudentDirectory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
@@ -274,6 +370,20 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="student.Master.cs">
+      <DependentUpon>student.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="student.Master.designer.cs">
+      <DependentUpon>student.Master</DependentUpon>
+    </Compile>
+    <Compile Include="StudentApplications.aspx.cs">
+      <DependentUpon>StudentApplications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentApplications.aspx.designer.cs">
+      <DependentUpon>StudentApplications.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StudentDashboard.aspx.cs">
       <DependentUpon>StudentDashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -281,12 +391,26 @@
     <Compile Include="StudentDashboard.aspx.designer.cs">
       <DependentUpon>StudentDashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Studentpanel.Master.cs">
-      <DependentUpon>Studentpanel.Master</DependentUpon>
+    <Compile Include="StudentDrives.aspx.cs">
+      <DependentUpon>StudentDrives.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Studentpanel.Master.designer.cs">
-      <DependentUpon>Studentpanel.Master</DependentUpon>
+    <Compile Include="StudentDrives.aspx.designer.cs">
+      <DependentUpon>StudentDrives.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StudentProfile.aspx.cs">
+      <DependentUpon>StudentProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentProfile.aspx.designer.cs">
+      <DependentUpon>StudentProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StudentTraining.aspx.cs">
+      <DependentUpon>StudentTraining.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentTraining.aspx.designer.cs">
+      <DependentUpon>StudentTraining.aspx</DependentUpon>
     </Compile>
     <Compile Include="SuccessStories.aspx.cs">
       <DependentUpon>SuccessStories.aspx</DependentUpon>
@@ -299,8 +423,10 @@
   <ItemGroup>
     <Content Include="MainMaster.Master" />
     <Content Include="assets\images\1000579954.webp" />
+    <Content Include="Admin-panel.Master" />
+    <Content Include="Company-Panel.Master" />
     <None Include="packages.config" />
-    <Content Include="Studentpanel.Master" />
+    <Content Include="student.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

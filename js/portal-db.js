@@ -185,7 +185,7 @@ const PortalDB = {
             localStorage.setItem(this.KEYS.PLACEMENT_TEAM, JSON.stringify(initialPlacementTeam));
         }
 
-        // 1. Initial Users (Admin & Students)
+        // 1. Initial Users (Admin & Companies only - Real registered students are dynamically saved via Register.aspx)
         if (!localStorage.getItem(this.KEYS.USERS)) {
             const initialUsers = [
                 {
@@ -196,64 +196,26 @@ const PortalDB = {
                     email: 'placement@rku.ac.in'
                 },
                 {
-                    username: 'student',
-                    password: 'student',
-                    role: 'student',
-                    name: 'Raj Patel',
-                    enrollment: '20SOECE11045',
-                    email: 'student@rku.ac.in',
-                    mobile: '+91 98765 43210',
-                    degree: 'B.Tech',
-                    branch: 'Computer Engineering',
-                    semester: '7th',
-                    cgpa: '8.5',
-                    backlogs: '0',
-                    skills: 'HTML, CSS, Bootstrap, JavaScript, Python, SQL',
-                    resumeUrl: 'Resume_Raj_Patel.pdf'
-                },
-                {
-                    username: 'sneha',
-                    password: 'password',
-                    role: 'student',
-                    name: 'Sneha Vyas',
-                    enrollment: '20SOECE11012',
-                    email: 'sneha.vyas@rku.ac.in',
-                    mobile: '+91 97234 56789',
-                    degree: 'B.Tech',
-                    branch: 'Information Technology',
-                    semester: '7th',
-                    cgpa: '7.2',
-                    backlogs: '1',
-                    skills: 'Java, JavaScript, C++, OOPs',
-                    resumeUrl: 'Resume_Sneha_Vyas.pdf'
-                },
-                {
-                    username: 'amit',
-                    password: 'password',
-                    role: 'student',
-                    name: 'Amit Joshi',
-                    enrollment: '20SOECE11002',
-                    email: 'amit.joshi@rku.ac.in',
-                    mobile: '+91 95543 21098',
-                    degree: 'MBA',
-                    branch: 'Marketing',
-                    semester: '3rd',
-                    cgpa: '9.1',
-                    backlogs: '0',
-                    skills: 'Digital Marketing, Communication, SEO, Business Analysis',
-                    resumeUrl: 'Resume_Amit_Joshi.pdf'
-                },
-                {
                     username: 'tcs_hr',
                     password: 'password',
                     role: 'company',
                     name: 'Tata Consultancy Services',
-                    enrollment: 'Ramesh Singh', // Acts as HR Name for companies
+                    enrollment: 'Ramesh Singh',
                     email: 'hr.tcs@example.com',
                     mobile: '+91 88888 77777'
                 }
             ];
             localStorage.setItem(this.KEYS.USERS, JSON.stringify(initialUsers));
+        } else {
+            // Clean legacy static dummy students ('student', 'sneha', 'amit') from existing localStorage
+            try {
+                let users = JSON.parse(localStorage.getItem(this.KEYS.USERS)) || [];
+                const dummyUsernames = ['student', 'sneha', 'amit'];
+                const filteredUsers = users.filter(u => !dummyUsernames.includes(u.username));
+                if (filteredUsers.length !== users.length) {
+                    localStorage.setItem(this.KEYS.USERS, JSON.stringify(filteredUsers));
+                }
+            } catch (err) { }
         }
 
         // 2. Initial Campus Drives
@@ -625,7 +587,56 @@ const PortalDB = {
     },
 
     getUser(username) {
-        return this.getUsers().find(u => u.username === username || u.enrollment === username || u.email === username);
+        return this.ensureCoreUsers().find(u => u.username === username || u.enrollment === username || u.email === username);
+    },
+
+    ensureCoreUsers() {
+        const users = this.getUsers();
+        const defaults = [
+            {
+                username: 'admin',
+                password: 'admin',
+                role: 'admin',
+                name: 'Admin Placement Cell',
+                email: 'placement@rku.ac.in'
+            },
+            {
+                username: 'student',
+                password: 'student',
+                role: 'student',
+                name: 'Raj Patel',
+                enrollment: '20SOECE11045',
+                email: 'student@rku.ac.in',
+                mobile: '+91 98765 43210',
+                degree: 'B.Tech',
+                branch: 'Computer Engineering',
+                semester: '7th',
+                cgpa: '8.5',
+                backlogs: '0',
+                skills: 'HTML, CSS, Bootstrap, JavaScript, Python, SQL',
+                resumeUrl: 'Resume_Raj_Patel.pdf'
+            }
+        ];
+
+        let changed = false;
+        defaults.forEach(defaultUser => {
+            const index = users.findIndex(u => u.username === defaultUser.username);
+            if (index === -1) {
+                users.push(defaultUser);
+                changed = true;
+                return;
+            }
+            const merged = { ...defaultUser, ...users[index] };
+            if (JSON.stringify(merged) !== JSON.stringify(users[index])) {
+                users[index] = merged;
+                changed = true;
+            }
+        });
+
+        if (changed) {
+            localStorage.setItem(this.KEYS.USERS, JSON.stringify(users));
+        }
+        return users;
     },
 
     saveUser(updatedUser) {
@@ -696,6 +707,7 @@ const PortalDB = {
     },
 
     login(username, password) {
+        this.ensureCoreUsers();
         const user = this.getUser(username);
         if (!user) {
             return { success: false, message: 'User does not exist.' };

@@ -439,210 +439,7 @@
     <!-- Custom JS -->
     <script src="js/main.js"></script>
 
-    <script>
-        // Campus drives raw mock database containing 180 entries
-        const allDrives = [];
-
-        // Populate mock database
-        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const year24_data = [
-            { title: "TCS NQT 2024 (Digital)", month: "May", dept: "computer" },
-            { title: "Wipro ELITE NTH", month: "May", dept: "computer" },
-            { title: "Infy Springboard - Internship Program", month: "March", dept: "computer" },
-            { title: "HCL Grant Software Developer (Hiring Challenge) 4.0", month: "April", dept: "computer" },
-            { title: "IBM SkillsBuild", month: "April", dept: "computer" },
-            { title: "Capgemini Engineering", month: "April", dept: "computer" },
-            { title: "D.E. Shaw India Off Campus Drive", month: "April", dept: "computer" },
-            { title: "L&T EduTech Hiring 2024", month: "April", dept: "computer" },
-            { title: "Accenture", month: "April", dept: "computer" },
-            { title: "Virtusa Hiring", month: "April", dept: "computer" },
-            { title: "DXC Technology", month: "April", dept: "computer" },
-            { title: "Tech Mahindra Rise Digital Graduate Hiring (Fresher)", month: "April", dept: "computer" },
-            { title: "ZS Intern", month: "April", dept: "management" },
-            { title: "Jio Platforms", month: "April", dept: "computer" },
-            { title: "BYJU'S Off Campus Hiring", month: "April", dept: "management" },
-            { title: "Tata Communications Hiring", month: "April", dept: "computer" },
-            { title: "Cognizant GenC Next 2024", month: "April", dept: "computer" },
-            { title: "Amazon CSR", month: "April", dept: "management" },
-            { title: "Intel India", month: "April", dept: "computer" },
-            { title: "L&T Off Campus Engineering 2024", month: "April", dept: "civil" },
-            { title: "ACME Off Campus Drive", month: "March", dept: "management" },
-            { title: "UST Global Bengal off 2024", month: "March", dept: "computer" },
-            { title: "Mindtree (LTIMindtree) Hiring 2024", month: "March", dept: "computer" },
-            { title: "Puga Fresher Hiring Drive", month: "March", dept: "computer" },
-            { title: "Mphasis Associate Trainee", month: "March", dept: "computer" },
-            { title: "WMS Fresher Hiring FY 2024-25", month: "March", dept: "management" },
-            { title: "HDB Financial Services Ltd", month: "February", dept: "management" },
-            { title: "Axis Bank", month: "February", dept: "management" },
-            { title: "TCS Ninja/Prime Off Campus Drive", month: "February", dept: "computer" },
-            { title: "Deloitte Off Campus Drive 2024", month: "February", dept: "computer" }
-        ];
-
-        const companies = ["TCS", "Wipro", "Infosys", "Deloitte", "Zensar", "Hexaware", "Capgemini", "Accenture", "L&T", "Tech Mahindra", "Cognizant", "Mindtree", "Jio", "HCL", "IBM", "UST Global", "Zydus", "Axis Bank", "HDFC Bank", "ICICI Bank", "NIIT Technologies"];
-
-        // Populate remaining entries (up to 180 total)
-        // 2024 entries
-        for (let i = 0; i < year24_data.length; i++) {
-            allDrives.push({
-                srNo: i + 1,
-                month: year24_data[i].month,
-                year: "2024",
-                title: year24_data[i].title,
-                status: "Yes",
-                dept: year24_data[i].dept
-            });
-        }
-
-        // 2023 entries (up to 180 total)
-        for (let i = 31; i <= 180; i++) {
-            let randComp = companies[i % companies.length];
-            let randMonth = months[i % months.length];
-            let randDept = (i % 3 === 0) ? "computer" : ((i % 3 === 1) ? "management" : "civil");
-            let title = `${randComp} Off Campus Drive`;
-            if (i === 178) title = "Zensar Off Campus Drive";
-            if (i === 179) title = "NIIT Technologies Off Campus";
-            if (i === 180) title = "Hexaware Off Campus Drive";
-
-            allDrives.push({
-                srNo: i,
-                month: randMonth,
-                year: "2023",
-                title: title,
-                status: "Yes",
-                dept: randDept
-            });
-        }
-
-        // Global variables for active pagination/filtering
-        let currentFilteredDrives = [...allDrives];
-        let itemsPerPage = 30;
-        let currentPage = 1;
-
-        const drivesTableBody = document.getElementById("drivesTableBody");
-        const paginationList = document.getElementById("paginationList");
-        const paginationInfo = document.getElementById("paginationInfo");
-        const filterForm = document.getElementById("filterForm");
-
-        function renderTable() {
-            // Apply filtering logic based on filter inputs
-            const selectedDept = document.getElementById("filterDept").value;
-            const selectedYear = document.getElementById("filterYear").value;
-
-            currentFilteredDrives = allDrives.filter(drive => {
-                const matchDept = selectedDept === "all" || drive.dept === selectedDept;
-                const matchYear = drive.year === selectedYear.split("-")[0]; // convert "2023-24" or "2022-23" to raw year prefix "2023" / "2022" (approximate match)
-                return matchDept && matchYear;
-            });
-
-            // Calculate pagination boundary indices
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = Math.min(startIndex + itemsPerPage, currentFilteredDrives.length);
-
-            // Clear table
-            drivesTableBody.innerHTML = "";
-
-            if (currentFilteredDrives.length === 0) {
-                drivesTableBody.innerHTML = `<tr><td colspan="5" class="text-center py-4">No campus drives found for current selections.</td></tr>`;
-                paginationInfo.innerText = "Showing 0 of 0 entries";
-                paginationList.innerHTML = "";
-                return;
-            }
-
-            const visibleRows = currentFilteredDrives.slice(startIndex, endIndex);
-
-            visibleRows.forEach(row => {
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td>${row.srNo}</td>
-                    <td>${row.month}</td>
-                    <td>${row.year}</td>
-                    <td><a href="#">${row.title}</a></td>
-                    <td><span class="text-success fw-bold">${row.status}</span></td>
-                `;
-                drivesTableBody.appendChild(tr);
-            });
-
-            // Update info text
-            paginationInfo.innerText = `Showing ${startIndex + 1} to ${endIndex} of ${currentFilteredDrives.length} entries`;
-
-            // Draw pagination controls
-            renderPagination(currentFilteredDrives.length);
-        }
-
-        function renderPagination(totalItems) {
-            const totalPages = Math.ceil(totalItems / itemsPerPage);
-            paginationList.innerHTML = "";
-
-            // Double Back
-            const doubleBack = document.createElement("li");
-            doubleBack.className = `custom-page-item ${currentPage === 1 ? 'disabled' : ''}`;
-            doubleBack.innerHTML = `<a class="custom-page-link" href="#" onclick="changePage(1)"><i class="fa-solid fa-angles-left"></i></a>`;
-            paginationList.appendChild(doubleBack);
-
-            // Single Back
-            const back = document.createElement("li");
-            back.className = `custom-page-item ${currentPage === 1 ? 'disabled' : ''}`;
-            back.innerHTML = `<a class="custom-page-link" href="#" onclick="changePage(${currentPage - 1})"><i class="fa-solid fa-angle-left"></i></a>`;
-            paginationList.appendChild(back);
-
-            // Page numbers
-            const maxVisiblePages = 5;
-            let startPage = Math.max(1, currentPage - 2);
-            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-            if (endPage - startPage < maxVisiblePages - 1) {
-                startPage = Math.max(1, endPage - maxVisiblePages + 1);
-            }
-
-            for (let i = startPage; i <= endPage; i++) {
-                const item = document.createElement("li");
-                item.className = `custom-page-item ${currentPage === i ? 'active' : ''}`;
-                item.innerHTML = `<a class="custom-page-link" href="#" onclick="changePage(${i})">${i}</a>`;
-                paginationList.appendChild(item);
-            }
-
-            // Dot Separator if there are many pages and we are not near the end
-            if (endPage < totalPages) {
-                const dots = document.createElement("li");
-                dots.className = "custom-page-item disabled";
-                dots.innerHTML = `<span class="custom-page-link">...</span>`;
-                paginationList.appendChild(dots);
-
-                // Add Last page link
-                const last = document.createElement("li");
-                last.className = `custom-page-item ${currentPage === totalPages ? 'active' : ''}`;
-                last.innerHTML = `<a class="custom-page-link" href="#" onclick="changePage(${totalPages})">${totalPages}</a>`;
-                paginationList.appendChild(last);
-            }
-
-            // Single Forward
-            const next = document.createElement("li");
-            next.className = `custom-page-item ${currentPage === totalPages ? 'disabled' : ''}`;
-            next.innerHTML = `<a class="custom-page-link" href="#" onclick="changePage(${currentPage + 1})"><i class="fa-solid fa-angle-right"></i></a>`;
-            paginationList.appendChild(next);
-
-            // Double Forward
-            const doubleNext = document.createElement("li");
-            doubleNext.className = `custom-page-item ${currentPage === totalPages ? 'disabled' : ''}`;
-            doubleNext.innerHTML = `<a class="custom-page-link" href="#" onclick="changePage(${totalPages})"><i class="fa-solid fa-angles-right"></i></a>`;
-            paginationList.appendChild(doubleNext);
-        }
-
-        window.changePage = function (pageNum) {
-            currentPage = pageNum;
-            renderTable();
-        };
-
-        // Form submission handling
-        filterForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            currentPage = 1; // reset page on new search filter submit
-            renderTable();
-        });
-
-        // Initialize table on load
-        renderTable();
-    </script>
+    <!-- drives JS moved into ContentPlaceHolder2 (after the table) -->
     <!-- Code injected by live-server -->
     <script>
         // <![CDATA[  <-- For SVG support
@@ -799,13 +596,125 @@
 
                     <!-- Pagination -->
                     <div class="pagination-container">
-                        <div class="info-text" id="paginationInfo">
-                            Showing 1 to 30 of 180 entries
-                        </div>
-                        <ul class="custom-pagination" id="paginationList">
-                            <!-- Pagination buttons will be generated by JS -->
-                        </ul>
+                        <div class="info-text" id="paginationInfo">Loading...</div>
+                        <ul class="custom-pagination" id="paginationList"></ul>
                     </div>
+
+                    <!-- Campus Drives JS: placed HERE (after table) so getElementById finds all elements -->
+                    <script>
+                    (function () {
+                        var allDrives = [];
+                        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+                        var year24_data = [
+                            { title: 'TCS NQT 2024 (Digital)',                 month: 'May',      dept: 'computer' },
+                            { title: 'Wipro ELITE NTH',                        month: 'May',      dept: 'computer' },
+                            { title: 'Infy Springboard - Internship Program',  month: 'March',    dept: 'computer' },
+                            { title: 'HCL Grant Software Developer 4.0',       month: 'April',    dept: 'computer' },
+                            { title: 'IBM SkillsBuild',                        month: 'April',    dept: 'computer' },
+                            { title: 'Capgemini Engineering',                  month: 'April',    dept: 'computer' },
+                            { title: 'D.E. Shaw India Off Campus Drive',       month: 'April',    dept: 'computer' },
+                            { title: 'L&T EduTech Hiring 2024',                month: 'April',    dept: 'computer' },
+                            { title: 'Accenture',                             month: 'April',    dept: 'computer' },
+                            { title: 'Virtusa Hiring',                        month: 'April',    dept: 'computer' },
+                            { title: 'DXC Technology',                        month: 'April',    dept: 'computer' },
+                            { title: 'Tech Mahindra Rise Digital Graduate',    month: 'April',    dept: 'computer' },
+                            { title: 'ZS Intern',                             month: 'April',    dept: 'management' },
+                            { title: 'Jio Platforms',                         month: 'April',    dept: 'computer' },
+                            { title: "BYJU'S Off Campus Hiring",              month: 'April',    dept: 'management' },
+                            { title: 'Tata Communications Hiring',            month: 'April',    dept: 'computer' },
+                            { title: 'Cognizant GenC Next 2024',              month: 'April',    dept: 'computer' },
+                            { title: 'Amazon CSR',                            month: 'April',    dept: 'management' },
+                            { title: 'Intel India',                           month: 'April',    dept: 'computer' },
+                            { title: 'L&T Off Campus Engineering 2024',        month: 'April',    dept: 'civil' },
+                            { title: 'ACME Off Campus Drive',                 month: 'March',    dept: 'management' },
+                            { title: 'UST Global Bengal Off 2024',            month: 'March',    dept: 'computer' },
+                            { title: 'Mindtree (LTIMindtree) Hiring 2024',    month: 'March',    dept: 'computer' },
+                            { title: 'Puga Fresher Hiring Drive',             month: 'March',    dept: 'computer' },
+                            { title: 'Mphasis Associate Trainee',             month: 'March',    dept: 'computer' },
+                            { title: 'WMS Fresher Hiring FY 2024-25',         month: 'March',    dept: 'management' },
+                            { title: 'HDB Financial Services Ltd',            month: 'February', dept: 'management' },
+                            { title: 'Axis Bank',                             month: 'February', dept: 'management' },
+                            { title: 'TCS Ninja/Prime Off Campus Drive',      month: 'February', dept: 'computer' },
+                            { title: 'Deloitte Off Campus Drive 2024',        month: 'February', dept: 'computer' }
+                        ];
+                        var companies = ['TCS','Wipro','Infosys','Deloitte','Zensar','Hexaware','Capgemini','Accenture','L&T','Tech Mahindra','Cognizant','Mindtree','Jio','HCL','IBM','UST Global','Zydus','Axis Bank','HDFC Bank','ICICI Bank','NIIT Technologies'];
+
+                        for (var i = 0; i < year24_data.length; i++) {
+                            allDrives.push({ srNo: i+1, month: year24_data[i].month, year: '2024', title: year24_data[i].title, status: 'Yes', dept: year24_data[i].dept });
+                        }
+                        for (var i = 31; i <= 180; i++) {
+                            var t = companies[i % companies.length] + ' Off Campus Drive';
+                            if (i===178) t='Zensar Off Campus Drive';
+                            if (i===179) t='NIIT Technologies Off Campus';
+                            if (i===180) t='Hexaware Off Campus Drive';
+                            allDrives.push({ srNo: i, month: months[i % months.length], year: '2023', title: t, status: 'Yes', dept: (i%3===0?'computer':i%3===1?'management':'civil') });
+                        }
+
+                        var filtered = allDrives.slice();
+                        var PER_PAGE = 30;
+                        var page = 1;
+
+                        var tbody   = document.getElementById('drivesTableBody');
+                        var pgList  = document.getElementById('paginationList');
+                        var pgInfo  = document.getElementById('paginationInfo');
+                        var form    = document.getElementById('filterForm');
+
+                        function render() {
+                            var dept = document.getElementById('filterDept').value;
+                            var yr   = document.getElementById('filterYear').value;
+                            var yearMap = { 'all':null, '2023-24':'2024', '2022-23':'2023', '2021-22':'2022' };
+                            var ty   = yearMap[yr];
+
+                            filtered = allDrives.filter(function(d) {
+                                return (dept==='all' || d.dept===dept) && (!ty || d.year===ty);
+                            });
+
+                            var start = (page-1)*PER_PAGE;
+                            var end   = Math.min(start+PER_PAGE, filtered.length);
+                            tbody.innerHTML = '';
+
+                            if (!filtered.length) {
+                                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4">No campus drives found.</td></tr>';
+                                pgInfo.textContent = 'Showing 0 entries';
+                                pgList.innerHTML = '';
+                                return;
+                            }
+
+                            for (var j = start; j < end; j++) {
+                                var r = filtered[j];
+                                var tr = document.createElement('tr');
+                                tr.innerHTML = '<td>'+r.srNo+'</td><td>'+r.month+'</td><td>'+r.year+'</td>' +
+                                    '<td><a href="#">'+r.title+'</a></td>' +
+                                    '<td><span class="text-success fw-bold">'+r.status+'</span></td>';
+                                tbody.appendChild(tr);
+                            }
+                            pgInfo.textContent = 'Showing '+(start+1)+' to '+end+' of '+filtered.length+' entries';
+                            renderPg(filtered.length);
+                        }
+
+                        function renderPg(total) {
+                            var pages = Math.ceil(total/PER_PAGE);
+                            pgList.innerHTML = '';
+                            function btn(lbl, pg, dis, act) {
+                                var li=document.createElement('li'); li.className='custom-page-item'+(dis?' disabled':'')+(act?' active':'');
+                                var a=document.createElement('a'); a.className='custom-page-link'; a.href='#'; a.innerHTML=lbl;
+                                if (!dis && pg!==null) { (function(p){ a.onclick=function(e){e.preventDefault();page=p;render();}; })(pg); }
+                                li.appendChild(a); pgList.appendChild(li);
+                            }
+                            btn('<i class="fa-solid fa-angles-left"></i>',1,page===1,false);
+                            btn('<i class="fa-solid fa-angle-left"></i>',page-1,page===1,false);
+                            var s=Math.max(1,page-2), e2=Math.min(pages,s+4);
+                            if(e2-s<4) s=Math.max(1,e2-4);
+                            for(var p=s;p<=e2;p++) btn(p,p,false,page===p);
+                            if(e2<pages){btn('...',null,true,false);btn(pages,pages,false,page===pages);}
+                            btn('<i class="fa-solid fa-angle-right"></i>',page+1,page===pages,false);
+                            btn('<i class="fa-solid fa-angles-right"></i>',pages,page===pages,false);
+                        }
+
+                        form.addEventListener('submit',function(e){e.preventDefault();page=1;render();});
+                        render(); // run immediately — DOM is ready since script is after the table
+                    })();
+                    </script>
 
                 </div>
 

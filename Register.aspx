@@ -673,9 +673,9 @@
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
                                 <div class="input-group-custom m-0">
-                                    <i class="fa-regular fa-user input-icon"></i>
+                                    <i class="fa-regular fa-user input-icon" id="nameIcon"></i>
 <%--                                   <input type="text" placeholder="Full Name" required id="regFullName">--%>
-                                    <asp:TextBox required id="regFullName" placeholder="Full Name" runat="server"  ></asp:TextBox>
+                                    <asp:TextBox required id="regFullName" placeholder="Full Name" runat="server" ClientIDMode="Static"></asp:TextBox>
                                   
 
                                     
@@ -683,9 +683,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group-custom m-0">
-                                    <i class="fa-regular fa-address-card input-icon"></i>
+                                    <i class="fa-regular fa-address-card input-icon" id="rollIcon"></i>
                                   <%--  <input type="text" placeholder="Enrollment / Roll No." required id="regRollNo">--%>
-                                    <asp:TextBox required id="regRollNo" placeholder="Enrollment / Roll No." runat="server"></asp:TextBox>
+                                    <asp:TextBox required id="regRollNo" placeholder="Enrollment / Roll No." runat="server" ClientIDMode="Static"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -694,28 +694,28 @@
                         <div class="input-group-custom">
                             <i class="fa-regular fa-envelope input-icon"></i>
 <%--                            <input type="email" placeholder="Email Address" required id="regEmail">--%>
-                            <asp:TextBox required id="regEmail" placeholder="Email Address" runat="server"></asp:TextBox>
+                            <asp:TextBox required id="regEmail" placeholder="Email Address" runat="server" ClientIDMode="Static"></asp:TextBox>
                         </div>
 
                         <!-- Mobile Number -->
                         <div class="input-group-custom">
-                            <i class="fa-solid fa-phone input-icon"></i>
+                            <i class="fa-solid fa-phone input-icon" id="mobileIcon"></i>
 <%--                            <input type="tel" placeholder="Mobile Number" required id="regMobile">--%>
-                            <asp:TextBox required id="regMobile" placeholder="Mobile Number" runat="server"></asp:TextBox>
+                            <asp:TextBox required id="regMobile" placeholder="Mobile Number" runat="server" ClientIDMode="Static"></asp:TextBox>
                         </div>
 
                         <!-- Username -->
                         <div class="input-group-custom">
                             <i class="fa-regular fa-user input-icon"></i>
 <%--                            <input type="text" placeholder="Username" required id="regUsername">--%>
-                            <asp:TextBox required id="regUsername" placeholder="Username" runat="server"></asp:TextBox>
+                            <asp:TextBox required id="regUsername" placeholder="Username" runat="server" ClientIDMode="Static"></asp:TextBox>
                         </div>
 
                         <!-- Password -->
                         <div class="input-group-custom">
                             <i class="fa-solid fa-lock input-icon"></i>
 <%--                            <input type="password" placeholder="Password" required id="regPassword">--%>
-                            <asp:TextBox required id="regPassword" placeholder="Password" runat="server"></asp:TextBox>
+                            <asp:TextBox required id="regPassword" placeholder="Password" runat="server" ClientIDMode="Static"></asp:TextBox>
                             <button type="button" class="eye-toggle" onclick="togglePassword('regPassword', 'eyeIcon1')" style="border: none; background: none;">
                                 <i class="fa-regular fa-eye-slash" id="eyeIcon1"></i>
                             </button>
@@ -725,7 +725,7 @@
                         <div class="input-group-custom">
                             <i class="fa-solid fa-lock input-icon"></i>
 <%--                            <input type="password" placeholder="Confirm Password" required id="regConfirmPassword">--%>
-                            <asp:TextBox required id="regConfirmPassword" placeholder="Confirm Password" runat="server"></asp:TextBox>
+                            <asp:TextBox required id="regConfirmPassword" placeholder="Confirm Password" runat="server" ClientIDMode="Static"></asp:TextBox>
                            
                             <button type="button" class="eye-toggle" onclick="togglePassword('regConfirmPassword', 'eyeIcon2')" style="border: none; background: none;">
                                 <i class="fa-regular fa-eye-slash" id="eyeIcon2"></i>
@@ -743,16 +743,9 @@
                         </div>
 
                         <!-- Create Account Button -->
-                                     <asp:Label ID="Label1" runat="server"   Text="Label"></asp:Label> 
-
-                                    <br />
-                                    <br />
-                                    <br />
-
-                                     <asp:Button ID="Button2" runat="server" class="btn-signin" Text="Create Account" OnClick="Button1_Click1" />
-                       <%-- <button type="submit" class="btn-signin" id="btnSubmitRegister">
+                        <button type="button" class="btn-signin" id="btnSubmitRegister">
                             Create Account <i class="fa-solid fa-arrow-right-long"></i>
-                        </button>--%>
+                        </button>
                                      
 
                         <!-- Divider -->
@@ -890,15 +883,21 @@
             const nameInput = document.getElementById('regFullName');
             const rollNoInput = document.getElementById('regRollNo');
             const mobileInput = document.getElementById('regMobile');
+            const nameIcon = document.getElementById('nameIcon');
+            const rollIcon = document.getElementById('rollIcon');
 
             if (isCompany) {
-                nameInput.placeholder = "Company Name";
-                rollNoInput.placeholder = "HR Name / Contact Person";
-                mobileInput.placeholder = "Company Contact Number";
+                if (nameInput) nameInput.placeholder = "Company Name";
+                if (rollNoInput) rollNoInput.placeholder = "HR Name / Contact Person";
+                if (mobileInput) mobileInput.placeholder = "Company Contact Number";
+                if (nameIcon) nameIcon.className = "fa-regular fa-building input-icon";
+                if (rollIcon) rollIcon.className = "fa-regular fa-user input-icon";
             } else {
-                nameInput.placeholder = "Full Name";
-                rollNoInput.placeholder = "Enrollment / Roll No.";
-                mobileInput.placeholder = "Mobile Number";
+                if (nameInput) nameInput.placeholder = "Full Name";
+                if (rollNoInput) rollNoInput.placeholder = "Enrollment / Roll No.";
+                if (mobileInput) mobileInput.placeholder = "Mobile Number";
+                if (nameIcon) nameIcon.className = "fa-regular fa-user input-icon";
+                if (rollIcon) rollIcon.className = "fa-regular fa-address-card input-icon";
             }
         }
 

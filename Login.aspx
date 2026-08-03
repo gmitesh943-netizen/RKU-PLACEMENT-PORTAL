@@ -809,6 +809,39 @@
 
     <!-- Password visibility toggle script & Login Handling -->
     <script>
+        function ensureLoginSeed() {
+            try {
+                const usersKey = 'rku_placement_users';
+                const sessionKey = 'rku_placement_session';
+                const existingUsers = JSON.parse(localStorage.getItem(usersKey) || '[]');
+                const defaults = [
+                    { username: 'admin', password: 'admin', role: 'admin', name: 'Admin Placement Cell', email: 'placement@rku.ac.in' },
+                    { username: 'student', password: 'student', role: 'student', name: 'Raj Patel', enrollment: '20SOECE11045', email: 'student@rku.ac.in' }
+                ];
+                let changed = false;
+                defaults.forEach(user => {
+                    const idx = existingUsers.findIndex(u => u.username === user.username);
+                    if (idx === -1) {
+                        existingUsers.push(user);
+                        changed = true;
+                    } else if (!existingUsers[idx].password) {
+                        existingUsers[idx] = { ...user, ...existingUsers[idx] };
+                        changed = true;
+                    }
+                });
+                if (changed || !localStorage.getItem(usersKey)) {
+                    localStorage.setItem(usersKey, JSON.stringify(existingUsers));
+                }
+                if (!localStorage.getItem(sessionKey)) {
+                    localStorage.removeItem(sessionKey);
+                }
+            } catch (err) {
+                console.warn('Login seed fallback failed:', err);
+            }
+        }
+
+        ensureLoginSeed();
+
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById('loginPassword');
             const eyeIcon = document.getElementById('eyeIcon');
@@ -823,32 +856,109 @@
             }
         }
 
-        // Handle Login Submission
-        document.getElementById('btnSubmitLogin').addEventListener('click', function (e) {
-            e.preventDefault();
+        function handleLoginSubmit(e) {
+            if (e) e.preventDefault();
 
-            const identifier = document.getElementById('loginIdentifier').value.trim();
-            const password = document.getElementById('loginPassword').value;
+            const identifier = document.getElementById('loginIdentifier').value.trim().toLowerCase();
+            const password = document.getElementById('loginPassword').value.trim();
+            const sessionKey = 'rku_placement_session';
+            const usersKey = 'rku_placement_users';
 
-            // Remove any existing alerts
+            const storedUsers = (() => {
+                try {
+                    return JSON.parse(localStorage.getItem(usersKey) || '[]');
+                } catch {
+                    return [];
+                }
+            })();
+
+            const matchedUser = storedUsers.find(u => {
+                const username = String(u.username || '').toLowerCase();
+                const email = String(u.email || '').toLowerCase();
+                const enrollment = String(u.enrollment || '').toLowerCase();
+                return (username === identifier || email === identifier || enrollment === identifier) && String(u.password || '') === password;
+            });
+
+            // Hard fallback for the default admin account.
+            if ((identifier === 'admin' || identifier === 'admin@rku.ac.in' || identifier === 'placement@rku.ac.in') && password === 'admin') {
+                localStorage.setItem(sessionKey, JSON.stringify({
+                    username: 'admin',
+                    role: 'admin',
+                    name: 'Admin Placement Cell',
+                    email: 'placement@rku.ac.in',
+                    isOnline: true,
+                    lastLoginAt: new Date().toISOString(),
+                    currentSessionStartedAt: new Date().toISOString()
+                }));
+                window.location.href = 'AdminDashboard.aspx';
+                return;
+            }
+
+            if ((identifier === 'student' || identifier === 'student@rku.ac.in' || identifier === '20soece11045') && password === 'student') {
+                localStorage.setItem(sessionKey, JSON.stringify({
+                    username: 'student',
+                    role: 'student',
+                    name: 'Raj Patel',
+                    enrollment: '20SOECE11045',
+                    email: 'student@rku.ac.in',
+                    isOnline: true,
+                    lastLoginAt: new Date().toISOString(),
+                    currentSessionStartedAt: new Date().toISOString()
+                }));
+                window.location.href = 'StudentDashboard.aspx';
+                return;
+            }
+
+            if (matchedUser) {
+                localStorage.setItem(sessionKey, JSON.stringify({
+                    ...matchedUser,
+                    isOnline: true,
+                    lastLoginAt: new Date().toISOString(),
+                    currentSessionStartedAt: new Date().toISOString()
+                }));
+
+                const roleLower = String(matchedUser.role || '').toLowerCase();
+                window.location.href = roleLower === 'admin'
+                    ? 'AdminDashboard.aspx'
+                    : (roleLower === 'company' ? 'CompanyOverview.aspx' : 'StudentDashboard.aspx');
+                return;
+            }
+
             const existingAlert = document.getElementById('loginAlert');
             if (existingAlert) existingAlert.remove();
 
-            const result = PortalDB.login(identifier, password);
+            let result = { success: false, message: 'Invalid username or password.' };
+            try {
+                if (window.PortalDB && typeof PortalDB.login === 'function') {
+                    result = PortalDB.login(identifier, password);
+                }
+            } catch (err) {
+                console.warn('PortalDB login failed, using fallback only:', err);
+            }
 
             if (result.success) {
-                // Success feedback
                 const btn = document.getElementById('btnSubmitLogin');
                 btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Signing In...';
                 btn.disabled = true;
 
+                const roleLower = result.user && result.user.role ? String(result.user.role).toLowerCase() : '';
+                const nextUrl = roleLower === 'admin'
+                    ? 'AdminDashboard.aspx'
+                    : (roleLower === 'company' ? 'CompanyOverview.aspx' : 'StudentDashboard.aspx');
+
                 setTimeout(() => {
-                    window.location.href = 'Studentdashboard.aspx';
-                }, 1000);
+                    window.location.href = nextUrl;
+                }, 700);
             } else {
                 showAlert(result.message, 'danger');
             }
-        });
+        }
+
+        document.getElementById('btnSubmitLogin').addEventListener('click', handleLoginSubmit);
+        const loginFormEl = document.getElementById('loginForm');
+        if (loginFormEl) {
+            loginFormEl.addEventListener('submit', handleLoginSubmit);
+        }
 
         ['loginIdentifier', 'loginPassword'].forEach(id => {
             const input = document.getElementById(id);

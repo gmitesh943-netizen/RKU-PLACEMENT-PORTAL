@@ -5,24 +5,31 @@
         return;
     }
     if (currentUser.role === 'admin') {
-        window.location.href = 'Studentdashboard.aspx';
+        window.location.href = 'StudentDashboard.aspx';
         return;
     }
 
     let studentData = currentUser;
-    const pageKey = document.body.dataset.studentPage || 'overview';
     const progressModalEl = document.getElementById('progressModal');
     const progressModal = progressModalEl ? new bootstrap.Modal(progressModalEl) : null;
 
     document.addEventListener('DOMContentLoaded', () => {
+        const path = (window.location.pathname || '').toLowerCase();
+        const dataPage = document.body.dataset.studentPage || '';
+
+        const isDrives = dataPage === 'drives' || path.includes('studentdrives') || document.getElementById('drivesGrid') !== null;
+        const isProfile = dataPage === 'profile' || path.includes('studentprofile') || document.getElementById('profSkills') !== null;
+        const isApps = dataPage === 'applications' || path.includes('studentapplications') || document.getElementById('myApplicationsList') !== null;
+        const isOverview = dataPage === 'overview' || path.includes('studentdashboard') || document.getElementById('statApplied') !== null;
+
         loadStudentInfo();
         renderAnnouncements();
-        setActiveSidebarLink();
+        setActiveSidebarLink(isDrives ? 'drives' : isProfile ? 'profile' : isApps ? 'applications' : 'overview');
 
-        if (pageKey === 'overview') renderOverview();
-        if (pageKey === 'profile') renderProfileTab();
-        if (pageKey === 'drives') renderCampusDrives();
-        if (pageKey === 'applications') renderApplications();
+        if (isOverview) renderOverview();
+        if (isProfile) renderProfileTab();
+        if (isDrives) renderCampusDrives();
+        if (isApps) renderApplications();
 
         const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
         if (sidebarToggleBtn) {
@@ -33,9 +40,9 @@
         }
     });
 
-    function setActiveSidebarLink() {
+    function setActiveSidebarLink(activeKey) {
         document.querySelectorAll('.sidebar-item').forEach(item => {
-            item.classList.toggle('active', item.dataset.page === pageKey);
+            item.classList.toggle('active', item.dataset.page === activeKey);
         });
     }
 
@@ -179,9 +186,15 @@
 
         dropList.innerHTML += `
             <li class="text-center mt-2">
-                <a href="#" class="small text-rku-maroon fw-semibold" onclick="alert('Notices list cleared! (Mock)')">Clear Notifications</a>
+                <a href="#" class="small text-rku-maroon fw-semibold" onclick="clearAllNotifications(event)">Clear Notifications</a>
             </li>
         `;
+    }
+
+    function clearAllNotifications(e) {
+        if (e) e.preventDefault();
+        localStorage.setItem(PortalDB.KEYS.ANNOUNCEMENTS, JSON.stringify([]));
+        renderAnnouncements();
     }
 
     function renderProfileTab() {
@@ -658,7 +671,7 @@
                 <td><span class="text-muted small font-monospace">${app.appliedDate}</span></td>
                 <td>${statusBadge}</td>
                 <td class="text-center">
-                    <button class="btn btn-outline-secondary btn-sm" onclick="trackApplicationProgress('${app.id}')">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="trackApplicationProgress(event, '${app.id}')">
                         <i class="fa-solid fa-map-location-dot me-1"></i> Track Progress
                     </button>
                 </td>
@@ -667,8 +680,14 @@
         });
     }
 
-    function trackApplicationProgress(appId) {
-        if (!progressModal) return;
+    function trackApplicationProgress(e, appId) {
+        if (e && e.preventDefault) e.preventDefault();
+        if (typeof appId === 'undefined' && typeof e === 'string') {
+            appId = e;
+        }
+        const modalEl = document.getElementById('progressModal');
+        if (!modalEl) return;
+        const pModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
 
         const app = PortalDB.getApplications().find(a => a.id === appId);
         if (!app) return;
@@ -714,15 +733,15 @@
             detailsDesc.innerHTML = `Unfortunately, your profile was not selected for further evaluation during the <b>${app.stage}</b> stage. Keep applying! Better luck next time.`;
         } else {
             let currentStepIndex = 0;
-            if (app.stage === 'Applied') {
+            if (app.stage === 'Applied' || !app.stage) {
                 const s = byId('step-Applied'); if (s) s.className = 'step-progress-item active';
                 currentStepIndex = 0;
-                detailsDesc.innerHTML = `Your application has been received by <b>${drive.companyName}</b>. The Placement cell is verifying resumes and profiles. Eligible students will be shortlisted.`;
+                detailsDesc.innerHTML = `Your application has been received by <b>${drive ? drive.companyName : 'Company'}</b>. The Placement cell is verifying resumes and profiles. Eligible students will be shortlisted.`;
             } else if (app.stage === 'Shortlisted') {
                 const s1 = byId('step-Applied'); if (s1) s1.className = 'step-progress-item completed';
                 const s2 = byId('step-Shortlisted'); if (s2) s2.className = 'step-progress-item active';
                 currentStepIndex = 1;
-                detailsDesc.innerHTML = `Congratulations! You have been shortlisted by <b>${drive.companyName}</b>. Prepare for the upcoming technical screening / coding round.`;
+                detailsDesc.innerHTML = `Congratulations! You have been shortlisted by <b>${drive ? drive.companyName : 'Company'}</b>. Prepare for the upcoming technical screening / coding round.`;
             } else if (app.stage === 'Technical Round') {
                 const s1 = byId('step-Applied'); if (s1) s1.className = 'step-progress-item completed';
                 const s2 = byId('step-Shortlisted'); if (s2) s2.className = 'step-progress-item completed';
@@ -736,20 +755,22 @@
                 const s4 = byId('step-HR'); if (s4) s4.className = 'step-progress-item active';
                 currentStepIndex = 3;
                 detailsDesc.innerHTML = `Great job! You have cleared technical screening and advanced to the <b>HR / Behavioral Interview</b> round. Verify your soft skills.`;
-            } else if (app.stage === 'Selected') {
+            } else if (app.stage === 'Selected' || app.status === 'Placed') {
                 const s1 = byId('step-Applied'); if (s1) s1.className = 'step-progress-item completed';
                 const s2 = byId('step-Shortlisted'); if (s2) s2.className = 'step-progress-item completed';
                 const s3 = byId('step-Technical'); if (s3) s3.className = 'step-progress-item completed';
                 const s4 = byId('step-HR'); if (s4) s4.className = 'step-progress-item completed';
                 const s5 = byId('step-Final'); if (s5) s5.className = 'step-progress-item completed';
                 currentStepIndex = 4;
-                detailsDesc.innerHTML = `🎉 <b>Congratulations!</b> You have successfully cleared all selection rounds at <b>${drive.companyName}</b> and received an employment offer of <b>${drive.package}</b>. The Letter of Intent will be issued soon.`;
+                detailsDesc.innerHTML = `🎉 <b>Congratulations!</b> You have successfully cleared all selection rounds at <b>${drive ? drive.companyName : 'Company'}</b> and received an employment offer of <b>${drive ? drive.package : ''}</b>. The Letter of Intent will be issued soon.`;
             }
             fillBar.style.width = (currentStepIndex * 25) + '%';
         }
 
-        progressModal.show();
+        pModal.show();
     }
+
+    window.trackApplicationProgress = trackApplicationProgress;
 
     function handleLogout() {
         if (confirm('Are you sure you want to sign out?')) {

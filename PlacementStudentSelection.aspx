@@ -339,7 +339,7 @@
     </section>
 
     <!-- ==========================================
-         3. MAIN LAYOUT & GRID
+                
          ========================================== -->
     <section class="py-5" style="background-color: var(--rku-bg-light);" id="mainLayoutSection">
         <div class="container px-lg-5">
@@ -359,6 +359,8 @@
                         </div>
                         <div class="col-md-4">
                             <select class="filter-select" id="filterYear">
+                                <option value="all" selected>SELECT ALL YEARS</option>
+                                <option value="2024-25">2024-2025</option>
                                 <option value="2023-24">2023-2024</option>
                                 <option value="2022-23">2022-2023</option>
                             </select>
@@ -576,21 +578,28 @@
         const filterForm = document.getElementById("filterForm");
 
         function renderGrid() {
+            const grid = document.getElementById("studentSelectionGrid");
+            if (!grid) return;
             const studentsDb = getStudentsDb();
-            const selectedDept = document.getElementById("filterDept").value;
-            const selectedYear = document.getElementById("filterYear").value;
+            const deptEl = document.getElementById("filterDept");
+            const yearEl = document.getElementById("filterYear");
+            const selectedDept = deptEl ? deptEl.value : "all";
+            const selectedYear = yearEl ? yearEl.value : "all";
 
             // Apply filter logic
             const filtered = studentsDb.filter(student => {
-                const matchDept = selectedDept === "all" || student.type === selectedDept;
-                const matchYear = student.year === selectedYear;
+                const matchDept = selectedDept === "all" || !selectedDept || (student.type && student.type.toLowerCase() === selectedDept.toLowerCase());
+                const matchYear = selectedYear === "all" || !selectedYear || student.year === selectedYear;
                 return matchDept && matchYear;
             });
 
             // Update stats dynamically
-            document.getElementById("statSelected").innerText = filtered.length * 9; // simulate scaling factor
-            document.getElementById("statSuccess").innerText = selectedDept === "all" ? "92%" : "96%";
-            document.getElementById("statCompanies").innerText = Math.round(filtered.length * 8.2);
+            const statSel = document.getElementById("statSelected");
+            const statSucc = document.getElementById("statSuccess");
+            const statComp = document.getElementById("statCompanies");
+            if (statSel) statSel.innerText = filtered.length * 9;
+            if (statSucc) statSucc.innerText = selectedDept === "all" ? "92%" : "96%";
+            if (statComp) statComp.innerText = Math.round(filtered.length * 8.2);
 
             grid.innerHTML = "";
 
@@ -640,13 +649,21 @@
         }
 
         // Form search submit
-        filterForm.addEventListener("submit", function (e) {
-            e.preventDefault();
+        if (filterForm) {
+            filterForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+                renderGrid();
+            });
+        }
+
+        // Initialize grid on DOM Content Loaded
+        document.addEventListener("DOMContentLoaded", function () {
             renderGrid();
         });
-
-        // Initialize grid on load
-        renderGrid();
+        // Also run immediately if DOM is already ready
+        if (document.readyState === "complete" || document.readyState === "interactive") {
+            setTimeout(renderGrid, 100);
+        }
     </script>
     <!-- Code injected by live-server -->
     <script>
