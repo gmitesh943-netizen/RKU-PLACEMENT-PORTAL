@@ -205,6 +205,7 @@
     </Compile>
     <Compile Include="Admin-panel.Master.cs">
       <DependentUpon>Admin-panel.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin-panel.Master.designer.cs">
       <DependentUpon>Admin-panel.Master</DependentUpon>
@@ -267,6 +268,7 @@
     </Compile>
     <Compile Include="Company-Panel.Master.cs">
       <DependentUpon>Company-Panel.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Company-Panel.Master.designer.cs">
       <DependentUpon>Company-Panel.Master</DependentUpon>
@@ -437,6 +439,7 @@
   <ItemGroup>
     <Folder Include=".agents\" />
     <Folder Include=".git\" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -733,6 +733,7 @@
                         </div>
 
                         <!-- I agree Terms -->
+
                         <div class="flex-row-options">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="agreeTerms" checked required>
@@ -743,10 +744,10 @@
                         </div>
 
                         <!-- Create Account Button -->
-                        <button type="button" class="btn-signin" id="btnSubmitRegister">
+                       <%-- <button type="button" class="btn-signin" id="btnSubmitRegister">
                             Create Account <i class="fa-solid fa-arrow-right-long"></i>
-                        </button>
-                                     
+                        </button>--%>
+                        <asp:Button ID="btnSubmitRegister" class="btn-signin" runat="server" Text="Create Account" OnClick="Button1_Click1" />             
 
                         <!-- Divider -->
                         <div class="divider-container">
