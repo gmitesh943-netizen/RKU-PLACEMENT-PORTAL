@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Admin-panel.Master" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.AdminDashboard" %>
+<%--<%@ Page Title="" Language="C#" MasterPageFile="~/Admin-panel.Master" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.AdminDashboard" %>--%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
