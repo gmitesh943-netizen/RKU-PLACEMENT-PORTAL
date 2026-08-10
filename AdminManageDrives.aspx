@@ -721,60 +721,71 @@
                                 <div class="dashboard-card">
                                     <h5 class="fw-bold mb-3 text-dark" id="driveFormTitle">Create New Campus Drive</h5>
                                     <div id="driveForm">
-                                        <input type="hidden" id="driveIdField">
+                                        <asp:HiddenField ID="driveIdField" runat="server" ClientIDMode="Static" />
 
                                         <div class="mb-3">
                                             <label class="form-label text-muted small fw-bold">Company Name</label>
-                                            <input type="text" class="form-control" id="driveCompany" placeholder="e.g. Google India" required>
+                                            <asp:TextBox ID="driveCompany" runat="server" ClientIDMode="Static"
+                                                CssClass="form-control" placeholder="e.g. Google India" />
                                         </div>
 
                                         <div class="mb-3">
                                             <label class="form-label text-muted small fw-bold">Recruiting Job Role</label>
-                                            <input type="text" class="form-control" id="driveRole" placeholder="e.g. SDE-1 Freshers" required>
+                                            <asp:TextBox ID="driveRole" runat="server" ClientIDMode="Static"
+                                                CssClass="form-control" placeholder="e.g. SDE-1 Freshers" />
                                         </div>
 
                                         <div class="row g-3 mb-3">
                                             <div class="col-6">
                                                 <label class="form-label text-muted small fw-bold">Package Offered</label>
-                                                <input type="text" class="form-control" id="drivePackage" placeholder="e.g. 7.5 LPA" required>
+                                                <asp:TextBox ID="drivePackage" runat="server" ClientIDMode="Static"
+                                                    CssClass="form-control" placeholder="e.g. 7.5 LPA" />
                                             </div>
                                             <div class="col-6">
                                                 <label class="form-label text-muted small fw-bold">Min CGPA Required</label>
-                                                <input type="number" step="0.1" min="0" max="10" class="form-control" id="driveMinCgpa" placeholder="e.g. 7.0" required>
+                                                <asp:TextBox ID="driveMinCgpa" runat="server" ClientIDMode="Static"
+                                                    CssClass="form-control" placeholder="e.g. 7.0" TextMode="Number" />
                                             </div>
                                         </div>
 
                                         <div class="row g-3 mb-3">
                                             <div class="col-6">
                                                 <label class="form-label text-muted small fw-bold">Drive Date</label>
-                                                <input type="date" class="form-control" id="driveDate" required>
+                                                <asp:TextBox ID="driveDate" runat="server" ClientIDMode="Static"
+                                                    CssClass="form-control" TextMode="Date" />
                                             </div>
                                             <div class="col-6">
                                                 <label class="form-label text-muted small fw-bold">Job Status</label>
-                                                <select class="form-select" id="driveStatus">
-                                                    <option value="Open">Open</option>
-                                                    <option value="Closed">Closed</option>
-                                                </select>
+                                                <asp:DropDownList ID="driveStatus" runat="server" ClientIDMode="Static"
+                                                    CssClass="form-select">
+                                                    <asp:ListItem Value="Open">Open</asp:ListItem>
+                                                    <asp:ListItem Value="Closed">Closed</asp:ListItem>
+                                                </asp:DropDownList>
                                             </div>
                                         </div>
 
                                         <div class="mb-3">
                                             <label class="form-label text-muted small fw-bold">Venue Location / Test Mode</label>
-                                            <input type="text" class="form-control" id="driveLocation" placeholder="e.g. SJT Lab 102 / Online" required>
+                                            <asp:TextBox ID="driveLocation" runat="server" ClientIDMode="Static"
+                                                CssClass="form-control" placeholder="e.g. SJT Lab 102 / Online" />
                                         </div>
 
                                         <div class="mb-3">
                                             <label class="form-label text-muted small fw-bold">Job Profile Description</label>
-                                            <textarea class="form-control" id="driveDescription" rows="4" placeholder="Enter key eligibility, coding rounds, syllabus criteria..." required></textarea>
+                                            <asp:TextBox ID="driveDescription" runat="server" ClientIDMode="Static"
+                                                CssClass="form-control" TextMode="MultiLine" Rows="4"
+                                                placeholder="Enter key eligibility, coding rounds, syllabus criteria..." />
                                         </div>
 
                                         <div class="d-flex gap-2 justify-content-end">
                                             <button type="button" class="btn btn-secondary btn-sm" onclick="clearDriveForm()">
                                                 Reset
                                             </button>
-                                            <button type="button" class="btn btn-rku btn-sm" id="btnSubmitDrive" onclick="saveDrive(event)">
-                                                Create Drive
-                                            </button>
+                                            <asp:Button ID="btnSubmitDrive" runat="server" ClientIDMode="Static"
+                                                CssClass="btn btn-rku btn-sm"
+                                                Text="Create Drive"
+                                                OnClick="btnSubmitDrive_Click"
+                                                CausesValidation="false" />
                                         </div>
                                     </div>
                                 </div>

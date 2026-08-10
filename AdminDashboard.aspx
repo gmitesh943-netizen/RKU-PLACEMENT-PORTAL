@@ -1,4 +1,4 @@
-<%--<%@ Page Title="" Language="C#" MasterPageFile="~/Admin-panel.Master" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.AdminDashboard" %>--%>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Admin-panel.Master" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.AdminDashboard" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -659,6 +659,7 @@
                     <!-- ─── GLOBAL SEARCH BAR ─── -->
                     <div class="global-search-wrapper mx-2 flex-grow-1">
                         <i class="fa-solid fa-magnifying-glass global-search-icon"></i>
+
                         <input
                             type="text"
                             class="global-search-input"
@@ -2962,9 +2963,9 @@
                 console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
             }
                         // ]]>
-        </script >
-    </body >
-    </html >
-</asp: Content >
+        </script>
+    </body>
+</html>
+</asp:Content>
 
 
