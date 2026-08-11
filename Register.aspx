@@ -873,7 +873,7 @@
             <div class="table-responsive mb-4">
                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="100%"
                     CssClass="table table-bordered table-hover table-sm align-middle"
-                    HeaderStyle-BackColor="#ef3724" HeaderStyle-ForeColor="White">
+                    HeaderStyle-BackColor="#ef3724" HeaderStyle-ForeColor="White" OnRowCommand="GridView1_RowCommand">
                     <Columns>
                         <asp:TemplateField HeaderText="Id">
                             <ItemTemplate>
@@ -915,7 +915,19 @@
                                 <asp:Label ID="Label8" runat="server" Text='<%# Eval("regConfirmPassword") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Edit">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_edt">Edit</asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Delate">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_del">Delate</asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
+
+<HeaderStyle BackColor="#EF3724" ForeColor="White"></HeaderStyle>
                 </asp:GridView>
             </div>
 
@@ -923,7 +935,7 @@
             <div class="table-responsive">
                 <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" Width="100%"
                     CssClass="table table-bordered table-hover table-sm align-middle"
-                    HeaderStyle-BackColor="#ef3724" HeaderStyle-ForeColor="White">
+                    HeaderStyle-BackColor="#ef3724" HeaderStyle-ForeColor="White" OnRowCommand="GridView2_RowCommand">
                     <Columns>
                         <asp:TemplateField HeaderText="Id">
                             <ItemTemplate>
@@ -965,7 +977,19 @@
                                 <asp:Label ID="Label16" runat="server" Text='<%# Eval("compConfirmPassword") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Edit">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton3" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_cedt">Edit</asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Delate">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton4" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_cdel">Delate</asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
+
+<HeaderStyle BackColor="#EF3724" ForeColor="White"></HeaderStyle>
                 </asp:GridView>
             </div>
 
