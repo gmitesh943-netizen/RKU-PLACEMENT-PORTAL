@@ -100,8 +100,7 @@ namespace RKU_PLACEMENT_PORTAL
         {
             getcon();
 
-            da = new SqlDataAdapter(
-                "select * from register_auth_company where id=" + ViewState["CompanyID"], con);
+            da = new SqlDataAdapter("select * from register_auth_company where id=" + ViewState["CompanyID"], con);
             ds = new DataSet();
             da.Fill(ds);
 
@@ -117,7 +116,7 @@ namespace RKU_PLACEMENT_PORTAL
 
         }
        
-        // Student Registration Handler
+        // Student Registration 
         protected void Button1_Click1(object sender, EventArgs e)
         {
             string role = hfRole.Value;
@@ -155,7 +154,7 @@ namespace RKU_PLACEMENT_PORTAL
             }
         }
 
-        // Company Registration Handler
+        // Company Registration  
         protected void btnSubmitCompany_Click(object sender, EventArgs e)
         {
             string role = hfRole.Value;

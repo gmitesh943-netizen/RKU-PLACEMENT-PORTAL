@@ -581,7 +581,7 @@
                             <a class="nav-link nav-placement-btn dropdown-toggle" href="#" id="navDrives" data-bs-toggle="dropdown" aria-expanded="false">Placement <i class="fa-solid fa-chevron-down placement-caret"></i>
                             </a>
                             <ul class="dropdown-menu nav-placement-dropdown" aria-labelledby="navDrives">
-                            <li><a class="dropdown-item" href="PlacementAbout.aspx" id="navPlacementAbout">About Us</a></li>
+                                <li><a class="dropdown-item" href="PlacementAbout.aspx" id="navPlacementAbout">About Us</a></li>
                                 <li><a class="dropdown-item" href="PlacementCampusDrives.aspx" id="navPlacementCampus">Campus Drives</a></li>
                                 <li><a class="dropdown-item" href="PlacementStudentSelection.aspx" id="navPlacementSelection">Student Selection</a></li>
                                 <li><a class="dropdown-item" href="PlacementLiaisonOfficers.aspx" id="navPlacementLiaison">Liaison Officers</a></li>
@@ -909,101 +909,101 @@
                     </div>
 
                 </div>
-
-                <!-- Right: Contact Form -->
+                <%--Contact form all fill--%>
                 <div class="col-lg-7" id="contactFormCol">
                     <div class="contact-form-card">
                         <h2 class="contact-section-title" id="contactFormTitle">Send Us a Message</h2>
 
-                        <form id="contactForm" novalidate>
-                            <div class="row g-3">
+                        <asp:Label ID="lblStatusMessage" runat="server" Visible="false"></asp:Label>
 
-                                <!-- Full Name -->
-                                <div class="col-sm-6">
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-                                        <input type="text" class="form-control" id="contactFullName" placeholder="Full Name" required>
+                        <div class="row g-3">
+
+                            <!-- Full Name -->
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                                    <asp:TextBox ID="contactFullName" runat="server" CssClass="form-control" placeholder="Full Name" required="required" ClientIDMode="Static"></asp:TextBox>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-regular fa-envelope"></i></span>
+                                    <asp:TextBox ID="contactEmailAddr" runat="server" TextMode="Email" CssClass="form-control" placeholder="Email Address" required="required" ClientIDMode="Static"></asp:TextBox>
+                                </div>
+                            </div>
+
+                            <!-- Mobile Number -->
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-mobile-screen-button"></i></span>
+                                    <asp:TextBox ID="contactMobile" runat="server" CssClass="form-control" placeholder="Mobile Number" ClientIDMode="Static"></asp:TextBox>
+                                </div>
+                            </div>
+
+                            <!-- Department -->
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-regular fa-building"></i></span>
+                                    <asp:DropDownList ID="contactDepartment" runat="server" CssClass="form-select" ClientIDMode="Static">
+                                        <asp:ListItem Value="" Text="Select Department" Selected="True" Disabled="True"></asp:ListItem>
+                                        <asp:ListItem Value="Central Training &amp; Placement Cell" Text="Central Training &amp; Placement Cell"></asp:ListItem>
+                                        <asp:ListItem Value="Admission Office" Text="Admission Office"></asp:ListItem>
+                                        <asp:ListItem Value="Academic Affairs" Text="Academic Affairs"></asp:ListItem>
+                                        <asp:ListItem Value="Controller of Examinations" Text="Controller of Examinations"></asp:ListItem>
+                                        <asp:ListItem Value="HR Department" Text="HR Department"></asp:ListItem>
+                                        <asp:ListItem Value="Other" Text="Other"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+
+                            <!-- Subject -->
+                            <div class="col-12">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-regular fa-file-lines"></i></span>
+                                    <asp:TextBox ID="contactSubject" runat="server" CssClass="form-control" placeholder="Subject" ClientIDMode="Static"></asp:TextBox>
+                                </div>
+                            </div>
+
+                            <!-- Message -->
+                            <div class="col-12">
+                                <div class="input-group">
+                                    <span class="input-group-text" style="align-items: flex-start; padding-top: 0.65rem;"><i class="fa-regular fa-pen-to-square"></i></span>
+                                    <asp:TextBox ID="contactMessage" runat="server" TextMode="MultiLine" Rows="5" CssClass="form-control" placeholder="Message" Style="resize: vertical;" ClientIDMode="Static"></asp:TextBox>
+                                </div>
+                            </div>
+
+                            <!-- Captcha -->
+                            <div class="col-12">
+                                <div class="captcha-box">
+                                    <div class="form-check mb-0">
+                                        <input class="form-check-input" type="checkbox" id="captchaCheck">
+                                    </div>
+                                    <label for="captchaCheck" class="mb-0">I'm not a robot</label>
+                                    <div class="captcha-brand ms-auto text-center">
+                                        <!-- reCAPTCHA Logo SVG -->
+                                        <svg width="34" height="34" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="32" cy="32" r="32" fill="#4A90D9" />
+                                            <path d="M32 12C21 12 12 21 12 32s9 20 20 20 20-9 20-20S43 12 32 12z" fill="#fff" opacity=".15" />
+                                            <path d="M40 24H24l-6 8 6 8h16l6-8-6-8z" fill="#fff" opacity=".9" />
+                                            <circle cx="32" cy="32" r="6" fill="#4A90D9" />
+                                        </svg>
+                                        <span class="captcha-brand-text">reCAPTCHA<br>
+                                            Privacy - Terms</span>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Email -->
-                                <div class="col-sm-6">
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fa-regular fa-envelope"></i></span>
-                                        <input type="email" class="form-control" id="contactEmailAddr" placeholder="Email Address" required>
-                                    </div>
-                                </div>
-
-                                <!-- Mobile Number -->
-                                <div class="col-sm-6">
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fa-solid fa-mobile-screen-button"></i></span>
-                                        <input type="tel" class="form-control" id="contactMobile" placeholder="Mobile Number">
-                                    </div>
-                                </div>
-
-                                <!-- Department -->
-                                <div class="col-sm-6">
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fa-regular fa-building"></i></span>
-                                        <select class="form-select" id="contactDepartment">
-                                            <option value="" selected disabled>Select Department</option>
-                                            <option value="tpo">Central Training &amp; Placement Cell</option>
-                                            <option value="admission">Admission Office</option>
-                                            <option value="academic">Academic Affairs</option>
-                                            <option value="exam">Controller of Examinations</option>
-                                            <option value="hr">HR Department</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <!-- Subject -->
-                                <div class="col-12">
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fa-regular fa-file-lines"></i></span>
-                                        <input type="text" class="form-control" id="contactSubject" placeholder="Subject">
-                                    </div>
-                                </div>
-
-                                <!-- Message -->
-                                <div class="col-12">
-                                    <div class="input-group">
-                                        <span class="input-group-text" style="align-items: flex-start; padding-top: 0.65rem;"><i class="fa-regular fa-pen-to-square"></i></span>
-                                        <textarea class="form-control" id="contactMessage" placeholder="Message" rows="5" style="resize: vertical;"></textarea>
-                                    </div>
-                                </div>
-
-                                <!-- Captcha -->
-                                <div class="col-12">
-                                    <div class="captcha-box">
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" type="checkbox" id="captchaCheck">
-                                        </div>
-                                        <label for="captchaCheck" class="mb-0">I'm not a robot</label>
-                                        <div class="captcha-brand ms-auto text-center">
-                                            <!-- reCAPTCHA Logo SVG -->
-                                            <svg width="34" height="34" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="32" cy="32" r="32" fill="#4A90D9" />
-                                                <path d="M32 12C21 12 12 21 12 32s9 20 20 20 20-9 20-20S43 12 32 12z" fill="#fff" opacity=".15" />
-                                                <path d="M40 24H24l-6 8 6 8h16l6-8-6-8z" fill="#fff" opacity=".9" />
-                                                <circle cx="32" cy="32" r="6" fill="#4A90D9" />
-                                            </svg>
-                                            <span class="captcha-brand-text">reCAPTCHA<br>
-                                                Privacy - Terms</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Buttons -->
-                                <div class="col-12 d-flex gap-3 flex-wrap">
-                                    <button type="submit" class="btn-send" id="btnSendMessage">
-                                        <i class="fa-solid fa-paper-plane me-2"></i>SEND YOUR MESSAGE
-                                    </button>
-                                    <button type="reset" class="btn-reset" id="btnResetForm">RESET</button>
-                                </div>
+                            <!-- Buttons -->
+                            <div class="col-12 d-flex gap-3 flex-wrap">
+                                <asp:LinkButton ID="btnSendMessage" runat="server" CssClass="btn-send" OnClick="btnSendMessage_Click" OnClientClick="return validateContactForm();" ClientIDMode="Static">Send Your Message </asp:LinkButton>
+                                <asp:LinkButton ID="btnResetForm" runat="server" CssClass="btn-reset" OnClick="btnResetForm_Click" CauseValidation="false" ClientIDMode="Static"> RESET
+                                </asp:LinkButton> 
 
                             </div>
+
+                        </div>
                         </form>
                     </div>
                 </div>
@@ -1223,8 +1223,10 @@
                         </div>
                         <div>
                             <h3 class="text-white fw-bold mb-1" style="font-family: var(--font-heading); font-size: 1.4rem;">Need Immediate Assistance?</h3>
-                            <p class="mb-0" style="color: rgba(255,255,255,0.8); font-size: 0.88rem;">Our Placement team is ready to help you<br>
-                                with all your queries.</p>
+                            <p class="mb-0" style="color: rgba(255,255,255,0.8); font-size: 0.88rem;">
+                                Our Placement team is ready to help you<br>
+                                with all your queries.
+                            </p>
                         </div>
                     </div>
                 </div>

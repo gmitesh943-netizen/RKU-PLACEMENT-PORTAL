@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +12,7 @@ namespace RKU_PLACEMENT_PORTAL
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            
         }
     }
 }

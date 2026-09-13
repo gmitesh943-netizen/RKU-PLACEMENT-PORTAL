@@ -11,7 +11,7 @@ namespace RKU_PLACEMENT_PORTAL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+          
         }
     }
 }

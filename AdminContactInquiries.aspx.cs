@@ -10,7 +10,7 @@ using System.Configuration;
 
 namespace RKU_PLACEMENT_PORTAL
 {
-    public partial class AdminStudentDirectory : System.Web.UI.Page
+    public partial class AdminContactInquiries : System.Web.UI.Page
     {
         SqlConnection con;
         SqlCommand cmd;
@@ -23,8 +23,7 @@ namespace RKU_PLACEMENT_PORTAL
         {
             if (!IsPostBack)
             {
-                GridStudent();
-                GridCompany();
+                GridContact();
             }
         }
 
@@ -34,25 +33,14 @@ namespace RKU_PLACEMENT_PORTAL
             con.Open();
         }
 
-        void GridStudent()
+        void GridContact()
         {
             getcon();
-            da = new SqlDataAdapter("select * from register_auth", con);
+            da = new SqlDataAdapter("select * from contact", con);
             ds = new DataSet();
             da.Fill(ds);
             GridView1.DataSource = ds;
             GridView1.DataBind();
-            con.Close();
-        }
-
-        void GridCompany()
-        {
-            getcon();
-            da = new SqlDataAdapter("select * from register_auth_company", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            GridView2.DataSource = ds;
-            GridView2.DataBind();
             con.Close();
         }
 
@@ -61,22 +49,10 @@ namespace RKU_PLACEMENT_PORTAL
             if (e.CommandName == "cmd_del")
             {
                 getcon();
-                cmd = new SqlCommand("delete from register_auth where id=" + e.CommandArgument, con);
+                cmd = new SqlCommand("delete from contact where id=" + e.CommandArgument, con);
                 cmd.ExecuteNonQuery();
                 con.Close();
-                GridStudent();
-            }
-        }
-
-        protected void GridView2_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "cmd_cdel")
-            {
-                getcon();
-                cmd = new SqlCommand("delete from register_auth_company where id=" + e.CommandArgument, con);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                GridCompany();
+                GridContact();
             }
         }
     }

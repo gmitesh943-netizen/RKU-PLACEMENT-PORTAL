@@ -1,1034 +1,517 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.Login" %>
+<%@ Page Title="Login" Language="C#" MasterPageFile="~/MainMaster.Master"
+    AutoEventWireup="true"
+    CodeBehind="Login.aspx.cs"
+    Inherits="RKU_PLACEMENT_PORTAL.Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+    <style>
+        .portal-login-page {
+            min-height: calc(100vh - 72px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 42px 18px;
+            background: linear-gradient(135deg, #fff9f8 0%, #f7f8fc 52%, #fff4f2 100%);
+            font-family: Inter, Arial, sans-serif;
+        }
 
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sign In | RK University Placement Portal</title>
+        .portal-login-shell {
+            width: min(100%, 940px);
+            display: grid;
+            grid-template-columns: 1fr 1.12fr;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid #edf0f5;
+            border-radius: 16px;
+            box-shadow: 0 18px 55px rgba(49, 37, 49, 0.14);
+        }
 
-        <!-- Meta Tags for SEO -->
-        <meta name="description" content="Sign in to your account on the RK University Placement Portal to access placement statistics, companies list, training modules, and job openings.">
-        <meta name="keywords" content="RK University Login, Placement Portal Sign In, Student Login, Recruiter Login">
+        .login-showcase {
+            position: relative;
+            min-height: 535px;
+            overflow: hidden;
+            padding: 55px 48px 105px;
+            color: #1b1b21;
+            background: linear-gradient(155deg, #fff 0%, #fff 56%, #fff5f5 100%);
+        }
 
-        <!-- Bootstrap 5 CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        .login-showcase::before,
+        .login-showcase::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
 
-        <!-- FontAwesome Icons -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+        .login-showcase::before {
+            width: 310px;
+            height: 310px;
+            right: -165px;
+            bottom: 42px;
+            border: 1px solid rgba(231, 53, 43, 0.18);
+            box-shadow: 0 0 0 28px rgba(231, 53, 43, 0.035), 0 0 0 55px rgba(231, 53, 43, 0.02);
+        }
 
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        .login-showcase::after {
+            width: 250px;
+            height: 34px;
+            left: -20px;
+            bottom: -17px;
+            background: #f43129;
+            transform: rotate(5deg);
+            box-shadow: 190px -8px 0 #d91e27;
+        }
 
-        <!-- Custom CSS -->
-        <link href="css/style.css" rel="stylesheet">
+        .showcase-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 57px;
+            color: #171820;
+            font-family: Outfit, Arial, sans-serif;
+            font-weight: 800;
+            font-size: 15px;
+            letter-spacing: 0.02em;
+        }
 
-        <style>
-            :root {
-                --rku-maroon: #a30f14;
-                --rku-red: #ef3724;
-                --rku-red-light: #fff5f5;
-                --rku-dark: #111111;
-                --font-heading: 'Outfit', sans-serif;
-                --font-body: 'Inter', sans-serif;
+        .showcase-brand img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+
+        .showcase-brand span {
+            display: block;
+            color: #e42d2c;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+        }
+
+        .showcase-title {
+            margin: 0;
+            font-family: Outfit, Arial, sans-serif;
+            font-size: clamp(29px, 3.2vw, 39px);
+            font-weight: 800;
+            line-height: 1.03;
+            letter-spacing: -0.045em;
+        }
+
+        .showcase-title em {
+            color: #f03730;
+            font-style: normal;
+        }
+
+        .showcase-text {
+            max-width: 290px;
+            margin: 14px 0 21px;
+            color: #747681;
+            font-size: 12px;
+            line-height: 1.65;
+        }
+
+        .showcase-line {
+            width: 33px;
+            height: 3px;
+            margin-bottom: 34px;
+            border-radius: 3px;
+            background: #f03730;
+        }
+
+        .showcase-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 9px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .showcase-stat {
+            min-height: 78px;
+            padding: 13px 10px;
+            border: 1px solid #eceef2;
+            border-radius: 6px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: 0 5px 12px rgba(31, 35, 47, 0.03);
+        }
+
+        .showcase-stat i {
+            display: block;
+            margin-bottom: 6px;
+            color: #ed332d;
+            font-size: 13px;
+        }
+
+        .showcase-stat strong {
+            display: block;
+            color: #282a32;
+            font-size: 13px;
+            line-height: 1;
+        }
+
+        .showcase-stat span {
+            display: block;
+            margin-top: 5px;
+            color: #92949c;
+            font-size: 8px;
+            font-weight: 600;
+        }
+
+        .login-form-panel {
+            display: flex;
+            align-items: center;
+            padding: 42px clamp(30px, 6vw, 72px);
+            background: #fff;
+        }
+
+        .login-form-content {
+            width: 100%;
+            max-width: 375px;
+            margin: 0 auto;
+        }
+
+        .login-heading {
+            margin: 0;
+            color: #171820;
+            font-family: Outfit, Arial, sans-serif;
+            font-size: 29px;
+            font-weight: 800;
+            letter-spacing: -0.035em;
+        }
+
+        .login-intro {
+            margin: 7px 0 25px;
+            color: #9396a0;
+            font-size: 11px;
+        }
+
+        .login-section-label {
+            display: block;
+            margin: 0 0 10px;
+            color: #4d515d;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .login-role-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 7px;
+            margin-bottom: 20px;
+        }
+
+        .login-role-btn {
+            min-height: 34px;
+            border: 1px solid #f0b2af;
+            border-radius: 5px;
+            color: #e23d38;
+            background: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            transition: 0.2s ease;
+        }
+
+        .login-role-btn:hover,
+        .login-role-btn.active {
+            border-color: #f13831;
+            color: #fff;
+            background: #f13831;
+            box-shadow: 0 5px 11px rgba(241, 56, 49, 0.18);
+        }
+
+        .login-field {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .login-field > i {
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 13px;
+            color: #a5aab5;
+            font-size: 12px;
+            transform: translateY(-50%);
+        }
+
+        .login-input {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #e7e9ef;
+            border-radius: 5px;
+            outline: none;
+            color: #333743;
+            background: #fafbfc;
+            padding: 0 43px 0 35px;
+            font-size: 11px;
+            transition: 0.2s ease;
+        }
+
+        .login-input:focus {
+            border-color: #f04b45;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(240, 75, 69, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 11px;
+            z-index: 2;
+            border: 0;
+            color: #a5aab5;
+            background: transparent;
+            font-size: 13px;
+            transform: translateY(-50%);
+        }
+
+        .login-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 4px 0 17px;
+            color: #737782;
+            font-size: 10px;
+        }
+
+        .remember-login {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .remember-login input {
+            width: 12px;
+            height: 12px;
+            margin: 0;
+            accent-color: #f13831;
+        }
+
+        .forgot-password {
+            color: #ed3732;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .login-submit {
+            width: 100%;
+            height: 42px;
+            border: 0;
+            border-radius: 5px;
+            color: #fff;
+            background: #f13931;
+            box-shadow: 0 7px 14px rgba(241, 57, 49, 0.24);
+            font-size: 11px;
+            font-weight: 800;
+            transition: 0.2s ease;
+        }
+
+        .login-submit:hover {
+            background: #dd2d28;
+            transform: translateY(-1px);
+        }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0 14px;
+            color: #a2a5ad;
+            font-size: 9px;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eceef2;
+        }
+
+        .google-signin {
+            width: 100%;
+            height: 39px;
+            border: 1px solid #e9ebef;
+            border-radius: 5px;
+            color: #555a66;
+            background: #fff;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .google-signin i {
+            margin-right: 8px;
+            color: #4285f4;
+            font-size: 12px;
+        }
+
+        .login-register {
+            margin: 17px 0 0;
+            color: #8c9099;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .login-register a {
+            color: #ef3832;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .selected-role,
+        .error-message {
+            display: block;
+            margin-top: 11px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .selected-role {
+            color: #858993;
+        }
+
+        .selected-role span {
+            color: #e9342f;
+            font-weight: 800;
+        }
+
+        .error-message {
+            color: #d62320;
+            font-weight: 600;
+        }
+
+        @media (max-width: 767.98px) {
+            .portal-login-page {
+                align-items: flex-start;
+                padding: 24px 14px;
             }
 
-            body {
-                font-family: var(--font-body);
-                background-color: #f8fafc;
+            .portal-login-shell {
+                grid-template-columns: 1fr;
             }
 
-            /* ─── LOGIN CONTAINER BOX ─── */
-            .login-main-section {
-                padding: 5rem 0;
-                position: relative;
-                overflow: hidden;
-                background-color: #f8fafc;
+            .login-showcase {
+                min-height: auto;
+                padding: 32px 30px 48px;
             }
 
-            .login-container-box {
-                background-color: #fff;
-                border-radius: 20px;
-                box-shadow: 0 15px 50px rgba(0, 0, 0, 0.06);
-                border: 1px solid #eef0f3;
-                overflow: hidden;
-                max-width: 1000px;
-                margin: 0 auto;
-                display: flex;
-                position: relative;
-                z-index: 2;
+            .showcase-brand {
+                margin-bottom: 35px;
             }
 
-            /* ─── LEFT COLUMN (WELCOME) ─── */
-            .left-col {
-                flex: 1.1;
-                background-color: #fcfcfc;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                padding: 3.5rem 3rem 0 3rem;
-                position: relative;
-                overflow: hidden;
-                border-right: 1px solid #f1f5f9;
+            .login-showcase::before {
+                bottom: -120px;
             }
 
-            /* Waves background decoration */
-            .left-col-wave {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: auto;
-                z-index: 1;
-                pointer-events: none;
+            .login-form-panel {
+                padding: 34px 28px 40px;
             }
-
-            .welcome-section {
-                text-align: center;
-                margin-top: 1rem;
-                position: relative;
-                z-index: 2;
-            }
-
-            .welcome-title {
-                font-family: var(--font-heading);
-                font-weight: 800;
-                font-size: 2.5rem;
-                color: var(--rku-dark);
-                margin-bottom: 0.5rem;
-            }
-
-                .welcome-title span {
-                    color: var(--rku-red);
-                }
-
-            .welcome-subtitle {
-                font-size: 0.95rem;
-                color: #64748b;
-                margin-bottom: 1.2rem;
-            }
-
-            .red-bar {
-                width: 50px;
-                height: 3px;
-                background-color: var(--rku-red);
-                margin: 0 auto 2rem auto;
-                border-radius: 50px;
-            }
-
-            /* Stats Row */
-            .stats-row {
-                display: flex;
-                justify-content: center;
-                gap: 1rem;
-                margin-bottom: 2rem;
-                position: relative;
-                z-index: 2;
-            }
-
-            .stat-box {
-                background-color: #fff;
-                border: 1px solid #e2e8f0;
-                border-radius: 12px;
-                padding: 1rem 0.8rem;
-                flex: 1;
-                text-align: center;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
-                transition: all 0.25s ease;
-            }
-
-                .stat-box:hover {
-                    transform: translateY(-3px);
-                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
-                    border-color: rgba(239, 55, 36, 0.15);
-                }
-
-            .stat-icon {
-                font-size: 1.3rem;
-                color: var(--rku-red);
-                margin-bottom: 0.5rem;
-            }
-
-            .stat-number {
-                font-family: var(--font-heading);
-                font-weight: 800;
-                font-size: 1.15rem;
-                color: var(--rku-dark);
-                margin-bottom: 0.1rem;
-                line-height: 1.2;
-            }
-
-            .stat-label {
-                font-size: 0.68rem;
-                color: #64748b;
-                font-weight: 600;
-            }
-
-            /* Campus building vector illustration */
-            .campus-illustration-container {
-                width: 100%;
-                max-width: 420px;
-                margin: 0 auto;
-                position: relative;
-                z-index: 2;
-            }
-
-            /* Dots pattern at top left */
-            .dots-pattern-top-left {
-                position: absolute;
-                top: 2rem;
-                left: 2rem;
-                opacity: 0.35;
-                z-index: 0;
-                pointer-events: none;
-            }
-
-            /* ─── RIGHT COLUMN (FORM) ─── */
-            .right-col {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                padding: 3.5rem 3rem;
-                position: relative;
-                background-color: #fff;
-            }
-
-            .login-card-title {
-                font-family: var(--font-heading);
-                font-weight: 800;
-                font-size: 2.2rem;
-                color: var(--rku-dark);
-                margin-bottom: 0.3rem;
-            }
-
-            .login-card-subtitle {
-                font-size: 0.88rem;
-                color: #64748b;
-                margin-bottom: 2rem;
-            }
-
-            .right-col .red-bar {
-                margin: 0 0 1.25rem 0;
-                width: 45px;
-            }
-
-            .input-group-custom {
-                position: relative;
-                margin-bottom: 1.25rem;
-            }
-
-                .input-group-custom input {
-                    width: 100%;
-                    padding: 0.85rem 1rem 0.85rem 2.8rem;
-                    border: 1px solid #cbd5e1;
-                    border-radius: 10px;
-                    font-size: 0.92rem;
-                    color: var(--rku-dark);
-                    outline: none;
-                    transition: all 0.2s;
-                }
-
-                    .input-group-custom input:focus {
-                        border-color: var(--rku-red);
-                        box-shadow: 0 0 0 3px rgba(239, 55, 36, 0.08);
-                    }
-
-                .input-group-custom .input-icon {
-                    position: absolute;
-                    left: 1.1rem;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    color: #64748b;
-                    font-size: 1rem;
-                    pointer-events: none;
-                }
-
-                .input-group-custom .eye-toggle {
-                    position: absolute;
-                    right: 1.1rem;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    color: #64748b;
-                    font-size: 1rem;
-                    cursor: pointer;
-                    transition: color 0.2s;
-                    background: none;
-                    border: none;
-                    padding: 0;
-                }
-
-            /* Checkbox & Forgot row */
-            .flex-row-options {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 2rem;
-                font-size: 0.85rem;
-            }
-
-            .form-check-input {
-                width: 1.15em;
-                height: 1.15em;
-                cursor: pointer;
-                border-color: #cbd5e1;
-            }
-
-                .form-check-input:checked {
-                    background-color: var(--rku-red);
-                    border-color: var(--rku-red);
-                }
-
-            .form-check-label {
-                cursor: pointer;
-                color: #475569;
-                font-weight: 500;
-            }
-
-            .forgot-link {
-                color: var(--rku-red);
-                text-decoration: none;
-                font-weight: 600;
-            }
-
-                .forgot-link:hover {
-                    color: var(--rku-maroon);
-                    text-decoration: underline;
-                }
-
-            /* Sign In Button */
-            .btn-signin {
-                width: 100%;
-                background-color: var(--rku-red);
-                color: #fff;
-                border: none;
-                border-radius: 10px;
-                padding: 0.9rem;
-                font-family: var(--font-heading);
-                font-weight: 700;
-                font-size: 1.1rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 0.6rem;
-                transition: all 0.2s;
-                box-shadow: 0 4px 15px rgba(239, 55, 36, 0.2);
-                margin-bottom: 1.8rem;
-            }
-
-                .btn-signin:hover {
-                    background-color: var(--rku-maroon);
-                    transform: translateY(-1px);
-                    box-shadow: 0 6px 20px rgba(163, 15, 20, 0.25);
-                }
-
-            /* Divider */
-            .divider-container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 1.8rem;
-                font-size: 0.78rem;
-                color: #94a3b8;
-                font-weight: 500;
-            }
-
-            .divider-line {
-                flex: 1;
-                height: 1px;
-                background-color: #e2e8f0;
-            }
-
-            .divider-text {
-                padding: 0 1rem;
-            }
-
-            /* Google button */
-            .btn-google {
-                width: 100%;
-                background-color: #fff;
-                border: 1px solid #cbd5e1;
-                border-radius: 10px;
-                padding: 0.85rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 0.75rem;
-                color: #334155;
-                font-weight: 600;
-                font-size: 0.92rem;
-                transition: all 0.2s;
-                margin-bottom: 2rem;
-            }
-
-                .btn-google:hover {
-                    background-color: #f8fafc;
-                    border-color: #94a3b8;
-                }
-
-                .btn-google svg {
-                    width: 18px;
-                    height: 18px;
-                }
-
-            .register-footer-text {
-                text-align: center;
-                font-size: 0.88rem;
-                color: #475569;
-                font-weight: 500;
-            }
-
-                .register-footer-text a {
-                    color: var(--rku-red);
-                    text-decoration: none;
-                    font-weight: 700;
-                }
-
-                    .register-footer-text a:hover {
-                        color: var(--rku-maroon);
-                        text-decoration: underline;
-                    }
-
-            /* Dots pattern bottom right */
-            .dots-pattern-bottom-right {
-                position: absolute;
-                bottom: 2rem;
-                right: 2rem;
-                opacity: 0.35;
-                z-index: 0;
-                pointer-events: none;
-            }
-
-            /* Circular background rings */
-            .bg-rings {
-                position: absolute;
-                top: 5%;
-                left: 5%;
-                width: 350px;
-                height: 350px;
-                opacity: 0.25;
-                pointer-events: none;
-                z-index: 0;
-            }
-
-            @media (max-width: 991.98px) {
-                .login-container-box {
-                    flex-direction: column;
-                    margin: 0 1rem;
-                }
-
-                .left-col {
-                    padding: 3rem 2rem 2rem 2rem;
-                    border-right: none;
-                    border-bottom: 1px solid #f1f5f9;
-                }
-
-                .right-col {
-                    padding: 3rem 2rem;
-                }
-            }
-        </style>
-    </head>
-    <body>
-
-        <!-- ==========================================
-         1. NAVBAR
-         ========================================== -->
-        <nav class="navbar navbar-expand-lg sticky-top">
-            <div class="container-fluid px-lg-5">
-                <!-- Brand Logo -->
-                <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
-                    <img src="assets/images/RKU LOGO.png" alt="RK University Placement Portal" class="me-2" style="height: 48px; width: auto; max-width: 240px; object-fit: contain;">
-                </a>
-
-                <!-- Mobile Toggle -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggleButton">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Navigation Links -->
-                <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="Index.aspx" id="navHome">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="About.aspx" id="navAbout">About Us</a>
-                        </li>
-                        <li class="nav-item dropdown" id="navItemPlacement">
-                            <a class="nav-link nav-placement-btn dropdown-toggle" href="#" id="navDrives" data-bs-toggle="dropdown" aria-expanded="false">Placement <i class="fa-solid fa-chevron-down placement-caret"></i>
-                            </a>
-                            <ul class="dropdown-menu nav-placement-dropdown" aria-labelledby="navDrives">
-                            <li><a class="dropdown-item" href="PlacementAbout.aspx" id="navPlacementAbout">About Us</a></li>
-                                <li><a class="dropdown-item" href="PlacementCampusDrives.aspx" id="navPlacementCampus">Campus Drives</a></li>
-                                <li><a class="dropdown-item" href="PlacementStudentSelection.aspx" id="navPlacementSelection">Student Selection</a></li>
-                                <li><a class="dropdown-item" href="PlacementLiaisonOfficers.aspx" id="navPlacementLiaison">Liaison Officers</a></li>
-                                <li><a class="dropdown-item" href="PlacmentProminentRecruiters.aspx" id="navPlacementRecruiters">Prominent Recruiters</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Companies.aspx" id="navCompanies">Companies</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="SuccessStories.aspx" id="navStories">Success Stories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Contact.aspx" id="navContact">Contact</a>
-                        </li>
-                    </ul>
-
-                    <!-- User Actions -->
-                    <div class="navbar-actions d-flex align-items-center">
-                        <a href="#" class="icon-btn" title="Search" id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></a>
-                        <a href="#" class="icon-btn position-relative" title="Notifications" id="btnNotifications">
-                            <i class="fa-regular fa-bell"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-rku-red border border-light rounded-circle"></span>
-                        </a>
-                        <a href="Login.aspx" class="btn btn-login active" id="btnLogin">Login</a>
-                        <a href="Register.aspx" class="btn btn-register" id="btnRegister">Register</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        }
+    </style>
 </asp:Content>
 
-<asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
-
-    <!-- ==========================================
-         2. MAIN LOGIN CONTAINER SECTION
-         ========================================== -->
-    <section class="login-main-section" id="loginMainSection">
-        <!-- Decorative circular rings in background of center/top -->
-        <svg class="bg-rings" viewBox="0 0 100 100" fill="none">
-            <circle cx="50" cy="50" r="48" stroke="#fcd34d" stroke-width="0.3" stroke-dasharray="1 2" />
-            <circle cx="50" cy="50" r="38" stroke="#ef3724" stroke-width="0.15" />
-            <circle cx="20" cy="80" r="15" stroke="#a30f14" stroke-width="0.1" />
-        </svg>
-
-        <div class="container">
-            <div class="login-container-box">
-
-                <!-- ==========================================
-                     LEFT COLUMN (WELCOME + ILLUSTRATION)
-                     ========================================== -->
-                <div class="left-col">
-                    <!-- Decorative dots grid top left -->
-                    <svg class="dots-pattern-top-left" width="60" height="60" viewBox="0 0 60 60">
-                        <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse">
-                            <circle cx="3" cy="3" r="1.5" fill="#cbd5e1" />
-                        </pattern>
-                        <rect width="60" height="60" fill="url(#dots)" />
-                    </svg>
-
-                    <!-- Brand Logo at top -->
-                    <div class="text-center pt-2">
-                        <img src="assets/images/RKU LOGO.png" alt="RK University Placement Portal" style="width: min(320px, 100%); height: auto; object-fit: contain;">
-                    </div>
-
-                    <!-- Welcome Text -->
-                    <div class="welcome-section">
-                        <h1 class="welcome-title">Welcome <span>Back!</span></h1>
-                        <p class="welcome-subtitle">Login to continue to your account</p>
-                        <div class="red-bar"></div>
-                    </div>
-
-                    <!-- Stats Row -->
-                    <div class="stats-row">
-                        <!-- Stat 1 -->
-                        <div class="stat-box">
-                            <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
-                            <div class="stat-number">5000+</div>
-                            <div class="stat-label">Students Placed</div>
-                        </div>
-                        <!-- Stat 2 -->
-                        <div class="stat-box">
-                            <div class="stat-icon"><i class="fa-regular fa-building"></i></div>
-                            <div class="stat-number">300+</div>
-                            <div class="stat-label">Recruiters</div>
-                        </div>
-                        <!-- Stat 3 -->
-                        <div class="stat-box">
-                            <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
-                            <div class="stat-number">20 LPA</div>
-                            <div class="stat-label">Highest Package</div>
-                        </div>
-                    </div>
-
-                    <!-- Vector Line Art of Campus Building with Red Accents -->
-                    <div class="campus-illustration-container">
-                        <svg viewBox="0 0 400 220" width="100%" height="auto" fill="none">
-                            <!-- Clouds -->
-                            <path d="M50,110 C50,105 55,102 60,102 C63,102 66,104 68,106 C70,103 74,101 77,101 C83,101 87,105 87,110 Z" stroke="#cbd5e1" stroke-width="1.2" />
-                            <path d="M280,105 C280,101 284,98 288,98 C291,98 293,100 295,102 C297,99 300,97 303,97 C308,97 312,101 312,105 Z" stroke="#cbd5e1" stroke-width="1.2" />
-
-                            <!-- Birds -->
-                            <path d="M125,98 Q129,94 133,98 Q137,94 141,98" stroke="#cbd5e1" stroke-width="1.2" />
-                            <path d="M142,105 Q145,102 148,105 Q151,102 154,105" stroke="#cbd5e1" stroke-width="1.2" />
-
-                            <!-- Ground line -->
-                            <line x1="44" y1="180" x2="356" y2="180" stroke="#94a3b8" stroke-width="1.5" />
-
-                            <!-- Road starting at gate -->
-                            <path d="M164,180 L88,212" stroke="#94a3b8" stroke-width="1.5" />
-                            <path d="M146,180 L44,180" stroke="#94a3b8" stroke-width="1.5" />
-                            <path d="M44,180 L36,212" stroke="#94a3b8" stroke-width="1.5" />
-                            <path d="M36,212 L356,212" stroke="#94a3b8" stroke-width="1.5" />
-
-                            <!-- Building Structure -->
-                            <!-- Far Left Block -->
-                            <rect x="78" y="148" width="22" height="32" fill="#fff" stroke="#94a3b8" stroke-width="1.5" />
-                            <!-- Main Left Block -->
-                            <rect x="100" y="140" width="122" height="40" fill="#fff" stroke="#94a3b8" stroke-width="1.5" />
-                            <!-- Main Right Block -->
-                            <rect x="222" y="148" width="24" height="32" fill="#fff" stroke="#94a3b8" stroke-width="1.5" />
-
-                            <!-- Windows (Center Block - Upper Row) -->
-                            <rect x="105" y="146" width="10" height="10" stroke="#cbd5e1" stroke-width="1.2" />
-                            <rect x="119" y="146" width="10" height="10" stroke="#cbd5e1" stroke-width="1.2" />
-                            <rect x="133" y="146" width="10" height="10" stroke="#cbd5e1" stroke-width="1.2" />
-                            <rect x="147" y="146" width="10" height="10" stroke="#cbd5e1" stroke-width="1.2" />
-                            <rect x="161" y="146" width="10" height="10" stroke="#cbd5e1" stroke-width="1.2" />
-                            <rect x="175" y="146" width="10" height="10" stroke="#cbd5e1" stroke-width="1.2" />
-                            <rect x="189" y="146" width="10" height="10" stroke="#cbd5e1" stroke-width="1.2" />
-                            <rect x="203" y="146" width="10" height="10" stroke="#cbd5e1" stroke-width="1.2" />
-
-                            <!-- Windows (Center Block - Lower Row) -->
-                            <rect x="105" y="162" width="10" height="14" stroke="#cbd5e1" stroke-width="1.2" />
-                            <rect x="119" y="162" width="10" height="14" stroke="#cbd5e1" stroke-width="1.2" />
-                            <rect x="133" y="162" width="10" height="14" stroke="#cbd5e1" stroke-width="1.2" />
-
-                            <!-- Arched Gate -->
-                            <path d="M149,180 L149,165 C149,161 163,161 163,165 L163,180 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" />
-
-                            <rect x="175" y="162" width="10" height="14" stroke="#cbd5e1" stroke-width="1.2" />
-                            <rect x="189" y="162" width="10" height="14" stroke="#cbd5e1" stroke-width="1.2" />
-                            <rect x="203" y="162" width="10" height="14" stroke="#cbd5e1" stroke-width="1.2" />
-
-                            <!-- Windows (Left Block) -->
-                            <rect x="83" y="152" width="5" height="10" stroke="#cbd5e1" stroke-width="1" />
-                            <rect x="91" y="152" width="5" height="10" stroke="#cbd5e1" stroke-width="1" />
-                            <rect x="83" y="166" width="5" height="10" stroke="#cbd5e1" stroke-width="1" />
-                            <rect x="91" y="166" width="5" height="10" stroke="#cbd5e1" stroke-width="1" />
-
-                            <!-- Windows (Right Block) -->
-                            <rect x="227" y="152" width="6" height="10" stroke="#cbd5e1" stroke-width="1" />
-                            <rect x="236" y="152" width="6" height="10" stroke="#cbd5e1" stroke-width="1" />
-                            <rect x="227" y="166" width="6" height="10" stroke="#cbd5e1" stroke-width="1" />
-                            <rect x="236" y="166" width="6" height="10" stroke="#cbd5e1" stroke-width="1" />
-
-                            <!-- RK UNIVERSITY Red Block Nameplate -->
-                            <rect x="126" y="132" width="47" height="8" rx="2" fill="#ef3724" />
-                            <text x="149.5" y="138" font-family="'Outfit', sans-serif" font-weight="900" font-size="4" fill="#fff" text-anchor="middle" letter-spacing="0.2">RK UNIVERSITY</text>
-
-                            <!-- Red Trees -->
-                            <!-- Tree 1 (Left Medium) -->
-                            <line x1="56" y1="180" x2="56" y2="160" stroke="#111" stroke-width="1.2" />
-                            <circle cx="56" cy="153" r="8" fill="#fff" stroke="#ef3724" stroke-width="1.5" />
-                            <line x1="56" y1="145" x2="56" y2="161" stroke="#ef3724" stroke-width="0.8" />
-
-                            <!-- Tree 2 (Left Small) -->
-                            <line x1="93" y1="180" x2="93" y2="173" stroke="#111" stroke-width="1" />
-                            <circle cx="93" cy="169" r="4" fill="#fff" stroke="#ef3724" stroke-width="1.2" />
-                            <line x1="93" y1="165" x2="93" y2="173" stroke="#ef3724" stroke-width="0.6" />
-
-                            <!-- Tree 3 (Right Small) -->
-                            <line x1="284" y1="180" x2="284" y2="173" stroke="#111" stroke-width="1" />
-                            <circle cx="284" cy="169" r="4" fill="#fff" stroke="#ef3724" stroke-width="1.2" />
-                            <line x1="284" y1="165" x2="284" y2="173" stroke="#ef3724" stroke-width="0.6" />
-
-                            <!-- Tree 4 (Right Large) -->
-                            <line x1="314" y1="180" x2="314" y2="155" stroke="#111" stroke-width="1.5" />
-                            <circle cx="314" cy="142" r="13" fill="#fff" stroke="#ef3724" stroke-width="1.8" />
-                            <line x1="314" y1="129" x2="314" y2="155" stroke="#ef3724" stroke-width="0.8" />
-                        </svg>
-                    </div>
-
-                    <!-- Footer curve/wave graphics at the bottom -->
-                    <svg class="left-col-wave" viewBox="0 0 500 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0,55 C150,90 280,25 390,65 L500,55 L500,80 L0,80 Z" fill="#a30f14" />
-                        <path d="M0,60 C160,93 290,30 400,68 L500,60 L500,80 L0,80 Z" fill="#ef3724" opacity="0.9" />
-                    </svg>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+    <main class="portal-login-page">
+        <section class="portal-login-shell" aria-label="Placement portal sign in">
+            <aside class="login-showcase">
+                <div class="showcase-brand">
+                    <img src="assets/images/RKU LOGO.png" alt="RK University">
+                    <div>RK UNIVERSITY<span>PLACEMENT PORTAL</span></div>
                 </div>
 
-                <!-- ==========================================
-                     RIGHT COLUMN (SIGN IN CARD)
-                     ========================================== -->
-                <div class="right-col">
-                    <h2 class="login-card-title">Sign In</h2>
-                    <div class="red-bar"></div>
-                    <p class="login-card-subtitle">Enter your credentials to access your account</p>
+                <h1 class="showcase-title">Welcome <em>Back!</em></h1>
+                <p class="showcase-text">Log in to continue your placement journey and unlock opportunities.</p>
+                <div class="showcase-line"></div>
 
-                                <div id="loginForm">
-
-                        <!-- Enrollment / Email / Username -->
-                        <div class="input-group-custom">
-                            <i class="fa-regular fa-envelope input-icon"></i>
-                            <input type="text" placeholder="Enrollment / Email / Username" required id="loginIdentifier">
-                        </div>
-
-                        <!-- Password -->
-                        <div class="input-group-custom">
-                            <i class="fa-solid fa-lock input-icon"></i>
-                            <input type="password" placeholder="Password" required id="loginPassword">
-                            <button type="button" class="eye-toggle" onclick="togglePasswordVisibility()" id="btnEyeToggle" style="border: none; background: none;">
-                                <i class="fa-regular fa-eye-slash" id="eyeIcon"></i>
-                            </button>
-                        </div>
-
-                        <!-- Options Row -->
-                        <div class="flex-row-options">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="rememberMe" checked>
-                                <label class="form-check-label" for="rememberMe">
-                                    Remember me
-                                </label>
-                            </div>
-                                <a href="ForgotPassword.aspx" class="forgot-link">Forgot Password?</a>
-                        </div>
-
-                        <!-- Sign In Button -->
-                        <button type="submit" class="btn-signin" id="btnSubmitLogin">
-                            Sign In <i class="fa-solid fa-arrow-right-long"></i>
-                        </button>
-
-                        <!-- Divider -->
-                        <div class="divider-container">
-                            <span class="divider-line"></span>
-                            <span class="divider-text">or continue with</span>
-                            <span class="divider-line"></span>
-                        </div>
-
-                        <!-- Google Sign In -->
-                        <button type="button" class="btn-google" id="btnGoogleLogin">
-                            <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
-                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05" />
-                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335" />
-                            </svg>
-                            Sign in with Google
-                        </button>
-
-                        <!-- Footer link -->
-                        <div class="register-footer-text">
-                            Don’t have an account? <a href="Register.aspx" id="linkRegister">Register Now</a>
-                        </div>
-
-                                </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Decorative dots grid bottom right -->
-        <svg class="dots-pattern-bottom-right" width="60" height="60" viewBox="0 0 60 60">
-            <rect width="60" height="60" fill="url(#dots)" />
-        </svg>
-    </section>
-</asp:Content>
-
-
-<asp:Content ID="Content7" runat="server" ContentPlaceHolderID="ContentPlaceHolder3">
-    <!-- ==========================================
-         3. FOOTER
-         ========================================== -->
-    <footer class="footer pt-5" id="siteFooter">
-        <div class="container px-lg-5">
-            <div class="row g-4 pb-5">
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer-logo d-flex align-items-center mb-3">
-                        <img src="assets/images/RKU LOGO.png" alt="RK University" class="me-2" style="height: 36px; width: auto; max-width: 220px; object-fit: contain;">
+                <div class="showcase-stats">
+                    <div class="showcase-stat">
+                        <i class="fa-solid fa-user-graduate"></i><strong>5000+</strong><span>Students Placed</span>
                     </div>
-                    <p class="mb-4">Empowering students by bridging the gap between academia and corporate world through quality training and dream placements.</p>
-                    <div class="footer-social-links" id="footerSocials">
-                        <a href="#" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" title="Twitter" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="#" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="#" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
+                    <div class="showcase-stat">
+                        <i class="fa-solid fa-building"></i><strong>300+</strong><span>Recruiters</span>
+                    </div>
+                    <div class="showcase-stat">
+                        <i class="fa-solid fa-award"></i><strong>20 LPA</strong><span>Highest Package</span>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5>Quick Links</h5>
-                    <ul class="footer-links">
-                        <li><a href="About.aspx">About Us</a></li>
-                        <li><a href="PlacementCampusDrives.aspx">Placement Drives</a></li>
-                        <li><a href="Companies.aspx">Companies</a></li>
+            </aside>
 
-                        <li><a href="Contact.aspx">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5>Students</h5>
-                    <ul class="footer-links">
-                        <li><a href="Register.aspx">Student Registration</a></li>
-                        <li><a href="#">Student Login</a></li>
-                        <li><a href="#">Available Jobs</a></li>
-                        <li><a href="#">Interview Schedule</a></li>
-                        <li><a href="#">Resume Builder</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5>Placement Cell</h5>
-                    <div class="footer-contact-info">
-                        <p><i class="fa-solid fa-location-dot"></i><span>RK University, Rajkot – 360020, Gujarat, India</span></p>
-                        <p><i class="fa-solid fa-phone"></i><span>+91 97124 89122</span></p>
-                        <p><i class="fa-solid fa-envelope"></i><a href="mailto:placement@rku.ac.in" class="text-white-50">placement@rku.ac.in</a></p>
+            <section class="login-form-panel">
+                <div class="login-form-content">
+                    <h2 class="login-heading">Sign In</h2>
+                    <p class="login-intro">Enter your credentials to access your account.</p>
+
+                    <asp:HiddenField ID="hfSelectedRole" runat="server" Value="student" />
+
+                    <label class="login-section-label">Select Role</label>
+                    <div class="login-role-buttons">
+                        <asp:Button ID="btnStudent" runat="server" Text="Student" CssClass="login-role-btn active" UseSubmitBehavior="false" OnClientClick="selectRole('student'); return false;" />
+                        <asp:Button ID="btnCompany" runat="server" Text="Company" CssClass="login-role-btn" UseSubmitBehavior="false" OnClientClick="selectRole('company'); return false;" />
+                        <asp:Button ID="btnAdmin" runat="server" Text="Admin" CssClass="login-role-btn" UseSubmitBehavior="false" OnClientClick="selectRole('admin'); return false;" />
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="container px-lg-5">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
-                        <p class="mb-0">&copy; 2026 RK University Placement Portal. All Rights Reserved.</p>
+
+                    <div class="login-field">
+                        <i class="fa-regular fa-envelope"></i>
+                        <asp:TextBox ID="txtemail" runat="server" CssClass="login-input" TextMode="Email" placeholder="Email or enrollment number" autocomplete="off"></asp:TextBox>
                     </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <div class="footer-links d-inline-flex gap-3 mb-0">
-                            <a href="#" class="text-white-50" style="font-size: 0.8rem;">Privacy Policy</a>
-                            <span class="text-white-50">|</span>
-                            <a href="#" class="text-white-50" style="font-size: 0.8rem;">Terms of Service</a>
-                        </div>
+
+                    <div class="login-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <asp:TextBox ID="txtpassword" runat="server" CssClass="login-input" TextMode="Password" placeholder="Enter your password"></asp:TextBox>
+                        <button type="button" class="password-toggle" onclick="togglePassword()" aria-label="Show or hide password"><i class="fa-regular fa-eye"></i></button>
                     </div>
+
+                    <div class="login-options">
+                        <label class="remember-login"><input type="checkbox"> Remember me</label>
+                        <a class="forgot-password" href="ForgotPassword.aspx">Forgot Password?</a>
+                    </div>
+
+                    <asp:Button ID="Button1" runat="server" Text="Sign In" CssClass="login-submit" OnClick="Button1_Click" UseSubmitBehavior="false" />
+
+                    <div class="login-divider">or continue with</div>
+                    <button type="button" class="google-signin"><i class="fa-brands fa-google"></i>Sign in with Google</button>
+                    <p class="login-register">Don't have an account? <a href="Register.aspx">Register Now</a></p>
+
+                    <div class="selected-role">Login as: <span><asp:Label ID="lblSelectedRole" runat="server" Text="Student"></asp:Label></span></div>
+                    <asp:Label ID="lblMsg" runat="server" CssClass="error-message"></asp:Label>
                 </div>
-            </div>
-        </div>
-    </footer>
+            </section>
+        </section>
+    </main>
 
-    <!-- Bootstrap 5 Bundle JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom JS -->
-    <script src="js/portal-db.js"></script>
-    <script src="js/main.js"></script>
-
-    <!-- Password visibility toggle script & Login Handling -->
     <script>
-        function ensureLoginSeed() {
-            try {
-                const usersKey = 'rku_placement_users';
-                const sessionKey = 'rku_placement_session';
-                const existingUsers = JSON.parse(localStorage.getItem(usersKey) || '[]');
-                const defaults = [
-                    { username: 'admin', password: 'admin', role: 'admin', name: 'Admin Placement Cell', email: 'placement@rku.ac.in' },
-                    { username: 'student', password: 'student', role: 'student', name: 'Raj Patel', enrollment: '20SOECE11045', email: 'student@rku.ac.in' }
-                ];
-                let changed = false;
-                defaults.forEach(user => {
-                    const idx = existingUsers.findIndex(u => u.username === user.username);
-                    if (idx === -1) {
-                        existingUsers.push(user);
-                        changed = true;
-                    } else if (!existingUsers[idx].password) {
-                        existingUsers[idx] = { ...user, ...existingUsers[idx] };
-                        changed = true;
-                    }
-                });
-                if (changed || !localStorage.getItem(usersKey)) {
-                    localStorage.setItem(usersKey, JSON.stringify(existingUsers));
-                }
-                if (!localStorage.getItem(sessionKey)) {
-                    localStorage.removeItem(sessionKey);
-                }
-            } catch (err) {
-                console.warn('Login seed fallback failed:', err);
-            }
+        function togglePassword() {
+            var password = document.getElementById('<%= txtpassword.ClientID %>');
+            var icon = document.querySelector('.password-toggle i');
+            var isPassword = password.type === 'password';
+            password.type = isPassword ? 'text' : 'password';
+            icon.className = isPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
         }
 
-        ensureLoginSeed();
+        function selectRole(role) {
+            document.getElementById('<%= hfSelectedRole.ClientID %>').value = role;
 
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('loginPassword');
-            const eyeIcon = document.getElementById('eyeIcon');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
+            var student = document.getElementById('<%= btnStudent.ClientID %>');
+            var company = document.getElementById('<%= btnCompany.ClientID %>');
+            var admin = document.getElementById('<%= btnAdmin.ClientID %>');
+            var selectedRole = document.getElementById('<%= lblSelectedRole.ClientID %>');
+
+            student.className = 'login-role-btn';
+            company.className = 'login-role-btn';
+            admin.className = 'login-role-btn';
+
+            if (role === 'student') {
+                student.className = 'login-role-btn active';
+                selectedRole.innerText = 'Student';
+            } else if (role === 'company') {
+                company.className = 'login-role-btn active';
+                selectedRole.innerText = 'Company';
             } else {
-                passwordInput.type = 'password';
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
+                admin.className = 'login-role-btn active';
+                selectedRole.innerText = 'Admin';
             }
-        }
-
-        function handleLoginSubmit(e) {
-            if (e) e.preventDefault();
-
-            const identifier = document.getElementById('loginIdentifier').value.trim().toLowerCase();
-            const password = document.getElementById('loginPassword').value.trim();
-            const sessionKey = 'rku_placement_session';
-            const usersKey = 'rku_placement_users';
-
-            const storedUsers = (() => {
-                try {
-                    return JSON.parse(localStorage.getItem(usersKey) || '[]');
-                } catch {
-                    return [];
-                }
-            })();
-
-            const matchedUser = storedUsers.find(u => {
-                const username = String(u.username || '').toLowerCase();
-                const email = String(u.email || '').toLowerCase();
-                const enrollment = String(u.enrollment || '').toLowerCase();
-                return (username === identifier || email === identifier || enrollment === identifier) && String(u.password || '') === password;
-            });
-
-            // Hard fallback for the default admin account.
-            if ((identifier === 'admin' || identifier === 'admin@rku.ac.in' || identifier === 'placement@rku.ac.in') && password === 'admin') {
-                localStorage.setItem(sessionKey, JSON.stringify({
-                    username: 'admin',
-                    role: 'admin',
-                    name: 'Admin Placement Cell',
-                    email: 'placement@rku.ac.in',
-                    isOnline: true,
-                    lastLoginAt: new Date().toISOString(),
-                    currentSessionStartedAt: new Date().toISOString()
-                }));
-                window.location.href = 'AdminDashboard.aspx';
-                return;
-            }
-
-            if ((identifier === 'student' || identifier === 'student@rku.ac.in' || identifier === '20soece11045') && password === 'student') {
-                localStorage.setItem(sessionKey, JSON.stringify({
-                    username: 'student',
-                    role: 'student',
-                    name: 'Raj Patel',
-                    enrollment: '20SOECE11045',
-                    email: 'student@rku.ac.in',
-                    isOnline: true,
-                    lastLoginAt: new Date().toISOString(),
-                    currentSessionStartedAt: new Date().toISOString()
-                }));
-                window.location.href = 'StudentDashboard.aspx';
-                return;
-            }
-
-            if (matchedUser) {
-                localStorage.setItem(sessionKey, JSON.stringify({
-                    ...matchedUser,
-                    isOnline: true,
-                    lastLoginAt: new Date().toISOString(),
-                    currentSessionStartedAt: new Date().toISOString()
-                }));
-
-                const roleLower = String(matchedUser.role || '').toLowerCase();
-                window.location.href = roleLower === 'admin'
-                    ? 'AdminDashboard.aspx'
-                    : (roleLower === 'company' ? 'CompanyOverview.aspx' : 'StudentDashboard.aspx');
-                return;
-            }
-
-            const existingAlert = document.getElementById('loginAlert');
-            if (existingAlert) existingAlert.remove();
-
-            let result = { success: false, message: 'Invalid username or password.' };
-            try {
-                if (window.PortalDB && typeof PortalDB.login === 'function') {
-                    result = PortalDB.login(identifier, password);
-                }
-            } catch (err) {
-                console.warn('PortalDB login failed, using fallback only:', err);
-            }
-
-            if (result.success) {
-                const btn = document.getElementById('btnSubmitLogin');
-                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Signing In...';
-                btn.disabled = true;
-
-                const roleLower = result.user && result.user.role ? String(result.user.role).toLowerCase() : '';
-                const nextUrl = roleLower === 'admin'
-                    ? 'AdminDashboard.aspx'
-                    : (roleLower === 'company' ? 'CompanyOverview.aspx' : 'StudentDashboard.aspx');
-
-                setTimeout(() => {
-                    window.location.href = nextUrl;
-                }, 700);
-            } else {
-                showAlert(result.message, 'danger');
-            }
-        }
-
-        document.getElementById('btnSubmitLogin').addEventListener('click', handleLoginSubmit);
-        const loginFormEl = document.getElementById('loginForm');
-        if (loginFormEl) {
-            loginFormEl.addEventListener('submit', handleLoginSubmit);
-        }
-
-        ['loginIdentifier', 'loginPassword'].forEach(id => {
-            const input = document.getElementById(id);
-            if (input) {
-                input.addEventListener('keydown', function (e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        document.getElementById('btnSubmitLogin').click();
-                    }
-                });
-            }
-        });
-
-        function showAlert(message, type) {
-            const alertDiv = document.createElement('div');
-            alertDiv.id = 'loginAlert';
-            alertDiv.className = `alert alert-${type} alert-dismissible fade show mt-3`;
-            alertDiv.role = 'alert';
-            alertDiv.innerHTML = `
-                <div>${message}</div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            `;
-            const form = document.getElementById('loginForm');
-            form.insertBefore(alertDiv, form.firstChild);
         }
     </script>
-    <!-- Code injected by live-server -->
-    <script>
-        // <![CDATA[  <-- For SVG support
-        if ('WebSocket' in window) {
-            (function () {
-                function refreshCSS() {
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-                    var head = document.getElementsByTagName("head")[0];
-                    for (var i = 0; i < sheets.length; ++i) {
-                        var elem = sheets[i];
-                        var parent = elem.parentElement || head;
-                        parent.removeChild(elem);
-                        var rel = elem.rel;
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                        }
-                        parent.appendChild(elem);
-                    }
-                }
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-                var socket = new WebSocket(address);
-                socket.onmessage = function (msg) {
-                    if (msg.data == 'reload') window.location.reload();
-                    else if (msg.data == 'refreshcss') refreshCSS();
-                };
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                    console.log('Live reload enabled.');
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                }
-            })();
-        }
-        else {
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-        }
-        // ]]>
-    </script>
-    </body>
-</html>
-
-
-
 </asp:Content>
-
-
-

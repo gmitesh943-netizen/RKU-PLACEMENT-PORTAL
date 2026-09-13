@@ -2,137 +2,30 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
 
-
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Campus Drives | RK University Placement Portal</title>
-        <meta name="description" content="Browse eligible campus drives in the RK University Student Panel.">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
-        <link href="css/student-panel.css" rel="stylesheet">
-    </head>
-    <body data-student-page="drives">
-        <script src="js/portal-db.js"></script>
-        <div class="wrapper">
-            <aside class="sidebar" id="sidebar">
-                <div>
-                    <div class="sidebar-brand d-flex align-items-center">
-                        <img src="assets/images/white logo rku.png" alt="RK University" class="me-2" style="height: 150px; width: auto; max-width: 200px; object-fit: contain;">
-                    </div>
-                    <ul class="sidebar-menu">
-                        <li class="sidebar-item" data-page="overview"><a href="StudentDashboard.aspx"><i class="fa-solid fa-gauge"></i>Overview</a></li>
-                        <li class="sidebar-item" data-page="profile"><a href="StudentProfile.aspx"><i class="fa-regular fa-user"></i>My Profile</a></li>
-                        <li class="sidebar-item active" data-page="drives"><a href="StudentDrives.aspx"><i class="fa-regular fa-building"></i>Campus Drives</a></li>
-                        <li class="sidebar-item" data-page="applications"><a href="StudentApplications.aspx"><i class="fa-solid fa-briefcase"></i>My Applications</a></li>
-                        <li class="sidebar-item" data-page="training"><a href="StudentTraining.aspx"><i class="fa-solid fa-graduation-cap"></i>Training Hub</a></li>
-                    </ul>
+    <div class="dashboard-card drive-filter-shell mb-4">
+        <div class="row g-3 align-items-center">
+            <div class="col-lg-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                    <input type="text" class="form-control" id="driveSearchInput" placeholder="Search Company or Role..." onkeyup="filterDrives()">
                 </div>
-                <div class="sidebar-footer">
-                    <a href="#" class="btn btn-outline-light btn-sm w-100 py-2 border-0" onclick="handleLogout()"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Sign Out</a>
-                </div>
-            </aside>
-
-            <div class="main-panel">
-                <header class="top-navbar d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                        <button class="btn btn-sm d-lg-none me-3 fs-4 border-0" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
-                        <h4 class="mb-0 text-dark fw-bold page-title" id="panelTitle">Campus Drives</h4>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="dropdown">
-                            <button class="btn border-0 position-relative p-2" type="button" data-bs-toggle="dropdown">
-                                <i class="fa-regular fa-bell fs-5"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-rku-red border border-light rounded-circle d-none" id="notifBadge"></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end p-2" id="notificationDropdownList" style="width: 320px;"></ul>
-                        </div>
-                        <span class="vertical-divider mx-2 d-none d-sm-block" style="border-left: 1px solid #cbd5e1; height: 24px;"></span>
-                        <div class="d-flex align-items-center text-end">
-                            <div class="d-none d-sm-block me-2">
-                                <div class="fw-semibold text-dark" id="headerStudentName">Student Name</div>
-                                <div class="text-muted small" id="headerStudentEnroll">Enrollment No</div>
-                            </div>
-                            <div class="avatar-circle bg-rku-maroon text-white fw-bold rounded-circle d-flex align-items-center justify-content-center" id="avatarBadge" style="width: 40px; height: 40px; font-size: 1rem;">SP</div>
-                        </div>
-                    </div>
-                </header>
-
-                <main class="content-container">
-                    <div class="dashboard-card drive-filter-shell mb-4">
-                        <div class="row g-3 align-items-center">
-                            <div class="col-lg-5">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-white"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-                                    <input type="text" class="form-control" id="driveSearchInput" placeholder="Search Company or Role..." onkeyup="filterDrives()">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <select class="form-select" id="driveEligibilityFilter" onchange="filterDrives()">
-                                    <option value="all">All Drives</option>
-                                    <option value="eligible">Eligible Drives Only</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-4 text-lg-end">
-                                <div class="text-muted small mb-1">Browse drives matched to your profile</div>
-                                <div class="fw-bold text-rku-maroon" id="driveCountLabel">All Open Drives</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row g-4" id="drivesGrid"></div>
-                </main>
+            </div>
+            <div class="col-lg-3">
+                <select class="form-select" id="driveEligibilityFilter" onchange="filterDrives()">
+                    <option value="all">All Drives</option>
+                    <option value="eligible">Eligible Drives Only</option>
+                </select>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="text-muted small mb-1">Browse drives matched to your profile</div>
+                <div class="fw-bold text-rku-maroon" id="driveCountLabel">All Open Drives</div>
             </div>
         </div>
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="js/student-panel.js"></script>
-        <!-- Code injected by live-server -->
-        <script>
-            // <![CDATA[  <-- For SVG support
-            if ('WebSocket' in window) {
-                (function () {
-                    function refreshCSS() {
-                        var sheets = [].slice.call(document.getElementsByTagName("link"));
-                        var head = document.getElementsByTagName("head")[0];
-                        for (var i = 0; i < sheets.length; ++i) {
-                            var elem = sheets[i];
-                            var parent = elem.parentElement || head;
-                            parent.removeChild(elem);
-                            var rel = elem.rel;
-                            if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                                var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                                elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                            }
-                            parent.appendChild(elem);
-                        }
-                    }
-                    var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                    var address = protocol + window.location.host + window.location.pathname + '/ws';
-                    var socket = new WebSocket(address);
-                    socket.onmessage = function (msg) {
-                        if (msg.data == 'reload') window.location.reload();
-                        else if (msg.data == 'refreshcss') refreshCSS();
-                    };
-                    if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                        console.log('Live reload enabled.');
-                        sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                    }
-                })();
-            }
-            else {
-                console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-            }
-            // ]]>
-        </script>
-    </body>
-    </html>
+    <div class="row g-4" id="drivesGrid"></div>
 
 </asp:Content>
-
