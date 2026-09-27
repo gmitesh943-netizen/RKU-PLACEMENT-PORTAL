@@ -170,6 +170,7 @@
     <Content Include="assets\images\team_tpo_profile.png" />
     <Content Include="assets\images\white logo rku.png" />
     <Content Include="Companies.aspx" />
+    <Content Include="CompanyManageDrives.aspx" />
     <Content Include="CompanyOverview.aspx" />
     <Content Include="CompanyProfile.aspx" />
     <Content Include="CompanyStudentDirectory.aspx" />
@@ -280,6 +281,13 @@
     </Compile>
     <Compile Include="Company-Panel.Master.designer.cs">
       <DependentUpon>Company-Panel.Master</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyManageDrives.aspx.cs">
+      <DependentUpon>CompanyManageDrives.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyManageDrives.aspx.designer.cs">
+      <DependentUpon>CompanyManageDrives.aspx</DependentUpon>
     </Compile>
     <Compile Include="CompanyOverview.aspx.cs">
       <DependentUpon>CompanyOverview.aspx</DependentUpon>
@@ -449,6 +457,7 @@
     <Folder Include=".git\" />
     <Folder Include="App_Data\" />
     <Folder Include="assets\Certificates\" />
+    <Folder Include="assets\PlacmentStudentImage\" />
     <Folder Include="assets\ProfilePhotos\" />
     <Folder Include="assets\Results\" />
   </ItemGroup>

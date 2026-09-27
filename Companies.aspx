@@ -993,7 +993,8 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            renderCompaniesGrid();
+            // Data is loaded dynamically via DataList from SQL Database
+            // renderCompaniesGrid();
         });
     </script>
     <!-- Code injected by live-server -->
@@ -1081,17 +1082,17 @@
             <!-- Hero Search -->
             <div class="hero-search-box mt-4" style="margin-left: 0;">
                 <i class="fa-solid fa-magnifying-glass text-white-50 ps-2 align-self-center"></i>
-                <input type="text" class="hero-search-input" placeholder="Search company name, role, or industry..." id="heroSearchInput">
-                <select class="hero-search-select" id="heroSearchIndustry">
-                    <option value="">All Industries</option>
-                    <option value="it">IT / Software</option>
-                    <option value="mnc">MNC</option>
-                    <option value="consulting">Consulting</option>
-                    <option value="finance">Finance</option>
-                    <option value="fmcg">FMCG</option>
-                    <option value="manufacturing">Manufacturing</option>
-                </select>
-                <button class="btn btn-rku" style="white-space: nowrap;" id="heroSearchBtn">Search</button>
+                <asp:TextBox ID="txtSearch" runat="server" CssClass="hero-search-input" placeholder="Search company name, role, or industry..."></asp:TextBox>
+                <asp:DropDownList ID="ddlIndustry" runat="server" CssClass="hero-search-select">
+                    <asp:ListItem Value="">All Industries</asp:ListItem>
+                    <asp:ListItem Value="IT">IT / Software</asp:ListItem>
+                    <asp:ListItem Value="MNC">MNC</asp:ListItem>
+                    <asp:ListItem Value="Consulting">Consulting</asp:ListItem>
+                    <asp:ListItem Value="Finance">Finance</asp:ListItem>
+                    <asp:ListItem Value="FMCG">FMCG</asp:ListItem>
+                    <asp:ListItem Value="Manufacturing">Manufacturing</asp:ListItem>
+                </asp:DropDownList>
+                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-rku" style="white-space: nowrap;" />
             </div>
         </div>
     </section>
@@ -1154,8 +1155,46 @@
                 </div>
             </div>
 
-            <div class="row g-4" id="companyGrid">
-                <!-- Loaded dynamically from PortalDB -->
+            <div id="companyGrid">
+                <asp:DataList ID="DataList1" runat="server" RepeatColumns="3" RepeatDirection="Horizontal" Width="100%">
+                    <ItemStyle Width="33.33%" VerticalAlign="Top" CssClass="p-2" />
+                    <ItemTemplate>
+                        <div class="featured-company-card h-100" style="position:relative;">
+                            <span style="font-size:0.65rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border-radius:20px;padding:0.2rem 0.6rem;font-weight:700;position:absolute;top:10px;left:10px;z-index:2;">
+                                <i class="fa-solid fa-circle-check me-1"></i>Registered Partner
+                            </span>
+                            <div class="company-logo-wrap">
+                                <img src='<%# string.IsNullOrEmpty(Convert.ToString(Eval("compLogo"))) ? "assets/images/RKU LOGO.png" : (Convert.ToString(Eval("compLogo")).StartsWith("data:") ? Convert.ToString(Eval("compLogo")) : "CompanyUploads/" + Eval("compLogo")) %>' alt='<%# Eval("compName") %>' style="width:100%;height:100%;object-fit:contain;" />
+                            </div>
+                            <div>
+                                <span class="company-type-badge badge-it"><i class="fa-solid fa-circle-dot" style="font-size:0.6rem;"></i> <%# Eval("compIndustry") %></span>
+                            </div>
+                            <h3 class="company-name"><%# Eval("compName") %></h3>
+                            <p class="company-tagline"><%# Eval("compTagline") %></p>
+                            <p class="company-desc"><%# Eval("compDescription") %></p>
+                            <div class="company-meta-row">
+                                <span class="cmeta"><i class="fa-solid fa-location-dot"></i> <%# Eval("compLocation") %></span>
+                            </div>
+                            <div class="pkg-range">
+                                <div>
+                                    <div class="pkg-label">Package Range</div>
+                                    <div class="pkg-value"><%# Eval("compPackageRange") %></div>
+                                </div>
+                                <div>
+                                    <div class="pkg-label">Hiring For</div>
+                                    <div style="font-size:0.82rem;font-weight:700;color:#555;">Various</div>
+                                </div>
+                            </div>
+                            <div class="company-tags">
+                                <%# Eval("compTags") %>
+                            </div>
+                            <div class="company-card-actions">
+                                <button type="button" class="btn-view-profile" onclick="openCompanyModal('<%# Eval("id") %>')">View Profile</button>
+                                <a href="Login.aspx" class="btn-apply-now">Apply Now</a>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:DataList>
             </div>
             <!-- /row -->
 

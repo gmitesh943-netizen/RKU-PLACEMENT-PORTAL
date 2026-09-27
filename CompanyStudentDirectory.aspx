@@ -5,14 +5,35 @@
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
 
+    <!-- Hero Section -->
+    <div class="company-hero-card mb-4">
+        <div class="row align-items-center g-3">
+            <div class="col-lg-8">
+                <div class="company-hero-kicker">TALENT POOL</div>
+                <h2 class="mb-1">Student Directory</h2>
+                <p>Browse registered students, filter by academic branch &amp; skills, inspect detailed profiles, and issue placement drive invitations.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="CompanyManageDrives.aspx" class="btn btn-rku px-4 py-2">
+                    <i class="fa-solid fa-bullhorn me-2"></i>Campus Drives
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="dashboard-card">
         <div class="row g-3 mb-4 justify-content-between align-items-center">
             <div class="col-md-5">
-                <h5 class="fw-bold mb-0">Registered Student Directory</h5>
+                <h5 class="fw-bold mb-0 text-dark font-heading">
+                    <i class="fa-solid fa-users text-rku-maroon me-2"></i>Registered Students
+                </h5>
             </div>
-            <div class="col-md-7 d-flex gap-2">
-                <input type="text" class="form-control form-control-sm" id="studentSearchInput" placeholder="Search by name, roll, email..." onkeyup="filterStudentTable()">
-                <select class="form-select form-select-sm" id="studentBranchFilter" onchange="filterStudentTable()" style="max-width: 180px;">
+            <div class="col-md-7 d-flex gap-2 flex-wrap flex-sm-nowrap">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" class="form-control form-control-sm border-start-0" id="studentSearchInput" placeholder="Search by name, roll, email..." onkeyup="filterStudentTable()">
+                </div>
+                <select class="form-select form-select-sm" id="studentBranchFilter" onchange="filterStudentTable()" style="min-width: 150px; max-width: 180px;">
                     <option value="all">All Branches</option>
                     <option value="Computer Engineering">CE</option>
                     <option value="Information Technology">IT</option>
@@ -24,20 +45,59 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th>Enrollment</th>
-                        <th>Student Details</th>
-                        <th>Branch &amp; GPA</th>
-                        <th>Registered Skills</th>
-                        <th>Resume</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody id="studentTableBody">
-                </tbody>
-            </table>
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="100%"
+                CssClass="table table-hover align-middle mb-0 custom-gridview" GridLines="None" UseAccessibleHeader="true"
+                OnRowDataBound="GridView1_RowDataBound">
+                <HeaderStyle CssClass="table-light text-muted small fw-bold" />
+                <Columns>
+                    <asp:TemplateField HeaderText="Enrollment">
+                        <ItemTemplate>
+                            <span class="fw-bold font-monospace small text-dark"><%# Eval("regRollNo") != DBNull.Value && !string.IsNullOrEmpty(Eval("regRollNo").ToString()) ? Eval("regRollNo") : Eval("regUsername") %></span>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Student Details">
+                        <ItemTemplate>
+                            <div class="fw-bold font-heading text-dark"><%# Eval("regFullName") %></div>
+                            <div class="text-muted small"><%# Eval("regEmail") %> &bull; <%# Eval("regMobile") %></div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Branch &amp; GPA">
+                        <ItemTemplate>
+                            <div class="fw-bold font-heading text-dark"><%# GetBranch(Eval("regUsername")) %></div>
+                            <div class="text-muted small">CGPA: <%# GetCgpa(Eval("regUsername")) %> &bull; Backlogs: <%# GetBacklogs(Eval("regUsername")) %></div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Registered Skills">
+                        <ItemTemplate>
+                            <div style="max-width: 250px; overflow-wrap: break-word;">
+                                <%# GetSkillsBadgeHtml(Eval("regUsername")) %>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Resume">
+                        <ItemTemplate>
+                            <a href="#" onclick="alert('Downloading resume PDF for <%# Eval("regFullName") %> (Simulated)'); return false;" class="btn btn-outline-danger btn-sm py-1 border-0" title="View Resume">
+                                <i class="fa-solid fa-file-pdf fs-5 text-danger"></i>
+                            </a>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Action" ItemStyle-CssClass="text-center">
+                        <ItemTemplate>
+                            <div class="d-flex justify-content-center gap-1">
+                                <button type="button" class="btn btn-outline-info btn-sm border-0" onclick="viewStudentFullProfile('<%# Eval("regUsername") %>', '<%# Eval("regFullName") %>', '<%# Eval("regEmail") %>', '<%# Eval("regMobile") %>', '<%# Eval("regRollNo") %>')" title="View Full Profile">
+                                    <i class="fa-solid fa-id-card me-1"></i>Profile
+                                </button>
+                                <button type="button" class="btn btn-outline-primary btn-sm border-0" onclick="openSendMailModal('<%# Eval("regUsername") %>', '<%# Eval("regFullName") %>', '<%# Eval("regEmail") %>')" title="Send Placement Invite">
+                                    <i class="fa-regular fa-paper-plane me-1"></i>Invite
+                                </button>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+                <EmptyDataTemplate>
+                    <div class="text-center text-muted small py-4">No registered students found in database.</div>
+                </EmptyDataTemplate>
+            </asp:GridView>
         </div>
     </div>
 

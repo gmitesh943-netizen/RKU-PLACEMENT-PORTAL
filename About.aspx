@@ -110,7 +110,7 @@
         function renderDynamicAboutData() {
             const companies = PortalDB.getCompanies();
             const recruitersTrack = document.getElementById('aboutRecruitersTrack');
-            renderPlacementTeamSection();
+            // Placement team rendered via ASP.NET DataList control server-side
 
             if (recruitersTrack && companies.length > 0) {
                 let trackHtml = '';
@@ -435,6 +435,142 @@
          ========================================== -->
     <section class="py-5" id="placementSuccessSection">
         <div class="container px-lg-5">
+            <style>
+                .pss-navy-box {
+                    background-color: #0c1a30 !important;
+                    border-radius: 16px !important;
+                    padding: 2.2rem !important;
+                    color: #fff !important;
+                    box-shadow: 0 10px 30px rgba(12, 26, 48, 0.2) !important;
+                }
+                .pss-header {
+                    display: flex !important;
+                    justify-content: space-between !important;
+                    align-items: center !important;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+                    padding-bottom: 0.8rem !important;
+                    margin-bottom: 1.5rem !important;
+                }
+                .pss-title {
+                    font-family: var(--font-heading) !important;
+                    font-weight: 800 !important;
+                    font-size: 1.4rem !important;
+                    color: #fff !important;
+                    margin: 0 !important;
+                }
+                .pss-view-all {
+                    color: rgba(255, 255, 255, 0.7) !important;
+                    font-weight: 700 !important;
+                    font-size: 0.88rem !important;
+                    text-decoration: none !important;
+                }
+                .pss-datalist-table {
+                    width: 100% !important;
+                    border-collapse: separate !important;
+                    border-spacing: 1.25rem 0px !important;
+                    margin-top: 1rem !important;
+                }
+                .pss-datalist-table > tbody > tr > td {
+                    width: 33.333% !important;
+                    vertical-align: top !important;
+                    padding: 0 !important;
+                }
+                .pss-card-item {
+                    background: #ffffff !important;
+                    border-radius: 16px !important;
+                    overflow: hidden !important;
+                    display: flex !important;
+                    flex-direction: row !important;
+                    position: relative !important;
+                    padding-bottom: 48px !important;
+                    height: 100% !important;
+                    min-height: 200px !important;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+                    border: none !important;
+                }
+                .pss-photo-col {
+                    width: 44% !important;
+                    padding: 0.85rem 0.5rem 0.85rem 0.85rem !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                }
+                .pss-photo {
+                    width: 115px !important;
+                    height: 115px !important;
+                    object-fit: cover !important;
+                    border-radius: 40% !important;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+                }
+                .pss-info-col {
+                    width: 56% !important;
+                    padding: 1rem 0.85rem 0.85rem 0.2rem !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    justify-content: center !important;
+                }
+                .pss-name {
+                    font-family: var(--font-heading) !important;
+                    font-weight: 800 !important;
+                    font-size: 1.08rem !important;
+                    color: #1a202c !important;
+                    margin-bottom: 0.15rem !important;
+                    line-height: 1.2 !important;
+                }
+                .pss-course {
+                    font-size: 0.84rem !important;
+                    color: #718096 !important;
+                    font-weight: 600 !important;
+                    margin-bottom: 0.5rem !important;
+                }
+                .pss-placed-label {
+                    font-size: 0.64rem !important;
+                    color: #a0aec0 !important;
+                    font-weight: 800 !important;
+                    text-transform: uppercase !important;
+                    letter-spacing: 0.5px !important;
+                    margin-bottom: 0.2rem !important;
+                }
+                .pss-logo {
+                    width: 100% !important;
+                    max-width: 110px !important;
+                    height: 26px !important;
+                    margin-top: 0.1rem !important;
+                }
+                .pss-pkg-footer {
+                    position: absolute !important;
+                    bottom: 0 !important;
+                    left: 0 !important;
+                    width: 100% !important;
+                    background-color: #ef3724 !important;
+                    color: #ffffff !important;
+                    padding: 0.4rem 1rem !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: flex-start !important;
+                    border-bottom-left-radius: 16px !important;
+                    border-bottom-right-radius: 16px !important;
+                }
+                .pss-pkg-num {
+                    font-family: var(--font-heading) !important;
+                    font-weight: 800 !important;
+                    font-size: 1.05rem !important;
+                    line-height: 1.1 !important;
+                }
+                .pss-pkg-label {
+                    font-size: 0.6rem !important;
+                    font-weight: 700 !important;
+                    text-transform: uppercase !important;
+                    letter-spacing: 0.5px !important;
+                    opacity: 0.95 !important;
+                }
+                @media (max-width: 991.98px) {
+                    .pss-datalist-table {
+                        border-spacing: 0.75rem 0px !important;
+                    }
+                }
+            </style>
+
             <div class="pss-navy-box" id="successNavyBox">
 
                 <!-- Header -->
@@ -444,89 +580,29 @@
                     </a>
                 </div>
 
-                <!-- 3 Cards Row -->
-                <div class="row g-4 mt-1">
-
-                    <!-- Student 1: Krish Patel -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="pss-card" id="studentCard1">
+                <!-- Placement Success Stories Horizontal 3-Column DataList -->
+                <asp:DataList ID="DataListSuccess" runat="server" RepeatDirection="Horizontal" RepeatColumns="3" RepeatLayout="Table" Width="100%" CssClass="pss-datalist-table">
+                    <ItemTemplate>
+                        <div class="pss-card pss-card-item">
                             <!-- Photo -->
                             <div class="pss-photo-col">
-                                <img src="assets/images/student_new_1.png" alt="Krishna" class="pss-photo">
+                                <img src='<%# ResolveUrl(Eval("StudentPhoto").ToString()) %>' alt='<%# Eval("StudentName") %>' class="pss-photo" />
                             </div>
                             <!-- Info -->
                             <div class="pss-info-col">
-                                <div class="pss-name">Krishna</div>
-                                <div class="pss-course">BCA</div>
+                                <div class="pss-name"><%# Eval("StudentName") %></div>
+                                <div class="pss-course"><%# Eval("DegreeBranch") %></div>
                                 <div class="pss-placed-label">Placed at</div>
-                                <!-- TCS Logo SVG -->
-                                <svg viewBox="0 0 220 55" class="pss-logo" aria-label="TCS">
-                                    <text x="2" y="38" font-family="Arial,sans-serif" font-weight="900" font-size="38" fill="#ef3724">tcs</text>
-                                    <text x="60" y="22" font-family="Arial,sans-serif" font-weight="700" font-size="8" fill="#fff" letter-spacing="1">TATA CONSULTANCY</text>
-                                    <text x="60" y="33" font-family="Arial,sans-serif" font-weight="700" font-size="8" fill="#fff" letter-spacing="1">SERVICES</text>
-                                </svg>
+                                <div class="pss-recruiter-name" style="color: #ef3724; font-weight: 800; font-size: 1.15rem; font-family: var(--font-heading); margin-top: 2px;"><%# Eval("Recruiter") %></div>
                             </div>
                             <!-- Red Footer -->
                             <div class="pss-pkg-footer">
-                                <div class="pss-pkg-num">12 LPA</div>
+                                <div class="pss-pkg-num"><%# Eval("Package") %></div>
                                 <div class="pss-pkg-label">Package</div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Student 2: Disha Shah -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="pss-card" id="studentCard2">
-                            <!-- Photo -->
-                            <div class="pss-photo-col">
-                                <img src="assets/images/student_new_2.png" alt="Disha Shah" class="pss-photo">
-                            </div>
-                            <!-- Info -->
-                            <div class="pss-info-col">
-                                <div class="pss-name">Disha Shah</div>
-                                <div class="pss-course">MCA</div>
-                                <div class="pss-placed-label">Placed at</div>
-                                <!-- Infosys Logo SVG -->
-                                <svg viewBox="0 0 200 45" class="pss-logo" aria-label="Infosys">
-                                    <text x="2" y="36" font-family="Arial,sans-serif" font-weight="800" font-size="34" fill="#fff" letter-spacing="-1">Infosys</text>
-                                </svg>
-                            </div>
-                            <!-- Red Footer -->
-                            <div class="pss-pkg-footer">
-                                <div class="pss-pkg-num">9 LPA</div>
-                                <div class="pss-pkg-label">Package</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Student 3: Harshil Mehta -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="pss-card" id="studentCard3">
-                            <!-- Photo -->
-                            <div class="pss-photo-col">
-                                <img src="assets/images/student_new_3.png" alt="Harshil Mehta" class="pss-photo">
-                            </div>
-                            <!-- Info -->
-                            <div class="pss-info-col">
-                                <div class="pss-name">Harshil Mehta</div>
-                                <div class="pss-course">B.Tech IT</div>
-                                <div class="pss-placed-label">Placed at</div>
-                                <!-- Wipro Logo SVG -->
-                                <svg viewBox="0 0 180 45" class="pss-logo" aria-label="Wipro">
-                                    <circle cx="14" cy="22" r="12" fill="none" stroke="#9b59b6" stroke-width="3" />
-                                    <circle cx="14" cy="22" r="6" fill="#9b59b6" />
-                                    <text x="30" y="32" font-family="Arial,sans-serif" font-weight="700" font-size="26" fill="#fff">wipro</text>
-                                </svg>
-                            </div>
-                            <!-- Red Footer -->
-                            <div class="pss-pkg-footer">
-                                <div class="pss-pkg-num">8 LPA</div>
-                                <div class="pss-pkg-label">Package</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                    </ItemTemplate>
+                </asp:DataList>
             </div>
         </div>
     </section>
@@ -750,13 +826,132 @@
                 </p>
             </div>
 
-            <div class="row g-4 align-items-start mt-2" id="placementTeamBoard">
-                <div class="col-lg-4">
-                    <div id="teamFeaturedMember"></div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="row g-3 g-xl-4" id="teamMiniMembers"></div>
-                </div>
+            <style>
+                .placement-team-grid {
+                    display: grid !important;
+                    grid-template-columns: 1.15fr 1fr 1fr !important;
+                    grid-template-rows: 1fr 1fr !important;
+                    gap: 1.25rem !important;
+                    width: 100% !important;
+                    margin-top: 1rem !important;
+                }
+                .placement-team-grid .placement-featured {
+                    grid-column: 1 !important;
+                    grid-row: 1 / 3 !important;
+                    height: 100% !important;
+                }
+                .placement-team-grid .member-1 {
+                    grid-column: 2 !important;
+                    grid-row: 1 !important;
+                    height: 100% !important;
+                }
+                .placement-team-grid .member-2 {
+                    grid-column: 3 !important;
+                    grid-row: 1 !important;
+                    height: 100% !important;
+                }
+                .placement-team-grid .member-3 {
+                    grid-column: 2 !important;
+                    grid-row: 2 !important;
+                    height: 100% !important;
+                }
+                .placement-team-grid .member-4 {
+                    grid-column: 3 !important;
+                    grid-row: 2 !important;
+                    height: 100% !important;
+                }
+                @media (max-width: 991.98px) {
+                    .placement-team-grid {
+                        grid-template-columns: 1fr 1fr !important;
+                        grid-template-rows: auto !important;
+                    }
+                    .placement-team-grid .placement-featured {
+                        grid-column: 1 / span 2 !important;
+                        grid-row: auto !important;
+                    }
+                    .placement-team-grid .member-1 {
+                        grid-column: 1 !important;
+                        grid-row: auto !important;
+                    }
+                    .placement-team-grid .member-2 {
+                        grid-column: 2 !important;
+                        grid-row: auto !important;
+                    }
+                    .placement-team-grid .member-3 {
+                        grid-column: 1 !important;
+                        grid-row: auto !important;
+                    }
+                    .placement-team-grid .member-4 {
+                        grid-column: 2 !important;
+                        grid-row: auto !important;
+                    }
+                }
+                @media (max-width: 575.98px) {
+                    .placement-team-grid {
+                        grid-template-columns: 1fr !important;
+                        grid-template-rows: auto !important;
+                    }
+                    .placement-team-grid .placement-featured,
+                    .placement-team-grid .member-1,
+                    .placement-team-grid .member-2,
+                    .placement-team-grid .member-3,
+                    .placement-team-grid .member-4 {
+                        grid-column: auto !important;
+                        grid-row: auto !important;
+                    }
+                }
+            </style>
+
+            <div class="w-100" id="placementTeamBoard">
+                <asp:DataList ID="DataList1" runat="server" RepeatLayout="Flow" CssClass="placement-team-grid" OnItemDataBound="DataList1_ItemDataBound">
+                    <ItemTemplate>
+
+                        <%-- Item 0: Lead Coordinator Card (Col 1, Row 1..2) --%>
+                        <asp:PlaceHolder ID="phLead" runat="server" Visible='<%# Container.ItemIndex == 0 %>'>
+                            <article class="team-feature-card h-100">
+                                <div class="team-feature-media">
+                                    <img src='<%# ResolveUrl(Eval("MemberPhoto").ToString()) %>' alt='<%# Eval("MemberName") %>' loading="lazy" decoding="async" />
+                                </div>
+                                <div class="team-feature-body">
+                                    <span class="team-count-badge">LEAD COORDINATOR</span>
+                                    <h4><%# Eval("MemberName") %></h4>
+                                    <p class="team-feature-role" style="color: var(--rku-red); font-weight: 600;"><%# Eval("MemberRole") %></p>
+                                    <p class="team-feature-desc"><%# Eval("MemberDesc") %></p>
+                                    <div class="team-contact-list">
+                                        <div class="team-contact-item" id="divMobile" runat="server" visible='<%# !string.IsNullOrEmpty(Eval("MemberMobile").ToString()) %>'>
+                                            <i class="fa-solid fa-phone"></i>
+                                            <span><%# Eval("MemberMobile") %></span>
+                                        </div>
+                                        <div class="team-contact-item" id="divEmail" runat="server" visible='<%# !string.IsNullOrEmpty(Eval("MemberEmail").ToString()) %>'>
+                                            <i class="fa-solid fa-envelope"></i>
+                                            <span><%# Eval("MemberEmail") %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </asp:PlaceHolder>
+
+                        <%-- Items 1..4: Mini Member Cards (Col 2 & 3, Row 1 & 2) --%>
+                        <asp:PlaceHolder ID="phMember" runat="server" Visible='<%# Container.ItemIndex > 0 %>'>
+                            <article class="team-mini-card h-100">
+                                <div class="team-mini-photo">
+                                    <img src='<%# ResolveUrl(Eval("MemberPhoto").ToString()) %>' alt='<%# Eval("MemberName") %>' loading="lazy" decoding="async" />
+                                </div>
+                                <div class="team-mini-content">
+                                    <h5><%# Eval("MemberName") %></h5>
+                                    <p class="team-mini-role"><%# Eval("MemberRole") %></p>
+                                    <div class="team-mini-meta">
+                                        <div class="team-mini-meta-item">
+                                            <i class="fa-solid fa-check text-danger me-1"></i>
+                                            <span><%# Eval("MemberDesc") %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </asp:PlaceHolder>
+
+                    </ItemTemplate>
+                </asp:DataList>
             </div>
         </div>
     </section>

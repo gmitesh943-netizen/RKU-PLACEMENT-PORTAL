@@ -1,301 +1,199 @@
 <%@ Page Title="My Company Profile | RKU Placement Portal" Language="C#" MasterPageFile="~/Company-Panel.Master" AutoEventWireup="true" CodeBehind="CompanyProfile.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.CompanyProfile" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .company-hero-card {
+            background: #ffffff;
+            border: 1px solid #eef0f3;
+            border-radius: 18px;
+            padding: 1.5rem 1.75rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .company-hero-kicker {
+            font-size: 0.75rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--rku-red);
+            font-weight: 800;
+            margin-bottom: 0.35rem;
+        }
+
+        .company-hero-card h2 {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            color: #111;
+        }
+
+        .form-section-title {
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            color: var(--rku-maroon);
+            margin-bottom: 1rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .company-logo-placeholder {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--rku-red), var(--rku-maroon));
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin: 0 auto;
+            font-family: 'Outfit', sans-serif;
+            box-shadow: 0 4px 15px rgba(163, 15, 20, 0.2);
+        }
+
+        .btn-rku {
+            background: linear-gradient(135deg, var(--rku-red), var(--rku-maroon));
+            color: #fff !important;
+            border: none;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .btn-rku:hover {
+            background: linear-gradient(135deg, var(--rku-maroon), #8b0b0f);
+            color: #fff !important;
+            box-shadow: 0 4px 12px rgba(163, 15, 20, 0.25);
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
 
-    <div class="row g-4">
-        <!-- Left: Logo & Quick Info Preview -->
-        <div class="col-lg-4">
-            <div class="dashboard-card text-center">
-                <div class="mb-3" id="profileLogoDisplay">
-                </div>
-                <h5 class="fw-bold font-heading mb-1" id="profileDisplayName">Company Name</h5>
-                <div class="text-muted small mb-3" id="profileDisplayIndustry">Industry</div>
-                <div class="text-muted small">
-                    <i class="fa-solid fa-location-dot me-1 text-rku-red"></i><span id="profileDisplayLocation">Location</span>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-center gap-3 text-center small">
-                    <div>
-                        <div class="fw-bold text-dark fs-5" id="profileDisplayPackage">-</div>
-                        <div class="text-muted">Package Range</div>
-                    </div>
-                    <div>
-                        <div class="fw-bold text-dark fs-5" id="profileDisplayRoles">-</div>
-                        <div class="text-muted">Open Roles</div>
-                    </div>
-                </div>
+    <!-- Hero Section -->
+    <div class="company-hero-card mb-4">
+        <div class="row align-items-center g-3">
+            <div class="col-lg-8">
+                <div class="company-hero-kicker">PROFILE MANAGEMENT</div>
+                <h2 class="mb-1">My Company Profile</h2>
+                <p class="text-muted mb-0">Manage your organization profile, company logo, industry details, package ranges, and hiring tags.</p>
             </div>
-        </div>
-
-        <!-- Right: Edit Form -->
-        <div class="col-lg-8">
-            <div class="dashboard-card">
-                <h5 class="fw-bold font-heading text-dark mb-4"><i class="fa-solid fa-pen-to-square me-2 text-rku-red"></i>Edit Company Profile</h5>
-                <form id="companyProfileForm" onsubmit="saveCompanyProfile(event)">
-
-                    <!-- Logo Upload Zone -->
-                    <div class="mb-4">
-                        <label class="form-label text-muted small fw-bold">Company Logo</label>
-                        <div class="company-logo-upload-zone" id="logoUploadZone" onclick="document.getElementById('companyLogoInput').click()">
-                            <i class="fa-solid fa-cloud-arrow-up fa-2x text-muted mb-2"></i>
-                            <p class="text-muted small mb-0">Click to upload company logo<br>
-                                <span style="font-size: 0.75rem;">PNG, JPG, SVG (max 1MB)</span></p>
-                        </div>
-                        <input type="file" id="companyLogoInput" accept="image/*" class="d-none" onchange="handleLogoUpload(event)">
-                        <input type="hidden" id="companyLogoBase64">
-                    </div>
-
-                    <!-- Company Name -->
-                    <div class="mb-3">
-                        <label class="form-label text-muted small fw-bold">Company Name *</label>
-                        <input type="text" class="form-control" id="cpName" placeholder="e.g. Tata Consultancy Services" required oninput="updatePreview()">
-                    </div>
-
-                    <!-- Tagline -->
-                    <div class="mb-3">
-                        <label class="form-label text-muted small fw-bold">Tagline / Motto</label>
-                        <input type="text" class="form-control" id="cpTagline" placeholder="e.g. Building on belief">
-                    </div>
-
-                    <!-- Description -->
-                    <div class="mb-3">
-                        <label class="form-label text-muted small fw-bold">Company Description</label>
-                        <textarea class="form-control" id="cpDescription" rows="3" placeholder="Briefly describe what your company does..."></textarea>
-                    </div>
-
-                    <div class="row g-3 mb-3">
-                        <!-- Industry -->
-                        <div class="col-md-6">
-                            <label class="form-label text-muted small fw-bold">Industry</label>
-                            <select class="form-select" id="cpIndustry" onchange="updatePreview()">
-                                <option value="it">IT / Software</option>
-                                <option value="mnc">MNC</option>
-                                <option value="consulting">Consulting</option>
-                                <option value="finance">Finance / Banking</option>
-                                <option value="fmcg">FMCG</option>
-                                <option value="manufacturing">Manufacturing</option>
-                            </select>
-                        </div>
-                        <!-- Location -->
-                        <div class="col-md-6">
-                            <label class="form-label text-muted small fw-bold">Location (HQ)</label>
-                            <input type="text" class="form-control" id="cpLocation" placeholder="e.g. Mumbai, India" oninput="updatePreview()">
-                        </div>
-                    </div>
-
-                    <div class="row g-3 mb-3">
-                        <!-- Package Range -->
-                        <div class="col-md-6">
-                            <label class="form-label text-muted small fw-bold">Package Range</label>
-                            <input type="text" class="form-control" id="cpPackageRange" placeholder="e.g. 3.5 LPA - 12 LPA" oninput="updatePreview()">
-                        </div>
-                        <!-- Open Roles -->
-                        <div class="col-md-6">
-                            <label class="form-label text-muted small fw-bold">No. of Open Roles</label>
-                            <input type="text" class="form-control" id="cpOpenRoles" placeholder="e.g. 25 Open Roles" oninput="updatePreview()">
-                        </div>
-                    </div>
-
-                    <!-- Website -->
-                    <div class="mb-3">
-                        <label class="form-label text-muted small fw-bold">Website URL</label>
-                        <input type="url" class="form-control" id="cpWebsite" placeholder="https://www.yourcompany.com">
-                    </div>
-
-                    <!-- Tags / Skills -->
-                    <div class="mb-4">
-                        <label class="form-label text-muted small fw-bold">Hiring Skills / Tags (comma-separated)</label>
-                        <input type="text" class="form-control" id="cpTags" placeholder="e.g. Java, Python, SQL, DevOps">
-                        <div class="form-text text-muted">These tags appear on your company card in the placement portal.</div>
-                    </div>
-
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-rku" id="btnSaveCompanyProfile">
-                            <i class="fa-solid fa-floppy-disk me-1"></i>Save Profile
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary" onclick="loadProfileData()">
-                            <i class="fa-solid fa-rotate-left me-1"></i>Reset
-                        </button>
-                    </div>
-                </form>
+            <div class="col-lg-4 text-lg-end">
+                <a href="CompanyManageDrives.aspx" class="btn btn-rku px-4 py-2">
+                    <i class="fa-solid fa-bullhorn me-2"></i>Manage Drives
+                </a>
             </div>
         </div>
     </div>
 
-    <script>
-        const CP_KEY = 'rku_company_profiles';
+    <div class="row g-4">
+        <!-- Left: Logo & Quick Info Preview -->
+        <div class="col-lg-4">
+            <div class="dashboard-card text-center" style="background: #fff; border-radius: 16px; border: 1px solid #eef0f3; padding: 1.5rem;">
+                <div class="form-section-title text-start mb-3">LIVE PREVIEW</div>
+                <div class="mb-3">
+                    <asp:Image ID="imgCompanyLogo" runat="server" Visible="false" Style="width: 80px; height: 80px; border-radius: 16px; object-fit: cover; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);" />
+                    <asp:Panel ID="pnlLogoPlaceholder" runat="server" CssClass="company-logo-placeholder">CO</asp:Panel>
+                </div>
+                <asp:Label ID="profileDisplayName" runat="server" Text="Company HR" CssClass="fw-bold font-heading mb-1 text-dark d-block fs-5"></asp:Label>
+                <asp:Label ID="profileDisplayIndustry" runat="server" Text="IT / Software" CssClass="text-muted small mb-3 d-block"></asp:Label>
+                <div class="text-muted small mb-3">
+                    <i class="fa-solid fa-location-dot me-1 text-danger"></i>
+                    <asp:Label ID="profileDisplayLocation" runat="server" Text="Location Not Set"></asp:Label>
+                </div>
+                <hr class="my-3 opacity-25">
+                <div class="text-center small">
+                    <asp:Label ID="profileDisplayPackage" runat="server" Text="-" CssClass="fw-bold text-dark fs-5 font-heading d-block"></asp:Label>
+                    <div class="text-muted small">Package Range</div>
+                </div>
+            </div>
+        </div>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Highlight active sidebar item
-            const navItem = document.getElementById('nav-profile');
-            if (navItem) navItem.classList.add('active');
+        <!-- Right: Edit Form with ASP Server Controls -->
+        <div class="col-lg-8">
+            <div class="dashboard-card" style="background: #fff; border-radius: 16px; border: 1px solid #eef0f3; padding: 1.5rem;">
+                <h5 class="fw-bold font-heading text-dark mb-1">
+                    <i class="fa-solid fa-pen-to-square text-danger me-2"></i>Edit Company Profile
+                </h5>
+                <p class="text-muted small mb-4">Update your official company details below to present a complete profile to recruiting students.</p>
 
-            const titleBar = document.getElementById('panelTitleBar');
-            if (titleBar) titleBar.textContent = 'My Company Profile';
+                <div class="form-section-title">BASIC INFORMATION</div>
 
-            loadProfileData();
-        });
+                <!-- Company Name -->
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">Company Name *</label>
+                    <asp:TextBox ID="cpName" runat="server" CssClass="form-control" placeholder="e.g. Tata Consultancy Services"></asp:TextBox>
+                </div>
 
-        function getCompanyFromDb(user) {
-            if (!user) return null;
-            const companies = PortalDB.getCompanies();
-            return companies.find(c => c.username === user.username) || null;
-        }
+                <!-- Company Logo FileUpload -->
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">Company Logo Image</label>
+                    <asp:FileUpload ID="fuCompanyLogo" runat="server" CssClass="form-control" />
+                    <div class="form-text text-muted small">Upload PNG, JPG or JPEG image format.</div>
+                </div>
 
-        function loadProfileData() {
-            const user = PortalDB.getCurrentUser();
-            if (!user) return;
-            const compEntry = getCompanyFromDb(user);
-            const profiles = JSON.parse(localStorage.getItem(CP_KEY) || '{}');
-            const cp = profiles[user.username] || {};
+                <!-- Tagline -->
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">Tagline / Motto</label>
+                    <asp:TextBox ID="cpTagline" runat="server" CssClass="form-control" placeholder="e.g. Building on belief"></asp:TextBox>
+                </div>
 
-            const name = (compEntry && compEntry.name) || cp.name || user.name || '';
-            const tagline = (compEntry && compEntry.tagline) || cp.tagline || '';
-            const description = (compEntry && compEntry.description) || cp.description || '';
-            const industry = (compEntry && compEntry.industry) || cp.industry || 'IT / Software';
-            const location = (compEntry && compEntry.location) || cp.location || '';
-            const pkg = (compEntry && compEntry.packageRange) || cp.packageRange || '';
-            const roles = (compEntry && compEntry.openRoles) || cp.openRoles || '';
-            const website = (compEntry && compEntry.website) || cp.website || '';
-            const tags = (compEntry && compEntry.tags) ? (Array.isArray(compEntry.tags) ? compEntry.tags.join(', ') : compEntry.tags) : (cp.tags || '');
-            const logo = (compEntry && compEntry.logoBase64) || cp.logo || user.logoBase64 || '';
+                <!-- Description -->
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">Company Description</label>
+                    <asp:TextBox ID="cpDescription" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control" placeholder="Briefly describe what your company does..."></asp:TextBox>
+                </div>
 
-            document.getElementById('cpName').value = name;
-            document.getElementById('cpTagline').value = tagline;
-            document.getElementById('cpDescription').value = description;
-            document.getElementById('cpLocation').value = location;
-            document.getElementById('cpPackageRange').value = pkg;
-            document.getElementById('cpOpenRoles').value = roles;
-            document.getElementById('cpWebsite').value = website;
-            document.getElementById('cpTags').value = tags;
-            document.getElementById('companyLogoBase64').value = logo;
+                <div class="form-section-title mt-4">INDUSTRY &amp; LOCATION</div>
 
-            const indEl = document.getElementById('cpIndustry');
-            if (industry) {
-                let found = false;
-                const indLower = industry.toLowerCase();
-                for (let i = 0; i < indEl.options.length; i++) {
-                    const valLower = indEl.options[i].value.toLowerCase();
-                    if (valLower === indLower || (indLower === 'it' && valLower.includes('it')) || (indLower.includes('consulting') && valLower.includes('consulting')) || (indLower.includes('mnc') && valLower.includes('mnc'))) {
-                        indEl.selectedIndex = i;
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) indEl.selectedIndex = 0;
-            }
+                <div class="row g-3 mb-3">
+                    <!-- Industry -->
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-bold">Industry</label>
+                        <asp:DropDownList ID="cpIndustry" runat="server" CssClass="form-select">
+                            <asp:ListItem Value="IT / Software">IT / Software</asp:ListItem>
+                            <asp:ListItem Value="MNC">MNC</asp:ListItem>
+                            <asp:ListItem Value="Consulting">Consulting</asp:ListItem>
+                            <asp:ListItem Value="Finance / Banking">Finance / Banking</asp:ListItem>
+                            <asp:ListItem Value="FMCG">FMCG</asp:ListItem>
+                            <asp:ListItem Value="Manufacturing">Manufacturing</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <!-- Location -->
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-bold">Location (HQ)</label>
+                        <asp:TextBox ID="cpLocation" runat="server" CssClass="form-control" placeholder="e.g. Mumbai, India"></asp:TextBox>
+                    </div>
+                </div>
 
-            const zone = document.getElementById('logoUploadZone');
-            if (logo) {
-                zone.innerHTML = `<img src="${logo}" style="max-height:80px;max-width:180px;object-fit:contain;border-radius:8px;" class="mb-1"><br><span class="text-muted small">Click to change logo</span>`;
-            } else {
-                zone.innerHTML = `<i class="fa-solid fa-cloud-arrow-up fa-2x text-muted mb-2"></i><p class="text-muted small mb-0">Click to upload company logo<br><span style="font-size:0.75rem;">PNG, JPG, SVG (max 1MB)</span></p>`;
-            }
+                <div class="form-section-title mt-4">HIRING &amp; PACKAGE DETAILS</div>
 
-            updatePreview();
-        }
+                <div class="mb-3">
+                    <!-- Package Range -->
+                    <label class="form-label text-muted small fw-bold">Package Range</label>
+                    <asp:TextBox ID="cpPackageRange" runat="server" CssClass="form-control" placeholder="e.g. 3.5 LPA - 12 LPA"></asp:TextBox>
+                </div>
 
-        function updatePreview() {
-            const name = document.getElementById('cpName').value.trim() || 'Company Name';
-            const indSelect = document.getElementById('cpIndustry');
-            const indText = indSelect.options[indSelect.selectedIndex] ? indSelect.options[indSelect.selectedIndex].text : 'Industry';
-            const loc = document.getElementById('cpLocation').value.trim() || 'Location Not Set';
-            const pkg = document.getElementById('cpPackageRange').value.trim() || '-';
-            const roles = document.getElementById('cpOpenRoles').value.trim() || '-';
-            const logo = document.getElementById('companyLogoBase64').value;
+                <div class="form-section-title mt-4">ONLINE PRESENCE &amp; TAGS</div>
 
-            document.getElementById('profileDisplayName').textContent = name;
-            document.getElementById('profileDisplayIndustry').textContent = indText;
-            document.getElementById('profileDisplayLocation').textContent = loc;
-            document.getElementById('profileDisplayPackage').textContent = pkg;
-            document.getElementById('profileDisplayRoles').textContent = roles;
+                <!-- Website -->
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">Website URL</label>
+                    <asp:TextBox ID="cpWebsite" runat="server" CssClass="form-control" placeholder="https://www.yourcompany.com"></asp:TextBox>
+                </div>
 
-            const disp = document.getElementById('profileLogoDisplay');
-            if (logo) {
-                disp.innerHTML = `<img src="${logo}" class="company-logo-preview" alt="${name}">`;
-            } else {
-                const ini = name.substring(0, 2).toUpperCase();
-                disp.innerHTML = `<div class="company-logo-placeholder">${ini}</div>`;
-            }
-        }
+                <!-- Tags / Skills -->
+                <div class="mb-4">
+                    <label class="form-label text-muted small fw-bold">Hiring Skills / Tags (comma-separated)</label>
+                    <asp:TextBox ID="cpTags" runat="server" CssClass="form-control" placeholder="e.g. Java, Python, SQL, DevOps"></asp:TextBox>
+                    <div class="form-text text-muted small">These tags appear on your company profile card in the placement portal.</div>
+                </div>
 
-        function handleLogoUpload(e) {
-            const file = e.target.files[0];
-            if (!file) return;
+                <div class="d-flex gap-2 justify-content-end mt-4">
+                    <asp:Button ID="btnReset" runat="server" CssClass="btn btn-light btn-sm px-3" Text="Reset" OnClick="btnReset_Click" UseSubmitBehavior="false" />
+                    <asp:Button ID="btnSaveCompanyProfile" runat="server" CssClass="btn btn-rku btn-sm px-4" Text="Save Profile" OnClick="btnSaveCompanyProfile_Click" />
+                </div>
+            </div>
+        </div>
+    </div>
 
-            if (file.size > 1024 * 1024) {
-                alert('File size exceeds 1MB. Please select a smaller logo image.');
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function (evt) {
-                const base64 = evt.target.result;
-                document.getElementById('companyLogoBase64').value = base64;
-                const zone = document.getElementById('logoUploadZone');
-                zone.innerHTML = `<img src="${base64}" style="max-height:80px;max-width:180px;object-fit:contain;border-radius:8px;" class="mb-1"><br><span class="text-muted small">Click to change logo</span>`;
-                updatePreview();
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function saveCompanyProfile(e) {
-            e.preventDefault();
-            const user = PortalDB.getCurrentUser();
-            if (!user) return;
-
-            const name = document.getElementById('cpName').value.trim();
-            const tagline = document.getElementById('cpTagline').value.trim();
-            const description = document.getElementById('cpDescription').value.trim();
-            const indSelect = document.getElementById('cpIndustry');
-            const industry = indSelect.options[indSelect.selectedIndex].text;
-            const location = document.getElementById('cpLocation').value.trim();
-            const packageRange = document.getElementById('cpPackageRange').value.trim();
-            const openRoles = document.getElementById('cpOpenRoles').value.trim();
-            const website = document.getElementById('cpWebsite').value.trim();
-            const tagsInput = document.getElementById('cpTags').value.trim();
-            const tagsArray = tagsInput ? tagsInput.split(',').map(t => t.trim()) : [];
-            const logoBase64 = document.getElementById('companyLogoBase64').value;
-
-            const profiles = JSON.parse(localStorage.getItem(CP_KEY) || '{}');
-            profiles[user.username] = {
-                name, tagline, description, industry, location,
-                packageRange, openRoles, website, tags: tagsInput, logo: logoBase64,
-                updatedAt: new Date().toISOString()
-            };
-            localStorage.setItem(CP_KEY, JSON.stringify(profiles));
-
-            const updatedData = {
-                name: name,
-                tagline: tagline,
-                description: description,
-                industry: industry,
-                location: location,
-                packageRange: packageRange,
-                openRoles: openRoles,
-                website: website,
-                tags: tagsArray,
-                logoBase64: logoBase64
-            };
-
-            PortalDB.updateCompanyByUsername(user.username, updatedData);
-
-            if (typeof initCompanySidebarInfo === 'function') {
-                initCompanySidebarInfo();
-            }
-
-            const btn = document.getElementById('btnSaveCompanyProfile');
-            btn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Saved!';
-            btn.classList.add('btn-success');
-            btn.classList.remove('btn-rku');
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fa-solid fa-floppy-disk me-1"></i> Save Profile';
-                btn.classList.remove('btn-success');
-                btn.classList.add('btn-rku');
-            }, 2500);
-        }
-    </script>
 </asp:Content>

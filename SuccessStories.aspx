@@ -109,19 +109,19 @@
                 background-color: #fff;
                 border-radius: 16px;
                 border: 1px solid #eef0f3;
-                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
-                padding: 2.5rem;
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+                padding: 2.25rem 2.5rem;
                 position: relative;
                 overflow: hidden;
             }
 
             .featured-avatar-box {
-                border-radius: 16px;
+                border-radius: 14px;
                 overflow: hidden;
                 border: 1px solid #eef0f3;
                 background-color: #f8f9fa;
-                height: 600px;
-                max-width: 600px;
+                height: 460px;
+                max-width: 100%;
                 margin: 0 auto;
                 width: 100%;
             }
@@ -137,7 +137,7 @@
 
             @media (max-width: 991.98px) {
                 .featured-avatar-box {
-                    height: 400px;
+                    height: 380px;
                 }
 
                 .featured-story-panel {
@@ -152,32 +152,32 @@
             }
 
             .quote-icon {
-                font-size: 2.2rem;
-                color: var(--rku-red-light);
+                font-size: 2.4rem;
+                color: #fca5a5;
                 line-height: 1;
-                margin-bottom: 0.75rem;
+                margin-bottom: 0.5rem;
             }
 
             .featured-quote-text {
                 font-style: italic;
-                color: #555;
-                font-size: 1.05rem;
+                color: #475569;
+                font-size: 0.95rem;
                 line-height: 1.7;
-                margin-bottom: 1.5rem;
+                margin-bottom: 1.25rem;
             }
 
             .skill-badge {
-                background-color: #f8f9fa;
-                color: #495057;
-                border: 1px solid #eef0f3;
+                background-color: #f1f5f9;
+                color: #334155;
+                border: 1px solid #e2e8f0;
                 padding: 0.35rem 0.75rem;
                 border-radius: 6px;
                 font-size: 0.78rem;
                 font-weight: 600;
                 font-family: var(--font-heading);
                 display: inline-block;
-                margin-right: 0.5rem;
-                margin-bottom: 0.5rem;
+                margin-right: 0.4rem;
+                margin-bottom: 0.4rem;
             }
 
             /* Success Cards */
@@ -203,7 +203,7 @@
             /* Full-bleed image area at top of card */
             .story-card-img {
                 width: 100%;
-                height: 260px;
+                height: 250px;
                 overflow: hidden;
                 background-color: #f1f3f5;
                 flex-shrink: 0;
@@ -224,7 +224,7 @@
 
             /* Info area below image */
             .story-card-body {
-                padding: 1.2rem 1.25rem 1.25rem;
+                padding: 1.25rem 1rem 1.25rem;
                 flex: 1;
                 display: flex;
                 flex-direction: column;
@@ -252,32 +252,25 @@
             .story-card-name {
                 font-family: var(--font-heading);
                 font-weight: 800;
-                font-size: 0.95rem;
-                color: var(--rku-dark);
-                margin-bottom: 0.25rem;
+                font-size: 0.98rem;
+                color: #1e293b;
+                margin-bottom: 0.2rem;
             }
 
             .story-card-course {
                 font-size: 0.8rem;
-                color: #777;
-                margin-bottom: 0.75rem;
-                font-weight: 600;
+                color: #64748b;
+                margin-bottom: 0.6rem;
+                font-weight: 500;
             }
 
-            .story-card-logo-box {
-                height: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 0.75rem;
+            .story-card-recruiter {
+                font-family: var(--font-heading);
+                font-weight: 800;
+                font-size: 0.95rem;
+                color: var(--rku-maroon);
+                margin-bottom: 0.25rem;
             }
-
-                .story-card-logo-box svg,
-                .story-card-logo-box img {
-                    max-width: 80px;
-                    max-height: 100%;
-                    object-fit: contain;
-                }
 
             .story-card-pkg {
                 font-family: var(--font-heading);
@@ -290,7 +283,7 @@
             .story-card-desg {
                 font-size: 0.78rem;
                 color: #888;
-                font-weight: 600;
+                font-weight: 500;
                 margin-bottom: 0;
             }
 
@@ -522,33 +515,65 @@
                     z-index: 1;
                 }
 
-            /* Testimonials Slider */
+            /* Testimonials DataList */
             .testimonial-card-slide {
                 background-color: #fff;
-                border-radius: 12px;
+                border-radius: 14px;
                 border: 1px solid #eef0f3;
-                padding: 1.8rem;
+                padding: 1.8rem 1.5rem;
                 height: 100%;
+                min-height: 260px;
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                transition: transform 0.25s ease, box-shadow 0.25s ease;
+                word-break: break-word;
+                overflow-wrap: anywhere;
+            }
+
+            .testimonial-card-slide:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            }
+
+            .testimonials-datalist-table {
+                width: 100% !important;
+                table-layout: fixed !important;
+                border-collapse: separate !important;
+                border-spacing: 16px 0 !important;
+            }
+
+            .testimonials-datalist-table td {
+                width: 50% !important;
+                max-width: 50% !important;
+                vertical-align: top !important;
+                padding: 0 !important;
             }
 
             .testimonial-rating {
-                color: #fbbc04;
-                font-size: 0.95rem;
-                margin-bottom: 0.75rem;
+                color: #f59e0b;
+                font-size: 0.85rem;
+                margin-bottom: 0.85rem;
+                display: flex;
+                gap: 3px;
             }
 
             .testimonial-text {
-                font-size: 0.9rem;
-                color: #555;
+                font-size: 0.88rem;
+                color: #475569;
                 line-height: 1.6;
-                margin-bottom: 1.25rem;
+                margin-bottom: 1.5rem;
+                font-style: italic;
+                word-break: break-word;
+                overflow-wrap: anywhere;
             }
 
             .testimonial-user-box {
                 display: flex;
                 align-items: center;
                 gap: 0.75rem;
+                margin-top: auto;
             }
 
             .testimonial-user-avatar {
@@ -556,7 +581,9 @@
                 height: 44px;
                 border-radius: 50%;
                 overflow: hidden;
-                background-color: #f8f9fa;
+                background-color: #f1f5f9;
+                border: 1px solid #e2e8f0;
+                flex-shrink: 0;
             }
 
                 .testimonial-user-avatar svg,
@@ -564,97 +591,140 @@
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
+                    display: block;
                 }
 
             .testimonial-user-name {
                 font-family: var(--font-heading);
                 font-weight: 700;
-                font-size: 0.88rem;
-                color: var(--rku-dark);
-                margin-bottom: 0.1rem;
+                font-size: 0.92rem;
+                color: #1e293b;
+                margin-bottom: 0.15rem;
             }
 
             .testimonial-user-company {
-                font-size: 0.75rem;
+                font-size: 0.78rem;
                 color: #888;
-                font-weight: 600;
+                font-weight: 500;
+                margin-bottom: 0;
             }
 
-            /* Hall of Fame (Podium) */
-            .hall-of-fame-podium {
-                display: flex;
-                align-items: flex-end;
-                justify-content: center;
-                gap: 1rem;
-                margin-top: 2rem;
+            /* Hall of Fame DataList */
+            .hall-of-fame-datalist-table {
+                width: 100% !important;
+                table-layout: fixed !important;
+                border-collapse: separate !important;
+                border-spacing: 12px 0 !important;
+            }
+
+            .hall-of-fame-datalist-table td {
+                width: 33.333% !important;
+                max-width: 33.333% !important;
+                vertical-align: bottom !important;
+                padding: 0 !important;
             }
 
             .podium-card {
                 background-color: #fff;
-                border: 1px solid #eef0f3;
-                border-radius: 12px;
-                padding: 1.5rem 1rem;
+                border-radius: 14px;
+                padding: 1.8rem 0.75rem 1.4rem;
                 text-align: center;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.02);
                 position: relative;
-                flex: 1;
+                margin-top: 15px;
+                transition: transform 0.25s ease, box-shadow 0.25s ease;
+                width: 100%;
+                min-height: 260px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                word-break: break-word;
+                overflow-wrap: anywhere;
+            }
+
+            .podium-card:hover {
+                transform: translateY(-4px);
             }
 
             .podium-rank-badge {
-                width: 32px;
-                height: 32px;
+                width: 28px;
+                height: 28px;
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 font-family: var(--font-heading);
                 font-weight: 800;
-                font-size: 0.95rem;
+                font-size: 0.88rem;
                 color: #fff;
                 position: absolute;
-                top: -16px;
+                top: -14px;
                 left: 50%;
                 transform: translateX(-50%);
-                box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+                box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+                background-color: #ef3724;
             }
 
+            /* Rank 1 (Gold - Center - Elevated) */
             .podium-card.rank-1 {
-                order: 2;
-                padding: 2.2rem 1.25rem;
-                border-color: #fcd34d; /* gold border hint */
-                background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
-            }
-
-            .podium-card.rank-2 {
-                order: 1;
-                background: linear-gradient(180deg, #f3f4f6 0%, #ffffff 100%);
-            }
-
-            .podium-card.rank-3 {
-                order: 3;
-                background: linear-gradient(180deg, #fff7ed 0%, #ffffff 100%);
+                background: linear-gradient(180deg, #fffdf0 0%, #ffffff 100%);
+                border: 2px solid #facc15;
+                box-shadow: 0 8px 24px rgba(234, 179, 8, 0.12);
+                padding-top: 2.2rem;
+                padding-bottom: 1.6rem;
+                min-height: 285px;
             }
 
             .podium-card.rank-1 .podium-rank-badge {
-                background-color: #f59e0b;
+                background-color: #f59e0b; /* Gold */
+                box-shadow: 0 3px 8px rgba(245, 158, 11, 0.4);
             }
-            /* gold */
+
+            .podium-card.rank-1 .podium-avatar {
+                border: 2px solid #facc15;
+            }
+
+            /* Rank 2 (Silver - Left) */
+            .podium-card.rank-2 {
+                background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+                border: 1px solid #e2e8f0;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            }
+
             .podium-card.rank-2 .podium-rank-badge {
-                background-color: #9ca3af;
+                background-color: #94a3b8; /* Silver */
+                box-shadow: 0 3px 8px rgba(148, 163, 184, 0.35);
             }
-            /* silver */
+
+            .podium-card.rank-2 .podium-avatar {
+                border: 2px solid #cbd5e1;
+            }
+
+            /* Rank 3 (Bronze - Right) */
+            .podium-card.rank-3 {
+                background: linear-gradient(180deg, #fffaf5 0%, #ffffff 100%);
+                border: 1px solid #fed7aa;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            }
+
             .podium-card.rank-3 .podium-rank-badge {
-                background-color: #ea580c;
+                background-color: #ea580c; /* Bronze */
+                box-shadow: 0 3px 8px rgba(234, 88, 12, 0.35);
             }
-            /* bronze */
+
+            .podium-card.rank-3 .podium-avatar {
+                border: 2px solid #fdba74;
+            }
 
             .podium-avatar {
-                width: 70px;
-                height: 70px;
+                width: 62px;
+                height: 62px;
                 border-radius: 50%;
                 overflow: hidden;
-                margin: 0.5rem auto 1rem auto;
-                border: 2px solid #eef0f3;
+                margin: 0 auto 0.85rem auto;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                background-color: #e2e8f0;
+                flex-shrink: 0;
             }
 
                 .podium-avatar svg,
@@ -662,40 +732,91 @@
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
+                    display: block;
                 }
-
-            .podium-card.rank-1 .podium-avatar {
-                border-color: #fcd34d;
-            }
 
             .podium-pkg {
                 font-family: var(--font-heading);
                 font-weight: 800;
-                font-size: 1.35rem;
+                font-size: 1.25rem;
                 color: var(--rku-maroon);
                 margin-bottom: 0.25rem;
             }
 
-            .podium-desg {
-                font-size: 0.82rem;
-                font-weight: 700;
-                color: var(--rku-dark);
-                margin-bottom: 0.1rem;
+            .podium-name {
+                font-family: var(--font-heading);
+                font-weight: 800;
+                font-size: 0.95rem;
+                color: #1e293b;
+                margin-bottom: 0.2rem;
             }
 
             .podium-course {
-                font-size: 0.75rem;
-                color: #888;
+                font-size: 0.78rem;
+                color: #64748b;
                 font-weight: 500;
+                margin-bottom: 0;
             }
 
-            /* Placement Gallery */
+            /* Success Stories DataList */
+            .stories-datalist-table {
+                width: 100% !important;
+                table-layout: fixed !important;
+                border-collapse: separate !important;
+                border-spacing: 20px 24px !important;
+            }
+
+            .stories-datalist-table td {
+                width: 33.333% !important;
+                max-width: 33.333% !important;
+                vertical-align: top !important;
+                padding: 0 !important;
+            }
+
+            @media (max-width: 991.98px) {
+                .stories-datalist-table,
+                .stories-datalist-table tbody,
+                .stories-datalist-table tr,
+                .stories-datalist-table td {
+                    display: block !important;
+                    width: 100% !important;
+                    max-width: 100% !important;
+                }
+            }
+
+            /* Placement Gallery DataList */
+            .gallery-datalist-table {
+                width: 100% !important;
+                table-layout: fixed !important;
+                border-collapse: separate !important;
+                border-spacing: 16px !important;
+            }
+
+            .gallery-datalist-table td {
+                width: 33.333% !important;
+                max-width: 33.333% !important;
+                vertical-align: top !important;
+                padding: 0 !important;
+            }
+
+            @media (max-width: 767.98px) {
+                .gallery-datalist-table,
+                .gallery-datalist-table tbody,
+                .gallery-datalist-table tr,
+                .gallery-datalist-table td {
+                    display: block !important;
+                    width: 100% !important;
+                    max-width: 100% !important;
+                }
+            }
+
             .gallery-grid-img {
-                border-radius: 10px;
+                border-radius: 12px;
                 overflow: hidden;
-                height: 100%;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+                height: 220px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
                 border: 1px solid #eef0f3;
+                background-color: #f1f3f5;
             }
 
                 .gallery-grid-img svg,
@@ -704,11 +825,12 @@
                     height: 100%;
                     object-fit: cover;
                     transition: transform 0.3s ease;
+                    display: block;
                 }
 
                 .gallery-grid-img:hover svg,
                 .gallery-grid-img:hover img {
-                    transform: scale(1.05);
+                    transform: scale(1.03);
                 }
 
             /* Banner styling */
@@ -1023,44 +1145,6 @@
                 }
             }
 
-            // 2. Render Success Stories Grid
-            const gridRow = document.getElementById('successStoriesGridRow');
-            if (gridRow) {
-                gridRow.innerHTML = '';
-
-                if (stories.length === 0) {
-                    gridRow.innerHTML = `<div class="col-12 text-center py-4 text-muted"><p>No success stories listed yet.</p></div>`;
-                } else {
-                    stories.forEach(s => {
-                        gridRow.innerHTML += `
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="story-grid-card">
-                                    <div class="story-card-img">
-                                        ${s.studentPhoto
-                                ? `<img src="${s.studentPhoto}" alt="${s.studentName}">`
-                                : `<svg viewBox="0 0 100 130" fill="#bbb">
-                                                <rect width="100" height="130" fill="#f1f3f5"/>
-                                                <circle cx="50" cy="48" r="22" fill="#d0d4dc"/>
-                                                <path d="M10,115 C10,90 28,78 50,78 C72,78 90,90 90,115 Z" fill="#d0d4dc"/>
-                                               </svg>`
-                            }
-                                    </div>
-                                    <div class="story-card-body">
-                                        <h4 class="story-card-name">${s.studentName}</h4>
-                                        <p class="story-card-course">${s.degreeBranch.split('|')[0].trim()}</p>
-                                        <div class="story-card-logo-box">
-                                            <div class="fw-bold font-heading text-rku-maroon">${s.recruiterName}</div>
-                                        </div>
-                                        <div class="story-card-pkg">${s.packageLpa}</div>
-                                        <p class="story-card-desg">${s.role}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    });
-                }
-            }
-
             // 3. Render Hall of Fame (Podium)
             const podiumContainer = document.getElementById('hallOfFamePodium');
             if (podiumContainer) {
@@ -1117,29 +1201,6 @@
                 }
             }
 
-            // 4. Render Placement Gallery
-            const galleryRow = document.getElementById('placementGalleryRow');
-            if (galleryRow) {
-                galleryRow.innerHTML = '';
-                if (gallery.length === 0) {
-                    galleryRow.innerHTML = `<div class="col-12 text-center py-4 text-muted"><p>No photos in gallery.</p></div>`;
-                } else {
-                    gallery.forEach(g => {
-                        galleryRow.innerHTML += `
-                            <div class="col-md-4 col-sm-6 mb-3">
-                                <div class="gallery-grid-img" style="height: 200px;">
-                                    ${g.imageBase64 ? `<img src="${g.imageBase64}" alt="${g.title}">` : `
-                                    <svg viewBox="0 0 300 200" fill="#bbb">
-                                        <rect width="300" height="200" fill="#cbd5e1"/>
-                                        <text x="150" y="105" text-anchor="middle" font-size="12" fill="#475569">${g.title}</text>
-                                    </svg>
-                                    `}
-                                </div>
-                            </div>
-                        `;
-                    });
-                }
-            }
             // 5. Render Top Recruiters as 3 alternating marquee rows
             const companies = PortalDB.getCompanies();
             const row1 = document.getElementById('successStoriesRecruitersRow1');
@@ -1276,7 +1337,7 @@
     </section>
 
     <!-- ==========================================
-         4. FEATURED STORY CAROUSEL
+         4. FEATURED STORY PANEL
          ========================================== -->
     <section class="py-5 bg-white" id="featuredStorySection">
         <div class="container px-lg-5">
@@ -1286,52 +1347,54 @@
                     <!-- Left: Profile picture -->
                     <div class="col-lg-5">
                         <div class="featured-avatar-box">
-                            <svg viewBox="0 0 100 120" width="100%" height="100%" fill="#bbb">
-                                <rect width="100" height="120" fill="#f1f3f5" />
-                                <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                <path d="M15,105 C15,85 30,75 50,75 C70,75 85,85 85,105 Z" fill="#d0d4dc" />
-                            </svg>
+                            <asp:Image ID="imgFeatured" runat="server" ImageUrl="~/assets/PlacmentStudentImage/WhatsApp Image 2026-05-27 at 12.58.45 PM.jpeg" AlternateText="Featured Student" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                            <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:#f1f3f5;">
+                                <svg viewBox="0 0 100 120" width="100%" height="100%" fill="#bbb">
+                                    <rect width="100" height="120" fill="#f1f3f5" />
+                                    <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
+                                    <path d="M15,105 C15,85 30,75 50,75 C70,75 85,85 85,105 Z" fill="#d0d4dc" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Right: Quotes and Details -->
-                    <div class="col-lg-7">
-                        <span class="text-rku-maroon fw-bold" style="font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase;">FEATURED STORY</span>
-                        <h2 class="fw-bold mt-1 mb-2" style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--rku-dark);">Krishna Patel</h2>
-                        <p class="text-muted fw-semibold mb-3" style="font-size: 0.88rem;">BCA | School of Computer Applications</p>
+                    <div class="col-lg-7 ps-lg-4">
+                        <span style="color: #ef3724; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.8px; text-transform: uppercase; font-family: var(--font-heading);">FEATURED STORY</span>
+                        <h2 class="fw-bold mt-1 mb-1" style="font-family: var(--font-heading); font-size: 2.2rem; color: #1e293b;">
+                            <asp:Label ID="lblFeaturedName" runat="server" Text="Mitesh Gauswami"></asp:Label>
+                        </h2>
+                        <p class="text-muted fw-semibold mb-3" style="font-size: 0.88rem;">
+                            <asp:Label ID="lblFeaturedDegree" runat="server" Text="MCA"></asp:Label>
+                        </p>
 
-                        <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="d-flex align-items-center gap-4 mb-3">
                             <div>
-                                <span class="d-block text-muted small fw-bold">Placed at</span>
-                                <svg viewBox="0 0 200 80" width="90" height="28">
-                                    <path d="M20,15 L50,15 L50,25 L38,25 L38,65 L28,65 L28,25 L20,25 Z" fill="#a30f14" />
-                                    <path d="M70,15 C85,15 95,25 95,40 C95,55 85,65 70,65 C55,65 45,55 45,40 C45,25 55,15 70,15 Z M70,25 C60,25 56,31 56,40 C56,49 60,55 70,55 C80,55 84,49 84,40 C84,31 80,25 70,25 Z" fill="#ef3724" />
-                                    <path d="M100,50 L110,50 C112,56 117,60 124,60 C130,60 134,57 134,53 C134,49 131,47 121,45 C109,42 102,38 102,28 C102,18 111,13 124,13 C136,13 144,19 146,29 L136,29 C134,23 130,20 124,20 C118,20 114,23 114,27 C114,31 118,33 127,35 C139,38 146,41 146,51 C146,62 137,67 124,67 C111,67 102,61 100,50 Z" fill="#a30f14" />
-                                </svg>
+                                <span class="d-block text-muted small fw-bold" style="font-size: 0.75rem;">Placed at</span>
+                                <span class="fw-bold" style="color: #1e293b; font-size: 1.05rem; font-family: var(--font-heading);">
+                                    <asp:Label ID="lblFeaturedCompany" runat="server" Text="TCS"></asp:Label>
+                                </span>
                             </div>
-                            <div class="ms-4 p-2 bg-light-subtle border border-light-subtle rounded px-3">
-                                <span class="d-block text-muted small fw-bold">Package</span>
-                                <span class="fw-extrabold text-rku-maroon" style="font-size: 1.25rem;">₹ 12 LPA</span>
+                            <div class="border rounded px-3 py-1 bg-white" style="border-color: #e2e8f0 !important;">
+                                <span class="d-block text-muted small fw-bold" style="font-size: 0.7rem;">Package</span>
+                                <span class="fw-bold" style="color: #ef3724; font-size: 1.05rem; font-family: var(--font-heading);">
+                                    <asp:Label ID="lblFeaturedPackage" runat="server" Text="12 LPA"></asp:Label>
+                                </span>
                             </div>
                         </div>
 
                         <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
                         <p class="featured-quote-text">
-                            "RK University's Placement Cell provided me with continuous guidance, aptitude training, mock interviews, and industry exposure. The support from faculty and placement coordinators helped me secure my dream role at Tata Consultancy Services."
+                            "<asp:Label ID="lblFeaturedQuote" runat="server" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."></asp:Label>"
                         </p>
 
                         <div class="mb-4">
-                            <span class="skill-badge">HTML</span>
-                            <span class="skill-badge">CSS</span>
-                            <span class="skill-badge">JavaScript</span>
-                            <span class="skill-badge">React</span>
-                            <span class="skill-badge">SQL</span>
-                            <span class="skill-badge">Communication</span>
+                            <asp:Literal ID="litFeaturedSkills" runat="server" Text="<span class='skill-badge'>c#</span><span class='skill-badge'>css</span><span class='skill-badge'>html</span><span class='skill-badge'>react</span>"></asp:Literal>
                         </div>
 
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-rku" style="padding: 0.5rem 1.4rem;">View Profile</button>
-                            <button class="btn btn-rku-outline" style="padding: 0.5rem 1.2rem;"><i class="fa-brands fa-linkedin me-2"></i>LinkedIn</button>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="btn btn-rku" style="background: #ef3724; border-color: #ef3724; color: #fff; font-weight: 600; padding: 0.5rem 1.4rem; border-radius: 6px; font-size: 0.9rem; text-decoration: none;">View Profile</a>
+                            <a href="#" class="btn btn-outline-rku" style="background: #fff; border: 1.5px solid #ef3724; color: #ef3724; font-weight: 600; padding: 0.5rem 1.2rem; border-radius: 6px; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center;"><i class="fa-brands fa-linkedin me-2"></i>LinkedIn</a>
                         </div>
 
                     </div>
@@ -1352,134 +1415,32 @@
                 <a href="#" class="section-link">View All Stories <i class="fa-solid fa-arrow-right ms-1"></i></a>
             </div>
 
-            <div class="row g-4" id="successStoriesGridRow">
-
-                <!-- Card 1 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="story-grid-card">
-                        <div class="story-card-avatar">
-                            <svg viewBox="0 0 100 100" fill="#bbb">
-                                <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
-                                <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
-                            </svg>
+            <!-- Success Stories DataList (3 columns per row) -->
+            <asp:DataList ID="DataListStories" runat="server" RepeatColumns="3" RepeatDirection="Horizontal" RepeatLayout="Table" Width="100%" CssClass="stories-datalist-table">
+                <ItemStyle Width="33.33%" VerticalAlign="Top" />
+                <ItemTemplate>
+                    <div class="story-grid-card shadow-sm">
+                        <div class="story-card-img">
+                            <%# (!string.IsNullOrEmpty(Eval("StudentPhoto") as string) && Eval("StudentPhoto").ToString().Trim() != "" && Eval("StudentPhoto").ToString() != "~/assets/PlacmentStudentImage/") ? "<img src='" + ResolveUrl(Eval("StudentPhoto").ToString()) + "' alt='" + Eval("StudentName") + "' onerror=\"this.style.display='none';this.nextElementSibling.style.display='flex';\" />" : "" %>
+                            <div style='<%# (!string.IsNullOrEmpty(Eval("StudentPhoto") as string) && Eval("StudentPhoto").ToString().Trim() != "" && Eval("StudentPhoto").ToString() != "~/assets/PlacmentStudentImage/") ? "display:none;" : "display:flex;" %>width:100%;height:100%;align-items:center;justify-content:center;background:#e2e8f0;'>
+                                <svg viewBox="0 0 100 120" fill="#94a3b8" style="width: 50%; height: 50%;">
+                                    <rect width="100" height="120" fill="#e2e8f0"/>
+                                    <circle cx="50" cy="45" r="22" fill="#cbd5e1"/>
+                                    <path d="M15,105 C15,85 30,75 50,75 C70,75 85,85 85,105 Z" fill="#cbd5e1"/>
+                                </svg>
+                            </div>
                         </div>
-                        <h4 class="story-card-name">Krishna Patel</h4>
-                        <p class="story-card-course">BCA</p>
-                        <div class="story-card-logo-box">
-                            <svg viewBox="0 0 100 30" width="70">
-                                <text x="10" y="22" font-weight="900" fill="#a30f14" font-size="16">tcs</text>
-                            </svg>
+                        <div class="story-card-body">
+                            <h5 class="story-card-name"><%# Eval("StudentName") %></h5>
+                            <p class="story-card-course"><%# Eval("DegreeBranch") %></p>
+                            <div class="story-card-recruiter"><%# Eval("Recruiter") %></div>
+                            <div class="story-card-pkg"><%# (!Eval("Package").ToString().Contains("&#8377;") && !Eval("Package").ToString().StartsWith("₹") ? "&#8377; " : "") + Eval("Package").ToString().Replace("₹", "&#8377; ") %></div>
+                            <p class="story-card-desg"><%# Eval("JobDesignation") %></p>
                         </div>
-                        <div class="story-card-pkg">₹ 12 LPA</div>
-                        <p class="story-card-desg">Software Engineer</p>
                     </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="story-grid-card">
-                        <div class="story-card-avatar">
-                            <svg viewBox="0 0 100 100" fill="#bbb">
-                                <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
-                                <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
-                            </svg>
-                        </div>
-                        <h4 class="story-card-name">Disha Shah</h4>
-                        <p class="story-card-course">MCA</p>
-                        <div class="story-card-logo-box">
-                            <svg viewBox="0 0 100 30" width="70">
-                                <text x="10" y="22" font-weight="900" fill="#0ea5e9" font-size="14">Infosys</text>
-                            </svg>
-                        </div>
-                        <div class="story-card-pkg">₹ 9 LPA</div>
-                        <p class="story-card-desg">Systems Engineer</p>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="story-grid-card">
-                        <div class="story-card-avatar">
-                            <svg viewBox="0 0 100 100" fill="#bbb">
-                                <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
-                                <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
-                            </svg>
-                        </div>
-                        <h4 class="story-card-name">Harshil Mehta</h4>
-                        <p class="story-card-course">B.Tech IT</p>
-                        <div class="story-card-logo-box">
-                            <svg viewBox="0 0 100 30" width="70">
-                                <text x="10" y="22" font-weight="900" fill="#6366f1" font-size="14">wipro</text>
-                            </svg>
-                        </div>
-                        <div class="story-card-pkg">₹ 8 LPA</div>
-                        <p class="story-card-desg">Project Engineer</p>
-                    </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="story-grid-card">
-                        <div class="story-card-avatar">
-                            <svg viewBox="0 0 100 100" fill="#bbb">
-                                <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
-                                <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
-                            </svg>
-                        </div>
-                        <h4 class="story-card-name">Neha Patel</h4>
-                        <p class="story-card-course">MBA</p>
-                        <div class="story-card-logo-box">
-                            <svg viewBox="0 0 100 30" width="70">
-                                <text x="10" y="22" font-weight="900" fill="#16a34a" font-size="14">Deloitte.</text>
-                            </svg>
-                        </div>
-                        <div class="story-card-pkg">₹ 10 LPA</div>
-                        <p class="story-card-desg">Business Analyst</p>
-                    </div>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="story-grid-card">
-                        <div class="story-card-avatar">
-                            <svg viewBox="0 0 100 100" fill="#bbb">
-                                <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
-                                <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
-                            </svg>
-                        </div>
-                        <h4 class="story-card-name">Meet Shah</h4>
-                        <p class="story-card-course">B.Tech AI &amp; ML</p>
-                        <div class="story-card-logo-box">
-                            <svg viewBox="0 0 100 30" width="70">
-                                <text x="10" y="22" font-weight="900" fill="#0369a1" font-size="13">Capgemini</text>
-                            </svg>
-                        </div>
-                        <div class="story-card-pkg">₹ 11 LPA</div>
-                        <p class="story-card-desg">AI Engineer</p>
-                    </div>
-                </div>
-
-                <!-- Card 6 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="story-grid-card">
-                        <div class="story-card-avatar">
-                            <svg viewBox="0 0 100 100" fill="#bbb">
-                                <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
-                                <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
-                            </svg>
-                        </div>
-                        <h4 class="story-card-name">Khushi Joshi</h4>
-                        <p class="story-card-course">BBA</p>
-                        <div class="story-card-logo-box">
-                            <svg viewBox="0 0 100 30" width="70">
-                                <text x="10" y="22" font-weight="900" fill="#be123c" font-size="12">accenture</text>
-                            </svg>
-                        </div>
-                        <div class="story-card-pkg">₹ 7.5 LPA</div>
-                        <p class="story-card-desg">HR Executive</p>
-                    </div>
-                </div>
-            </div>
+                </ItemTemplate>
+            </asp:DataList>
+        </div>
     </section>
 
     <!-- ==========================================
@@ -1659,44 +1620,40 @@
                         <a href="#" class="section-link" style="font-size: 0.85rem;">View All Testimonials <i class="fa-solid fa-arrow-right ms-1"></i></a>
                     </div>
 
-                    <div class="row g-3">
-                        <div class="col-md-6 col-12">
+                    <asp:DataList ID="DataListTestimonials" runat="server" RepeatColumns="2" RepeatDirection="Horizontal" RepeatLayout="Table" Width="100%" CssClass="testimonials-datalist-table">
+                        <ItemStyle Width="50%" VerticalAlign="Top" />
+                        <ItemTemplate>
                             <div class="testimonial-card-slide">
-                                <div class="testimonial-rating">★★★★★</div>
-                                <p class="testimonial-text">"The placement training completely changed my confidence and helped me crack TCS."</p>
+                                <div>
+                                    <div class="testimonial-rating">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <p class="testimonial-text">
+                                        "<%# Eval("Testimonial") %>"
+                                    </p>
+                                </div>
                                 <div class="testimonial-user-box">
                                     <div class="testimonial-user-avatar">
-                                        <svg viewBox="0 0 100 100" fill="#bbb">
-                                            <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
-                                            <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
-                                        </svg>
+                                        <%# (!string.IsNullOrEmpty(Eval("StudentPhoto") as string) && Eval("StudentPhoto").ToString().Trim() != "" && Eval("StudentPhoto").ToString() != "~/assets/PlacmentStudentImage/") ? "<img src='" + ResolveUrl(Eval("StudentPhoto").ToString()) + "' alt='" + Eval("StudentName") + "' onerror=\"this.style.display='none';this.nextElementSibling.style.display='flex';\" />" : "" %>
+                                        <div style='<%# (!string.IsNullOrEmpty(Eval("StudentPhoto") as string) && Eval("StudentPhoto").ToString().Trim() != "" && Eval("StudentPhoto").ToString() != "~/assets/PlacmentStudentImage/") ? "display:none;" : "display:flex;" %>width:100%;height:100%;align-items:center;justify-content:center;background:#e2e8f0;'>
+                                            <svg viewBox="0 0 100 100" fill="#94a3b8" style="width: 70%; height: 70%;">
+                                                <circle cx="50" cy="38" r="18" fill="#cbd5e1" />
+                                                <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#cbd5e1" />
+                                            </svg>
+                                        </div>
                                     </div>
                                     <div>
-                                        <h5 class="testimonial-user-name">Krishna Patel</h5>
-                                        <p class="testimonial-user-company">TCS Placed</p>
+                                        <h5 class="testimonial-user-name"><%# Eval("StudentName") %></h5>
+                                        <p class="testimonial-user-company"><%# Eval("Recruiter") %> Placed</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="testimonial-card-slide">
-                                <div class="testimonial-rating">★★★★★</div>
-                                <p class="testimonial-text">"Resume building sessions and mock tests helped me get placed in Infosys."</p>
-                                <div class="testimonial-user-box">
-                                    <div class="testimonial-user-avatar">
-                                        <svg viewBox="0 0 100 100" fill="#bbb">
-                                            <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
-                                            <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h5 class="testimonial-user-name">Disha Shah</h5>
-                                        <p class="testimonial-user-company">Infosys Placed</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        </ItemTemplate>
+                    </asp:DataList>
                 </div>
 
                 <!-- Right: Hall of Fame Podium -->
@@ -1706,49 +1663,26 @@
                         <a href="#" class="section-link" style="font-size: 0.85rem;">View All Achievers <i class="fa-solid fa-arrow-right ms-1"></i></a>
                     </div>
 
-                    <div class="hall-of-fame-podium" id="hallOfFamePodium">
-                        <!-- Rank 2 -->
-                        <div class="podium-card rank-2">
-                            <div class="podium-rank-badge">2</div>
-                            <div class="podium-avatar">
-                                <svg viewBox="0 0 100 100" fill="#bbb">
-                                    <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
-                                    <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
-                                </svg>
+                    <asp:DataList ID="DataListHallOfFame" runat="server" RepeatColumns="3" RepeatDirection="Horizontal" RepeatLayout="Table" Width="100%" CssClass="hall-of-fame-datalist-table">
+                        <ItemStyle Width="33.33%" VerticalAlign="Top" />
+                        <ItemTemplate>
+                            <div class='<%# "podium-card rank-" + (string.IsNullOrEmpty(Eval("PodiumRank") as string) || Eval("PodiumRank").ToString() == "0" ? "2" : Eval("PodiumRank").ToString()) %>'>
+                                <div class="podium-rank-badge"><%# (string.IsNullOrEmpty(Eval("PodiumRank") as string) || Eval("PodiumRank").ToString() == "0" ? "<i class='fa-solid fa-award'></i>" : Eval("PodiumRank").ToString()) %></div>
+                                <div class="podium-avatar">
+                                    <%# (!string.IsNullOrEmpty(Eval("StudentPhoto") as string) && Eval("StudentPhoto").ToString().Trim() != "" && Eval("StudentPhoto").ToString() != "~/assets/PlacmentStudentImage/") ? "<img src='" + ResolveUrl(Eval("StudentPhoto").ToString()) + "' alt='" + Eval("StudentName") + "' onerror=\"this.style.display='none';this.nextElementSibling.style.display='flex';\" />" : "" %>
+                                    <div style='<%# (!string.IsNullOrEmpty(Eval("StudentPhoto") as string) && Eval("StudentPhoto").ToString().Trim() != "" && Eval("StudentPhoto").ToString() != "~/assets/PlacmentStudentImage/") ? "display:none;" : "display:flex;" %>width:100%;height:100%;align-items:center;justify-content:center;background:#e2e8f0;'>
+                                        <svg viewBox="0 0 100 100" fill="#94a3b8" style="width: 70%; height: 70%;">
+                                            <circle cx="50" cy="38" r="18" fill="#cbd5e1" />
+                                            <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#cbd5e1" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="podium-pkg"><%# (!Eval("Package").ToString().Contains("&#8377;") && !Eval("Package").ToString().StartsWith("₹") ? "&#8377; " : "") + Eval("Package").ToString().Replace("₹", "&#8377; ") %></div>
+                                <h5 class="podium-name mb-1"><%# Eval("StudentName") %></h5>
+                                <p class="podium-course"><%# Eval("DegreeBranch") %> (<%# Eval("Recruiter") %>)</p>
                             </div>
-                            <div class="podium-pkg">₹ 18 LPA</div>
-                            <p class="podium-desg">AI Engineer</p>
-                            <p class="podium-course">B.Tech AI &amp; ML</p>
-                        </div>
-
-                        <!-- Rank 1 -->
-                        <div class="podium-card rank-1">
-                            <div class="podium-rank-badge">1</div>
-                            <div class="podium-avatar">
-                                <svg viewBox="0 0 100 100" fill="#bbb">
-                                    <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
-                                    <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
-                                </svg>
-                            </div>
-                            <div class="podium-pkg" style="font-size: 1.5rem;">₹ 20 LPA</div>
-                            <p class="podium-desg">Software Engineer</p>
-                            <p class="podium-course">B.Tech CS</p>
-                        </div>
-
-                        <!-- Rank 3 -->
-                        <div class="podium-card rank-3">
-                            <div class="podium-rank-badge">3</div>
-                            <div class="podium-avatar">
-                                <svg viewBox="0 0 100 100" fill="#bbb">
-                                    <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
-                                    <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
-                                </svg>
-                            </div>
-                            <div class="podium-pkg">₹ 16 LPA</div>
-                            <p class="podium-desg">Business Analyst</p>
-                            <p class="podium-course">MBA</p>
-                        </div>
-                    </div>
+                        </ItemTemplate>
+                    </asp:DataList>
                 </div>
 
             </div>
@@ -1762,29 +1696,23 @@
         <div class="container px-lg-5">
             <h2 class="section-title text-center mb-5" style="display: table; margin: 0 auto;">Placement Gallery</h2>
 
-            <div class="row g-3" id="placementGalleryRow">
-                <div class="col-md-4 col-sm-6">
-                    <div class="gallery-grid-img" style="height: 200px;">
-                        <svg viewBox="0 0 300 200" fill="#bbb">
-                            <rect width="300" height="200" fill="#cbd5e1" />
-                            <text x="150" y="105" text-anchor="middle" font-size="12" fill="#475569">Placement Batch Group</text></svg>
+            <!-- Placement Gallery DataList (3 columns in a row) -->
+            <asp:DataList ID="DataList1" runat="server" RepeatColumns="3" RepeatDirection="Horizontal" RepeatLayout="Table" Width="100%" CssClass="gallery-datalist-table">
+                <ItemStyle Width="33.33%" VerticalAlign="Top" />
+                <ItemTemplate>
+                    <div class="gallery-grid-img">
+                        <asp:Image ID="Image1" runat="server" ImageUrl='<%# Eval("GalleryImage") %>'
+                            AlternateText='<%# Eval("GalleryTitle") %>'
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" />
+                        <span style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:#cbd5e1;">
+                            <svg viewBox="0 0 300 200" fill="#bbb" style="width: 100%; height: 100%;">
+                                <rect width="300" height="200" fill="#cbd5e1" />
+                                <text x="150" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#475569"><%# Eval("GalleryTitle") %></text>
+                            </svg>
+                        </span>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="gallery-grid-img" style="height: 200px;">
-                        <svg viewBox="0 0 300 200" fill="#bbb">
-                            <rect width="300" height="200" fill="#cbd5e1" />
-                            <text x="150" y="105" text-anchor="middle" font-size="12" fill="#475569">Pre-placement Talk Session</text></svg>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="gallery-grid-img" style="height: 200px;">
-                        <svg viewBox="0 0 300 200" fill="#bbb">
-                            <rect width="300" height="200" fill="#cbd5e1" />
-                            <text x="150" y="105" text-anchor="middle" font-size="12" fill="#475569">TPO Training Class</text></svg>
-                    </div>
-                </div>
-            </div>
+                </ItemTemplate>
+            </asp:DataList>
         </div>
     </section>
 
@@ -1803,8 +1731,8 @@
                     </div>
                     <div class="col-lg-4 text-lg-end">
                         <div class="d-flex flex-wrap gap-3 justify-content-lg-end">
-                            <button class="btn btn-light fw-bold text-rku-maroon" style="padding: 0.65rem 1.6rem; border-radius: 8px;">Register Now <i class="fa-solid fa-arrow-right ms-2"></i></button>
-                            <button class="btn btn-outline-light fw-bold" style="padding: 0.65rem 1.4rem; border-radius: 8px;">Explore Jobs</button>
+                            <a href="Register.aspx" class="btn btn-light fw-bold text-rku-maroon" style="padding: 0.65rem 1.6rem; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center;">Register Now <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                            <a href="PlacementCampusDrives.aspx" class="btn btn-outline-light fw-bold" style="padding: 0.65rem 1.4rem; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center;">Explore Jobs</a>
                         </div>
                     </div>
                 </div>

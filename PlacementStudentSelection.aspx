@@ -139,7 +139,21 @@
                 text-transform: uppercase;
             }
 
-            /* Student Selection Card Grid */
+            /* Student Selection Card Grid & DataList */
+            .student-datalist-table {
+                width: 100% !important;
+                table-layout: fixed !important;
+                border-collapse: separate !important;
+                border-spacing: 15px !important;
+            }
+
+            .student-datalist-table td {
+                width: 33.33% !important;
+                max-width: 33.33% !important;
+                vertical-align: top !important;
+                padding: 0 !important;
+            }
+
             .student-profile-card {
                 background-color: #fff;
                 border: 1px solid #eef0f3;
@@ -147,20 +161,22 @@
                 padding: 0;
                 overflow: hidden;
                 height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
                 transition: all 0.25s ease;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
             }
 
                 .student-profile-card:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 12px 30px rgba(163, 15, 20, 0.08);
-                    border-color: rgba(239, 55, 36, 0.15);
+                    transform: translateY(-4px);
+                    box-shadow: 0 10px 24px rgba(163, 15, 20, 0.08);
+                    border-color: rgba(239, 55, 36, 0.2);
                 }
 
             .student-profile-avatar {
                 width: 100%;
                 aspect-ratio: 3 / 4;
-                border-radius: 12px;
                 overflow: hidden;
                 margin: 0;
                 border: none;
@@ -168,19 +184,13 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                filter: none;
-                transition: all 0.25s ease;
-            }
-
-            .student-profile-card:hover .student-profile-avatar {
-                filter: none;
             }
 
             .student-profile-avatar img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
-                object-position: center center;
+                display: block;
                 background: #fff;
             }
 
@@ -410,10 +420,55 @@
                 </div>
             </div>
 
-            <!-- Student Grid -->
-            <div class="row g-4" id="studentSelectionGrid">
-                <!-- Javascript will load 26 profiles dynamically matching the exact details -->
-            </div>
+            <!-- Student Selection DataList (3 columns in a row) -->
+            <asp:DataList ID="DataList1" runat="server" RepeatColumns="3" RepeatDirection="Horizontal" RepeatLayout="Table" Width="100%" CssClass="student-datalist-table">
+                <ItemStyle Width="33.33%" VerticalAlign="Top" />
+                <ItemTemplate>
+                    <div class="student-profile-card">
+                        <div class="student-profile-avatar">
+                            <asp:Image ID="Image1" runat="server" ImageUrl='<%# Eval("StudentImage") %>'
+                                AlternateText='<%# Eval("StudentName") %>'
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" />
+                            <span style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:#f1f3f5;">
+                                <svg viewBox="0 0 100 100" width="80" height="80" fill="#bbb">
+                                    <rect width="100" height="100" fill="#f1f3f5" />
+                                    <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
+                                    <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="p-3">
+                            <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                                <div>
+                                    <h6 class="mb-1 fw-bold text-dark" style="font-size: 0.95rem; line-height: 1.25;">
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("StudentName") %>'></asp:Label>
+                                    </h6>
+                                    <div class="text-muted" style="font-size: 0.76rem;">
+                                        <asp:Label ID="Label2" runat="server" Text='<%# Eval("Department") %>'></asp:Label>
+                                    </div>
+                                </div>
+                                <span class="badge rounded-pill text-bg-light border text-uppercase" style="font-size: 0.68rem;">
+                                    <asp:Label ID="Label3" runat="server" Text='<%# Eval("PlacementYear") %>'></asp:Label>
+                                </span>
+                            </div>
+                            <div class="student-meta-card d-flex flex-column gap-1">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="text-muted" style="font-size: 0.75rem;">Company</span>
+                                    <span class="fw-semibold text-dark text-end" style="font-size: 0.78rem; line-height: 1.2;">
+                                        <asp:Label ID="Label4" runat="server" Text='<%# Eval("CompanyName") %>'></asp:Label>
+                                    </span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="text-muted" style="font-size: 0.75rem;">Department</span>
+                                    <span class="fw-semibold text-dark text-end" style="font-size: 0.78rem; line-height: 1.2;">
+                                        <asp:Label ID="Label5" runat="server" Text='<%# Eval("Department") %>'></asp:Label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:DataList>
 
             <!-- Our Recruiters section -->
             <div class="mt-5 pt-4 text-center">
@@ -570,138 +625,7 @@
     <script src="js/main.js"></script>
 
     <script>
-        function getStudentsDb() {
-            return PortalDB.getPlacedStudents();
-        }
-
-        const grid = document.getElementById("studentSelectionGrid");
-        const filterForm = document.getElementById("filterForm");
-
-        function renderGrid() {
-            const grid = document.getElementById("studentSelectionGrid");
-            if (!grid) return;
-            const studentsDb = getStudentsDb();
-            const deptEl = document.getElementById("filterDept");
-            const yearEl = document.getElementById("filterYear");
-            const selectedDept = deptEl ? deptEl.value : "all";
-            const selectedYear = yearEl ? yearEl.value : "all";
-
-            // Apply filter logic
-            const filtered = studentsDb.filter(student => {
-                const matchDept = selectedDept === "all" || !selectedDept || (student.type && student.type.toLowerCase() === selectedDept.toLowerCase());
-                const matchYear = selectedYear === "all" || !selectedYear || student.year === selectedYear;
-                return matchDept && matchYear;
-            });
-
-            // Update stats dynamically
-            const statSel = document.getElementById("statSelected");
-            const statSucc = document.getElementById("statSuccess");
-            const statComp = document.getElementById("statCompanies");
-            if (statSel) statSel.innerText = filtered.length * 9;
-            if (statSucc) statSucc.innerText = selectedDept === "all" ? "92%" : "96%";
-            if (statComp) statComp.innerText = Math.round(filtered.length * 8.2);
-
-            grid.innerHTML = "";
-
-            if (filtered.length === 0) {
-                grid.innerHTML = `<div class="col-12 text-center py-5 text-muted"><p>No student selections match the criteria.</p></div>`;
-                return;
-            }
-
-            filtered.forEach(student => {
-                const col = document.createElement("div");
-                col.className = "col-xl-3 col-lg-4 col-sm-6";
-                col.innerHTML = `
-                    <div class="student-profile-card">
-                        <div class="student-profile-avatar">
-                            ${student.studentPhoto
-                        ? `<img src="${student.studentPhoto}" alt="${student.name}">`
-                        : `<svg viewBox="0 0 100 100" width="80" height="80" fill="#bbb">
-                                        <rect width="100" height="100" fill="#f1f3f5" />
-                                        <circle cx="50" cy="38" r="18" fill="#d0d4dc" />
-                                        <path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc" />
-                                   </svg>`
-                    }
-                        </div>
-                        <div class="p-3">
-                            <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
-                                <div>
-                                    <h6 class="mb-1 fw-bold text-dark" style="font-size: 0.98rem; line-height: 1.25;">${student.name}</h6>
-                                    <div class="text-muted" style="font-size: 0.78rem;">${student.dept}</div>
-                                </div>
-                                <span class="badge rounded-pill text-bg-light border text-uppercase" style="font-size: 0.68rem;">${student.year}</span>
-                            </div>
-                            <div class="student-meta-card d-flex flex-column gap-1">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span class="text-muted" style="font-size: 0.75rem;">Company</span>
-                                    <span class="fw-semibold text-dark text-end" style="font-size: 0.78rem; line-height: 1.2;">${student.company}</span>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span class="text-muted" style="font-size: 0.75rem;">Stream</span>
-                                    <span class="fw-semibold text-dark text-end" style="font-size: 0.78rem; line-height: 1.2;">${student.type}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(col);
-            });
-        }
-
-        // Form search submit
-        if (filterForm) {
-            filterForm.addEventListener("submit", function (e) {
-                e.preventDefault();
-                renderGrid();
-            });
-        }
-
-        // Initialize grid on DOM Content Loaded
-        document.addEventListener("DOMContentLoaded", function () {
-            renderGrid();
-        });
-        // Also run immediately if DOM is already ready
-        if (document.readyState === "complete" || document.readyState === "interactive") {
-            setTimeout(renderGrid, 100);
-        }
-    </script>
-    <!-- Code injected by live-server -->
-    <script>
-        // <![CDATA[  <-- For SVG support
-        if ('WebSocket' in window) {
-            (function () {
-                function refreshCSS() {
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-                    var head = document.getElementsByTagName("head")[0];
-                    for (var i = 0; i < sheets.length; ++i) {
-                        var elem = sheets[i];
-                        var parent = elem.parentElement || head;
-                        parent.removeChild(elem);
-                        var rel = elem.rel;
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                        }
-                        parent.appendChild(elem);
-                    }
-                }
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-                var socket = new WebSocket(address);
-                socket.onmessage = function (msg) {
-                    if (msg.data == 'reload') window.location.reload();
-                    else if (msg.data == 'refreshcss') refreshCSS();
-                };
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                    console.log('Live reload enabled.');
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                }
-            })();
-        }
-        else {
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-        }
-        // ]]>
+        // DataList rendered directly from database via ASP.NET
     </script>
     </body>
 </html>

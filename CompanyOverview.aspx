@@ -9,19 +9,13 @@
         <div class="row align-items-center g-3">
             <div class="col-lg-8">
                 <div class="company-hero-kicker">Company Dashboard</div>
-                <h2 class="mb-1" id="panelTitle">Company Workspace</h2>
-                <p>Manage your company profile and review registered students for campus recruitment.</p>
+                <h2 class="mb-1" id="panelTitle">Overview &amp; Analytics</h2>
+                <p>Monitor active recruitment drives, student applications, placement statistics, and campus recruitment activity.</p>
             </div>
             <div class="col-lg-4 text-lg-end">
-                <div class="d-inline-flex align-items-center gap-3">
-                    <div class="text-lg-end d-none d-lg-block">
-                        <div class="fw-semibold text-dark">Logged In</div>
-                        <div class="text-muted small">Company Portal</div>
-                    </div>
-                    <div class="avatar-circle bg-rku-red text-white fw-bold rounded-circle d-flex align-items-center justify-content-center company-hero-avatar" id="heroCompanyAvatar">
-                        CO
-                    </div>
-                </div>
+                <a href="CompanyManageDrives.aspx" class="btn btn-rku px-4 py-2">
+                    <i class="fa-solid fa-plus me-2"></i>Create New Drive
+                </a>
             </div>
         </div>
     </div>

@@ -33,6 +33,7 @@
         body {
             font-family: var(--font-body);
             background-color: #f4f6f9;
+            color: #1e293b;
         }
 
         /* ─── LAYOUT STRUCTURE ─── */
@@ -40,6 +41,7 @@
             display: flex;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
 
         /* ─── SIDEBAR ─── */
@@ -51,8 +53,8 @@
             top: 0;
             bottom: 0;
             left: 0;
-            z-index: 100;
-            transition: all 0.3s ease;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 4px 0 15px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
@@ -61,7 +63,7 @@
 
         .sidebar-brand {
             padding: 1.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
             background-color: rgba(255,255,255,0.03);
         }
 
@@ -93,14 +95,34 @@
 
         .sidebar-item a:hover, .sidebar-item.active a {
             color: #fff;
-            background-color: rgba(255,255,255,0.06);
+            background-color: rgba(255,255,255,0.12);
             border-left-color: #ffffff;
         }
 
         .sidebar-footer {
             padding: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(255,255,255,0.08);
             background-color: rgba(255,255,255,0.04);
+        }
+
+        /* Backdrop Overlay for Mobile */
+        .sidebar-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(2px);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar-backdrop.show {
+            display: block;
+            opacity: 1;
         }
 
         /* ─── CONTENT AREA ─── */
@@ -111,6 +133,7 @@
             display: flex;
             flex-direction: column;
             transition: all 0.3s ease;
+            width: calc(100% - var(--sidebar-width));
         }
 
         .top-navbar {
@@ -118,7 +141,7 @@
             padding: 1rem 2rem;
             border-bottom: 1px solid #eef0f3;
             box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-            z-index: 99;
+            z-index: 98;
         }
 
         .content-container {
@@ -126,11 +149,51 @@
             flex-grow: 1;
         }
 
-        /* ─── CARD WIDGETS ─── */
+        /* ─── CARD WIDGETS & UNIFIED HERO ─── */
+        .company-hero-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+            border: 1px solid #eef0f3;
+            border-radius: 16px;
+            padding: 1.5rem 1.75rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .company-hero-kicker {
+            font-size: 0.78rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--rku-red);
+            font-weight: 800;
+            margin-bottom: 0.35rem;
+            font-family: var(--font-heading);
+        }
+
+        .company-hero-card h2 {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.01em;
+        }
+
+        .company-hero-card p {
+            margin-bottom: 0;
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .company-hero-avatar {
+            width: 56px;
+            height: 56px;
+            font-size: 1rem;
+        }
+
         .dashboard-card {
             background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
             border: 1px solid #eef0f3;
             padding: 1.5rem;
             height: 100%;
@@ -138,44 +201,52 @@
         }
 
         .dashboard-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
         }
 
-        .company-hero-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
-            border: 1px solid #eef0f3;
-            border-radius: 18px;
-            padding: 1.5rem 1.75rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
-        }
-
-        .company-hero-kicker {
-            font-size: 0.8rem;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: var(--rku-red);
-            font-weight: 800;
-            margin-bottom: 0.35rem;
-        }
-
-        .company-hero-card h2 {
+        .form-section-title {
             font-family: var(--font-heading);
-            font-weight: 800;
-            color: #111;
-            margin-bottom: 0.35rem;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--rku-red);
+            margin-bottom: 0.85rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(239, 55, 36, 0.12);
         }
 
-        .company-hero-card p {
-            margin-bottom: 0;
-            color: #64748b;
-            font-size: 0.98rem;
+        /* ─── BUTTONS & INPUTS ─── */
+        .btn-rku {
+            background: linear-gradient(135deg, var(--rku-red), var(--rku-maroon));
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            border-radius: 8px;
+            padding: 0.55rem 1.35rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(163, 15, 20, 0.18);
         }
 
-        .company-hero-avatar {
-            width: 56px;
-            height: 56px;
-            font-size: 1rem;
+        .btn-rku:hover, .btn-rku:focus {
+            background: linear-gradient(135deg, var(--rku-maroon), #8b0b0f);
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(163, 15, 20, 0.28);
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            padding: 0.55rem 0.85rem;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--rku-red);
+            box-shadow: 0 0 0 0.2rem rgba(239, 55, 36, 0.15);
         }
 
         /* ─── STAT BOXES ─── */
@@ -188,6 +259,12 @@
             border: 1px solid #eef0f3;
             box-shadow: 0 4px 15px rgba(0,0,0,0.01);
             margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-widget:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
         }
 
         .stat-widget-icon {
@@ -199,6 +276,7 @@
             justify-content: center;
             font-size: 1.4rem;
             margin-right: 15px;
+            flex-shrink: 0;
         }
 
         .stat-widget-info h3 {
@@ -255,28 +333,9 @@
             width: 100%;
         }
 
-        /* ─── MOBILE RESPONSIVE ─── */
-        @media (max-width: 991.98px) {
-            .sidebar {
-                left: -260px;
-            }
-
-            .sidebar.show {
-                left: 0;
-            }
-
-            .main-panel {
-                margin-left: 0;
-            }
-
-            .content-container {
-                padding: 1rem;
-            }
-        }
-
         .company-logo-upload-zone {
-            border: 2px dashed #dee2e6;
-            border-radius: 16px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 14px;
             padding: 1.5rem;
             text-align: center;
             cursor: pointer;
@@ -290,52 +349,92 @@
         }
 
         .sidebar-company-logo {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
             object-fit: contain;
-            border: 2px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
             background: #fff;
             padding: 2px;
         }
 
         .sidebar-company-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
             background: linear-gradient(135deg, #a30f14, #c0392b);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 900;
             color: #fff;
             font-family: var(--font-heading);
             flex-shrink: 0;
         }
+
+        /* ─── RESPONSIVE BREAKPOINTS ─── */
+        @media (max-width: 991.98px) {
+            .sidebar {
+                left: -260px;
+            }
+
+            .sidebar.show {
+                left: 0;
+            }
+
+            .main-panel {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content-container {
+                padding: 1.25rem;
+            }
+
+            .top-navbar {
+                padding: 0.85rem 1.25rem;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .content-container {
+                padding: 0.85rem;
+            }
+
+            .company-hero-card {
+                padding: 1.25rem 1rem;
+            }
+
+            .company-hero-card h2 {
+                font-size: 1.4rem;
+            }
+
+            .dashboard-card {
+                padding: 1.15rem;
+            }
+        }
     </style>
 </head>
 <body id="bodyTag" runat="server">
-    <% if (Session["company"] != null) { %>
-    <script>
-        PortalDB.init();
-        localStorage.setItem(PortalDB.KEYS.CURRENT_SESSION, JSON.stringify({
-            username: 'company', role: 'company', name: 'Company HR',
-            enrollment: 'Company HR', email: '<%= Session["company"] %>'
-        }));
-    </script>
-    <% } %>
 
     <form id="form1" runat="server">
         <div class="wrapper">
+            <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
             <!-- ===== SIDEBAR NAVIGATION ===== -->
             <aside class="sidebar" id="sidebar">
                 <div>
+                    <!-- Top Brand Header with Dynamic Logo & Company Name -->
                     <div class="sidebar-brand">
                         <div class="d-flex align-items-center gap-2">
-                            <div id="sidebarBrandLogoWrap"></div>
+                            <div id="sidebarBrandLogoWrap">
+                                <asp:Image ID="imgSidebarTopLogo" runat="server" Visible="false" CssClass="sidebar-company-logo" />
+                                <asp:Panel ID="pnlSidebarTopAvatar" runat="server" CssClass="sidebar-company-avatar">CO</asp:Panel>
+                            </div>
                             <div class="text-white overflow-hidden">
-                                <div class="fw-bold text-truncate" style="font-size: 0.9rem; line-height: 1.1;" id="sidebarBrandCompanyName">Company</div>
+                                <div class="fw-bold text-truncate" style="font-size: 0.9rem; line-height: 1.1;">
+                                    <asp:Label ID="lblSidebarTopCompanyName" runat="server" Text="Company HR"></asp:Label>
+                                </div>
                                 <div class="text-white-50" style="font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;">Company Portal</div>
                             </div>
                         </div>
@@ -348,16 +447,25 @@
                         <li class="sidebar-item" id="nav-profile">
                             <a href="CompanyProfile.aspx"><i class="fa-solid fa-building-user"></i>My Company Profile</a>
                         </li>
+                        <li class="sidebar-item" id="nav-drives">
+                            <a href="CompanyManageDrives.aspx"><i class="fa-solid fa-bullhorn"></i>Campus Drives</a>
+                        </li>
                         <li class="sidebar-item" id="nav-directory">
                             <a href="CompanyStudentDirectory.aspx"><i class="fa-solid fa-users"></i>Student Directory</a>
                         </li>
                     </ul>
 
-                    <div class="mt-4 px-2" id="sidebarCompanyCard" style="display: none;">
-                        <div class="d-flex align-items-center gap-2 p-2" style="background: rgba(255,255,255,0.06); border-radius: 12px;">
-                            <div id="sidebarCompanyLogoWrap"></div>
+                    <!-- Bottom Logged In Badge with Dynamic Logo & Company Name -->
+                    <div class="mt-4 px-2" id="sidebarCompanyCard">
+                        <div class="d-flex align-items-center gap-2 p-2" style="background: rgba(255,255,255,0.08); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                            <div id="sidebarCompanyLogoWrap">
+                                <asp:Image ID="imgSidebarBottomLogo" runat="server" Visible="false" CssClass="sidebar-company-logo" />
+                                <asp:Panel ID="pnlSidebarBottomAvatar" runat="server" CssClass="sidebar-company-avatar">CO</asp:Panel>
+                            </div>
                             <div style="overflow: hidden;">
-                                <div class="text-white fw-bold" style="font-size: 0.78rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="sidebarCompanyName">Company</div>
+                                <div class="text-white fw-bold" style="font-size: 0.78rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    <asp:Label ID="lblSidebarBottomCompanyName" runat="server" Text="Company HR"></asp:Label>
+                                </div>
                                 <div class="text-white-50" style="font-size: 0.7rem;">Logged In</div>
                             </div>
                         </div>
@@ -365,7 +473,7 @@
                 </div>
 
                 <div class="sidebar-footer">
-                    <a href="#" class="btn btn-outline-light btn-sm w-100 py-2 border-0" onclick="handleLogout()">
+                    <a href="Login.aspx" class="btn btn-outline-light btn-sm w-100 py-2 border-0">
                         <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Sign Out
                     </a>
                 </div>
@@ -381,9 +489,8 @@
                         <h4 class="mb-0 text-dark fw-bold" id="panelTitleBar" style="font-family: var(--font-heading);">Company Dashboard</h4>
                     </div>
                     <div class="d-flex align-items-center gap-3 ms-auto">
-                        <div class="avatar-circle bg-rku-red text-white fw-bold rounded-circle d-flex align-items-center justify-content-center" id="navHeaderAvatar" style="width: 40px; height: 40px; font-size: 1rem;">
-                            CO
-                        </div>
+                        <asp:Image ID="imgNavHeaderLogo" runat="server" Visible="false" Style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #eee; background: #fff; padding: 2px;" />
+                        <asp:Label ID="lblNavHeaderAvatar" runat="server" Text="CO" CssClass="avatar-circle bg-rku-red text-white fw-bold rounded-circle d-flex align-items-center justify-content-center" Style="width: 40px; height: 40px; font-size: 1rem;"></asp:Label>
                     </div>
                 </header>
 
@@ -413,110 +520,45 @@
         </div>
     </div>
 
-    <!-- Send Mail Modal -->
-    <div class="modal fade" id="sendMailModal" tabindex="-1" aria-labelledby="sendMailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow">
-                <div class="modal-header bg-rku-maroon text-white">
-                    <h5 class="modal-title font-heading fw-bold" id="sendMailModalLabel"><i class="fa-regular fa-paper-plane me-2"></i>Send Placement Invite Email</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <form id="sendMailForm" onsubmit="sendStudentPlacementMail(event)">
-                        <input type="hidden" id="mailStudentUsername">
-                        <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold">Student Name &amp; Email</label>
-                            <input type="text" class="form-control" id="mailStudentDetails" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold">Select Placement Drive</label>
-                            <select class="form-select" id="mailDriveSelect" onchange="autoFillMailContent(this.value)">
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold">Email Subject</label>
-                            <input type="text" class="form-control" id="mailSubject" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold">Invite Message / Placement Details</label>
-                            <textarea class="form-control" id="mailMessage" rows="5" required></textarea>
-                        </div>
-                        <div class="alert alert-info py-2 small mb-0">
-                            <i class="fa-solid fa-circle-info me-1"></i>Submitting this form dispatches an email notification to the student's email and pushes a live alert to their Student Panel.
-                        </div>
-                        <div class="mt-3 text-end">
-                            <button type="button" class="btn btn-secondary btn-sm me-1" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-rku btn-sm"><i class="fa-solid fa-paper-plane me-1"></i>Send Email &amp; Notify</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap 5 Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            initCompanySidebarInfo();
-            
-            // Mobile sidebar toggle
+            // Mobile sidebar toggle with overlay backdrop
             const toggleBtn = document.getElementById('sidebarToggleBtn');
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', () => {
-                    document.getElementById('sidebar').classList.toggle('show');
-                });
-            }
-        });
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
 
-        function initCompanySidebarInfo() {
-            const user = PortalDB.getCurrentUser();
-            if (!user) return;
-
-            const companies = PortalDB.getCompanies();
-            const compEntry = companies.find(c => c.username === user.username) || {};
-            const profiles = JSON.parse(localStorage.getItem('rku_company_profiles') || '{}');
-            const cp = profiles[user.username] || {};
-
-            const companyName = compEntry.name || cp.name || user.name || 'Company';
-            const logoSrc = compEntry.logoBase64 || cp.logo || user.logoBase64 || '';
-
-            const brandName = document.getElementById('sidebarBrandCompanyName');
-            if (brandName) brandName.textContent = companyName;
-
-            const avatar = document.getElementById('navHeaderAvatar');
-            if (avatar) {
-                if (logoSrc) {
-                    avatar.innerHTML = `<img src="${logoSrc}" style="width:40px;height:40px;border-radius:50%;object-fit:contain;border:2px solid #eee;background:#fff;padding:2px;">`;
-                    avatar.style.background = 'transparent';
+            function toggleMobileSidebar() {
+                if (!sidebar || !backdrop) return;
+                const isOpen = sidebar.classList.contains('show');
+                if (isOpen) {
+                    sidebar.classList.remove('show');
+                    backdrop.classList.remove('show');
                 } else {
-                    avatar.textContent = companyName.substring(0, 2).toUpperCase();
+                    sidebar.classList.add('show');
+                    backdrop.classList.add('show');
                 }
             }
 
-            const card = document.getElementById('sidebarCompanyCard');
-            if (card) {
-                card.style.display = 'block';
-                document.getElementById('sidebarCompanyName').textContent = companyName;
-                const logoWrap = document.getElementById('sidebarCompanyLogoWrap');
-                if (logoWrap) {
-                    if (logoSrc) {
-                        logoWrap.innerHTML = `<img src="${logoSrc}" class="sidebar-company-logo">`;
-                    } else {
-                        const ini = companyName.charAt(0).toUpperCase();
-                        logoWrap.innerHTML = `<div class="sidebar-company-avatar">${ini}</div>`;
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', toggleMobileSidebar);
+            }
+
+            if (backdrop) {
+                backdrop.addEventListener('click', toggleMobileSidebar);
+            }
+
+            // Close sidebar when menu links are clicked on small screens
+            document.querySelectorAll('.sidebar-item a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 992 && sidebar && sidebar.classList.contains('show')) {
+                        toggleMobileSidebar();
                     }
-                }
-            }
-        }
-
-        function handleLogout() {
-            if (confirm('Are you sure you want to sign out?')) {
-                PortalDB.logout();
-                window.location.href = 'Login.aspx';
-            }
-        }
+                });
+            });
+        });
     </script>
 </body>
 </html>

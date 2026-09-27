@@ -521,18 +521,26 @@
         if (!grid) return;
         const drives = PortalDB.getDrives();
         const applications = PortalDB.getApplications().filter(a => a.studentEnrollment === studentData.enrollment);
+        const companies = PortalDB.getCompanies ? PortalDB.getCompanies() : [];
         const userCgpa = parseFloat(studentData.cgpa || 0);
         const driveCountLabel = byId('driveCountLabel');
 
         grid.innerHTML = '';
         if (drives.length === 0) {
-            grid.innerHTML = `<div class="col-12 text-center py-5 text-muted"><p>No campus recruitment drives listed.</p></div>`;
-            if (driveCountLabel) driveCountLabel.innerText = 'No Drives Available';
+            grid.innerHTML = `
+                <div class="col-12">
+                    <div class="sd-empty-state">
+                        <i class="fa-solid fa-bullhorn d-block"></i>
+                        <h6>No Campus Drives Available</h6>
+                        <p>There are currently no campus recruitment drives listed. Check back soon!</p>
+                    </div>
+                </div>`;
+            if (driveCountLabel) driveCountLabel.innerText = '0 Drives';
             return;
         }
 
         if (driveCountLabel) {
-            driveCountLabel.innerText = `${drives.filter(d => d.status === 'Open').length} Open Drives`;
+            driveCountLabel.innerText = drives.length + ' Drive' + (drives.length !== 1 ? 's' : '');
         }
 
         drives.forEach(drive => {
@@ -541,51 +549,81 @@
             const hasApplied = applications.some(a => a.driveId === drive.id);
             const isClosed = drive.status !== 'Open';
 
+            // Get company logo
+            const compEntry = companies.find(c =>
+                c.name === drive.companyName ||
+                c.linkedUsername === drive.companyUsername
+            ) || {};
+            const logoSrc = compEntry.logoBase64 || '';
+            const companyInitials = (drive.companyName || 'CO').substring(0, 2).toUpperCase();
+
+            const dateStr = drive.date ? new Date(drive.date).toLocaleDateString('en-IN', {
+                day: 'numeric', month: 'short', year: 'numeric'
+            }) : 'TBD';
+
+            const appCount = PortalDB.getApplications().filter(a => a.driveId === drive.id).length;
+
             const cardCol = document.createElement('div');
-            cardCol.className = 'col-md-6 col-lg-4 drive-card-item';
+            cardCol.className = 'col-md-6 drive-card-item';
             cardCol.setAttribute('data-company', (drive.companyName || '').toLowerCase() + ' ' + (drive.role || '').toLowerCase());
             cardCol.setAttribute('data-eligible', isEligible ? 'eligible' : 'ineligible');
+            cardCol.setAttribute('data-status', drive.status || 'Open');
+            cardCol.setAttribute('data-applied', hasApplied ? 'true' : 'false');
+
+            let actionBtn = '';
+            if (isClosed) {
+                actionBtn = `<button class="btn btn-secondary btn-sm w-100 py-2 disabled" disabled><i class="fa-solid fa-lock me-1"></i>Drive Closed</button>`;
+            } else if (hasApplied) {
+                actionBtn = `<button class="btn btn-outline-success btn-sm w-100 py-2 disabled" disabled><i class="fa-solid fa-circle-check me-1"></i>Already Applied</button>`;
+            } else if (isEligible) {
+                actionBtn = `<button class="btn btn-rku btn-sm w-100 py-2" onclick="applyJob('${drive.id}', '${escapeQuotes(drive.companyName)}')"><i class="fa-solid fa-paper-plane me-1"></i>Apply Now</button>`;
+            } else {
+                actionBtn = `<button class="btn btn-outline-danger btn-sm w-100 py-2 disabled" disabled title="CGPA ${minCg.toFixed(1)}+ required"><i class="fa-solid fa-ban me-1"></i>Ineligible (CGPA ${minCg.toFixed(1)}+)</button>`;
+            }
 
             cardCol.innerHTML = `
-                <div class="dashboard-card d-flex flex-column justify-content-between">
+                <div class="sd-drive-card">
                     <div>
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <span class="badge ${isClosed ? 'bg-secondary' : 'bg-success'} text-white rounded-pill px-2 py-1" style="font-size: 0.7rem;">${drive.status}</span>
-                            <span class="fw-bold text-rku-maroon" style="font-family: var(--font-heading); font-size: 1.15rem;">${drive.package}</span>
+                        <!-- Header: Logo + Company Info -->
+                        <div class="d-flex align-items-start gap-3 mb-3">
+                            ${logoSrc
+                                ? `<img src="${logoSrc}" class="sd-company-logo" alt="${drive.companyName}">`
+                                : `<div class="sd-company-avatar">${companyInitials}</div>`
+                            }
+                            <div style="flex: 1; min-width: 0;">
+                                <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                                    <span class="sd-status-badge ${isClosed ? 'sd-status-closed' : 'sd-status-open'}">
+                                        <i class="fa-solid fa-circle me-1" style="font-size: 0.35rem; vertical-align: middle;"></i>${drive.status}
+                                    </span>
+                                    <span class="sd-eligible-badge ${isEligible ? 'sd-eligible-yes' : 'sd-eligible-no'}">
+                                        <i class="fa-solid ${isEligible ? 'fa-check' : 'fa-xmark'} me-1"></i>${isEligible ? 'Eligible' : 'Not Eligible'}
+                                    </span>
+                                </div>
+                                <h6 class="fw-bold mb-0 text-dark font-heading" style="font-size: 1.05rem;">${drive.companyName}</h6>
+                                <div class="text-muted small font-heading">${drive.role}</div>
+                            </div>
                         </div>
 
-                        <h5 class="fw-bold mb-1 font-heading text-dark">${drive.companyName}</h5>
-                        <h6 class="text-muted mb-3 font-heading small">${drive.role}</h6>
+                        <!-- Package Tag -->
+                        <div class="mb-3">
+                            <span class="sd-package-tag"><i class="fa-solid fa-indian-rupee-sign me-1" style="font-size: 0.8rem;"></i>${drive.package}</span>
+                            ${appCount > 0 ? `<span class="ms-2" style="font-size: 0.72rem; color: #64748b;"><i class="fa-solid fa-users me-1"></i>${appCount} applicant${appCount !== 1 ? 's' : ''}</span>` : ''}
+                        </div>
 
-                        <p class="small text-muted mb-3 text-truncate-3" style="font-size: 0.8rem; line-height: 1.5;">
-                            ${drive.description}
-                        </p>
+                        <!-- Description -->
+                        ${drive.description ? `<p class="sd-desc-text mb-3">${drive.description}</p>` : ''}
 
-                        <div class="border-top pt-2 mt-2 mb-3">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="text-muted small">Min CGPA required:</span>
-                                <span class="fw-bold small ${isEligible ? 'text-success' : 'text-danger'}">${minCg.toFixed(2)}</span>
-                            </div>
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="text-muted small"><i class="fa-solid fa-location-dot me-1"></i> Location:</span>
-                                <span class="small font-heading text-dark">${drive.location || 'RKU Campus'}</span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <span class="text-muted small"><i class="fa-regular fa-calendar me-1"></i> Drive Date:</span>
-                                <span class="small text-dark font-monospace">${drive.date}</span>
-                            </div>
+                        <!-- Meta Info -->
+                        <div class="d-flex flex-wrap gap-3 sd-meta mb-3" style="border-top: 1px solid #f1f5f9; padding-top: 0.75rem;">
+                            <span><i class="fa-regular fa-calendar"></i>${dateStr}</span>
+                            <span><i class="fa-solid fa-graduation-cap"></i>CGPA ≥ ${minCg.toFixed(1)}</span>
+                            <span><i class="fa-solid fa-location-dot"></i>${drive.location || 'RKU Campus'}</span>
                         </div>
                     </div>
 
+                    <!-- Action Button -->
                     <div>
-                        ${isClosed
-                            ? `<button class="btn btn-secondary btn-sm w-100 disabled" disabled>Drive Closed</button>`
-                            : hasApplied
-                                ? `<button class="btn btn-outline-success btn-sm w-100 disabled" disabled><i class="fa-solid fa-check me-1"></i> Applied</button>`
-                                : isEligible
-                                    ? `<button class="btn btn-rku btn-sm w-100" onclick="applyJob('${drive.id}', '${escapeQuotes(drive.companyName)}')">Apply Now</button>`
-                                    : `<button class="btn btn-outline-danger btn-sm w-100 disabled" disabled title="You do not meet the CGPA requirement.">Ineligible (CGPA ${minCg.toFixed(1)}+ Required)</button>`
-                        }
+                        ${actionBtn}
                     </div>
                 </div>
             `;
