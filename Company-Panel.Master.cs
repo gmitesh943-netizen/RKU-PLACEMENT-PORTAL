@@ -26,6 +26,8 @@ namespace RKU_PLACEMENT_PORTAL
             string pageName = System.IO.Path.GetFileNameWithoutExtension(Request.Url.AbsolutePath).ToLower();
             string dataPage = "overview";
             if (pageName.Contains("profile")) dataPage = "profile";
+            else if (pageName.Contains("drives")) dataPage = "drives";
+            else if (pageName.Contains("applicants")) dataPage = "applicants";
             else if (pageName.Contains("directory")) dataPage = "directory";
 
             bodyTag.Attributes["data-company-page"] = dataPage;

@@ -169,7 +169,16 @@
     <Content Include="assets\images\tanna SIR-Plcment %281%29.png" />
     <Content Include="assets\images\team_tpo_profile.png" />
     <Content Include="assets\images\white logo rku.png" />
+    <Content Include="assets\images\placement_highlights_card.png" />
+    <Content Include="assets\images\placement_highlights_bg.jpg" />
+    <Content Include="assets\images\why_rku_visual.png" />
+    <Content Include="assets\images\why_rku_visual@2x.png" />
+    <Content Include="assets\images\stories_campus_collage.png" />
+    <Content Include="assets\images\process_walkway.png" />
+    <Content Include="assets\images\faq_need_help_student.png" />
     <Content Include="Companies.aspx" />
+    <Content Include="CompanyDetails.aspx" />
+    <Content Include="CompanyApplicants.aspx" />
     <Content Include="CompanyManageDrives.aspx" />
     <Content Include="CompanyOverview.aspx" />
     <Content Include="CompanyProfile.aspx" />
@@ -186,6 +195,7 @@
     <Content Include="PlacementAbout.aspx" />
     <Content Include="PlacementCampusDrives.aspx" />
     <Content Include="PlacementLiaisonOfficers.aspx" />
+    <Content Include="PlacementPolicy.aspx" />
     <Content Include="PlacementStudentSelection.aspx" />
     <Content Include="PlacmentProminentRecruiters.aspx" />
     <Content Include="Register.aspx" />
@@ -194,6 +204,8 @@
     <Content Include="StudentDrives.aspx" />
     <Content Include="StudentProfile.aspx" />
     <Content Include="StudentTraining.aspx" />
+    <Content Include="StudentOfferLetters.aspx" />
+    <Content Include="StudentNotifications.aspx" />
     <Content Include="SuccessStories.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -275,12 +287,26 @@
     <Compile Include="Companies.aspx.designer.cs">
       <DependentUpon>Companies.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CompanyDetails.aspx.cs">
+      <DependentUpon>CompanyDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyDetails.aspx.designer.cs">
+      <DependentUpon>CompanyDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Company-Panel.Master.cs">
       <DependentUpon>Company-Panel.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Company-Panel.Master.designer.cs">
       <DependentUpon>Company-Panel.Master</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyApplicants.aspx.cs">
+      <DependentUpon>CompanyApplicants.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyApplicants.aspx.designer.cs">
+      <DependentUpon>CompanyApplicants.aspx</DependentUpon>
     </Compile>
     <Compile Include="CompanyManageDrives.aspx.cs">
       <DependentUpon>CompanyManageDrives.aspx</DependentUpon>
@@ -366,6 +392,13 @@
     <Compile Include="PlacementLiaisonOfficers.aspx.designer.cs">
       <DependentUpon>PlacementLiaisonOfficers.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PlacementPolicy.aspx.cs">
+      <DependentUpon>PlacementPolicy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PlacementPolicy.aspx.designer.cs">
+      <DependentUpon>PlacementPolicy.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PlacementStudentSelection.aspx.cs">
       <DependentUpon>PlacementStudentSelection.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -429,6 +462,20 @@
     </Compile>
     <Compile Include="StudentTraining.aspx.designer.cs">
       <DependentUpon>StudentTraining.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StudentOfferLetters.aspx.cs">
+      <DependentUpon>StudentOfferLetters.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentOfferLetters.aspx.designer.cs">
+      <DependentUpon>StudentOfferLetters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StudentNotifications.aspx.cs">
+      <DependentUpon>StudentNotifications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentNotifications.aspx.designer.cs">
+      <DependentUpon>StudentNotifications.aspx</DependentUpon>
     </Compile>
     <Compile Include="SuccessStories.aspx.cs">
       <DependentUpon>SuccessStories.aspx</DependentUpon>

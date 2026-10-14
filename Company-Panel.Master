@@ -196,7 +196,7 @@
             box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
             border: 1px solid #eef0f3;
             padding: 1.5rem;
-            height: 100%;
+            height: auto;
             transition: all 0.3s ease;
         }
 
@@ -449,6 +449,9 @@
                         </li>
                         <li class="sidebar-item" id="nav-drives">
                             <a href="CompanyManageDrives.aspx"><i class="fa-solid fa-bullhorn"></i>Campus Drives</a>
+                        </li>
+                        <li class="sidebar-item" id="nav-applicants">
+                            <a href="CompanyApplicants.aspx"><i class="fa-solid fa-user-check"></i>Applicants &amp; Selection</a>
                         </li>
                         <li class="sidebar-item" id="nav-directory">
                             <a href="CompanyStudentDirectory.aspx"><i class="fa-solid fa-users"></i>Student Directory</a>

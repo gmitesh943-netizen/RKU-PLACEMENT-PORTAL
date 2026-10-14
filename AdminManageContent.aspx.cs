@@ -33,15 +33,11 @@ namespace RKU_PLACEMENT_PORTAL
                 fillTeamGrid();
             }
         }
-
-
         void getcon()
         {
             con = new SqlConnection(s);
             con.Open();
         }
-
-
         void imgupload()
         {
             if (placementImage.HasFile)
@@ -54,8 +50,6 @@ namespace RKU_PLACEMENT_PORTAL
                 fnm = "";
             }
         }
-
-
         void clear()
         {
             placementStudentName.Text = "";
@@ -66,13 +60,10 @@ namespace RKU_PLACEMENT_PORTAL
             placementImagePreview.Style["display"] = "none";
             placementSubmitBtn.Text = "Add Placed Student";
         }
-
-        
         protected void placementSubmitBtn_Click(object sender, EventArgs e)
         {
             if (placementSubmitBtn.Text == "Add Placed Student")
             {
-              
                 getcon();
                 imgupload();
                 cmd = new SqlCommand("insert into Placed_Students(StudentName,Department,CompanyName,PlacementYear,StudentImage) values('" + placementStudentName.Text + "','" + placementDepartment.SelectedValue + "','" + placementCompanyName.Text + "','" + placementYear.SelectedValue + "','" + fnm + "')", con);
@@ -82,7 +73,6 @@ namespace RKU_PLACEMENT_PORTAL
             }
             else
             {
-                
                 getcon();
                 if (placementImage.HasFile)
                 {
@@ -99,8 +89,6 @@ namespace RKU_PLACEMENT_PORTAL
                 placementSubmitBtn.Text = "Add Placed Student";
             }
         }
-
-        
         void fillGrid()
         {
             getcon();
@@ -149,8 +137,6 @@ namespace RKU_PLACEMENT_PORTAL
                 }
             }
         }
-
-
         protected void GridView1_RowCommand1(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "cmd_edt")
@@ -169,12 +155,10 @@ namespace RKU_PLACEMENT_PORTAL
                 fillGrid();
             }
         }
-
         protected void placementCancelBtn_Click(object sender, EventArgs e)
         {
             clear();
         }
-
         //========================== SUCCESS STORIES ==========================
 
         void storyImgUpload()
@@ -189,7 +173,6 @@ namespace RKU_PLACEMENT_PORTAL
                 fnm = "";
             }
         }
-
         void clearStory()
         {
             storyStudentName.Text = "";
@@ -205,7 +188,6 @@ namespace RKU_PLACEMENT_PORTAL
             storyImagePreview.Style["display"] = "none";
             storySubmitBtn.Text = "Publish Success Story";
         }
-
         void fillStoryGrid()
         {
             getcon();
@@ -226,7 +208,6 @@ namespace RKU_PLACEMENT_PORTAL
                 storyCountBadge.InnerText = "0 stories";
             }
         }
-
         void fillStoryData()
         {
             getcon();
@@ -256,7 +237,6 @@ namespace RKU_PLACEMENT_PORTAL
                 {
                     storyRank.SelectedIndex = 0;
                 }
-
                 //string img = ds.Tables[0].Rows[0]["StudentPhoto"].ToString();
                 //if (!string.IsNullOrEmpty(img) && img != "~/assets/PlacmentStudentImage/")
                 //{
@@ -270,7 +250,6 @@ namespace RKU_PLACEMENT_PORTAL
                 //}
             }
         }
-
         protected void storySubmitBtn_Click(object sender, EventArgs e)
         {
             string isHof = storyIsHallOfFame.Checked ? "1" : "0";
@@ -303,7 +282,6 @@ namespace RKU_PLACEMENT_PORTAL
                 storySubmitBtn.Text = "Publish Success Story";
             }
         }
-
         protected void GridView3_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "cmd_sedt")
@@ -321,15 +299,12 @@ namespace RKU_PLACEMENT_PORTAL
                 fillStoryGrid();
             }
         }
-
         protected void storyCancelBtn_Click(object sender, EventArgs e)
         {
             clearStory();
         }
-
         //====== ================= Galary image add===========
 
-       
         void galleryImgUpload()
         {
             if (galleryImage.HasFile)
@@ -342,15 +317,13 @@ namespace RKU_PLACEMENT_PORTAL
                 fnm = "";
             }
         }
-
-        
         void clearGallery()
         {
             galleryTitle.Text = "";
             gallerySubmitBtn.Text = "+ Add Gallery Item";
         }
 
-        
+
         void fillGalleryGrid()
         {
             getcon();
@@ -370,8 +343,6 @@ namespace RKU_PLACEMENT_PORTAL
                 galleryCountBadge.InnerText = "0 items";
             }
         }
-
-       
         void fillGalleryData()
         {
             getcon();
@@ -414,7 +385,6 @@ namespace RKU_PLACEMENT_PORTAL
             }
         }
 
-        
         protected void GridView2_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "cmd_gedt")
@@ -432,14 +402,11 @@ namespace RKU_PLACEMENT_PORTAL
                 fillGalleryGrid();
             }
         }
-
         protected void galleryCancelBtn_Click(object sender, EventArgs e)
         {
             clearGallery();
         }
-
         //========================== PLACEMENT TEAM ==========================
-
         void teamImgUpload()
         {
             fnm = "~/assets/PlacmentCell_TeamImage/" + teamMemberPhoto.FileName;
@@ -478,7 +445,6 @@ namespace RKU_PLACEMENT_PORTAL
                 teamCountBadge.InnerText = "0 members";
             }
         }
-
         void fillTeamData()
         {
             getcon();

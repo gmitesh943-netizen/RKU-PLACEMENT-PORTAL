@@ -15,6 +15,35 @@
         <meta name="keywords" content="RK University, Placement Cell, About RKU, TPO Rajkot, Placement Coordinators, Training objectives">
         <meta name="author" content="RK University">
 
+        <!-- Open Graph / Facebook / WhatsApp -->
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="About Training & Placement Cell | RK University">
+        <meta property="og:description" content="Learn about RKU's Training & Placement Cell (T&P), career development frameworks, industry partnerships, and campus hiring infrastructure.">
+        <meta property="og:image" content="images/RKU_Placement_Social_Banner.jpg">
+
+        <!-- Schema.org JSON-LD -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "name": "About RK University Training & Placement Cell",
+          "description": "Information about Training & Placement Cell, leadership message, placement statistics, and training programs at RK University.",
+          "mainEntity": {
+            "@type": "EducationalOrganization",
+            "name": "RK University Training and Placement Cell",
+            "url": "https://rku.ac.in",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Bhavnagar Highway, Kasturbadham",
+              "addressLocality": "Rajkot",
+              "addressRegion": "Gujarat",
+              "postalCode": "360020",
+              "addressCountry": "IN"
+            }
+          }
+        }
+        </script>
+
         <!-- Bootstrap 5 CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -294,8 +323,37 @@
     <body>
 
         <!-- ==========================================
-         1. HEADER / NAVBAR
-         ========================================== -->
+             1. HEADER TOPBAR & NAVBAR
+             ========================================== -->
+        <!-- RKU Header Topbar -->
+        <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155; position:relative; z-index:1031;">
+            <div class="container-fluid px-lg-5">
+                <div class="d-flex justify-content-between align-items-center py-2">
+                    <!-- Left: Tagline with Graduation Cap -->
+                    <div class="topbar-tagline d-flex align-items-center" style="font-weight:500; color:#334155;">
+                        <i class="fa-solid fa-graduation-cap topbar-icon me-2" style="color:#e03627; font-size:0.95rem;"></i>
+                        <span>Empowering Students. Connecting Companies. Building Careers.</span>
+                    </div>
+                    <!-- Right: Contact info & Social Media Icons -->
+                    <div class="topbar-contact d-flex align-items-center gap-3">
+                        <a href="tel:+919876543210" class="topbar-link" style="color:#334155; text-decoration:none; display:inline-flex; align-items:center;">
+                            <i class="fa-solid fa-phone topbar-icon me-1.5" style="color:#e03627; font-size:0.85rem;"></i> <span style="color:#334155;">+91 98765 43210</span>
+                        </a>
+                        <span class="topbar-divider" style="color:#cbd5e1;">|</span>
+                        <a href="mailto:placement@rku.ac.in" class="topbar-link" style="color:#334155; text-decoration:none; display:inline-flex; align-items:center;">
+                            <i class="fa-solid fa-envelope topbar-icon me-1.5" style="color:#e03627; font-size:0.85rem;"></i> <span style="color:#334155;">placement@rku.ac.in</span>
+                        </a>
+                        <div class="topbar-socials d-flex align-items-center gap-1.5 ms-2">
+                            <a href="https://facebook.com" target="_blank" class="social-circle-btn" title="Facebook" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-facebook-f" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                            <a href="https://linkedin.com" target="_blank" class="social-circle-btn" title="LinkedIn" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-linkedin-in" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="Instagram" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-instagram" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                            <a href="https://youtube.com" target="_blank" class="social-circle-btn" title="YouTube" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-youtube" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container-fluid px-lg-5">
                 <!-- Brand Logo -->
@@ -326,6 +384,7 @@
                                 <li><a class="dropdown-item" href="PlacementStudentSelection.aspx" id="navPlacementSelection">Student Selection</a></li>
                                 <li><a class="dropdown-item" href="PlacementLiaisonOfficers.aspx" id="navPlacementLiaison">Liaison Officers</a></li>
                                 <li><a class="dropdown-item" href="PlacmentProminentRecruiters.aspx" id="navPlacementRecruiters">Prominent Recruiters</a></li>
+                                <li><a class="dropdown-item" href="PlacementPolicy.aspx" id="navPlacementPolicy">Placement Policy</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -405,6 +464,9 @@
                             </li>
                             <li class="placement-sidebar-item">
                                 <a href="PlacmentProminentRecruiters.aspx"><i class="fa-solid fa-briefcase"></i>Prominent Recruiters</a>
+                            </li>
+                            <li class="placement-sidebar-item">
+                                <a href="PlacementPolicy.aspx"><i class="fa-solid fa-gavel"></i>Placement Policy</a>
                             </li>
                         </ul>
                     </div>

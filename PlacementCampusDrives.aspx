@@ -15,6 +15,27 @@
         <meta name="keywords" content="RK University, Campus Drives, Placement Drives, TPO Rajkot, TCS, Wipro, Infosys, Deloitte Drives">
         <meta name="author" content="RK University">
 
+        <!-- Open Graph / Facebook / WhatsApp -->
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Campus Placement Drives & Recruitment Schedule | RK University">
+        <meta property="og:description" content="Explore on-campus placement drives, job roles, eligibility criteria, and upcoming hiring schedules at RK University.">
+        <meta property="og:image" content="images/RKU_Placement_Social_Banner.jpg">
+
+        <!-- Schema.org JSON-LD -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "RK University Campus Drives",
+          "description": "Information and recruitment records for campus placement drives hosted at RK University.",
+          "provider": {
+            "@type": "CollegeOrUniversity",
+            "name": "RK University",
+            "url": "https://rku.ac.in"
+          }
+        }
+        </script>
+
         <!-- Bootstrap 5 CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -281,8 +302,37 @@
     <body>
 
         <!-- ==========================================
-         1. HEADER / NAVBAR
-         ========================================== -->
+             1. HEADER TOPBAR & NAVBAR
+             ========================================== -->
+        <!-- RKU Header Topbar -->
+        <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155; position:relative; z-index:1031;">
+            <div class="container-fluid px-lg-5">
+                <div class="d-flex justify-content-between align-items-center py-2">
+                    <!-- Left: Tagline with Graduation Cap -->
+                    <div class="topbar-tagline d-flex align-items-center" style="font-weight:500; color:#334155;">
+                        <i class="fa-solid fa-graduation-cap topbar-icon me-2" style="color:#e03627; font-size:0.95rem;"></i>
+                        <span>Empowering Students. Connecting Companies. Building Careers.</span>
+                    </div>
+                    <!-- Right: Contact info & Social Media Icons -->
+                    <div class="topbar-contact d-flex align-items-center gap-3">
+                        <a href="tel:+919876543210" class="topbar-link" style="color:#334155; text-decoration:none; display:inline-flex; align-items:center;">
+                            <i class="fa-solid fa-phone topbar-icon me-1.5" style="color:#e03627; font-size:0.85rem;"></i> <span style="color:#334155;">+91 98765 43210</span>
+                        </a>
+                        <span class="topbar-divider" style="color:#cbd5e1;">|</span>
+                        <a href="mailto:placement@rku.ac.in" class="topbar-link" style="color:#334155; text-decoration:none; display:inline-flex; align-items:center;">
+                            <i class="fa-solid fa-envelope topbar-icon me-1.5" style="color:#e03627; font-size:0.85rem;"></i> <span style="color:#334155;">placement@rku.ac.in</span>
+                        </a>
+                        <div class="topbar-socials d-flex align-items-center gap-1.5 ms-2">
+                            <a href="https://facebook.com" target="_blank" class="social-circle-btn" title="Facebook" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-facebook-f" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                            <a href="https://linkedin.com" target="_blank" class="social-circle-btn" title="LinkedIn" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-linkedin-in" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="Instagram" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-instagram" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                            <a href="https://youtube.com" target="_blank" class="social-circle-btn" title="YouTube" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-youtube" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container-fluid px-lg-5">
                 <!-- Brand Logo -->
@@ -313,6 +363,7 @@
                                 <li><a class="dropdown-item" href="PlacementStudentSelection.aspx" id="navPlacementSelection">Student Selection</a></li>
                                 <li><a class="dropdown-item" href="PlacementLiaisonOfficers.aspx" id="navPlacementLiaison">Liaison Officers</a></li>
                                 <li><a class="dropdown-item" href="PlacmentProminentRecruiters.aspx" id="navPlacementRecruiters">Prominent Recruiters</a></li>
+                                <li><a class="dropdown-item" href="PlacementPolicy.aspx" id="navPlacementPolicy">Placement Policy</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -540,6 +591,9 @@
                             <li class="placement-sidebar-item">
                                 <a href="PlacmentProminentRecruiters.aspx"><i class="fa-solid fa-briefcase"></i>Prominent Recruiters</a>
                             </li>
+                            <li class="placement-sidebar-item">
+                                <a href="PlacementPolicy.aspx"><i class="fa-solid fa-gavel"></i>Placement Policy</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -584,12 +638,31 @@
                                     <th style="width: 10%;">Sr. No.</th>
                                     <th style="width: 15%;">Month</th>
                                     <th style="width: 15%;">Year</th>
-                                    <th style="width: 45%;">Title</th>
+                                    <th style="width: 45%;">Company &amp; Role</th>
                                     <th style="width: 15%;">Status</th>
                                 </tr>
                             </thead>
-                            <tbody id="drivesTableBody">
-                                <!-- Data rows will be populated by JavaScript -->
+                            <tbody>
+                                <asp:Repeater ID="rptPublicDrives" runat="server">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td><%# Container.ItemIndex + 1 %></td>
+                                            <td><%# Eval("DriveDate", "{0:MMMM}") %></td>
+                                            <td><%# Eval("DriveDate", "{0:yyyy}") %></td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div>
+                                                        <strong class="text-dark"><%# Eval("compName") != DBNull.Value && Eval("compName").ToString() != "" ? Eval("compName") : Eval("CompanyUsername") %></strong>
+                                                        <div class="small text-muted"><%# Eval("JobRole") %> &bull; Package: <strong class="text-danger"><%# Eval("PackageOffered") %></strong></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-success text-white px-2 py-1 rounded-pill small"><%# Eval("DriveStatus") %></span>
+                                            </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
                             </tbody>
                         </table>
                     </div>

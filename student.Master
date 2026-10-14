@@ -48,6 +48,12 @@
                         <li class="sidebar-item" data-page="applications">
                             <a href="StudentApplications.aspx"><i class="fa-solid fa-briefcase"></i>My Applications</a>
                         </li>
+                        <li class="sidebar-item" data-page="offers">
+                            <a href="StudentOfferLetters.aspx"><i class="fa-solid fa-file-contract"></i>Offer Letters</a>
+                        </li>
+                        <li class="sidebar-item" data-page="notifications">
+                            <a href="StudentNotifications.aspx"><i class="fa-regular fa-bell"></i>Notifications</a>
+                        </li>
                         <li class="sidebar-item" data-page="training">
                             <a href="StudentTraining.aspx"><i class="fa-solid fa-graduation-cap"></i>Training Hub</a>
                         </li>

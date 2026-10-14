@@ -36,12 +36,15 @@ namespace RKU_PLACEMENT_PORTAL
         void GridContact()
         {
             getcon();
-            da = new SqlDataAdapter("select * from contact", con);
+            da = new SqlDataAdapter("select * from contact order by id desc", con);
             ds = new DataSet();
             da.Fill(ds);
             GridView1.DataSource = ds;
             GridView1.DataBind();
-            con.Close();
+            if (lblInquiryCount != null)
+            {
+                lblInquiryCount.Text = ds.Tables[0].Rows.Count.ToString();
+            }
         }
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -51,7 +54,6 @@ namespace RKU_PLACEMENT_PORTAL
                 getcon();
                 cmd = new SqlCommand("delete from contact where id=" + e.CommandArgument, con);
                 cmd.ExecuteNonQuery();
-                con.Close();
                 GridContact();
             }
         }

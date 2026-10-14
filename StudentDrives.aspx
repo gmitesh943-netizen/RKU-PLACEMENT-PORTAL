@@ -1,433 +1,643 @@
-<%@ Page Title="Campus Drives | RKU Placement Portal" Language="C#" MasterPageFile="~/student.Master" AutoEventWireup="true" CodeBehind="StudentDrives.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.StudentDrives" %>
+<%@ Page Title="Campus Drives | RKU Placement Portal" Language="C#" MasterPageFile="~/Student.Master" AutoEventWireup="true" CodeBehind="StudentDrives.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.StudentDrives" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
+        :root {
+            --rku-orange-red: #ef3724;
+            --rku-orange-red-dark: #d82b19;
+            --rku-dark: #0f172a;
+            --rku-gray: #64748b;
+            --rku-light: #f8fafc;
+            --rku-border: #e2e8f0;
+        }
+
+        /* ─── HERO HEADER (Clean White + Red/Orange Accent) ─── */
         .drives-hero {
             background: #ffffff;
-            border: 1px solid #eef0f3;
+            border: 1px solid var(--rku-border);
             border-radius: 18px;
-            padding: 1.5rem 1.75rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
+            padding: 1.75rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
             margin-bottom: 1.5rem;
+        }
+
+            .drives-hero::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 6px;
+                background: linear-gradient(180deg, var(--rku-orange-red) 0%, var(--rku-orange-red-dark) 100%);
+            }
+
+        .hero-badge-red {
+            background: rgba(239, 55, 36, 0.08);
+            border: 1px solid rgba(239, 55, 36, 0.2);
+            color: var(--rku-orange-red);
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.5px;
         }
 
         .drives-hero-kicker {
             font-size: 0.75rem;
             letter-spacing: 0.16em;
             text-transform: uppercase;
-            color: var(--rku-red);
+            color: var(--rku-orange-red);
             font-weight: 800;
             margin-bottom: 0.35rem;
+            font-family: var(--font-heading, 'Outfit', sans-serif);
         }
 
         .drives-hero h2 {
-            font-family: var(--font-heading);
+            font-family: var(--font-heading, 'Outfit', sans-serif);
             font-weight: 800;
-            color: #111;
+            color: var(--rku-dark) !important;
+            font-size: 1.85rem;
+            letter-spacing: -0.01em;
             margin-bottom: 0.35rem;
         }
 
         .drives-hero p {
             margin-bottom: 0;
-            color: #64748b;
+            color: var(--rku-gray) !important;
             font-size: 0.95rem;
+            line-height: 1.6;
+            max-width: 650px;
         }
 
-        /* ─── STATS ROW ─── */
-        .drive-stat-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.45rem 0.9rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
+        /* ─── SECTION HEADER ─── */
+        .drives-section-header {
+            font-family: var(--font-heading, 'Outfit', sans-serif);
             font-weight: 700;
-            font-family: 'Outfit', sans-serif;
-            border: 1px solid #eef0f3;
-            background: #fff;
-        }
-
-        .drive-stat-pill i {
-            font-size: 0.7rem;
-        }
-
-        .drive-stat-pill.open { color: #28a745; border-color: rgba(40,167,69,0.2); background: rgba(40,167,69,0.06); }
-        .drive-stat-pill.eligible { color: #0d6efd; border-color: rgba(13,110,253,0.2); background: rgba(13,110,253,0.06); }
-        .drive-stat-pill.applied { color: var(--rku-maroon); border-color: rgba(163,15,20,0.15); background: rgba(163,15,20,0.06); }
-
-        /* ─── FILTER BAR ─── */
-        .filter-bar {
-            background: #fff;
-            border-radius: 14px;
-            border: 1px solid #eef0f3;
-            padding: 1rem 1.25rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.015);
-        }
-
-        .filter-tab-btn {
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: #64748b;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 0.45rem 1rem;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .filter-tab-btn:hover {
-            background: #e2e8f0;
-            color: #1e293b;
-        }
-
-        .filter-tab-btn.active {
-            background: linear-gradient(135deg, var(--rku-red), var(--rku-maroon)) !important;
-            color: #ffffff !important;
-            border-color: var(--rku-maroon) !important;
-            box-shadow: 0 3px 8px rgba(163, 15, 20, 0.2);
-        }
-
-        .search-box {
-            position: relative;
-        }
-
-        .search-box .search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
             font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--rku-orange-red);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(239, 55, 36, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .search-box input {
-            padding-left: 36px;
-            height: 40px;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
-            font-size: 0.85rem;
-            transition: all 0.25s;
-        }
-
-        .search-box input:focus {
-            border-color: var(--rku-red);
-            box-shadow: 0 0 0 3px rgba(239, 55, 36, 0.08);
-        }
-
-        /* ─── DRIVE CARDS ─── */
-        .sd-drive-card-col {
-            margin-bottom: 1.5rem;
-        }
-
-        .sd-drive-card {
-            background: #fff;
+        /* ─── STAT CARDS (Clean White & Bordered Top Accent) ─── */
+        .stat-card-clean {
+            background: #ffffff;
+            border: 1px solid var(--rku-border);
+            border-top: 4px solid var(--rku-orange-red);
             border-radius: 16px;
-            border: 1px solid #eef0f3;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
+            padding: 1.3rem 1.4rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            width: 100%;
         }
 
-        .sd-drive-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--rku-red), var(--rku-maroon));
-            border-radius: 4px 0 0 4px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+            .stat-card-clean:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 28px rgba(239, 55, 36, 0.1);
+                border-color: #fca5a5;
+            }
 
-        .sd-drive-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-            border-color: #e2e8f0;
-        }
-
-        .sd-drive-card:hover::before {
-            opacity: 1;
-        }
-
-        .sd-company-avatar {
-            width: 48px;
-            height: 48px;
+        .stat-icon-chip {
+            width: 46px;
+            height: 46px;
             border-radius: 12px;
-            background: linear-gradient(135deg, var(--rku-red), var(--rku-maroon));
+            background: rgba(239, 55, 36, 0.08);
+            color: var(--rku-orange-red);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #fff;
-            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            transition: all 0.25s ease;
             flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(163, 15, 20, 0.15);
         }
 
-        .sd-status-badge {
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 0.35em 0.85em;
-            border-radius: 50px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .stat-card-clean:hover .stat-icon-chip {
+            background: var(--rku-orange-red);
+            color: #ffffff;
         }
 
-        .sd-status-open {
-            background: rgba(40, 167, 69, 0.12);
-            color: #28a745;
-            border: 1px solid rgba(40, 167, 69, 0.25);
-        }
-
-        .sd-status-closed {
-            background: rgba(108, 117, 125, 0.12);
-            color: #6c757d;
-            border: 1px solid rgba(108, 117, 125, 0.25);
-        }
-
-        .sd-package-box {
+        .stat-card-tag {
             background: #f8fafc;
-            border: 1px solid #f1f5f9;
-            border-radius: 10px;
-            padding: 0.65rem 0.85rem;
-        }
-
-        .sd-package-tag {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 800;
-            font-size: 0.95rem;
-            color: var(--rku-maroon);
-        }
-
-        .sd-eligible-badge {
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 0.25em 0.65em;
+            border: 1px solid var(--rku-border);
+            color: var(--rku-gray);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
             border-radius: 50px;
         }
 
-        .sd-eligible-yes {
-            background: rgba(40,167,69,0.1);
-            color: #28a745;
-            border: 1px solid rgba(40,167,69,0.2);
+        .stat-num-black {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            color: var(--rku-dark);
+            font-size: 2.1rem;
+            line-height: 1.1;
+            margin: 0.3rem 0 0 0;
         }
 
-        .sd-meta {
+        .stat-label-sub {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--rku-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-top: 6px;
+        }
+
+        /* ─── FILTER CONTAINER ─── */
+        .filter-card {
+            background: #ffffff;
+            border: 1px solid var(--rku-border);
+            border-radius: 18px;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02);
+            margin-bottom: 1.5rem;
+        }
+
+            .filter-card .form-control, .filter-card .form-select {
+                border: 1px solid var(--rku-border);
+                border-radius: 10px;
+                font-size: 0.88rem;
+                padding: 0.55rem 0.9rem;
+                transition: all 0.2s ease;
+            }
+
+                .filter-card .form-control:focus, .filter-card .form-select:focus {
+                    border-color: var(--rku-orange-red);
+                    box-shadow: 0 0 0 3px rgba(239, 55, 36, 0.1);
+                }
+
+        /* ─── DRIVE CARDS ─── */
+        .drive-card {
+            background: #ffffff;
+            border: 1px solid var(--rku-border);
+            border-radius: 18px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+            .drive-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 14px 30px rgba(15, 23, 42, 0.07);
+                border-color: #fca5a5;
+            }
+
+        .company-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--rku-border);
+            padding: 3px;
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+
+        .drive-title {
+            font-family: var(--font-heading, 'Outfit', sans-serif);
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--rku-dark);
+            line-height: 1.25;
+            margin-bottom: 2px;
+        }
+
+        .company-name {
+            color: var(--rku-gray);
             font-size: 0.82rem;
-            color: #64748b;
+            font-weight: 600;
         }
 
-        .sd-meta i {
-            width: 16px;
-            text-align: center;
+        .pkg-highlight-box {
+            background: #f8fafc;
+            border: 1px solid var(--rku-border);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+        }
+
+        .info-pill-item {
+            font-size: 0.82rem;
+            color: var(--rku-gray);
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.45rem;
+        }
+
+            .info-pill-item i {
+                width: 20px;
+                color: var(--rku-orange-red);
+                margin-right: 6px;
+                text-align: center;
+            }
+
+        /* ─── BUTTONS ─── */
+        .btn-rku {
+            background: var(--rku-orange-red);
+            color: #ffffff !important;
+            border: 1px solid var(--rku-orange-red);
+            font-weight: 600;
+            font-family: var(--font-heading, 'Outfit', sans-serif);
+            border-radius: 50px;
+            padding: 0.45rem 1.25rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(239, 55, 36, 0.2);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.82rem;
+        }
+
+            .btn-rku:hover {
+                background: var(--rku-orange-red-dark);
+                border-color: var(--rku-orange-red-dark);
+                box-shadow: 0 4px 14px rgba(239, 55, 36, 0.35);
+                transform: translateY(-1px);
+                color: #ffffff !important;
+            }
+
+        .status-badge-open {
+            background: #ecfdf5;
+            color: #059669;
+            border: 1px solid #a7f3d0;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .status-badge-closed {
+            background: #f1f5f9;
+            color: var(--rku-gray);
+            border: 1px solid var(--rku-border);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
 
         .sd-desc-text {
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
             font-size: 0.82rem;
             line-height: 1.5;
-            color: #64748b;
-            min-height: 3.7em;
+            color: var(--rku-gray);
         }
 
-        .btn-rku {
-            background: linear-gradient(135deg, var(--rku-red), var(--rku-maroon));
-            color: #fff !important;
-            border: none;
-            font-weight: 600;
-            font-family: 'Outfit', sans-serif;
-            transition: all 0.3s ease;
+        /* ─── FLEXBOX GRID LAYOUT FOR HORIZONTAL CARDS ─── */
+        .drives-grid {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            margin-left: -0.75rem !important;
+            margin-right: -0.75rem !important;
+            row-gap: 1.5rem !important;
+            width: calc(100% + 1.5rem) !important;
         }
 
-        .btn-rku:hover {
-            background: linear-gradient(135deg, var(--rku-maroon), #8b0b0f);
-            color: #fff !important;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(163, 15, 20, 0.25);
+            .drives-grid > span:empty {
+                display: none !important;
+            }
+
+            .drives-grid > span {
+                display: flex !important;
+                flex: 0 0 33.333333% !important;
+                max-width: 33.333333% !important;
+                padding-left: 0.75rem !important;
+                padding-right: 0.75rem !important;
+                box-sizing: border-box !important;
+            }
+
+        @media (max-width: 1199px) {
+            .drives-grid > span {
+                flex: 0 0 50% !important;
+                max-width: 50% !important;
+            }
         }
 
-        .sd-count-badge {
-            background: rgba(163, 15, 20, 0.08);
-            color: var(--rku-maroon);
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 0.35em 0.75em;
-            border-radius: 8px;
-            font-family: 'Outfit', sans-serif;
+        @media (max-width: 767px) {
+            .drives-grid > span {
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
+            }
+        }
+
+        .drives-grid .drive-item {
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
         }
     </style>
 </asp:Content>
 
-<asp:Content ID="Content2" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <!-- Hero Section -->
+    <!-- Hero Header -->
     <div class="drives-hero">
         <div class="row align-items-center g-3">
-            <div class="col-lg-7">
-                <div class="drives-hero-kicker">Campus Recruitment</div>
-                <h2 class="mb-1">Campus Drives</h2>
-                <p>Browse and apply for campus recruitment drives matching your profile and eligibility.</p>
-            </div>
-            <div class="col-lg-5">
-                <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
-                    <span class="drive-stat-pill open" id="statPillOpen">
-                        <i class="fa-solid fa-circle"></i>
-                        <asp:Label ID="statOpenCount" runat="server" Text="0" ClientIDMode="Static"></asp:Label> Open
-                    </span>
-                    <span class="drive-stat-pill eligible" id="statPillEligible">
-                        <i class="fa-solid fa-check-circle"></i>
-                        <asp:Label ID="statEligibleCount" runat="server" Text="0" ClientIDMode="Static"></asp:Label> Eligible
-                    </span>
-                    <span class="drive-stat-pill applied" id="statPillApplied">
-                        <i class="fa-solid fa-file-lines"></i>
-                        <asp:Label ID="statAppliedCount" runat="server" Text="0" ClientIDMode="Static"></asp:Label> Applied
+            <div class="col-lg-8">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="hero-badge-red">
+                        <i class="fa-solid fa-briefcase"></i>STUDENT WORKSPACE
                     </span>
                 </div>
+                <h2 class="mb-1 font-heading">Campus Placement Drives</h2>
+                <p>Browse live recruitment drives, check package and eligibility, and apply with your verified profile.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <span class="hero-badge-red" style="font-size: 0.85rem; padding: 0.5rem 1.1rem;">
+                    <i class="fa-solid fa-layer-group text-danger me-1"></i>
+                    <asp:Label ID="driveCountLabel" runat="server" Text="0 Drives"></asp:Label>
+                </span>
             </div>
         </div>
     </div>
 
-    <!-- Filter Bar -->
-    <div class="filter-bar">
-        <div class="row g-3 align-items-center">
-            <div class="col-lg-4 col-md-5">
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <asp:TextBox ID="driveSearchInput" runat="server" CssClass="form-control" placeholder="Search by role or location..." ClientIDMode="Static" onkeyup="filterDrives()"></asp:TextBox>
+    <!-- Alert / Message -->
+    <asp:Label ID="lblMsg" runat="server" Visible="false" CssClass="alert alert-dismissible fade show mb-4 d-block"></asp:Label>
+
+    <!-- Stat Cards Row -->
+    <div class="row g-3 mb-4">
+        <!-- 1. Open Drives -->
+        <div class="col-12 col-md-4">
+            <div class="stat-card-clean" style="border-top-color: #16a34a;">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="stat-card-tag">LIVE DRIVES</span>
+                    <div class="stat-icon-chip" style="background: rgba(22, 163, 74, 0.08); color: #16a34a;">
+                        <i class="fa-solid fa-door-open"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-5 col-md-7">
-                <div class="d-flex gap-2 flex-wrap" id="studentDriveFilterTabs">
-                    <asp:Button ID="btnFilterAll" runat="server" CssClass="btn filter-tab-btn active" Text="All Drives" OnClientClick="setStudentDriveFilter('all', this); return false;" />
-                    <asp:Button ID="btnFilterOpen" runat="server" CssClass="btn filter-tab-btn" Text="Open" OnClientClick="setStudentDriveFilter('open', this); return false;" />
-                    <asp:Button ID="btnFilterEligible" runat="server" CssClass="btn filter-tab-btn" Text="Eligible" OnClientClick="setStudentDriveFilter('eligible', this); return false;" />
-                    <asp:Button ID="btnFilterClosed" runat="server" CssClass="btn filter-tab-btn" Text="Closed" OnClientClick="setStudentDriveFilter('closed', this); return false;" />
-                </div>
-            </div>
-            <div class="col-lg-3 text-lg-end">
-                <asp:Label ID="driveCountLabel" runat="server" CssClass="sd-count-badge" ClientIDMode="Static" Text="0 Drives"></asp:Label>
+                <div class="stat-label-sub">Open Drives</div>
+                <h3 class="stat-num-black">
+                    <asp:Label ID="statOpenCount" runat="server" Text="0"></asp:Label>
+                </h3>
             </div>
         </div>
+
+        <!-- 2. Eligible Drives -->
+        <div class="col-12 col-md-4">
+            <div class="stat-card-clean" style="border-top-color: #2563eb;">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="stat-card-tag">CRITERIA MATCHED</span>
+                    <div class="stat-icon-chip" style="background: rgba(37, 99, 235, 0.08); color: #2563eb;">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                </div>
+                <div class="stat-label-sub">Eligible Drives</div>
+                <h3 class="stat-num-black">
+                    <asp:Label ID="statEligibleCount" runat="server" Text="0"></asp:Label>
+                </h3>
+            </div>
+        </div>
+
+        <!-- 3. Applied Drives -->
+        <div class="col-12 col-md-4">
+            <div class="stat-card-clean" style="border-top-color: var(--rku-orange-red);">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="stat-card-tag">YOUR SUBMISSIONS</span>
+                    <div class="stat-icon-chip">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+                </div>
+                <div class="stat-label-sub">Applied Drives</div>
+                <h3 class="stat-num-black">
+                    <asp:Label ID="statAppliedCount" runat="server" Text="0"></asp:Label>
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search & Filter Card -->
+    <div class="filter-card">
+        <div class="row g-3 align-items-center">
+            <div class="col-12 col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0 text-muted" style="border-color: var(--rku-border); border-radius: 10px 0 0 10px;">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control border-start-0 ps-0" placeholder="Search by role, company name or industry..." Style="border-radius: 0 10px 10px 0; border-color: var(--rku-border);"></asp:TextBox>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-3">
+                <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-select" ClientIDMode="Static">
+                    <asp:ListItem Value="all">All Status (Open &amp; Closed)</asp:ListItem>
+                    <asp:ListItem Value="open">Open Only</asp:ListItem>
+                    <asp:ListItem Value="closed">Closed Only</asp:ListItem>
+                </asp:DropDownList>
+            </div>
+
+            <div class="col-12 col-md-3">
+                <asp:LinkButton ID="btnResetFilter" runat="server" CssClass="btn btn-outline-secondary w-100 rounded-pill fw-semibold" OnClientClick="clearFilters(); return false;" Style="font-size: 0.85rem; padding: 0.55rem 1rem;">
+                    <i class="fa-solid fa-rotate-left me-1"></i>Reset Filter
+                </asp:LinkButton>
+            </div>
+        </div>
+    </div>
+
+    <!-- Drives List Section Header -->
+    <div class="drives-section-header">
+        <i class="fa-solid fa-bullhorn"></i>Available Recruitment Opportunities
+   
     </div>
 
     <!-- DataList Container -->
-    <asp:DataList ID="DataList1" runat="server" RepeatLayout="Flow" CssClass="row g-4">
-        <ItemStyle CssClass="col-lg-4 col-md-6 d-flex align-items-stretch sd-drive-card-col" />
-        <ItemTemplate>
-            <div class="sd-drive-card" data-company='<%# Eval("JobRole") %>' data-status='<%# Eval("DriveStatus") %>' data-eligible="eligible">
-                <div>
-                    <!-- Header Row -->
-                    <div class="d-flex align-items-start justify-content-between mb-3">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="sd-company-avatar">
-                                <%# Eval("JobRole") != DBNull.Value && Eval("JobRole").ToString().Length > 0 ? Eval("JobRole").ToString().Substring(0, 1).ToUpper() : "R" %>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold text-dark mb-1" style="font-family: 'Outfit', sans-serif; font-size: 1.05rem;">
-                                    <asp:Label ID="lblJobRole" runat="server" Text='<%# Eval("JobRole") %>'></asp:Label>
-                                </h5>
-                                <small class="text-muted">
-                                    <i class="fa-solid fa-location-dot text-danger me-1"></i>
-                                    <asp:Label ID="lblVenueLocation" runat="server" Text='<%# Eval("VenueLocation") %>'></asp:Label>
-                                </small>
-                            </div>
-                        </div>
-                        <asp:Label ID="lblDriveStatus" runat="server" Text='<%# Eval("DriveStatus") %>' CssClass='<%# Eval("DriveStatus").ToString() == "Open" ? "sd-status-badge sd-status-open" : "sd-status-badge sd-status-closed" %>'></asp:Label>
-                    </div>
+    <div class="mb-4">
+        <asp:DataList ID="DataList1" runat="server" RepeatLayout="Flow" CssClass="drives-grid" OnItemCommand="DataList1_ItemCommand">
+            <ItemTemplate>
+                <div class="drive-item" data-company='<%# Eval("compName") %>' data-role='<%# Eval("JobRole") %>' data-industry='<%# Eval("compIndustry") %>' data-status='<%# Eval("DriveStatus") %>'>
 
-                    <!-- Package & Eligibility Box -->
-                    <div class="sd-package-box d-flex align-items-center justify-content-between mb-3">
+                    <div class="drive-card">
                         <div>
-                            <small class="text-muted d-block text-uppercase fw-bold" style="font-size: 0.62rem; letter-spacing: 0.05em;">Package</small>
-                            <asp:Label ID="lblPackageOffered" runat="server" Text='<%# Eval("PackageOffered") %>' CssClass="sd-package-tag"></asp:Label>
+                            <!-- Header: Logo + Title + Status -->
+                            <div class="d-flex align-items-start justify-content-between mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <asp:Image ID="imgCompanyLogo" runat="server" ImageUrl='<%# "~/Comp_Images/" + Eval("compLogo") %>' Width="48px" Height="48px" CssClass="company-logo flex-shrink-0" onerror="this.style.display='none';" AlternateText="Logo" />
+
+                                    <div>
+                                        <h5 class="drive-title">
+                                            <asp:Label ID="lblJobRole" runat="server" Text='<%# Eval("JobRole") %>'></asp:Label>
+                                        </h5>
+                                        <div class="company-name">
+                                            <i class="fa-regular fa-building me-1 text-secondary"></i>
+                                            <asp:Label ID="lblCompName" runat="server" Text='<%# Eval("compName") %>'></asp:Label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class='<%# Eval("DriveStatus").ToString() == "Open" ? "status-badge-open" : "status-badge-closed" %>'>
+                                    <i class="fa-solid fa-circle" style="font-size: 6px;"></i>
+                                    <asp:Label ID="lblDriveStatus" runat="server" Text='<%# Eval("DriveStatus") %>'></asp:Label>
+                                </span>
+                            </div>
+
+                            <!-- Package & Eligibility Box -->
+                            <div class="pkg-highlight-box d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <small class="text-muted d-block text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 0.05em;">Package</small>
+                                    <strong class="text-danger font-heading" style="font-size: 0.95rem;">
+                                        <asp:Label ID="lblPackageOffered" runat="server" Text='<%# Eval("PackageOffered") %>'></asp:Label>
+                                    </strong>
+                                </div>
+                                <div class="text-end">
+                                    <small class="text-muted d-block text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 0.05em;">Eligibility</small>
+                                    <span class="badge bg-light text-dark border fw-semibold" style="font-size: 0.75rem;">CPI &ge;
+                                       
+                                        <asp:Label ID="lblMinCgpa" runat="server" Text='<%# Eval("MinCgpa") %>'></asp:Label>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Drive Metadata -->
+                            <div class="mb-3">
+                                <div class="info-pill-item">
+                                    <i class="fa-solid fa-industry"></i>
+                                    <span>
+                                        <asp:Label ID="lblIndustry" runat="server" Text='<%# Eval("compIndustry") %>'></asp:Label>
+                                    </span>
+                                </div>
+                                <div class="info-pill-item">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>
+                                        <asp:Label ID="lblLocation" runat="server" Text='<%# Eval("VenueLocation") %>'></asp:Label>
+                                    </span>
+                                </div>
+                                <div class="info-pill-item">
+                                    <i class="fa-regular fa-calendar-days"></i>
+                                    <span>Drive Date: <strong>
+                                        <asp:Label ID="lblDriveDate" runat="server" Text='<%# Eval("DriveDate") %>'></asp:Label>
+                                    </strong></span>
+                                </div>
+                                <div class="info-pill-item">
+                                    <i class="fa-solid fa-users"></i>
+                                    <span>Vacancies: <strong>
+                                        <asp:Label ID="lblVacancies" runat="server" Text='<%# Eval("TotalVacancies") %>'></asp:Label>
+                                        Positions</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Job Description -->
+                            <p class="sd-desc-text mb-3">
+                                <asp:Label ID="lblJobDescription" runat="server" Text='<%# Eval("JobDescription") %>'></asp:Label>
+                            </p>
                         </div>
-                        <div class="text-end">
-                            <small class="text-muted d-block text-uppercase fw-bold" style="font-size: 0.62rem; letter-spacing: 0.05em;">Eligibility</small>
-                            <span class="sd-eligible-badge sd-eligible-yes">CGPA &ge; <asp:Label ID="lblMinCgpa" runat="server" Text='<%# Eval("MinCgpa") %>'></asp:Label></span>
+
+                        <!-- Card Footer Action -->
+                        <div class="pt-3 border-top d-flex align-items-center justify-content-between mt-auto">
+                            <asp:LinkButton ID="btnApplyDrive" runat="server" CssClass='<%# Eval("ApplyButton").ToString() == "Applied" ? "btn btn-sm btn-outline-success disabled fw-bold rounded-pill px-3" : (Eval("ApplyButton").ToString() == "Closed" ? "btn btn-sm btn-secondary disabled rounded-pill px-3" : "btn-rku btn-sm") %>' Enabled='<%# Eval("ApplyButton").ToString() == "Apply Now" %>' CommandName="Apply" CommandArgument='<%# Eval("Id") %>'><i class='<%# Eval("ApplyButton").ToString() == "Applied" ? "fa-solid fa-circle-check me-1" : (Eval("ApplyButton").ToString() == "Closed" ? "fa-solid fa-lock me-1" : "fa-solid fa-paper-plane me-1") %>'></i><%# Eval("ApplyButton") %></asp:LinkButton>
                         </div>
                     </div>
-
-                    <!-- Date & Vacancies -->
-                    <div class="sd-meta mb-3">
-                        <div class="row g-2">
-                            <div class="col-6">
-                                <i class="fa-regular fa-calendar-days text-danger me-1"></i> <strong>Date:</strong> <asp:Label ID="lblDriveDate" runat="server" Text='<%# Eval("DriveDate") %>'></asp:Label>
-                            </div>
-                            <div class="col-6">
-                                <i class="fa-solid fa-user-group text-primary me-1"></i> <strong>Vacancies:</strong> <asp:Label ID="lblTotalVacancies" runat="server" Text='<%# Eval("TotalVacancies") %>'></asp:Label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Description -->
-                    <p class="sd-desc-text mb-3">
-                        <asp:Label ID="lblJobDescription" runat="server" Text='<%# Eval("JobDescription") %>'></asp:Label>
-                    </p>
                 </div>
+            </ItemTemplate>
+        </asp:DataList>
+    </div>
 
-                <!-- Footer Action -->
-                <div class="pt-3 border-top d-flex align-items-center justify-content-between mt-auto">
-                    <small class="text-muted"><i class="fa-solid fa-building-columns me-1"></i>Campus Drive</small>
-                    <asp:Button ID="btnApplyDrive" runat="server" CssClass="btn btn-rku btn-sm px-4 rounded-pill" Text="Apply Now" CommandName="Apply" CommandArgument='<%# Eval("Id") %>' OnClientClick='<%# "alert(&apos;Application submitted successfully for " + Eval("JobRole") + "!&apos;); return false;" %>' />
-                </div>
-            </div>
-        </ItemTemplate>
-    </asp:DataList>
+    <!-- No Result Message -->
+    <div id="noResultMessage" class="text-center py-5" style="display: none;">
+        <div class="stat-icon-chip mx-auto mb-3" style="width: 60px; height: 60px; background: #f8fafc; color: #94a3b8; font-size: 1.6rem; border: 1px solid var(--rku-border);">
+            <i class="fa-solid fa-folder-open"></i>
+        </div>
+        <h5 class="fw-bold text-dark mb-1 font-heading">No Drives Matching Filter</h5>
+        <p class="text-muted small">Try searching with different keywords or reset your filter status.</p>
+    </div>
 
+    <!-- Alert Hidden Fields -->
+    <asp:HiddenField ID="hfAlertType" runat="server" />
+    <asp:HiddenField ID="hfAlertMessage" runat="server" />
+
+    <!-- JavaScript Filter -->
     <script>
-        let studentDriveFilter = 'all';
+        document.addEventListener("DOMContentLoaded", function () {
+            var searchBox = document.getElementById("<%= txtSearch.ClientID %>");
+            var statusBox = document.getElementById("<%= ddlStatus.ClientID %>");
 
-        function setStudentDriveFilter(filter, el) {
-            studentDriveFilter = filter;
-            document.querySelectorAll('#studentDriveFilterTabs .filter-tab-btn').forEach(btn => btn.classList.remove('active'));
-            if (el) el.classList.add('active');
-            filterDrives();
-        }
+            if (searchBox) {
+                searchBox.addEventListener("keyup", filterDrives);
+            }
+            if (statusBox) {
+                statusBox.addEventListener("change", filterDrives);
+            }
+        });
 
         function filterDrives() {
-            const search = document.getElementById('driveSearchInput');
-            const items = document.querySelectorAll('.sd-drive-card-col');
-            if (!items.length) return;
+            var searchBox = document.getElementById("<%= txtSearch.ClientID %>");
+            var statusBox = document.getElementById("<%= ddlStatus.ClientID %>");
 
-            const query = search ? search.value.toLowerCase() : '';
-            let visibleCount = 0;
+            var search = searchBox ? searchBox.value.toLowerCase() : "";
+            var status = statusBox ? statusBox.value.toLowerCase() : "all";
 
-            items.forEach(item => {
-                const card = item.querySelector('.sd-drive-card');
-                if (!card) return;
+            var drives = document.querySelectorAll(".drive-item");
+            var found = 0;
 
-                const companyText = (card.getAttribute('data-company') || '').toLowerCase();
-                const status = card.getAttribute('data-status') || '';
-                const isEligible = card.getAttribute('data-eligible') === 'eligible';
+            drives.forEach(function (drive) {
+                var company = (drive.getAttribute("data-company") || "").toLowerCase();
+                var role = (drive.getAttribute("data-role") || "").toLowerCase();
+                var industry = (drive.getAttribute("data-industry") || "").toLowerCase();
+                var driveStatus = (drive.getAttribute("data-status") || "").toLowerCase();
 
-                const matchesSearch = companyText.includes(query);
-                let matchesFilter = true;
+                var searchMatch = company.includes(search) || role.includes(search) || industry.includes(search);
+                var statusMatch = (status === "all") || (driveStatus === status);
 
-                if (studentDriveFilter === 'open') matchesFilter = (status === 'Open');
-                else if (studentDriveFilter === 'closed') matchesFilter = (status === 'Closed');
-                else if (studentDriveFilter === 'eligible') matchesFilter = (isEligible && status === 'Open');
-
-                const show = matchesSearch && matchesFilter;
-                item.style.setProperty('display', show ? 'flex' : 'none', 'important');
-                if (show) visibleCount++;
+                if (searchMatch && statusMatch) {
+                    drive.style.display = "";
+                    if (drive.parentElement && drive.parentElement.tagName === "SPAN") {
+                        drive.parentElement.style.display = "";
+                    }
+                    found++;
+                } else {
+                    drive.style.display = "none";
+                    if (drive.parentElement && drive.parentElement.tagName === "SPAN") {
+                        drive.parentElement.style.display = "none";
+                    }
+                }
             });
 
-            const countLabel = document.getElementById('driveCountLabel');
-            if (countLabel) countLabel.textContent = visibleCount + ' Drive' + (visibleCount !== 1 ? 's' : '');
+            var noResult = document.getElementById("noResultMessage");
+            if (noResult) {
+                noResult.style.display = (found === 0) ? "block" : "none";
+            }
+        }
+
+        function clearFilters() {
+            var searchBox = document.getElementById("<%= txtSearch.ClientID %>");
+            var statusBox = document.getElementById("<%= ddlStatus.ClientID %>");
+
+            if (searchBox) searchBox.value = "";
+            if (statusBox) statusBox.value = "all";
+
+            filterDrives();
         }
     </script>
 </asp:Content>

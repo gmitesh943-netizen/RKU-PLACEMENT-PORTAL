@@ -15,13 +15,13 @@ namespace RKU_PLACEMENT_PORTAL
     {
 
         /// <summary>
-        /// btnSaveChanges control.
+        /// btnSaveChangesTop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveChanges;
+        protected global::System.Web.UI.WebControls.Button btnSaveChangesTop;
 
         /// <summary>
         /// lblMsg control.
@@ -48,16 +48,7 @@ namespace RKU_PLACEMENT_PORTAL
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl profPhotoInitials;
-
-        /// <summary>
-        /// FileUpload1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
+        protected global::System.Web.UI.WebControls.Label profPhotoInitials;
 
         /// <summary>
         /// profPhotoInput control.
@@ -67,15 +58,6 @@ namespace RKU_PLACEMENT_PORTAL
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload profPhotoInput;
-
-        /// <summary>
-        /// btnRemovePhoto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnRemovePhoto;
 
         /// <summary>
         /// profName control.
@@ -141,13 +123,13 @@ namespace RKU_PLACEMENT_PORTAL
         protected global::System.Web.UI.WebControls.DropDownList profSemester;
 
         /// <summary>
-        /// TextBox1 control.
+        /// profCgpa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox profCgpa;
 
         /// <summary>
         /// profBacklogs control.
@@ -168,129 +150,57 @@ namespace RKU_PLACEMENT_PORTAL
         protected global::System.Web.UI.WebControls.TextBox profSkills;
 
         /// <summary>
-        /// profResume control.
+        /// fuResume control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox profResume;
+        protected global::System.Web.UI.WebControls.FileUpload fuResume;
 
         /// <summary>
-        /// btnMockResumeUpload control.
+        /// phCurrentResume control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMockResumeUpload;
+        protected global::System.Web.UI.WebControls.PlaceHolder phCurrentResume;
 
         /// <summary>
-        /// btnAddCertificate control.
+        /// lnkCurrentResume control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnAddCertificate;
+        protected global::System.Web.UI.WebControls.HyperLink lnkCurrentResume;
 
         /// <summary>
-        /// certTitle control.
+        /// lblCurrentResumeName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox certTitle;
+        protected global::System.Web.UI.WebControls.Label lblCurrentResumeName;
 
         /// <summary>
-        /// certIssuer control.
+        /// btnReset control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox certIssuer;
+        protected global::System.Web.UI.WebControls.Button btnReset;
 
         /// <summary>
-        /// certDate control.
+        /// btnSaveChanges control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox certDate;
-
-        /// <summary>
-        /// certFile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload certFile;
-
-        /// <summary>
-        /// btnCancelCertificate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelCertificate;
-
-        /// <summary>
-        /// btnSaveCertificate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveCertificate;
-
-        /// <summary>
-        /// btnAddResult control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddResult;
-
-        /// <summary>
-        /// txtResultTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtResultTitle;
-
-        /// <summary>
-        /// fuResult control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuResult;
-
-        /// <summary>
-        /// btnCancelResult control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelResult;
-
-        /// <summary>
-        /// btnSaveResult control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveResult;
+        protected global::System.Web.UI.WebControls.Button btnSaveChanges;
     }
 }

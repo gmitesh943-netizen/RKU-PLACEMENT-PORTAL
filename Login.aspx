@@ -5,6 +5,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
+        .live-placement-ticker {
+            display: none !important;
+        }
+
         .portal-login-page {
             min-height: calc(100vh - 72px);
             display: flex;

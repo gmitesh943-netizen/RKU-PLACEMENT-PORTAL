@@ -23,25 +23,14 @@ namespace RKU_PLACEMENT_PORTAL
         {
             if (!IsPostBack)
             {
-                ensureSchema();
                 fillGrid();
             }
         }
-
         void getcon()
         {
             con = new SqlConnection(s);
             con.Open();
         }
-
-        void ensureSchema()
-        {
-            getcon();
-            cmd = new SqlCommand("IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'Company_Drives') AND name = 'CompanyUsername') BEGIN ALTER TABLE Company_Drives ADD CompanyUsername NVARCHAR(100) NULL; END", con);
-            cmd.ExecuteNonQuery();
-            con.Close();
-        }
-
         void clear()
         {
             cmpDriveRole.Text = "";
@@ -54,15 +43,13 @@ namespace RKU_PLACEMENT_PORTAL
             cmpDriveDescription.Text = "";
             cmpBtnSubmitDrive.Text = "Publish Drive";
         }
-
         void fillGrid()
         {
             getcon();
-            string sess = (Session["company"] != null) ? Session["company"].ToString().Replace("'", "''") : "";
 
-            if (!string.IsNullOrEmpty(sess))
+            if (Session["company"] != null)
             {
-                da = new SqlDataAdapter("select * from Company_Drives where CompanyUsername='" + sess + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + sess + "' or compUsername='" + sess + "')", con);
+                da = new SqlDataAdapter("select * from Company_Drives where CompanyUsername='" + Session["company"] + "'", con);
             }
             else
             {
@@ -84,9 +71,7 @@ namespace RKU_PLACEMENT_PORTAL
                 drivesCountBadge.InnerText = "0";
                 drivesSubtitle.InnerText = "0 total drives";
             }
-            con.Close();
         }
-
         void filldata()
         {
             getcon();
@@ -108,37 +93,33 @@ namespace RKU_PLACEMENT_PORTAL
                 cmpDriveLocation.Text = ds.Tables[0].Rows[0]["VenueLocation"].ToString();
                 cmpDriveDescription.Text = ds.Tables[0].Rows[0]["JobDescription"].ToString();
             }
-            con.Close();
         }
 
         protected void cmpBtnSubmitDrive_Click(object sender, EventArgs e)
         {
             getcon();
-            string compUser = (Session["company"] != null) ? Session["company"].ToString().Replace("'", "''") : "";
+            string compUser = (Session["company"] != null) ? Session["company"].ToString() : "";
 
             if (cmpBtnSubmitDrive.Text == "Publish Drive")
             {
-                cmd = new SqlCommand("insert into Company_Drives(JobRole,PackageOffered,MinCgpa,TotalVacancies,DriveDate,DriveStatus,VenueLocation,JobDescription,CompanyUsername) values('" + cmpDriveRole.Text.Replace("'", "''") + "','" + cmpDrivePackage.Text.Replace("'", "''") + "','" + cmpDriveMinCgpa.Text.Replace("'", "''") + "','" + cmpDriveVacancies.Text.Replace("'", "''") + "','" + cmpDriveDate.Text.Replace("'", "''") + "','" + cmpDriveStatus.SelectedValue.Replace("'", "''") + "','" + cmpDriveLocation.Text.Replace("'", "''") + "','" + cmpDriveDescription.Text.Replace("'", "''") + "','" + compUser + "')", con);
+                cmd = new SqlCommand("insert into Company_Drives(JobRole,PackageOffered,MinCgpa,TotalVacancies,DriveDate,DriveStatus,VenueLocation,JobDescription,CompanyUsername) values('" + cmpDriveRole.Text + "','" + cmpDrivePackage.Text + "','" + cmpDriveMinCgpa.Text + "','" + cmpDriveVacancies.Text + "','" + cmpDriveDate.Text + "','" + cmpDriveStatus.SelectedValue + "','" + cmpDriveLocation.Text + "','" + cmpDriveDescription.Text + "','" + compUser + "')", con);
                 cmd.ExecuteNonQuery();
                 clear();
                 fillGrid();
             }
             else
             {
-                cmd = new SqlCommand("update Company_Drives set JobRole='" + cmpDriveRole.Text.Replace("'", "''") + "',PackageOffered='" + cmpDrivePackage.Text.Replace("'", "''") + "',MinCgpa='" + cmpDriveMinCgpa.Text.Replace("'", "''") + "',TotalVacancies='" + cmpDriveVacancies.Text.Replace("'", "''") + "',DriveDate='" + cmpDriveDate.Text.Replace("'", "''") + "',DriveStatus='" + cmpDriveStatus.SelectedValue.Replace("'", "''") + "',VenueLocation='" + cmpDriveLocation.Text.Replace("'", "''") + "',JobDescription='" + cmpDriveDescription.Text.Replace("'", "''") + "' where Id='" + ViewState["driveid"] + "'", con);
+                cmd = new SqlCommand("update Company_Drives set JobRole='" + cmpDriveRole.Text + "',PackageOffered='" + cmpDrivePackage.Text + "',MinCgpa='" + cmpDriveMinCgpa.Text + "',TotalVacancies='" + cmpDriveVacancies.Text + "',DriveDate='" + cmpDriveDate.Text + "',DriveStatus='" + cmpDriveStatus.SelectedValue + "',VenueLocation='" + cmpDriveLocation.Text + "',JobDescription='" + cmpDriveDescription.Text + "' where Id='" + ViewState["driveid"] + "'", con);
                 cmd.ExecuteNonQuery();
                 fillGrid();
                 clear();
                 cmpBtnSubmitDrive.Text = "Publish Drive";
             }
-            con.Close();
         }
-
         protected void cmpBtnResetDrive_Click(object sender, EventArgs e)
         {
             clear();
         }
-
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "cmd_edt")
@@ -153,7 +134,6 @@ namespace RKU_PLACEMENT_PORTAL
                 getcon();
                 cmd = new SqlCommand("delete from Company_Drives where Id='" + e.CommandArgument + "'", con);
                 cmd.ExecuteNonQuery();
-                con.Close();
                 fillGrid();
             }
         }

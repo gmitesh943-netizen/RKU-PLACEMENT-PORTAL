@@ -20,11 +20,23 @@
         const isDrives = dataPage === 'drives' || path.includes('studentdrives') || document.getElementById('drivesGrid') !== null;
         const isProfile = dataPage === 'profile' || path.includes('studentprofile') || document.getElementById('profSkills') !== null;
         const isApps = dataPage === 'applications' || path.includes('studentapplications') || document.getElementById('myApplicationsList') !== null;
+        const isOffers = dataPage === 'offers' || path.includes('studentofferletters');
+        const isNotifs = dataPage === 'notifications' || path.includes('studentnotifications');
+        const isTraining = dataPage === 'training' || path.includes('studenttraining');
         const isOverview = dataPage === 'overview' || path.includes('studentdashboard') || document.getElementById('statApplied') !== null;
 
         loadStudentInfo();
         renderAnnouncements();
-        setActiveSidebarLink(isDrives ? 'drives' : isProfile ? 'profile' : isApps ? 'applications' : 'overview');
+        
+        var currentActive = 'overview';
+        if (isOffers) currentActive = 'offers';
+        else if (isNotifs) currentActive = 'notifications';
+        else if (isTraining) currentActive = 'training';
+        else if (isDrives) currentActive = 'drives';
+        else if (isProfile) currentActive = 'profile';
+        else if (isApps) currentActive = 'applications';
+
+        setActiveSidebarLink(currentActive);
 
         if (isOverview) renderOverview();
         if (isProfile) renderProfileTab();

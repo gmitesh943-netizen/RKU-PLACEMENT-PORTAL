@@ -17,6 +17,27 @@
         <meta name="keywords" content="RK University Success Stories, Top Placements, Hall of Fame RKU, Student Testimonials, TPO Rajkot">
         <meta name="author" content="RK University">
 
+        <!-- Open Graph / Facebook / WhatsApp -->
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Placement Success Stories & Hall of Fame | RK University">
+        <meta property="og:description" content="Discover highest package offers, video testimonials, and placement highlights of RKU alumni placed in global leaders like TCS, Infosys, and Amazon.">
+        <meta property="og:image" content="images/RKU_Placement_Social_Banner.jpg">
+
+        <!-- Schema.org JSON-LD -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "RK University Placement Success Stories",
+          "description": "Inspiring placement achievements, student testimonials, and highest CTC package records at RK University.",
+          "provider": {
+            "@type": "CollegeOrUniversity",
+            "name": "RK University",
+            "url": "https://rku.ac.in"
+          }
+        }
+        </script>
+
         <!-- Bootstrap 5 CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -912,8 +933,37 @@
     <body>
 
         <!-- ==========================================
-         1. HEADER / NAVBAR
-         ========================================== -->
+             1. HEADER TOPBAR & NAVBAR
+             ========================================== -->
+        <!-- RKU Header Topbar -->
+        <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155; position:relative; z-index:1031;">
+            <div class="container-fluid px-lg-5">
+                <div class="d-flex justify-content-between align-items-center py-2">
+                    <!-- Left: Tagline with Graduation Cap -->
+                    <div class="topbar-tagline d-flex align-items-center" style="font-weight:500; color:#334155;">
+                        <i class="fa-solid fa-graduation-cap topbar-icon me-2" style="color:#e03627; font-size:0.95rem;"></i>
+                        <span>Empowering Students. Connecting Companies. Building Careers.</span>
+                    </div>
+                    <!-- Right: Contact info & Social Media Icons -->
+                    <div class="topbar-contact d-flex align-items-center gap-3">
+                        <a href="tel:+919876543210" class="topbar-link" style="color:#334155; text-decoration:none; display:inline-flex; align-items:center;">
+                            <i class="fa-solid fa-phone topbar-icon me-1.5" style="color:#e03627; font-size:0.85rem;"></i> <span style="color:#334155;">+91 98765 43210</span>
+                        </a>
+                        <span class="topbar-divider" style="color:#cbd5e1;">|</span>
+                        <a href="mailto:placement@rku.ac.in" class="topbar-link" style="color:#334155; text-decoration:none; display:inline-flex; align-items:center;">
+                            <i class="fa-solid fa-envelope topbar-icon me-1.5" style="color:#e03627; font-size:0.85rem;"></i> <span style="color:#334155;">placement@rku.ac.in</span>
+                        </a>
+                        <div class="topbar-socials d-flex align-items-center gap-1.5 ms-2">
+                            <a href="https://facebook.com" target="_blank" class="social-circle-btn" title="Facebook" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-facebook-f" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                            <a href="https://linkedin.com" target="_blank" class="social-circle-btn" title="LinkedIn" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-linkedin-in" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="Instagram" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-instagram" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                            <a href="https://youtube.com" target="_blank" class="social-circle-btn" title="YouTube" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-youtube" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container-fluid px-lg-5">
                 <!-- Brand Logo -->
@@ -944,6 +994,7 @@
                                 <li><a class="dropdown-item" href="PlacementStudentSelection.aspx" id="navPlacementSelection">Student Selection</a></li>
                                 <li><a class="dropdown-item" href="PlacementLiaisonOfficers.aspx" id="navPlacementLiaison">Liaison Officers</a></li>
                                 <li><a class="dropdown-item" href="PlacmentProminentRecruiters.aspx" id="navPlacementRecruiters">Prominent Recruiters</a></li>
+                                <li><a class="dropdown-item" href="PlacementPolicy.aspx" id="navPlacementPolicy">Placement Policy</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -1077,129 +1128,8 @@
         });
 
         function renderDynamicSuccessStories() {
-            const stories = PortalDB.getStories();
-            const gallery = PortalDB.getGallery();
-
-            // 1. Render Featured Story
-            const featuredStory = stories.find(s => s.isFeatured);
-            const featuredPanel = document.getElementById('featuredStoryPanel');
-            if (featuredPanel) {
-                if (featuredStory) {
-                    const skillsBadges = featuredStory.skills
-                        ? featuredStory.skills.split(',').map(sk => `<span class="skill-badge">${sk.trim()}</span>`).join('')
-                        : '';
-
-                    featuredPanel.innerHTML = `
-                        <div class="row g-4 align-items-center">
-                            <!-- Left: Profile picture -->
-                            <div class="col-lg-5">
-                                <div class="featured-avatar-box">
-                                    ${featuredStory.studentPhoto
-                            ? `<img src="${featuredStory.studentPhoto}" alt="${featuredStory.studentName}">`
-                            : `<svg viewBox="0 0 100 120" width="100%" height="100%" fill="#bbb">
-                                            <rect width="100" height="120" fill="#f1f3f5" />
-                                            <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                            <path d="M15,105 C15,85 30,75 50,75 C70,75 85,85 85,105 Z" fill="#d0d4dc" />
-                                           </svg>`
-                        }
-                                </div>
-                            </div>
-
-                            <!-- Right: Quotes and Details -->
-                            <div class="col-lg-7">
-                                <span class="text-rku-maroon fw-bold" style="font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase;">FEATURED STORY</span>
-                                <h2 class="fw-bold mt-1 mb-2" style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--rku-dark);">${featuredStory.studentName}</h2>
-                                <p class="text-muted fw-semibold mb-3" style="font-size: 0.88rem;">${featuredStory.degreeBranch}</p>
-                                
-                                <div class="d-flex align-items-center gap-3 mb-4">
-                                    <div>
-                                        <span class="d-block text-muted small fw-bold">Placed at</span>
-                                        <div class="fw-extrabold text-dark" style="font-size: 1.15rem; font-family: var(--font-heading);">${featuredStory.recruiterName}</div>
-                                    </div>
-                                    <div class="ms-4 p-2 bg-light-subtle border border-light-subtle rounded px-3">
-                                        <span class="d-block text-muted small fw-bold">Package</span>
-                                        <span class="fw-extrabold text-rku-maroon" style="font-size: 1.25rem;">${featuredStory.packageLpa}</span>
-                                    </div>
-                                </div>
-
-                                <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
-                                <p class="featured-quote-text">
-                                    "${featuredStory.quote}"
-                                </p>
-
-                                <div class="mb-4">
-                                    ${skillsBadges}
-                                </div>
-
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-rku" style="padding: 0.5rem 1.4rem;" onclick="alert('Viewing full profile of ${featuredStory.studentName} (Simulated)')">View Profile</button>
-                                    <button class="btn btn-rku-outline" style="padding: 0.5rem 1.2rem;" onclick="alert('Opening LinkedIn profile (Simulated)')"><i class="fa-brands fa-linkedin me-2"></i>LinkedIn</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    document.getElementById('featuredStorySection').style.display = 'block';
-                } else {
-                    // Hide if none
-                    document.getElementById('featuredStorySection').style.display = 'none';
-                }
-            }
-
-            // 3. Render Hall of Fame (Podium)
-            const podiumContainer = document.getElementById('hallOfFamePodium');
-            if (podiumContainer) {
-                podiumContainer.innerHTML = '';
-                const hofStories = stories.filter(s => s.isHallOfFame).sort((a, b) => parseInt(a.rank) - parseInt(b.rank));
-
-                if (hofStories.length === 0) {
-                    // Hide podium card parent section if none
-                    podiumContainer.innerHTML = `<p class="text-center text-muted small py-4">No achievers in the Hall of Fame podium.</p>`;
-                } else {
-                    const rank1 = hofStories.find(s => s.rank === '1');
-                    const rank2 = hofStories.find(s => s.rank === '2');
-                    const rank3 = hofStories.find(s => s.rank === '3');
-
-                    if (rank2) {
-                        podiumContainer.innerHTML += `
-                            <div class="podium-card rank-2">
-                                <div class="podium-rank-badge">2</div>
-                                <div class="podium-avatar">
-                                    ${rank2.studentPhoto ? `<img src="${rank2.studentPhoto}" alt="${rank2.studentName}">` : `<svg viewBox="0 0 100 100" fill="#bbb"><circle cx="50" cy="38" r="18" fill="#d0d4dc"/><path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc"/></svg>`}
-                                </div>
-                                <div class="podium-pkg">${rank2.packageLpa}</div>
-                                <p class="podium-desg">${rank2.studentName}</p>
-                                <p class="podium-course">${rank2.degreeBranch.split('|')[0].trim()} (${rank2.recruiterName})</p>
-                            </div>
-                        `;
-                    }
-                    if (rank1) {
-                        podiumContainer.innerHTML += `
-                            <div class="podium-card rank-1">
-                                <div class="podium-rank-badge">1</div>
-                                <div class="podium-avatar">
-                                    ${rank1.studentPhoto ? `<img src="${rank1.studentPhoto}" alt="${rank1.studentName}">` : `<svg viewBox="0 0 100 100" fill="#bbb"><circle cx="50" cy="38" r="18" fill="#d0d4dc"/><path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc"/></svg>`}
-                                </div>
-                                <div class="podium-pkg" style="font-size: 1.5rem;">${rank1.packageLpa}</div>
-                                <p class="podium-desg">${rank1.studentName}</p>
-                                <p class="podium-course">${rank1.degreeBranch.split('|')[0].trim()} (${rank1.recruiterName})</p>
-                            </div>
-                        `;
-                    }
-                    if (rank3) {
-                        podiumContainer.innerHTML += `
-                            <div class="podium-card rank-3">
-                                <div class="podium-rank-badge">3</div>
-                                <div class="podium-avatar">
-                                    ${rank3.studentPhoto ? `<img src="${rank3.studentPhoto}" alt="${rank3.studentName}">` : `<svg viewBox="0 0 100 100" fill="#bbb"><circle cx="50" cy="38" r="18" fill="#d0d4dc"/><path d="M20,85 C20,68 32,60 50,60 C68,60 80,68 80,85 Z" fill="#d0d4dc"/></svg>`}
-                                </div>
-                                <div class="podium-pkg">${rank3.packageLpa}</div>
-                                <p class="podium-desg">${rank3.studentName}</p>
-                                <p class="podium-course">${rank3.degreeBranch.split('|')[0].trim()} (${rank3.recruiterName})</p>
-                            </div>
-                        `;
-                    }
-                }
-            }
+            // Featured story, stories grid, and hall of fame are bound from database (Success_Stories) in SuccessStories.aspx.cs.
+            // Only recruiters marquee is handled dynamically here.
 
             // 5. Render Top Recruiters as 3 alternating marquee rows
             const companies = PortalDB.getCompanies();
@@ -1360,7 +1290,7 @@
 
                     <!-- Right: Quotes and Details -->
                     <div class="col-lg-7 ps-lg-4">
-                        <span style="color: #ef3724; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.8px; text-transform: uppercase; font-family: var(--font-heading);">FEATURED STORY</span>
+                        <span style="color: #ef3724; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.8px; text-transform: uppercase; font-family: var(--font-heading);"></span>
                         <h2 class="fw-bold mt-1 mb-1" style="font-family: var(--font-heading); font-size: 2.2rem; color: #1e293b;">
                             <asp:Label ID="lblFeaturedName" runat="server" Text="Mitesh Gauswami"></asp:Label>
                         </h2>

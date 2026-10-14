@@ -30,7 +30,7 @@ namespace RKU_PLACEMENT_PORTAL
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlLogoPlaceholder;
+        protected global::System.Web.UI.WebControls.Label pnlLogoPlaceholder;
 
         /// <summary>
         /// profileDisplayName control.

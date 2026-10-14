@@ -4,9 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
-using System.Data;
 using System.Data.SqlClient;
+using System.Data;
 using System.Configuration;
 
 namespace RKU_PLACEMENT_PORTAL
@@ -14,16 +13,17 @@ namespace RKU_PLACEMENT_PORTAL
     public partial class Companies : System.Web.UI.Page
     {
         SqlConnection con;
+        SqlCommand cmd;
         SqlDataAdapter da;
         DataSet ds;
-        SqlCommand cmd;
+
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                datalist();
+                fillGrid();
             }
         }
 
@@ -33,10 +33,10 @@ namespace RKU_PLACEMENT_PORTAL
             con.Open();
         }
 
-        void datalist()
+        void fillGrid()
         {
             getcon();
-            da = new SqlDataAdapter("select * from register_auth_company", con);
+            da = new SqlDataAdapter("select * from register_auth_company order by id desc", con);
             ds = new DataSet();
             da.Fill(ds);
             DataList1.DataSource = ds;
@@ -56,18 +56,24 @@ namespace RKU_PLACEMENT_PORTAL
         void filterData()
         {
             getcon();
-            string query = "select * from register_auth_company where 1=1";
-            if (!string.IsNullOrEmpty(txtSearch.Text.Trim()))
+
+            if (txtSearch.Text != "" && ddlIndustry.SelectedValue != "")
             {
-                string kw = txtSearch.Text.Trim().Replace("'", "''");
-                query += " and (compName like '%" + kw + "%' or compDescription like '%" + kw + "%' or compTags like '%" + kw + "%' or compIndustry like '%" + kw + "%')";
+                da = new SqlDataAdapter("select * from register_auth_company where (compName like '%" + txtSearch.Text + "%' or compDescription like '%" + txtSearch.Text + "%' or compTags like '%" + txtSearch.Text + "%') and compIndustry like '%" + ddlIndustry.SelectedValue + "%' order by id desc", con);
             }
-            if (!string.IsNullOrEmpty(ddlIndustry.SelectedValue))
+            else if (txtSearch.Text != "")
             {
-                string ind = ddlIndustry.SelectedValue.Replace("'", "''");
-                query += " and compIndustry like '%" + ind + "%'";
+                da = new SqlDataAdapter("select * from register_auth_company where compName like '%" + txtSearch.Text + "%' or compDescription like '%" + txtSearch.Text + "%' or compTags like '%" + txtSearch.Text + "%' or compIndustry like '%" + txtSearch.Text + "%' order by id desc", con);
             }
-            da = new SqlDataAdapter(query, con);
+            else if (ddlIndustry.SelectedValue != "")
+            {
+                da = new SqlDataAdapter("select * from register_auth_company where compIndustry like '%" + ddlIndustry.SelectedValue + "%' order by id desc", con);
+            }
+            else
+            {
+                da = new SqlDataAdapter("select * from register_auth_company order by id desc", con);
+            }
+
             ds = new DataSet();
             da.Fill(ds);
             DataList1.DataSource = ds;

@@ -59,11 +59,11 @@
             transition: all 0.3s ease;
         }
 
-        .btn-rku:hover {
-            background: linear-gradient(135deg, var(--rku-maroon), #8b0b0f);
-            color: #fff !important;
-            box-shadow: 0 4px 12px rgba(163, 15, 20, 0.25);
-        }
+            .btn-rku:hover {
+                background: linear-gradient(135deg, var(--rku-maroon), #8b0b0f);
+                color: #fff !important;
+                box-shadow: 0 4px 12px rgba(163, 15, 20, 0.25);
+            }
     </style>
 </asp:Content>
 
@@ -92,7 +92,7 @@
                 <div class="form-section-title text-start mb-3">LIVE PREVIEW</div>
                 <div class="mb-3">
                     <asp:Image ID="imgCompanyLogo" runat="server" Visible="false" Style="width: 80px; height: 80px; border-radius: 16px; object-fit: cover; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);" />
-                    <asp:Panel ID="pnlLogoPlaceholder" runat="server" CssClass="company-logo-placeholder">CO</asp:Panel>
+                    <asp:Label ID="pnlLogoPlaceholder" runat="server" CssClass="company-logo-placeholder" Text="CO"></asp:Label>
                 </div>
                 <asp:Label ID="profileDisplayName" runat="server" Text="Company HR" CssClass="fw-bold font-heading mb-1 text-dark d-block fs-5"></asp:Label>
                 <asp:Label ID="profileDisplayIndustry" runat="server" Text="IT / Software" CssClass="text-muted small mb-3 d-block"></asp:Label>

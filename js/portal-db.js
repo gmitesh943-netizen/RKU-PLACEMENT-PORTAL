@@ -341,12 +341,12 @@ const PortalDB = {
                 {
                     id: 's1',
                     studentName: 'Krishna Patel',
-                    degreeBranch: 'BCA | School of Computer Applications',
+                    degreeBranch: 'B.Tech - Computer Engineering',
                     recruiterName: 'TCS',
                     packageLpa: '₹ 12 LPA',
-                    role: 'Software Engineer',
-                    quote: 'RK University\'s Placement Cell provided me with continuous guidance, aptitude training, mock interviews, and industry exposure. The support from faculty and placement coordinators helped me secure my dream role at Tata Consultancy Services.',
-                    skills: 'HTML, CSS, JavaScript, React, SQL, Communication',
+                    role: 'Software Developer',
+                    quote: 'My journey at RK University has been an amazing learning experience. The practical knowledge, expert faculty guidance, and placement support helped me achieve my career goals. I am grateful to RK University for helping me begin my professional journey with 12 LPA',
+                    skills: 'React, Node.js, SQL, Cloud',
                     studentPhoto: 'assets/images/student_new_1.png',
                     isFeatured: true,
                     isHallOfFame: true,
@@ -354,13 +354,13 @@ const PortalDB = {
                 },
                 {
                     id: 's2',
-                    studentName: 'Meet Shah',
-                    degreeBranch: 'B.Tech AI & ML',
-                    recruiterName: 'Capgemini',
-                    packageLpa: '₹ 18 LPA',
-                    role: 'AI Engineer',
-                    quote: 'The AI curriculum and the placement training at RKU prepared me thoroughly for tech screening processes.',
-                    skills: 'Python, AI, ML, TensorFlow, PyTorch',
+                    studentName: 'Disha Shah',
+                    degreeBranch: 'MCA',
+                    recruiterName: 'Infosys',
+                    packageLpa: '₹ 9 LPA',
+                    role: 'Systems Engineer',
+                    quote: 'My journey at RK University has been a valuable learning experience. The excellent guidance from faculty, practical learning opportunities, and placement support helped me strengthen my technical skills and prepare for my professional career. I am thankful 9 LPA',
+                    skills: 'Python, Java, Data Structures',
                     studentPhoto: 'assets/images/student_new_2.png',
                     isFeatured: false,
                     isHallOfFame: true,
@@ -368,74 +368,77 @@ const PortalDB = {
                 },
                 {
                     id: 's3',
-                    studentName: 'Neha Patel',
-                    degreeBranch: 'MBA',
-                    recruiterName: 'Deloitte',
-                    packageLpa: '₹ 16 LPA',
-                    role: 'Business Analyst',
-                    quote: 'The mock corporate discussions and soft skills mentorship by T&P cell boosted my analytical presentations.',
-                    skills: 'Business Analysis, PowerBI, Tableau, Excel',
+                    studentName: 'Harshil Mehta',
+                    degreeBranch: 'B.Tech - Infomation technology',
+                    recruiterName: 'Wipro',
+                    packageLpa: '₹ 8 LPA',
+                    role: 'Project Engineer',
+                    quote: 'My journey at RK University has been a wonderful learning experience. The supportive faculty, practical projects, and placement guidance helped me enhance my technical knowledge and professional confidence. I am grateful to RK University for providing oppo 8 LPA',
+                    skills: 'Web Development, JavaScript, Node.js',
                     studentPhoto: 'assets/images/student_new_3.png',
                     isFeatured: false,
                     isHallOfFame: true,
                     rank: '3'
-                },
-                {
-                    id: 's4',
-                    studentName: 'Disha Shah',
-                    degreeBranch: 'MCA',
-                    recruiterName: 'Infosys',
-                    packageLpa: '₹ 9 LPA',
-                    role: 'Systems Engineer',
-                    quote: 'Infosys Specialist Programmer prep sessions helped me pass code assessments.',
-                    skills: 'Java, Algorithms, Data Structures',
-                    studentPhoto: 'assets/images/student_disha.png',
-                    isFeatured: false,
-                    isHallOfFame: false,
-                    rank: ''
-                },
-                {
-                    id: 's5',
-                    studentName: 'Harshil Mehta',
-                    degreeBranch: 'B.Tech IT',
-                    recruiterName: 'Wipro',
-                    packageLpa: '₹ 8 LPA',
-                    role: 'Project Engineer',
-                    quote: 'Learned web engineering concepts and cracked Wipro placement drives.',
-                    skills: 'JavaScript, Node.js, Express, MongoDB',
-                    studentPhoto: 'assets/images/student_harshil.png',
-                    isFeatured: false,
-                    isHallOfFame: false,
-                    rank: ''
-                },
-                {
-                    id: 's6',
-                    studentName: 'Khushi Joshi',
-                    degreeBranch: 'BBA',
-                    recruiterName: 'Accenture',
-                    packageLpa: '₹ 7.5 LPA',
-                    role: 'HR Executive',
-                    quote: 'Accenture recruitment process had multi-stage assessments; TPO guidance was key.',
-                    skills: 'Management, Communication, HR Practices',
-                    studentPhoto: 'assets/images/student_krish.png',
-                    isFeatured: false,
-                    isHallOfFame: false,
-                    rank: ''
                 }
             ];
             localStorage.setItem(this.KEYS.STORIES, JSON.stringify(initialStories));
         }
 
-        // Auto Sync studentPhoto in existing STORIES if empty
+        // Auto Sync studentPhoto in existing STORIES if empty or remove stale mock stories
         let existingStories = JSON.parse(localStorage.getItem(this.KEYS.STORIES)) || [];
+        if (existingStories.some(st => st.studentName === 'Khushi Joshi')) {
+            const dbStories = [
+                {
+                    id: 's1',
+                    studentName: 'Krishna Patel',
+                    degreeBranch: 'B.Tech - Computer Engineering',
+                    recruiterName: 'TCS',
+                    packageLpa: '₹ 12 LPA',
+                    role: 'Software Developer',
+                    quote: 'My journey at RK University has been an amazing learning experience. The practical knowledge, expert faculty guidance, and placement support helped me achieve my career goals. I am grateful to RK University for helping me begin my professional journey with 12 LPA',
+                    skills: 'React, Node.js, SQL, Cloud',
+                    studentPhoto: 'assets/images/student_new_1.png',
+                    isFeatured: true,
+                    isHallOfFame: true,
+                    rank: '1'
+                },
+                {
+                    id: 's2',
+                    studentName: 'Disha Shah',
+                    degreeBranch: 'MCA',
+                    recruiterName: 'Infosys',
+                    packageLpa: '₹ 9 LPA',
+                    role: 'Systems Engineer',
+                    quote: 'My journey at RK University has been a valuable learning experience. The excellent guidance from faculty, practical learning opportunities, and placement support helped me strengthen my technical skills and prepare for my professional career. I am thankful 9 LPA',
+                    skills: 'Python, Java, Data Structures',
+                    studentPhoto: 'assets/images/student_new_2.png',
+                    isFeatured: false,
+                    isHallOfFame: true,
+                    rank: '2'
+                },
+                {
+                    id: 's3',
+                    studentName: 'Harshil Mehta',
+                    degreeBranch: 'B.Tech - Infomation technology',
+                    recruiterName: 'Wipro',
+                    packageLpa: '₹ 8 LPA',
+                    role: 'Project Engineer',
+                    quote: 'My journey at RK University has been a wonderful learning experience. The supportive faculty, practical projects, and placement guidance helped me enhance my technical knowledge and professional confidence. I am grateful to RK University for providing oppo 8 LPA',
+                    skills: 'Web Development, JavaScript, Node.js',
+                    studentPhoto: 'assets/images/student_new_3.png',
+                    isFeatured: false,
+                    isHallOfFame: true,
+                    rank: '3'
+                }
+            ];
+            localStorage.setItem(this.KEYS.STORIES, JSON.stringify(dbStories));
+            existingStories = dbStories;
+        }
         let updatedStories = false;
         const photoMap = {
             'Krishna Patel': 'assets/images/student_new_1.png',
-            'Meet Shah': 'assets/images/student_new_2.png',
-            'Neha Patel': 'assets/images/student_new_3.png',
-            'Disha Shah': 'assets/images/student_disha.png',
-            'Harshil Mehta': 'assets/images/student_harshil.png',
-            'Khushi Joshi': 'assets/images/student_krish.png'
+            'Disha Shah': 'assets/images/student_new_2.png',
+            'Harshil Mehta': 'assets/images/student_new_3.png'
         };
         existingStories.forEach(st => {
             if (!st.studentPhoto && photoMap[st.studentName]) {

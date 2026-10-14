@@ -44,9 +44,10 @@ namespace RKU_PLACEMENT_PORTAL
             getcon();
             cmd = new SqlCommand("insert into contact (Name,Email,Mobile,Department,Subject,Message) values('" + contactFullName.Text + "','" + contactEmailAddr.Text + "','" + contactMobile.Text + "','" + contactDepartment.SelectedValue + "','" + contactSubject.Text + "','" + contactMessage.Text + "')", con);
             cmd.ExecuteNonQuery();
+            con.Close();
 
             clearContact();
-           
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Thank you! Your inquiry has been sent successfully to the Placement Cell.');", true);
         }
 
         protected void btnResetForm_Click(object sender, EventArgs e)

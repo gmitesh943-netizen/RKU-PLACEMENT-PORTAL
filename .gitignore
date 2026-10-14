@@ -13,3 +13,10 @@ _ReSharper*/
 *.cache
 *.dbmdl
 TestResults/
+
+# User-uploaded profile photos, resumes, and company logos
+/Comp_Images/
+/CompanyUploads/
+/assets/ProfilePhotos/
+/assets/StudentPDF/
+/assets/Student PDF/

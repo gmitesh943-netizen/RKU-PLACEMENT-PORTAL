@@ -29,7 +29,6 @@ namespace RKU_PLACEMENT_PORTAL
                 fillHallOfFameDataList();
             }
         }
-
         void getcon()
         {
             con = new SqlConnection(s);
@@ -59,41 +58,18 @@ namespace RKU_PLACEMENT_PORTAL
         void fillFeaturedStory()
         {
             getcon();
-            da = new SqlDataAdapter("select top 1 * from Success_Stories where PodiumRank='1' or IsHallOfFame='Yes' order by case when PodiumRank='1' then 1 when IsHallOfFame='Yes' then 2 else 3 end, StoryId desc", con);
+            da = new SqlDataAdapter("select top 1 * from Success_Stories where PodiumRank='1' or IsHallOfFame in ('1', 'Yes', 'True') order by case when PodiumRank='1' then 1 when IsHallOfFame in ('1', 'Yes', 'True') then 2 else 3 end, StoryId desc", con);
             ds = new DataSet();
             da.Fill(ds);
             if (ds.Tables[0].Rows.Count > 0)
             {
-                DataRow dr = ds.Tables[0].Rows[0];
-                lblFeaturedName.Text = dr["StudentName"].ToString();
-                lblFeaturedDegree.Text = dr["DegreeBranch"].ToString();
-                lblFeaturedCompany.Text = dr["Recruiter"].ToString();
-                string pkg = dr["Package"].ToString();
-                lblFeaturedPackage.Text = (pkg.StartsWith("₹") || pkg.StartsWith("&#8377;")) ? pkg : pkg;
-
-                string testimonial = dr["Testimonial"].ToString();
-                if (!string.IsNullOrEmpty(testimonial) && testimonial.Trim() != "")
-                {
-                    lblFeaturedQuote.Text = testimonial;
-                }
-
-                string photo = dr["StudentPhoto"].ToString();
-                if (!string.IsNullOrEmpty(photo) && photo.Trim() != "" && photo != "~/assets/PlacmentStudentImage/")
-                {
-                    imgFeatured.ImageUrl = photo;
-                }
-
-                string skills = dr["KeySkills"].ToString();
-                if (!string.IsNullOrEmpty(skills) && skills.Trim() != "")
-                {
-                    string[] skillArr = skills.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    string html = "";
-                    foreach (string sk in skillArr)
-                    {
-                        html += "<span class='skill-badge'>" + sk + "</span>";
-                    }
-                    litFeaturedSkills.Text = html;
-                }
+                lblFeaturedName.Text = ds.Tables[0].Rows[0]["StudentName"].ToString();
+                lblFeaturedDegree.Text = ds.Tables[0].Rows[0]["DegreeBranch"].ToString();
+                lblFeaturedCompany.Text = ds.Tables[0].Rows[0]["Recruiter"].ToString();
+                lblFeaturedPackage.Text = ds.Tables[0].Rows[0]["Package"].ToString();
+                lblFeaturedQuote.Text = ds.Tables[0].Rows[0]["Testimonial"].ToString();
+                imgFeatured.ImageUrl = ds.Tables[0].Rows[0]["StudentPhoto"].ToString();
+                litFeaturedSkills.Text = ds.Tables[0].Rows[0]["KeySkills"].ToString();
             }
         }
 

@@ -118,10 +118,10 @@
 
                 const createMarqueeItems = () => {
                     return marqueeCompanies.map(c => `
-                        <div class="recruiter-logo-card d-flex align-items-center justify-content-center" style="width:150px; height:80px; padding:10px;">
+                        <div class="about-recruiter-logo-clean-item">
                             ${c.logoBase64
-                            ? `<img src="${c.logoBase64}" alt="${c.name}" style="max-width:100%; max-height:100%; object-fit:contain;">`
-                            : `<span style="font-family: var(--font-heading); font-weight:bold; font-size:1.2rem; color: var(--rku-dark); text-align:center;">${c.name}</span>`
+                            ? `<img src="${c.logoBase64}" alt="${c.name}">`
+                            : `<span style="font-family: var(--font-heading, 'Outfit'); font-weight: 700; font-size: 1.15rem; color: #0f2942; text-align: center;">${c.name}</span>`
                         }
                         </div>
                     `).join('');
@@ -316,51 +316,133 @@
     <!-- ==========================================
          4. OUR MISSION & VISION
          ========================================== -->
-    <section class="py-5" id="missionVisionSection" style="background: #f8f9fa;">
-        <div class="container px-lg-5">
+    <section class="py-5 bg-white position-relative" id="missionVisionSection">
+        <style>
+            #missionVisionSection {
+                background: #ffffff !important;
+                padding: 55px 0 45px 0 !important;
+            }
 
-            <!-- Centered Title with red underline -->
-            <div class="text-center mb-5">
-                <h2 class="fw-bold" style="font-family: var(--font-heading); font-size: 1.9rem; color: var(--rku-dark);">Our Mission &amp; Vision</h2>
-                <div style="width: 48px; height: 3px; background: var(--rku-red); border-radius: 2px; margin: 0.6rem auto 0;"></div>
-            </div>
+            .mv-image-container {
+                position: relative;
+                display: inline-block;
+                width: 100%;
+                max-width: 520px;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            /* Red L-shaped bracket in top-left */
+            .mv-red-corner {
+                position: absolute;
+                top: -16px;
+                left: -16px;
+                width: 65px;
+                height: 75px;
+                border-top: 14px solid #ef3724;
+                border-left: 14px solid #ef3724;
+                z-index: 2;
+                pointer-events: none;
+            }
 
-            <div class="row g-4 align-items-stretch">
+            .mv-main-img {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 4 / 3;
+                object-fit: cover;
+                border-radius: 4px;
+                box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+                display: block;
+                position: relative;
+                z-index: 1;
+            }
 
-                <!-- Col 1: Vision Card -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="mv-card text-center h-100" id="visionCard">
-                        <!-- Eye Icon -->
-                        <div class="mv-icon-circle mb-3 mx-auto">
-                            <i class="fa-regular fa-eye"></i>
-                        </div>
-                        <h4 class="mv-card-title">Our Vision</h4>
-                        <p class="mv-card-text">To become a leading university placement ecosystem that bridges academic excellence with industry requirements and creates globally competent professionals.</p>
+            .mv-eyebrow {
+                color: #ef3724;
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: 0.82rem;
+                font-weight: 700;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                margin-bottom: 0.75rem;
+                display: block;
+            }
+
+            .mv-main-title {
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: clamp(2rem, 3.2vw, 2.75rem);
+                font-weight: 800;
+                color: #0f2942;
+                line-height: 1.18;
+                margin-bottom: 2.2rem;
+                letter-spacing: -0.5px;
+            }
+
+            .mv-sub-title {
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: 1.3rem;
+                font-weight: 800;
+                color: #0f2942;
+                margin-bottom: 0.85rem;
+            }
+
+            .mv-sub-text {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                font-size: 0.92rem;
+                color: #64748b;
+                line-height: 1.65;
+                margin-bottom: 0;
+            }
+
+            .mv-split-divider {
+                position: relative;
+            }
+
+            @media (min-width: 768px) {
+                .mv-split-divider::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 5px;
+                    bottom: 10px;
+                    width: 1px;
+                    background-color: #e2e8f0;
+                }
+            }
+        </style>
+
+        <div class="container px-3 px-md-4">
+            <div class="row align-items-center g-4 g-lg-5">
+
+                <!-- Left: Photo with red corner bracket -->
+                <div class="col-lg-5 text-center text-lg-start">
+                    <div class="mv-image-container" id="missionVisionImageWrapper">
+                        <div class="mv-red-corner"></div>
+                        <img src="assets/images/mission_library.jpg" alt="RK University Students Collaborating" id="imgMissionVision" class="mv-main-img">
                     </div>
                 </div>
 
-                <!-- Col 2: Mission Card -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="mv-card text-center h-100" id="missionCard">
-                        <!-- Target Icon -->
-                        <div class="mv-icon-circle mb-3 mx-auto">
-                            <i class="fa-solid fa-bullseye"></i>
-                        </div>
-                        <h4 class="mv-card-title">Our Mission</h4>
-                        <ul class="mv-mission-list text-start">
-                            <li><span class="mv-dot"></span>Deliver industry-ready graduates</li>
-                            <li><span class="mv-dot"></span>Build strong corporate partnerships</li>
-                            <li><span class="mv-dot"></span>Provide skill-based training</li>
-                            <li><span class="mv-dot"></span>Offer career guidance &amp; mentorship</li>
-                            <li><span class="mv-dot"></span>Ensure placement assistance and continuous support</li>
-                        </ul>
-                    </div>
-                </div>
+                <!-- Right: Content & 2-Col Mission/Vision Split -->
+                <div class="col-lg-7 ps-lg-4">
+                    <span class="mv-eyebrow">OUR MISSION &amp; VISION</span>
+                    <h2 class="mv-main-title">Shaping Careers,<br>
+                        Building Futures</h2>
 
-                <!-- Col 3: Student Photo -->
-                <div class="col-lg-4 col-md-12">
-                    <div class="mv-photo-wrap h-100" id="missionVisionImageWrapper">
-                        <img src="assets/images/mission_library.jpg" alt="RK University Students Collaborating" id="imgMissionVision">
+                    <div class="row g-4 mt-1">
+                        <!-- Col 1: Mission -->
+                        <div class="col-md-6 pe-md-4" id="missionCard">
+                            <h3 class="mv-sub-title">Our Mission</h3>
+                            <p class="mv-sub-text">
+                                To provide students with industry-relevant opportunities, skill development and placement support, enabling them to achieve their professional goals and contribute to society.
+                            </p>
+                        </div>
+
+                        <!-- Col 2: Vision (with vertical divider) -->
+                        <div class="col-md-6 ps-md-4 mv-split-divider" id="visionCard">
+                            <h3 class="mv-sub-title">Our Vision</h3>
+                            <p class="mv-sub-text">
+                                To be a leading placement cell recognized for creating meaningful career opportunities and nurturing industry-ready talent for a better tomorrow.
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -372,59 +454,263 @@
     <!-- ==========================================
          5. WHAT WE OFFER
          ========================================== -->
-    <section class="py-5 bg-white" id="offeringsSection">
-        <div class="container px-lg-5">
-            <h2 class="section-title text-center mb-5" style="display: table; margin: 0 auto;">What We Offer</h2>
+    <section class="py-5 position-relative" id="offeringsSection" style="background: #f7f7f7;">
+        <style>
+            #offeringsSection {
+                background: #f7f7f7 !important;
+                padding-top: 4.5rem !important;
+                padding-bottom: 4.5rem !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
 
-            <div class="row g-3 mt-2 row-cols-xl-6 row-cols-lg-3 row-cols-md-2 row-cols-1">
-                <!-- Card 1 -->
-                <div class="col">
-                    <div class="stat-card text-center py-4 h-100" id="offerCard1">
-                        <div class="stat-card-icon-box mx-auto"><i class="fa-solid fa-graduation-cap"></i></div>
-                        <h4 class="fw-bold mb-2" style="font-family: var(--font-heading); font-size: 1rem;">Placement Drives</h4>
-                        <p class="text-muted mb-0" style="font-size: 0.82rem;">Opportunities with top recruiters through campus drives.</p>
+                #offeringsSection .wwo-container {
+                    max-width: 1400px;
+                    margin: 0 auto;
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+
+            @media (max-width: 768px) {
+                #offeringsSection .wwo-container {
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                }
+            }
+
+            .wwo-eyebrow {
+                color: #ef3724;
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: 0.82rem;
+                font-weight: 700;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                margin-bottom: 0.75rem;
+                display: block;
+            }
+
+            .wwo-heading {
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: clamp(2rem, 3.2vw, 2.75rem);
+                font-weight: 800;
+                color: #0f2942;
+                line-height: 1.18;
+                margin-bottom: 1.25rem;
+                letter-spacing: -0.5px;
+            }
+
+            .wwo-desc {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                font-size: 0.95rem;
+                color: #64748b;
+                line-height: 1.65;
+                margin-bottom: 1.5rem;
+                max-width: 380px;
+            }
+
+            .wwo-accent-bar {
+                width: 42px;
+                height: 3px;
+                background-color: #ef3724;
+                border-radius: 2px;
+                margin-bottom: 2rem;
+            }
+
+            .wwo-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.6rem;
+                background-color: #ef3724;
+                color: #ffffff !important;
+                padding: 0.75rem 1.85rem;
+                border-radius: 6px;
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-weight: 700;
+                font-size: 0.92rem;
+                text-decoration: none;
+                box-shadow: 0 4px 14px rgba(239, 55, 36, 0.25);
+                transition: all 0.25s ease;
+            }
+
+                .wwo-btn:hover {
+                    background-color: #d62828;
+                    color: #ffffff !important;
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 20px rgba(239, 55, 36, 0.35);
+                }
+
+            .wwo-item {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 2.2rem;
+            }
+
+            .wwo-num-wrap {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-width: 34px;
+                flex-shrink: 0;
+            }
+
+            .wwo-num {
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: 1.25rem;
+                font-weight: 800;
+                color: #ef3724;
+                line-height: 1;
+            }
+
+            .wwo-num-dash {
+                width: 14px;
+                height: 2px;
+                background-color: #ef3724;
+                border-radius: 1px;
+                margin-top: 6px;
+            }
+
+            .wwo-v-line {
+                width: 1px;
+                height: 38px;
+                background-color: #e2e8f0;
+                margin: 0 1.25rem 0 1rem;
+                flex-shrink: 0;
+            }
+
+            .wwo-item-content {
+                flex: 1;
+            }
+
+            .wwo-item-title {
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: 1.15rem;
+                font-weight: 800;
+                color: #0f2942;
+                margin-bottom: 0.4rem;
+                line-height: 1.25;
+            }
+
+            .wwo-item-desc {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                font-size: 0.88rem;
+                color: #64748b;
+                line-height: 1.55;
+                margin-bottom: 0;
+            }
+        </style>
+
+        <div class="wwo-container">
+            <div class="row align-items-start g-4 g-lg-5 mx-0">
+
+                <!-- Left: Title, Description & CTA Button -->
+                <div class="col-lg-4 ps-0 pe-lg-3">
+                    <span class="wwo-eyebrow">WHAT WE OFFER</span>
+                    <h2 class="wwo-heading">More Than Just Placements</h2>
+                    <p class="wwo-desc">
+                        We go beyond placements. Our holistic approach focuses on career readiness, skill development and long-term growth.
+                    </p>
+                    <div class="wwo-accent-bar"></div>
+                    <div>
+                        <a href="StudentDrives.aspx" class="wwo-btn" id="btnExploreAllServices">Explore All Services <i class="fa-solid fa-arrow-right-long ms-2"></i>
+                        </a>
                     </div>
                 </div>
-                <!-- Card 2 -->
-                <div class="col">
-                    <div class="stat-card text-center py-4 h-100" id="offerCard2">
-                        <div class="stat-card-icon-box mx-auto"><i class="fa-solid fa-business-time"></i></div>
-                        <h4 class="fw-bold mb-2" style="font-family: var(--font-heading); font-size: 1rem;">Internship Programs</h4>
-                        <p class="text-muted mb-0" style="font-size: 0.82rem;">Industry exposure before graduation to build real-world skills.</p>
+
+                <!-- Right: 2 Sub-Columns with 6 Items -->
+                <div class="col-lg-8 pe-0">
+                    <div class="row g-4">
+
+                        <!-- Col 1: Items 01, 02, 03 -->
+                        <div class="col-md-6 pe-md-3">
+
+                            <!-- Item 01 -->
+                            <div class="wwo-item" id="offerCard1">
+                                <div class="wwo-num-wrap">
+                                    <span class="wwo-num">01</span>
+                                    <span class="wwo-num-dash"></span>
+                                </div>
+                                <div class="wwo-v-line"></div>
+                                <div class="wwo-item-content">
+                                    <h3 class="wwo-item-title">Career Guidance &amp; Counseling</h3>
+                                    <p class="wwo-item-desc">Personalized guidance to help students choose the right career path.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 02 -->
+                            <div class="wwo-item" id="offerCard2">
+                                <div class="wwo-num-wrap">
+                                    <span class="wwo-num">02</span>
+                                    <span class="wwo-num-dash"></span>
+                                </div>
+                                <div class="wwo-v-line"></div>
+                                <div class="wwo-item-content">
+                                    <h3 class="wwo-item-title">Industry Connect</h3>
+                                    <p class="wwo-item-desc">Regular interactions with top recruiters and industry experts.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 03 -->
+                            <div class="wwo-item" id="offerCard3">
+                                <div class="wwo-num-wrap">
+                                    <span class="wwo-num">03</span>
+                                    <span class="wwo-num-dash"></span>
+                                </div>
+                                <div class="wwo-v-line"></div>
+                                <div class="wwo-item-content">
+                                    <h3 class="wwo-item-title">Skill Development</h3>
+                                    <p class="wwo-item-desc">Workshops, training sessions and certification programs.</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Col 2: Items 04, 05, 06 -->
+                        <div class="col-md-6 ps-md-3">
+
+                            <!-- Item 04 -->
+                            <div class="wwo-item" id="offerCard4">
+                                <div class="wwo-num-wrap">
+                                    <span class="wwo-num">04</span>
+                                    <span class="wwo-num-dash"></span>
+                                </div>
+                                <div class="wwo-v-line"></div>
+                                <div class="wwo-item-content">
+                                    <h3 class="wwo-item-title">Placement Support</h3>
+                                    <p class="wwo-item-desc">Resume building, interview preparation and placement drives.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 05 -->
+                            <div class="wwo-item" id="offerCard5">
+                                <div class="wwo-num-wrap">
+                                    <span class="wwo-num">05</span>
+                                    <span class="wwo-num-dash"></span>
+                                </div>
+                                <div class="wwo-v-line"></div>
+                                <div class="wwo-item-content">
+                                    <h3 class="wwo-item-title">Internship Opportunities</h3>
+                                    <p class="wwo-item-desc">Real-world exposure with leading companies.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 06 -->
+                            <div class="wwo-item" id="offerCard6">
+                                <div class="wwo-num-wrap">
+                                    <span class="wwo-num">06</span>
+                                    <span class="wwo-num-dash"></span>
+                                </div>
+                                <div class="wwo-v-line"></div>
+                                <div class="wwo-item-content">
+                                    <h3 class="wwo-item-title">Alumni Network</h3>
+                                    <p class="wwo-item-desc">Strong network for mentorship and referrals.</p>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
-                <!-- Card 3 -->
-                <div class="col">
-                    <div class="stat-card text-center py-4 h-100" id="offerCard3">
-                        <div class="stat-card-icon-box mx-auto"><i class="fa-solid fa-brain"></i></div>
-                        <h4 class="fw-bold mb-2" style="font-family: var(--font-heading); font-size: 1rem;">Aptitude Training</h4>
-                        <p class="text-muted mb-0" style="font-size: 0.82rem;">Specialized training for competitive exams and assessments.</p>
-                    </div>
-                </div>
-                <!-- Card 4 -->
-                <div class="col">
-                    <div class="stat-card text-center py-4 h-100" id="offerCard4">
-                        <div class="stat-card-icon-box mx-auto"><i class="fa-regular fa-file-lines"></i></div>
-                        <h4 class="fw-bold mb-2" style="font-family: var(--font-heading); font-size: 1rem;">Resume Building</h4>
-                        <p class="text-muted mb-0" style="font-size: 0.82rem;">Create impactful resumes that stand out to recruiters.</p>
-                    </div>
-                </div>
-                <!-- Card 5 -->
-                <div class="col">
-                    <div class="stat-card text-center py-4 h-100" id="offerCard5">
-                        <div class="stat-card-icon-box mx-auto"><i class="fa-solid fa-user-group"></i></div>
-                        <h4 class="fw-bold mb-2" style="font-family: var(--font-heading); font-size: 1rem;">Mock Interviews</h4>
-                        <p class="text-muted mb-0" style="font-size: 0.82rem;">Practice sessions with experts to boost your confidence.</p>
-                    </div>
-                </div>
-                <!-- Card 6 -->
-                <div class="col">
-                    <div class="stat-card text-center py-4 h-100" id="offerCard6">
-                        <div class="stat-card-icon-box mx-auto"><i class="fa-solid fa-user-tie"></i></div>
-                        <h4 class="fw-bold mb-2" style="font-family: var(--font-heading); font-size: 1rem;">Career Counseling</h4>
-                        <p class="text-muted mb-0" style="font-size: 0.82rem;">Personalized guidance to help you achieve your career goals.</p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
@@ -433,317 +719,636 @@
     <!-- ==========================================
          6. PLACEMENT SUCCESS STORIES
          ========================================== -->
-    <section class="py-5" id="placementSuccessSection">
-        <div class="container px-lg-5">
-            <style>
-                .pss-navy-box {
-                    background-color: #0c1a30 !important;
-                    border-radius: 16px !important;
-                    padding: 2.2rem !important;
-                    color: #fff !important;
-                    box-shadow: 0 10px 30px rgba(12, 26, 48, 0.2) !important;
+    <section class="py-5 bg-white position-relative" id="placementSuccessSection">
+        <style>
+            #placementSuccessSection {
+                background: #ffffff !important;
+                padding: 55px 0 45px 0 !important;
+            }
+
+            .pss-eyebrow {
+                color: #ef3724;
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: 0.82rem;
+                font-weight: 700;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            .pss-main-title {
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: clamp(2rem, 3.2vw, 2.75rem);
+                font-weight: 800;
+                color: #0f2942;
+                line-height: 1.18;
+                margin-bottom: 0.6rem;
+                letter-spacing: -0.5px;
+            }
+
+            .pss-main-subtitle {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                font-size: 0.95rem;
+                color: #64748b;
+                line-height: 1.55;
+                margin-bottom: 0;
+                max-width: 650px;
+            }
+
+            .pss-view-all-link {
+                color: #ef3724 !important;
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-weight: 700;
+                font-size: 0.95rem;
+                text-decoration: none !important;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                transition: transform 0.2s ease, color 0.2s ease;
+            }
+
+                .pss-view-all-link:hover {
+                    color: #d62828 !important;
+                    transform: translateX(4px);
                 }
-                .pss-header {
-                    display: flex !important;
-                    justify-content: space-between !important;
-                    align-items: center !important;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
-                    padding-bottom: 0.8rem !important;
-                    margin-bottom: 1.5rem !important;
-                }
-                .pss-title {
-                    font-family: var(--font-heading) !important;
-                    font-weight: 800 !important;
-                    font-size: 1.4rem !important;
-                    color: #fff !important;
-                    margin: 0 !important;
-                }
-                .pss-view-all {
-                    color: rgba(255, 255, 255, 0.7) !important;
-                    font-weight: 700 !important;
-                    font-size: 0.88rem !important;
-                    text-decoration: none !important;
-                }
-                .pss-datalist-table {
-                    width: 100% !important;
-                    border-collapse: separate !important;
-                    border-spacing: 1.25rem 0px !important;
-                    margin-top: 1rem !important;
-                }
-                .pss-datalist-table > tbody > tr > td {
-                    width: 33.333% !important;
-                    vertical-align: top !important;
-                    padding: 0 !important;
-                }
-                .pss-card-item {
-                    background: #ffffff !important;
-                    border-radius: 16px !important;
-                    overflow: hidden !important;
-                    display: flex !important;
-                    flex-direction: row !important;
-                    position: relative !important;
-                    padding-bottom: 48px !important;
+
+            .pss-datalist-table {
+                width: 100% !important;
+                border-collapse: separate !important;
+                border-spacing: 1.5rem 0px !important;
+                margin-top: 2.2rem !important;
+                height: 100% !important;
+            }
+
+                .pss-datalist-table > tbody {
                     height: 100% !important;
-                    min-height: 200px !important;
-                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
-                    border: none !important;
                 }
-                .pss-photo-col {
-                    width: 44% !important;
-                    padding: 0.85rem 0.5rem 0.85rem 0.85rem !important;
-                    display: flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                }
-                .pss-photo {
-                    width: 115px !important;
-                    height: 115px !important;
-                    object-fit: cover !important;
-                    border-radius: 40% !important;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-                }
-                .pss-info-col {
-                    width: 56% !important;
-                    padding: 1rem 0.85rem 0.85rem 0.2rem !important;
-                    display: flex !important;
-                    flex-direction: column !important;
-                    justify-content: center !important;
-                }
-                .pss-name {
-                    font-family: var(--font-heading) !important;
-                    font-weight: 800 !important;
-                    font-size: 1.08rem !important;
-                    color: #1a202c !important;
-                    margin-bottom: 0.15rem !important;
-                    line-height: 1.2 !important;
-                }
-                .pss-course {
-                    font-size: 0.84rem !important;
-                    color: #718096 !important;
-                    font-weight: 600 !important;
-                    margin-bottom: 0.5rem !important;
-                }
-                .pss-placed-label {
-                    font-size: 0.64rem !important;
-                    color: #a0aec0 !important;
-                    font-weight: 800 !important;
-                    text-transform: uppercase !important;
-                    letter-spacing: 0.5px !important;
-                    margin-bottom: 0.2rem !important;
-                }
-                .pss-logo {
-                    width: 100% !important;
-                    max-width: 110px !important;
-                    height: 26px !important;
-                    margin-top: 0.1rem !important;
-                }
-                .pss-pkg-footer {
-                    position: absolute !important;
-                    bottom: 0 !important;
-                    left: 0 !important;
-                    width: 100% !important;
-                    background-color: #ef3724 !important;
-                    color: #ffffff !important;
-                    padding: 0.4rem 1rem !important;
-                    display: flex !important;
-                    flex-direction: column !important;
-                    align-items: flex-start !important;
-                    border-bottom-left-radius: 16px !important;
-                    border-bottom-right-radius: 16px !important;
-                }
-                .pss-pkg-num {
-                    font-family: var(--font-heading) !important;
-                    font-weight: 800 !important;
-                    font-size: 1.05rem !important;
-                    line-height: 1.1 !important;
-                }
-                .pss-pkg-label {
-                    font-size: 0.6rem !important;
-                    font-weight: 700 !important;
-                    text-transform: uppercase !important;
-                    letter-spacing: 0.5px !important;
-                    opacity: 0.95 !important;
-                }
-                @media (max-width: 991.98px) {
-                    .pss-datalist-table {
-                        border-spacing: 0.75rem 0px !important;
+
+                    .pss-datalist-table > tbody > tr {
+                        height: 100% !important;
                     }
+
+                        .pss-datalist-table > tbody > tr > td {
+                            width: 33.333% !important;
+                            vertical-align: top !important;
+                            padding: 0 !important;
+                            height: 100% !important;
+                        }
+
+            .pss-card-box {
+                background: #ffffff !important;
+                border: 1px solid #edf2f7 !important;
+                border-radius: 14px !important;
+                box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04) !important;
+                padding: 1.5rem !important;
+                display: flex !important;
+                flex-direction: column !important;
+                height: 100% !important;
+                min-height: 100% !important;
+                transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+                box-sizing: border-box !important;
+            }
+
+                .pss-card-box:hover {
+                    transform: translateY(-4px) !important;
+                    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08) !important;
+                    border-color: #e2e8f0 !important;
                 }
-            </style>
 
-            <div class="pss-navy-box" id="successNavyBox">
+            .pss-card-top {
+                display: flex !important;
+                align-items: flex-start !important;
+                gap: 1.15rem !important;
+            }
 
-                <!-- Header -->
-                <div class="pss-header" id="pssHeader">
-                    <h2 class="pss-title">Placement Success Stories</h2>
-                    <a href="SuccessStories.aspx" class="pss-view-all" id="linkViewAllStoriesNavy">View All Stories <i class="fa-solid fa-arrow-right ms-1"></i>
+            .pss-card-photo {
+                width: 105px !important;
+                height: 105px !important;
+                border-radius: 10px !important;
+                object-fit: cover !important;
+                flex-shrink: 0 !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07) !important;
+                background-color: #f1f5f9;
+            }
+
+            .pss-card-details {
+                flex: 1 !important;
+                min-width: 0 !important;
+            }
+
+            .pss-card-recruiter {
+                font-family: var(--font-heading, 'Outfit', sans-serif) !important;
+                font-weight: 800 !important;
+                font-size: 1.25rem !important;
+                color: #ef3724 !important;
+                line-height: 1.15 !important;
+                margin-bottom: 0.35rem !important;
+            }
+
+            .pss-card-name {
+                font-family: var(--font-heading, 'Outfit', sans-serif) !important;
+                font-weight: 800 !important;
+                font-size: 1.1rem !important;
+                color: #0f2942 !important;
+                margin-bottom: 0.15rem !important;
+                line-height: 1.2 !important;
+            }
+
+            .pss-card-branch {
+                font-family: var(--font-body, 'Inter', sans-serif) !important;
+                font-size: 0.8rem !important;
+                color: #64748b !important;
+                font-weight: 500 !important;
+                margin-bottom: 0.35rem !important;
+            }
+
+            .pss-card-placed {
+                font-family: var(--font-body, 'Inter', sans-serif) !important;
+                font-size: 0.82rem !important;
+                color: #64748b !important;
+                margin-bottom: 0.15rem !important;
+            }
+
+            .pss-card-pkg {
+                font-family: var(--font-heading, 'Outfit', sans-serif) !important;
+                font-size: 0.85rem !important;
+                color: #0f2942 !important;
+                font-weight: 700 !important;
+            }
+
+            .pss-card-quote {
+                font-family: var(--font-body, 'Inter', sans-serif) !important;
+                font-size: 0.84rem !important;
+                color: #64748b !important;
+                line-height: 1.6 !important;
+                font-style: italic !important;
+                margin-top: auto !important;
+                margin-bottom: 0 !important;
+                padding-top: 0.85rem !important;
+                border-top: 1px solid #f1f5f9 !important;
+                flex-grow: 1 !important;
+            }
+
+            @media (max-width: 991.98px) {
+                .pss-datalist-table,
+                .pss-datalist-table > tbody,
+                .pss-datalist-table > tbody > tr,
+                .pss-datalist-table > tbody > tr > td {
+                    display: block !important;
+                    width: 100% !important;
+                    height: auto !important;
+                    margin-bottom: 1.25rem !important;
+                }
+            }
+        </style>
+
+        <div class="container px-3 px-md-4">
+            <!-- Header Row -->
+            <div class="row align-items-end justify-content-between g-3">
+                <div class="col-lg-8">
+                    <span class="pss-eyebrow">SUCCESS STORIES</span>
+                    <h2 class="pss-main-title">Real People. Real Success.</h2>
+                    <p class="pss-main-subtitle">
+                        Hear from our students who turned their dreams into reality with the support of RK University Placement Cell.
+                    </p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="SuccessStories.aspx" class="pss-view-all-link" id="linkViewAllStories">View All Stories <i class="fa-solid fa-arrow-right-long ms-1"></i>
                     </a>
                 </div>
+            </div>
 
-                <!-- Placement Success Stories Horizontal 3-Column DataList -->
-                <asp:DataList ID="DataListSuccess" runat="server" RepeatDirection="Horizontal" RepeatColumns="3" RepeatLayout="Table" Width="100%" CssClass="pss-datalist-table">
-                    <ItemTemplate>
-                        <div class="pss-card pss-card-item">
-                            <!-- Photo -->
-                            <div class="pss-photo-col">
-                                <img src='<%# ResolveUrl(Eval("StudentPhoto").ToString()) %>' alt='<%# Eval("StudentName") %>' class="pss-photo" />
-                            </div>
-                            <!-- Info -->
-                            <div class="pss-info-col">
-                                <div class="pss-name"><%# Eval("StudentName") %></div>
-                                <div class="pss-course"><%# Eval("DegreeBranch") %></div>
-                                <div class="pss-placed-label">Placed at</div>
-                                <div class="pss-recruiter-name" style="color: #ef3724; font-weight: 800; font-size: 1.15rem; font-family: var(--font-heading); margin-top: 2px;"><%# Eval("Recruiter") %></div>
-                            </div>
-                            <!-- Red Footer -->
-                            <div class="pss-pkg-footer">
-                                <div class="pss-pkg-num"><%# Eval("Package") %></div>
-                                <div class="pss-pkg-label">Package</div>
+            <!-- Placement Success Stories Horizontal 3-Column DataList -->
+            <asp:DataList ID="DataListSuccess" runat="server" RepeatDirection="Horizontal" RepeatColumns="3" RepeatLayout="Table" Width="100%" CssClass="pss-datalist-table">
+                <ItemTemplate>
+                    <div class="pss-card-box">
+                        <!-- Top Row: Photo + Details -->
+                        <div class="pss-card-top">
+                            <img src='<%# ResolveUrl(Eval("StudentPhoto").ToString()) %>' alt='<%# Eval("StudentName") %>' class="pss-card-photo" onerror="this.src='assets/images/team_tpo_profile.png';" />
+                            <div class="pss-card-details">
+                                <div class="pss-card-recruiter"><%# Eval("Recruiter") %></div>
+                                <h4 class="pss-card-name"><%# Eval("StudentName") %></h4>
+                                <div class="pss-card-branch"><%# Eval("DegreeBranch") %></div>
+                                <div class="pss-card-placed">Placed at <%# Eval("Recruiter") %></div>
+                                <div class="pss-card-pkg">Package: <%# Eval("Package") %></div>
                             </div>
                         </div>
-                    </ItemTemplate>
-                </asp:DataList>
-            </div>
+
+                        <!-- Bottom: Quote / Testimonial -->
+                        <p class="pss-card-quote">
+                            "<%# !string.IsNullOrEmpty(Eval("Testimonial") as string) && Eval("Testimonial").ToString().Trim() != "" ? Eval("Testimonial") : "The placement cell guided me at every step, from resume building to final interview. I'm grateful for their constant support." %>"
+                        </p>
+                    </div>
+                </ItemTemplate>
+            </asp:DataList>
         </div>
     </section>
 
 
 
-    <section class="py-5 bg-white" id="processSection">
-        <div class="container px-lg-5">
+    <!-- ==========================================
+         7. OUR PLACEMENT PROCESS
+         ========================================== -->
+    <section class="py-5 position-relative" id="processSection" style="background: #f8fafb;">
+        <style>
+            #processSection {
+                background: #f8fafb !important;
+                padding-top: 4.5rem !important;
+                padding-bottom: 4.5rem !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
 
-            <!-- Centered Header with Red Underline -->
-            <div class="text-center mb-5">
-                <h2 class="fw-bold" style="font-family: var(--font-heading); font-size: 1.9rem; color: var(--rku-dark);">Our Placement Process</h2>
-                <div style="width: 48px; height: 3px; background: var(--rku-red); border-radius: 2px; margin: 0.6rem auto 0;"></div>
+                #processSection .opp-container {
+                    max-width: 1400px;
+                    margin: 0 auto;
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+
+            @media (max-width: 768px) {
+                #processSection .opp-container {
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                }
+            }
+
+            .opp-eyebrow {
+                color: #ef3724;
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: 0.82rem;
+                font-weight: 700;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            .opp-main-title {
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: clamp(2rem, 3.2vw, 2.75rem);
+                font-weight: 800;
+                color: #0f2942;
+                line-height: 1.18;
+                margin-bottom: 3.5rem;
+                letter-spacing: -0.5px;
+            }
+
+            .opp-stepper-wrap {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .opp-step-item {
+                flex: 1;
+                position: relative;
+                padding-right: 1.25rem;
+            }
+
+                .opp-step-item:last-child {
+                    flex: 0 0 170px;
+                    padding-right: 0;
+                }
+
+            .opp-step-header {
+                display: flex;
+                align-items: center;
+                gap: 0.85rem;
+            }
+
+            .opp-num {
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: 1.45rem;
+                font-weight: 800;
+                color: #ef3724;
+                line-height: 1;
+                flex-shrink: 0;
+            }
+
+            .opp-line {
+                flex: 1;
+                height: 1px;
+                background-color: #cbd5e1;
+            }
+
+            .opp-step-title {
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: 1.12rem;
+                font-weight: 800;
+                color: #0f2942;
+                margin-top: 1.1rem;
+                margin-bottom: 0.35rem;
+                line-height: 1.25;
+            }
+
+            .opp-step-desc {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                font-size: 0.86rem;
+                color: #64748b;
+                line-height: 1.45;
+                margin-bottom: 0;
+            }
+
+            @media (max-width: 991.98px) {
+                .opp-stepper-wrap {
+                    flex-wrap: wrap;
+                    gap: 2.2rem 1.5rem;
+                }
+
+                .opp-step-item {
+                    flex: 0 0 calc(50% - 1rem) !important;
+                    padding-right: 0 !important;
+                }
+
+                    .opp-step-item:last-child {
+                        flex: 0 0 calc(50% - 1rem) !important;
+                    }
+
+                .opp-line {
+                    display: none;
+                }
+            }
+
+            @media (max-width: 575.98px) {
+                .opp-step-item,
+                .opp-step-item:last-child {
+                    flex: 0 0 100% !important;
+                }
+            }
+        </style>
+
+        <div class="opp-container">
+            <!-- Header -->
+            <div class="mb-4">
+                <span class="opp-eyebrow">THE PLACEMENT PROCESS</span>
+                <h2 class="opp-main-title">Your Journey, Our Support</h2>
             </div>
 
-            <div class="process-timeline mt-4" id="aboutProcessTimeline">
-                <div class="row g-0 justify-content-between position-relative">
+            <!-- Stepper Container -->
+            <div class="opp-stepper-wrap" id="aboutProcessTimeline">
 
-                    <!-- Step 1 -->
-                    <div class="col" style="flex: 1; text-align: center; position: relative; z-index: 2;">
-                        <div class="process-step">
-                            <div class="process-dot" style="width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; background: #fff; margin-bottom: 0.75rem;">
-                                <i class="fa-regular fa-clipboard" style="color: var(--rku-red); font-size: 1.1rem;"></i>
-                            </div>
-                            <div class="process-num" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--rku-dark); margin-bottom: 0.2rem;">01</div>
-                            <div class="process-label" style="font-size: 0.7rem; font-weight: 600; color: #475569; line-height: 1.2;">Registration</div>
-                        </div>
+                <!-- Step 01 -->
+                <div class="opp-step-item">
+                    <div class="opp-step-header">
+                        <span class="opp-num">01</span>
+                        <div class="opp-line"></div>
                     </div>
-
-                    <!-- Step 2 -->
-                    <div class="col" style="flex: 1; text-align: center; position: relative; z-index: 2;">
-                        <div class="process-step">
-                            <div class="process-dot" style="width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; background: #fff; margin-bottom: 0.75rem;">
-                                <i class="fa-regular fa-id-card" style="color: var(--rku-red); font-size: 1.1rem;"></i>
-                            </div>
-                            <div class="process-num" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--rku-dark); margin-bottom: 0.2rem;">02</div>
-                            <div class="process-label" style="font-size: 0.7rem; font-weight: 600; color: #475569; line-height: 1.2;">Profile Comp.</div>
-                        </div>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="col" style="flex: 1; text-align: center; position: relative; z-index: 2;">
-                        <div class="process-step">
-                            <div class="process-dot" style="width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; background: #fff; margin-bottom: 0.75rem;">
-                                <i class="fa-solid fa-list-check" style="color: var(--rku-red); font-size: 1.1rem;"></i>
-                            </div>
-                            <div class="process-num" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--rku-dark); margin-bottom: 0.2rem;">03</div>
-                            <div class="process-label" style="font-size: 0.7rem; font-weight: 600; color: #475569; line-height: 1.2;">Eligibility</div>
-                        </div>
-                    </div>
-
-                    <!-- Step 4 -->
-                    <div class="col" style="flex: 1; text-align: center; position: relative; z-index: 2;">
-                        <div class="process-step">
-                            <div class="process-dot" style="width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; background: #fff; margin-bottom: 0.75rem;">
-                                <i class="fa-solid fa-paper-plane" style="color: var(--rku-red); font-size: 1.1rem;"></i>
-                            </div>
-                            <div class="process-num" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--rku-dark); margin-bottom: 0.2rem;">04</div>
-                            <div class="process-label" style="font-size: 0.7rem; font-weight: 600; color: #475569; line-height: 1.2;">Apply</div>
-                        </div>
-                    </div>
-
-                    <!-- Step 5 -->
-                    <div class="col" style="flex: 1; text-align: center; position: relative; z-index: 2;">
-                        <div class="process-step">
-                            <div class="process-dot" style="width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; background: #fff; margin-bottom: 0.75rem;">
-                                <i class="fa-regular fa-comments" style="color: var(--rku-red); font-size: 1.1rem;"></i>
-                            </div>
-                            <div class="process-num" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--rku-dark); margin-bottom: 0.2rem;">05</div>
-                            <div class="process-label" style="font-size: 0.7rem; font-weight: 600; color: #475569; line-height: 1.2;">Interviews</div>
-                        </div>
-                    </div>
-
-                    <!-- Step 6 -->
-                    <div class="col" style="flex: 1; text-align: center; position: relative; z-index: 2;">
-                        <div class="process-step">
-                            <div class="process-dot" style="width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; background: #fff; margin-bottom: 0.75rem;">
-                                <i class="fa-solid fa-award" style="color: var(--rku-red); font-size: 1.1rem;"></i>
-                            </div>
-                            <div class="process-num" style="font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--rku-dark); margin-bottom: 0.2rem;">06</div>
-                            <div class="process-label" style="font-size: 0.7rem; font-weight: 600; color: #475569; line-height: 1.2;">Selection</div>
-                        </div>
-                    </div>
-
+                    <h3 class="opp-step-title">Registration</h3>
+                    <p class="opp-step-desc">Create your profile</p>
                 </div>
+
+                <!-- Step 02 -->
+                <div class="opp-step-item">
+                    <div class="opp-step-header">
+                        <span class="opp-num">02</span>
+                        <div class="opp-line"></div>
+                    </div>
+                    <h3 class="opp-step-title">Resume Submission</h3>
+                    <p class="opp-step-desc">Get shortlisted</p>
+                </div>
+
+                <!-- Step 03 -->
+                <div class="opp-step-item">
+                    <div class="opp-step-header">
+                        <span class="opp-num">03</span>
+                        <div class="opp-line"></div>
+                    </div>
+                    <h3 class="opp-step-title">Apply for Drives</h3>
+                    <p class="opp-step-desc">Show your skills</p>
+                </div>
+
+                <!-- Step 04 -->
+                <div class="opp-step-item">
+                    <div class="opp-step-header">
+                        <span class="opp-num">04</span>
+                        <div class="opp-line"></div>
+                    </div>
+                    <h3 class="opp-step-title">Interviews<br class="d-none d-md-block" />
+                        (Tech / HR)</h3>
+                    <p class="opp-step-desc">Face the company</p>
+                </div>
+
+                <!-- Step 05 -->
+                <div class="opp-step-item">
+                    <div class="opp-step-header">
+                        <span class="opp-num">05</span>
+                    </div>
+                    <h3 class="opp-step-title">Offer</h3>
+                    <p class="opp-step-desc">Join your dream<br class="d-none d-md-block" />
+                        company</p>
+                </div>
+
             </div>
         </div>
     </section>
 
 
-    <section class="py-5 bg-white" id="whyRecruitersSection">
-        <div class="container px-lg-5">
-            <div class="row g-5 align-items-center">
-                <!-- Left info -->
-                <div class="col-lg-4">
-                    <h2 class="fw-bold mb-3" style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--rku-dark);">Why Recruiters Choose RK University?</h2>
-                    <p class="text-muted mb-4" style="font-size: 0.95rem; line-height: 1.6;">Empowering students with industry-ready, skilled, and prepared to contribute from day one.</p>
-                    <button class="btn btn-rku" id="btnPartnerWithUs">Partner With Us <i class="fa-solid fa-arrow-right ms-2"></i></button>
-                </div>
+    <!-- ==========================================
+         8. WHY RECRUITERS CHOOSE RK UNIVERSITY
+         ========================================== -->
+    <section class="py-5 bg-white position-relative" id="whyRecruitersSection">
+        <style>
+            #whyRecruitersSection {
+                background: #ffffff !important;
+                padding: 35px 0 30px 0 !important;
+            }
 
-                <!-- Middle stats grid -->
-                <div class="col-lg-5">
-                    <div class="row g-0" style="border-left: 1px solid #e2e8f0;">
+            .wrc-eyebrow {
+                color: #ef3724;
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: 0.82rem;
+                font-weight: 700;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                margin-bottom: 0.75rem;
+                display: block;
+            }
 
-                        <div class="col-6" style="border-bottom: 1px solid #e2e8f0; padding: 1.5rem;">
-                            <h3 class="fw-bold mb-1 counter-value" data-target="5000" style="color: var(--rku-dark); font-family: var(--font-heading);">0</h3>
-                            <div class="text-muted small fw-semibold">Students Placed</div>
-                        </div>
+            .wrc-heading {
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: clamp(2rem, 3.2vw, 2.75rem);
+                font-weight: 800;
+                color: #0f2942;
+                line-height: 1.18;
+                margin-bottom: 1.25rem;
+                letter-spacing: -0.5px;
+            }
 
-                        <div class="col-6" style="border-bottom: 1px solid #e2e8f0; border-left: 1px solid #e2e8f0; padding: 1.5rem;">
-                            <h3 class="fw-bold mb-1 counter-value" data-target="300" style="color: var(--rku-dark); font-family: var(--font-heading);">0</h3>
-                            <div class="text-muted small fw-semibold">Recruiters</div>
-                        </div>
+            .wrc-desc {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                font-size: 0.95rem;
+                color: #64748b;
+                line-height: 1.65;
+                margin-bottom: 2rem;
+                max-width: 440px;
+            }
 
-                        <div class="col-6" style="border-bottom: 1px solid #e2e8f0; padding: 1.5rem;">
-                            <h3 class="fw-bold mb-1 counter-value" data-target="85" data-target-type="percent" style="color: var(--rku-dark); font-family: var(--font-heading);">0</h3>
-                            <div class="text-muted small fw-semibold">Placement Rate</div>
-                        </div>
+            .wrc-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.6rem;
+                background-color: #ef3724;
+                color: #ffffff !important;
+                padding: 0.75rem 1.85rem;
+                border-radius: 6px;
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-weight: 700;
+                font-size: 0.92rem;
+                text-decoration: none;
+                box-shadow: 0 4px 14px rgba(239, 55, 36, 0.25);
+                transition: all 0.25s ease;
+                border: none;
+            }
 
-                        <div class="col-6" style="border-bottom: 1px solid #e2e8f0; border-left: 1px solid #e2e8f0; padding: 1.5rem;">
-                            <h3 class="fw-bold mb-1 counter-value" data-target="20" data-target-type="currency" style="color: var(--rku-dark); font-family: var(--font-heading);">0</h3>
-                            <div class="text-muted small fw-semibold">Highest Package</div>
-                        </div>
+                .wrc-btn:hover {
+                    background-color: #d62828;
+                    color: #ffffff !important;
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 20px rgba(239, 55, 36, 0.35);
+                }
 
-                        <div class="col-6" style="padding: 1.5rem;">
-                            <h3 class="fw-bold mb-1" style="font-size: 1.4rem; font-family: var(--font-heading); color: var(--rku-dark);">Industry Oriented</h3>
-                            <div class="text-muted small fw-semibold">Curriculum</div>
-                        </div>
+            .wrc-stats-col {
+                border-left: 1px solid #edf2f7;
+                padding-left: 2.25rem;
+            }
 
-                        <div class="col-6" style="border-left: 1px solid #e2e8f0; padding: 1.5rem;">
-                            <h3 class="fw-bold mb-1" style="font-size: 1.4rem; font-family: var(--font-heading); color: var(--rku-dark);">Corporate Training</h3>
-                            <div class="text-muted small fw-semibold">Programs</div>
-                        </div>
+            @media (max-width: 991.98px) {
+                .wrc-stats-col {
+                    border-left: none;
+                    border-top: 1px solid #edf2f7;
+                    padding-left: 0;
+                    padding-top: 2rem;
+                }
+            }
 
+            .wrc-stat-box {
+                margin-bottom: 1.25rem;
+            }
+
+            .wrc-stat-num {
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: clamp(1.75rem, 2.2vw, 2.1rem);
+                font-weight: 800;
+                color: #ef3724;
+                line-height: 1;
+                margin-bottom: 0.25rem;
+            }
+
+            .wrc-stat-title {
+                font-family: var(--font-heading, 'Outfit', sans-serif);
+                font-size: 0.84rem;
+                font-weight: 700;
+                color: #0f2942;
+                line-height: 1.25;
+                margin-bottom: 0.1rem;
+            }
+
+            .wrc-stat-sub {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                font-size: 0.76rem;
+                color: #64748b;
+                line-height: 1.25;
+            }
+
+            .wrc-img-wrapper {
+                position: relative;
+                display: block;
+                width: 100%;
+                max-width: 330px;
+                margin-left: auto;
+            }
+
+            .wrc-red-corner {
+                position: absolute;
+                bottom: -10px;
+                right: -10px;
+                width: 44px;
+                height: 52px;
+                border-bottom: 10px solid #ef3724;
+                border-right: 10px solid #ef3724;
+                z-index: 2;
+                pointer-events: none;
+            }
+
+            .wrc-img {
+                width: 100%;
+                height: 240px;
+                object-fit: cover;
+                border-radius: 6px;
+                box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+                display: block;
+                position: relative;
+                z-index: 1;
+            }
+        </style>
+
+        <div class="container px-3 px-md-4">
+            <div class="row align-items-center g-4 g-xl-5">
+
+                <!-- Left: Title, Description & Button -->
+                <div class="col-lg-5 pe-lg-3">
+                    <span class="wrc-eyebrow">WHY RECRUITERS CHOOSE RK UNIVERSITY</span>
+                    <h2 class="wrc-heading">A Talent Pool<br>
+                        That Delivers</h2>
+                    <p class="wrc-desc">
+                        From strong academic foundation to industry-ready skills, <strong>RK University</strong> offers everything recruiters look for in future professionals.
+                    </p>
+                    <div>
+                        <a href="About.aspx" class="wrc-btn" id="btnPartnerWithUs">Why RK University <i class="fa-solid fa-arrow-right-long ms-2"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Right image block -->
-                <div class="col-lg-3 d-none d-lg-block">
-                    <img src="assets/images/slider_1.jpg" alt="RK University Campus Placements Class" class="w-100 why-recruiters-img" style="border-radius: 12px; height: 100%; min-height: 250px; object-fit: cover; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);">
+                <!-- Middle: Stats Grid (2x2) with left vertical divider -->
+                <div class="col-lg-3 col-md-6 wrc-stats-col">
+                    <div class="row g-3">
+                        <!-- Stat 1: 85% -->
+                        <div class="col-6">
+                            <div class="wrc-stat-box">
+                                <div class="wrc-stat-num counter-value" data-target="85">85%</div>
+                                <div class="wrc-stat-title">Placement Rate</div>
+                                <div class="wrc-stat-sub">(Last 3 Years)</div>
+                            </div>
+                        </div>
+
+                        <!-- Stat 2: 20+ LPA -->
+                        <div class="col-6">
+                            <div class="wrc-stat-box">
+                                <div class="wrc-stat-num counter-value" data-target="20">20+</div>
+                                <div class="wrc-stat-title">LPA</div>
+                                <div class="wrc-stat-sub">Highest Package</div>
+                            </div>
+                        </div>
+
+                        <!-- Stat 3: 500+ -->
+                        <div class="col-6">
+                            <div class="wrc-stat-box mb-0">
+                                <div class="wrc-stat-num counter-value" data-target="500">500+</div>
+                                <div class="wrc-stat-title text-muted" style="font-weight: 500;">Recruiting Companies</div>
+                            </div>
+                        </div>
+
+                        <!-- Stat 4: 10+ -->
+                        <div class="col-6">
+                            <div class="wrc-stat-box mb-0">
+                                <div class="wrc-stat-num counter-value" data-target="10">10+</div>
+                                <div class="wrc-stat-title text-muted" style="font-weight: 500;">Industry Sectors</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Right: Campus Image with Red Corner Bracket -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="wrc-img-wrapper" id="whyRecruitersImageWrap">
+                        <div class="wrc-red-corner"></div>
+                        <img src="assets/images/slider_1.jpg" alt="RK University Campus" class="wrc-img" id="imgWhyRecruiters">
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -752,57 +1357,253 @@
     <!-- ==========================================
          9. TOP RECRUITERS
          ========================================== -->
-    <section class="py-5 bg-white" id="aboutRecruitersMarquee">
-        <div class="container-fluid px-lg-5">
-            <!-- Reuse marquee from home -->
-            <div class="recruiters-marquee">
-                <div class="recruiters-track" id="aboutRecruitersTrack">
-                    <!-- TCS -->
-                    <div class="recruiter-logo-card">
-                        <svg viewBox="0 0 200 80" width="120" height="40">
-                            <path d="M20,15 L50,15 L50,25 L38,25 L38,65 L28,65 L28,25 L20,25 Z" fill="#1b365d" />
-                            <path d="M70,15 C85,15 95,25 95,40 C95,55 85,65 70,65 C55,65 45,55 45,40 C45,25 55,15 70,15 Z M70,25 C60,25 56,31 56,40 C56,49 60,55 70,55 C80,55 84,49 84,40 C84,31 80,25 70,25 Z" fill="#1b365d" />
-                            <path d="M100,50 L110,50 C112,56 117,60 124,60 C130,60 134,57 134,53 C134,49 131,47 121,45 C109,42 102,38 102,28 C102,18 111,13 124,13 C136,13 144,19 146,29 L136,29 C134,23 130,20 124,20 C118,20 114,23 114,27 C114,31 118,33 127,35 C139,38 146,41 146,51 C146,62 137,67 124,67 C111,67 102,61 100,50 Z" fill="#1b365d" />
-                            <text x="25" y="76" font-family="sans-serif" font-weight="bold" font-size="8" fill="#ef3724" letter-spacing="3">TATA</text>
+    <style>
+        #aboutRecruitersMarquee {
+            padding: 24px 0 !important;
+            background: #f8fafb !important;
+            border-top: 1px solid #edf2f7;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .about-recruiters-strip-container {
+            border: none !important;
+            background: transparent !important;
+            padding: 0.25rem 0 !important;
+            margin: 0 !important;
+            overflow: hidden !important;
+            position: relative !important;
+        }
+
+        .about-recruiters-strip-track {
+            display: flex !important;
+            width: max-content !important;
+            animation: aboutRecruitersScroll 26s linear infinite !important;
+        }
+
+            .about-recruiters-strip-track:hover,
+            .about-recruiter-logo-clean-item:hover {
+                animation-play-state: running !important;
+            }
+
+        @keyframes aboutRecruitersScroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .about-recruiter-logo-clean-item {
+            width: 210px !important;
+            min-width: 210px !important;
+            height: 72px !important;
+            background: transparent !important;
+            border: none !important;
+            border-right: 1px solid #eef2f6 !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 0.6rem 2.25rem !important;
+            transition: transform 0.25s ease !important;
+        }
+
+            .about-recruiter-logo-clean-item:hover {
+                transform: scale(1.05) !important;
+                background: transparent !important;
+            }
+
+            .about-recruiter-logo-clean-item svg,
+            .about-recruiter-logo-clean-item img {
+                max-width: 140px !important;
+                max-height: 44px !important;
+                object-fit: contain !important;
+                border: none !important;
+            }
+    </style>
+    <section id="aboutRecruitersMarquee">
+        <div class="container px-3 px-md-4">
+            <!-- Recruiter Logo Strip with Dividers -->
+            <div class="about-recruiters-strip-container">
+                <div class="about-recruiters-strip-track" id="aboutRecruitersTrack">
+                    <!-- 1. TCS -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 170 45" width="130" height="38">
+                            <text x="2" y="32" font-family="'Outfit', sans-serif" font-weight="900" font-size="34" fill="#ef3724">tcs</text>
+                            <text x="52" y="15" font-family="'Inter', sans-serif" font-weight="800" font-size="7.5" fill="#0f2942">TATA</text>
+                            <text x="52" y="24" font-family="'Inter', sans-serif" font-weight="800" font-size="7.5" fill="#0f2942">CONSULTANCY</text>
+                            <text x="52" y="33" font-family="'Inter', sans-serif" font-weight="800" font-size="7.5" fill="#0f2942">SERVICES</text>
                         </svg>
                     </div>
-                    <!-- Infosys -->
-                    <div class="recruiter-logo-card">
-                        <svg viewBox="0 0 200 80" width="120" height="40">
-                            <text x="10" y="55" font-family="'Outfit', sans-serif" font-weight="800" font-size="42" fill="#007cc3" letter-spacing="-1">Infosys</text>
-                            <path d="M165,25 L180,25 L180,30 L165,30 Z" fill="#ef3724" />
+                    <!-- 2. Infosys -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 160 45" width="120" height="36">
+                            <text x="12" y="32" font-family="'Outfit', sans-serif" font-weight="700" font-size="34" fill="#007cc3" letter-spacing="-0.5">Infosys</text>
+                            <circle cx="126" cy="15" r="2.5" fill="#007cc3" />
                         </svg>
                     </div>
-                    <!-- Wipro -->
-                    <div class="recruiter-logo-card">
-                        <svg viewBox="0 0 200 80" width="120" height="40">
-                            <circle cx="60" cy="40" r="25" fill="none" stroke="#253858" stroke-width="4" />
-                            <text x="95" y="48" font-family="'Outfit', sans-serif" font-weight="700" font-size="28" fill="#253858">wipro</text>
+                    <!-- 3. Wipro -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 160 45" width="120" height="36">
+                            <g transform="translate(25, 22) scale(0.65)">
+                                <circle cx="0" cy="-22" r="3" fill="#0070ad" />
+                                <circle cx="11" cy="-19" r="3" fill="#0096d6" />
+                                <circle cx="19" cy="-11" r="3" fill="#2db34b" />
+                                <circle cx="22" cy="0" r="3" fill="#8bc53f" />
+                                <circle cx="19" cy="11" r="3" fill="#fdb913" />
+                                <circle cx="11" cy="19" r="3" fill="#f37023" />
+                                <circle cx="0" cy="22" r="3" fill="#ed1c24" />
+                                <circle cx="-11" cy="19" r="3" fill="#b01f66" />
+                                <circle cx="-19" cy="11" r="3" fill="#7d3f98" />
+                                <circle cx="-22" cy="0" r="3" fill="#2e3192" />
+                                <circle cx="-19" cy="-11" r="3" fill="#0054a6" />
+                                <circle cx="-11" cy="-19" r="3" fill="#0072bc" />
+                                <circle cx="0" cy="-14" r="2.5" fill="#0096d6" />
+                                <circle cx="10" cy="-10" r="2.5" fill="#8bc53f" />
+                                <circle cx="14" cy="0" r="2.5" fill="#fdb913" />
+                                <circle cx="10" cy="10" r="2.5" fill="#ed1c24" />
+                                <circle cx="0" cy="14" r="2.5" fill="#7d3f98" />
+                                <circle cx="-10" cy="10" r="2.5" fill="#2e3192" />
+                                <circle cx="-14" cy="0" r="2.5" fill="#0054a6" />
+                                <circle cx="-10" cy="-10" r="2.5" fill="#0072bc" />
+                            </g>
+                            <text x="55" y="28" font-family="'Outfit', sans-serif" font-weight="700" font-size="24" fill="#253858">wipro</text>
                         </svg>
                     </div>
-                    <!-- Capgemini -->
-                    <div class="recruiter-logo-card">
-                        <svg viewBox="0 0 200 80" width="140" height="40">
-                            <path d="M20,40 C20,30 30,20 40,20 C50,20 60,30 60,40 C60,50 50,60 40,60 C30,60 20,50 20,40 Z" fill="#0070ad" />
-                            <text x="70" y="50" font-family="sans-serif" font-weight="bold" font-size="24" fill="#0070ad">Capgemini</text>
+                    <!-- 4. Accenture -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 160 45" width="125" height="36">
+                            <text x="5" y="28" font-family="'Inter', sans-serif" font-weight="700" font-size="22" fill="#000000">accenture</text>
+                            <path d="M125,14 L134,22 L125,30 L121,26 L127,22 L121,18 Z" fill="#a100ff" />
                         </svg>
                     </div>
-                    <!-- Accenture -->
-                    <div class="recruiter-logo-card">
-                        <svg viewBox="0 0 200 80" width="120" height="40">
-                            <text x="20" y="50" font-family="sans-serif" font-weight="bold" font-size="32" fill="#000000">accenture</text>
+                    <!-- 5. HCL -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 160 45" width="115" height="36">
+                            <text x="20" y="32" font-family="'Outfit', sans-serif" font-weight="900" font-size="36" fill="#005691" font-style="italic">HCL</text>
                         </svg>
                     </div>
-                    <!-- HCL -->
-                    <div class="recruiter-logo-card">
-                        <svg viewBox="0 0 200 80" width="120" height="40">
-                            <text x="40" y="55" font-family="sans-serif" font-weight="900" font-size="52" fill="#002d72" italic="true">HCL</text>
+                    <!-- 6. IBM -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 160 45" width="110" height="36">
+                            <text x="25" y="32" font-family="'Outfit', sans-serif" font-weight="900" font-size="38" fill="#1f70c1" letter-spacing="1">IBM</text>
+                            <rect x="20" y="6" width="100" height="2" fill="#ffffff" />
+                            <rect x="20" y="11" width="100" height="2" fill="#ffffff" />
+                            <rect x="20" y="16" width="100" height="2" fill="#ffffff" />
+                            <rect x="20" y="21" width="100" height="2" fill="#ffffff" />
+                            <rect x="20" y="26" width="100" height="2" fill="#ffffff" />
                         </svg>
                     </div>
-                    <!-- Cognizant -->
-                    <div class="recruiter-logo-card">
-                        <svg viewBox="0 0 200 80" width="140" height="40">
-                            <text x="20" y="50" font-family="sans-serif" font-weight="bold" font-size="24" fill="#003366">Cognizant</text>
+                    <!-- 7. Tech Mahindra -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 170 45" width="135" height="36">
+                            <text x="5" y="21" font-family="'Outfit', sans-serif" font-weight="800" font-size="16" fill="#e21a22">Tech</text>
+                            <text x="5" y="35" font-family="'Outfit', sans-serif" font-weight="800" font-size="16" fill="#231f20">Mahindra</text>
+                            <circle cx="105" cy="27" r="9" fill="#e21a22" />
+                            <circle cx="105" cy="27" r="4.5" fill="#ffffff" />
+                        </svg>
+                    </div>
+                    <!-- 8. L&T Infotech -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 170 45" width="130" height="36">
+                            <circle cx="24" cy="22" r="14" fill="none" stroke="#ea580c" stroke-width="2.5" />
+                            <path d="M18,15 L18,28 L27,28" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round" />
+                            <path d="M22,19 L28,19" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" />
+                            <text x="44" y="23" font-family="'Outfit', sans-serif" font-weight="900" font-size="18" fill="#0f2942">L&amp;T</text>
+                            <text x="44" y="34" font-family="'Inter', sans-serif" font-weight="700" font-size="10.5" fill="#64748b">Infotech</text>
+                        </svg>
+                    </div>
+
+                    <!-- Repeat For Seamless Infinite Loop -->
+                    <!-- 1. TCS -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 170 45" width="130" height="38">
+                            <text x="2" y="32" font-family="'Outfit', sans-serif" font-weight="900" font-size="34" fill="#ef3724">tcs</text>
+                            <text x="52" y="15" font-family="'Inter', sans-serif" font-weight="800" font-size="7.5" fill="#0f2942">TATA</text>
+                            <text x="52" y="24" font-family="'Inter', sans-serif" font-weight="800" font-size="7.5" fill="#0f2942">CONSULTANCY</text>
+                            <text x="52" y="33" font-family="'Inter', sans-serif" font-weight="800" font-size="7.5" fill="#0f2942">SERVICES</text>
+                        </svg>
+                    </div>
+                    <!-- 2. Infosys -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 160 45" width="120" height="36">
+                            <text x="12" y="32" font-family="'Outfit', sans-serif" font-weight="700" font-size="34" fill="#007cc3" letter-spacing="-0.5">Infosys</text>
+                            <circle cx="126" cy="15" r="2.5" fill="#007cc3" />
+                        </svg>
+                    </div>
+                    <!-- 3. Wipro -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 160 45" width="120" height="36">
+                            <g transform="translate(25, 22) scale(0.65)">
+                                <circle cx="0" cy="-22" r="3" fill="#0070ad" />
+                                <circle cx="11" cy="-19" r="3" fill="#0096d6" />
+                                <circle cx="19" cy="-11" r="3" fill="#2db34b" />
+                                <circle cx="22" cy="0" r="3" fill="#8bc53f" />
+                                <circle cx="19" cy="11" r="3" fill="#fdb913" />
+                                <circle cx="11" cy="19" r="3" fill="#f37023" />
+                                <circle cx="0" cy="22" r="3" fill="#ed1c24" />
+                                <circle cx="-11" cy="19" r="3" fill="#b01f66" />
+                                <circle cx="-19" cy="11" r="3" fill="#7d3f98" />
+                                <circle cx="-22" cy="0" r="3" fill="#2e3192" />
+                                <circle cx="-19" cy="-11" r="3" fill="#0054a6" />
+                                <circle cx="-11" cy="-19" r="3" fill="#0072bc" />
+                                <circle cx="0" cy="-14" r="2.5" fill="#0096d6" />
+                                <circle cx="10" cy="-10" r="2.5" fill="#8bc53f" />
+                                <circle cx="14" cy="0" r="2.5" fill="#fdb913" />
+                                <circle cx="10" cy="10" r="2.5" fill="#ed1c24" />
+                                <circle cx="0" cy="14" r="2.5" fill="#7d3f98" />
+                                <circle cx="-10" cy="10" r="2.5" fill="#2e3192" />
+                                <circle cx="-14" cy="0" r="2.5" fill="#0054a6" />
+                                <circle cx="-10" cy="-10" r="2.5" fill="#0072bc" />
+                            </g>
+                            <text x="55" y="28" font-family="'Outfit', sans-serif" font-weight="700" font-size="24" fill="#253858">wipro</text>
+                        </svg>
+                    </div>
+                    <!-- 4. Accenture -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 160 45" width="125" height="36">
+                            <text x="5" y="28" font-family="'Inter', sans-serif" font-weight="700" font-size="22" fill="#000000">accenture</text>
+                            <path d="M125,14 L134,22 L125,30 L121,26 L127,22 L121,18 Z" fill="#a100ff" />
+                        </svg>
+                    </div>
+                    <!-- 5. HCL -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 160 45" width="115" height="36">
+                            <text x="20" y="32" font-family="'Outfit', sans-serif" font-weight="900" font-size="36" fill="#005691" font-style="italic">HCL</text>
+                        </svg>
+                    </div>
+                    <!-- 6. IBM -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 160 45" width="110" height="36">
+                            <text x="25" y="32" font-family="'Outfit', sans-serif" font-weight="900" font-size="38" fill="#1f70c1" letter-spacing="1">IBM</text>
+                            <rect x="20" y="6" width="100" height="2" fill="#ffffff" />
+                            <rect x="20" y="11" width="100" height="2" fill="#ffffff" />
+                            <rect x="20" y="16" width="100" height="2" fill="#ffffff" />
+                            <rect x="20" y="21" width="100" height="2" fill="#ffffff" />
+                            <rect x="20" y="26" width="100" height="2" fill="#ffffff" />
+                        </svg>
+                    </div>
+                    <!-- 7. Tech Mahindra -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 170 45" width="135" height="36">
+                            <text x="5" y="21" font-family="'Outfit', sans-serif" font-weight="800" font-size="16" fill="#e21a22">Tech</text>
+                            <text x="5" y="35" font-family="'Outfit', sans-serif" font-weight="800" font-size="16" fill="#231f20">Mahindra</text>
+                            <circle cx="105" cy="27" r="9" fill="#e21a22" />
+                            <circle cx="105" cy="27" r="4.5" fill="#ffffff" />
+                        </svg>
+                    </div>
+                    <!-- 8. L&T Infotech -->
+                    <div class="about-recruiter-logo-clean-item">
+                        <svg viewBox="0 0 170 45" width="130" height="36">
+                            <circle cx="24" cy="22" r="14" fill="none" stroke="#ea580c" stroke-width="2.5" />
+                            <path d="M18,15 L18,28 L27,28" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round" />
+                            <path d="M22,19 L28,19" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" />
+                            <text x="44" y="23" font-family="'Outfit', sans-serif" font-weight="900" font-size="18" fill="#0f2942">L&amp;T</text>
+                            <text x="44" y="34" font-family="'Inter', sans-serif" font-weight="700" font-size="10.5" fill="#64748b">Infotech</text>
                         </svg>
                     </div>
                 </div>
@@ -814,142 +1615,182 @@
     <!-- ==========================================
          10. OUR PLACEMENT TEAM
          ========================================== -->
-    <section class="py-5" id="placementTeamSection">
-        <div class="container px-lg-5 placement-team-section">
-            <div class="team-section-intro">
-                <span class="team-pill"><i class="fa-solid fa-users"></i>Placement Team</span>
-                <h2 class="section-title text-center mb-3" style="display: table; margin: 0 auto;">Our Placement Team</h2>
-                <p class="mb-0">
-                    Meet the dedicated team behind student preparation, recruiter coordination, and
-                    placement support at RK University. The layout is designed to stay clean,
-                    modern, and responsive on every screen.
-                </p>
+    <style>
+        #placementTeamSection {
+            background-color: #ffffff !important;
+            padding: 65px 0 65px 0 !important;
+        }
+
+        .opt-header-wrapper {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+        }
+
+        .opt-heading {
+            font-family: var(--font-heading, 'Outfit', sans-serif);
+            font-size: clamp(2.2rem, 3.2vw, 2.75rem);
+            font-weight: 800;
+            color: #0f2942;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .opt-subtitle {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 1rem;
+            color: #64748b;
+            line-height: 1.55;
+            margin-bottom: 0;
+        }
+
+        .opt-link {
+            color: #ef3724 !important;
+            font-family: var(--font-heading, 'Outfit', sans-serif);
+            font-weight: 700;
+            font-size: 0.98rem;
+            text-decoration: none !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+            .opt-link:hover {
+                color: #c51e2b !important;
+                transform: translateX(4px);
+            }
+
+        #placementTeamBoard {
+            margin-top: 0.5rem !important;
+        }
+
+            #placementTeamBoard > span,
+            #placementTeamBoard > span > span {
+                display: contents;
+            }
+
+            #placementTeamBoard .team-member-col,
+            #placementTeamBoard .col-lg-4 {
+                padding-left: 0.9rem !important;
+                padding-right: 0.9rem !important;
+                margin-bottom: 2rem !important;
+                box-sizing: border-box;
+            }
+
+        .opt-card {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 1.25rem;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .opt-card-img {
+            width: 135px;
+            height: 160px;
+            min-width: 135px;
+            border-radius: 10px;
+            object-fit: cover;
+            object-position: center top;
+            background-color: #f1f5f9;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+            transition: transform 0.25s ease;
+        }
+
+        .opt-card:hover .opt-card-img {
+            transform: translateY(-2px);
+        }
+
+        .opt-card-body {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            padding-top: 0.15rem;
+        }
+
+        .opt-card-name {
+            font-family: var(--font-heading, 'Outfit', sans-serif);
+            font-size: 1.18rem;
+            font-weight: 800;
+            color: #0f2942;
+            margin-bottom: 0.25rem;
+            line-height: 1.25;
+        }
+
+        .opt-card-role {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 0.88rem;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 0.55rem;
+            line-height: 1.35;
+        }
+
+        .opt-card-desc {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 0.86rem;
+            color: #64748b;
+            line-height: 1.55;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 991.98px) {
+            #placementTeamBoard .team-member-col,
+            #placementTeamBoard .col-lg-4 {
+                padding-left: 0.75rem !important;
+                padding-right: 0.75rem !important;
+                margin-bottom: 1.75rem !important;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .opt-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding-right: 0;
+            }
+
+            .opt-card-img {
+                width: 150px;
+                height: 175px;
+            }
+        }
+    </style>
+    <section id="placementTeamSection">
+        <div class="container px-3 px-md-4">
+            <!-- Header Row -->
+            <div class="opt-header-wrapper">
+                <div>
+                    <h2 class="opt-heading">Our Placement Team</h2>
+                    <p class="opt-subtitle">Dedicated professionals working to create the best opportunities for our students.</p>
+                </div>
             </div>
 
-            <style>
-                .placement-team-grid {
-                    display: grid !important;
-                    grid-template-columns: 1.15fr 1fr 1fr !important;
-                    grid-template-rows: 1fr 1fr !important;
-                    gap: 1.25rem !important;
-                    width: 100% !important;
-                    margin-top: 1rem !important;
-                }
-                .placement-team-grid .placement-featured {
-                    grid-column: 1 !important;
-                    grid-row: 1 / 3 !important;
-                    height: 100% !important;
-                }
-                .placement-team-grid .member-1 {
-                    grid-column: 2 !important;
-                    grid-row: 1 !important;
-                    height: 100% !important;
-                }
-                .placement-team-grid .member-2 {
-                    grid-column: 3 !important;
-                    grid-row: 1 !important;
-                    height: 100% !important;
-                }
-                .placement-team-grid .member-3 {
-                    grid-column: 2 !important;
-                    grid-row: 2 !important;
-                    height: 100% !important;
-                }
-                .placement-team-grid .member-4 {
-                    grid-column: 3 !important;
-                    grid-row: 2 !important;
-                    height: 100% !important;
-                }
-                @media (max-width: 991.98px) {
-                    .placement-team-grid {
-                        grid-template-columns: 1fr 1fr !important;
-                        grid-template-rows: auto !important;
-                    }
-                    .placement-team-grid .placement-featured {
-                        grid-column: 1 / span 2 !important;
-                        grid-row: auto !important;
-                    }
-                    .placement-team-grid .member-1 {
-                        grid-column: 1 !important;
-                        grid-row: auto !important;
-                    }
-                    .placement-team-grid .member-2 {
-                        grid-column: 2 !important;
-                        grid-row: auto !important;
-                    }
-                    .placement-team-grid .member-3 {
-                        grid-column: 1 !important;
-                        grid-row: auto !important;
-                    }
-                    .placement-team-grid .member-4 {
-                        grid-column: 2 !important;
-                        grid-row: auto !important;
-                    }
-                }
-                @media (max-width: 575.98px) {
-                    .placement-team-grid {
-                        grid-template-columns: 1fr !important;
-                        grid-template-rows: auto !important;
-                    }
-                    .placement-team-grid .placement-featured,
-                    .placement-team-grid .member-1,
-                    .placement-team-grid .member-2,
-                    .placement-team-grid .member-3,
-                    .placement-team-grid .member-4 {
-                        grid-column: auto !important;
-                        grid-row: auto !important;
-                    }
-                }
-            </style>
-
-            <div class="w-100" id="placementTeamBoard">
-                <asp:DataList ID="DataList1" runat="server" RepeatLayout="Flow" CssClass="placement-team-grid" OnItemDataBound="DataList1_ItemDataBound">
+            <!-- Team Members Row -->
+            <div class="row g-4 align-items-start" id="placementTeamBoard">
+                <asp:DataList ID="DataListTeam" runat="server" RepeatLayout="Flow">
                     <ItemTemplate>
-
-                        <%-- Item 0: Lead Coordinator Card (Col 1, Row 1..2) --%>
-                        <asp:PlaceHolder ID="phLead" runat="server" Visible='<%# Container.ItemIndex == 0 %>'>
-                            <article class="team-feature-card h-100">
-                                <div class="team-feature-media">
-                                    <img src='<%# ResolveUrl(Eval("MemberPhoto").ToString()) %>' alt='<%# Eval("MemberName") %>' loading="lazy" decoding="async" />
-                                </div>
-                                <div class="team-feature-body">
-                                    <span class="team-count-badge">LEAD COORDINATOR</span>
-                                    <h4><%# Eval("MemberName") %></h4>
-                                    <p class="team-feature-role" style="color: var(--rku-red); font-weight: 600;"><%# Eval("MemberRole") %></p>
-                                    <p class="team-feature-desc"><%# Eval("MemberDesc") %></p>
-                                    <div class="team-contact-list">
-                                        <div class="team-contact-item" id="divMobile" runat="server" visible='<%# !string.IsNullOrEmpty(Eval("MemberMobile").ToString()) %>'>
-                                            <i class="fa-solid fa-phone"></i>
-                                            <span><%# Eval("MemberMobile") %></span>
-                                        </div>
-                                        <div class="team-contact-item" id="divEmail" runat="server" visible='<%# !string.IsNullOrEmpty(Eval("MemberEmail").ToString()) %>'>
-                                            <i class="fa-solid fa-envelope"></i>
-                                            <span><%# Eval("MemberEmail") %></span>
-                                        </div>
-                                    </div>
+                        <div class="col-lg-4 col-md-6 team-member-col">
+                            <article class="opt-card">
+                                <img src='<%# ResolveUrl(Eval("MemberPhoto").ToString()) %>' alt='<%# Eval("MemberName") %>' class="opt-card-img" onerror="this.src='assets/images/team_tpo_profile.png';" loading="lazy" decoding="async" />
+                                <div class="opt-card-body">
+                                    <h4 class="opt-card-name"><%# Eval("MemberName") %></h4>
+                                    <div class="opt-card-role"><%# Eval("MemberRole") %></div>
+                                    <p class="opt-card-desc"><%# Eval("MemberDesc") %></p>
                                 </div>
                             </article>
-                        </asp:PlaceHolder>
-
-                        <%-- Items 1..4: Mini Member Cards (Col 2 & 3, Row 1 & 2) --%>
-                        <asp:PlaceHolder ID="phMember" runat="server" Visible='<%# Container.ItemIndex > 0 %>'>
-                            <article class="team-mini-card h-100">
-                                <div class="team-mini-photo">
-                                    <img src='<%# ResolveUrl(Eval("MemberPhoto").ToString()) %>' alt='<%# Eval("MemberName") %>' loading="lazy" decoding="async" />
-                                </div>
-                                <div class="team-mini-content">
-                                    <h5><%# Eval("MemberName") %></h5>
-                                    <p class="team-mini-role"><%# Eval("MemberRole") %></p>
-                                    <div class="team-mini-meta">
-                                        <div class="team-mini-meta-item">
-                                            <i class="fa-solid fa-check text-danger me-1"></i>
-                                            <span><%# Eval("MemberDesc") %></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </asp:PlaceHolder>
-
+                        </div>
                     </ItemTemplate>
                 </asp:DataList>
             </div>
@@ -958,58 +1799,198 @@
 
 
     <!-- ==========================================
-         11. CONNECT WITH US & HELP CARD
+         11. CONNECT WITH US / CONTACT US BANNER
          ========================================== -->
-    <section class="py-5 bg-white" id="connectSection">
-        <div class="container px-lg-5">
-            <div class="row g-5 align-items-center">
+    <style>
+        #connectSection {
+            background-color: #f8fafb !important;
+            padding-top: 55px !important;
+            padding-bottom: 65px !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            border: none !important;
+        }
 
-                <!-- Left: Contact Details -->
-                <div class="col-lg-6">
-                    <h2 class="fw-bold mb-4" style="font-family: var(--font-heading);">Connect With Us</h2>
+        .cu-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
 
-                    <div class="d-flex flex-column gap-4" id="aboutContactDetails">
-                        <!-- Visit Us -->
-                        <div class="d-flex align-items-start gap-3">
-                            <div class="text-rku-red fs-3 mt-1"><i class="fa-solid fa-location-dot"></i></div>
-                            <div>
-                                <h5 class="fw-bold mb-1" style="font-family: var(--font-heading);">Visit Us</h5>
-                                <p class="text-muted mb-0" style="font-size: 0.95rem;">RK University, Rajkot - 360020, Gujarat, India</p>
-                            </div>
-                        </div>
+        .cu-row {
+            display: flex;
+            align-items: center;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
 
-                        <!-- Email Us -->
-                        <div class="d-flex align-items-start gap-3">
-                            <div class="text-rku-red fs-3 mt-1"><i class="fa-regular fa-envelope"></i></div>
-                            <div>
-                                <h5 class="fw-bold mb-1" style="font-family: var(--font-heading);">Email Us</h5>
-                                <a href="mailto:placement@rku.ac.in" class="text-rku-maroon fw-semibold" style="font-size: 0.95rem;">placement@rku.ac.in</a>
-                            </div>
-                        </div>
+        .cu-img-col {
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding-left: 0 !important;
+            padding-right: 2rem !important;
+        }
 
-                        <!-- Call Us -->
-                        <div class="d-flex align-items-start gap-3">
-                            <div class="text-rku-red fs-3 mt-1"><i class="fa-solid fa-phone"></i></div>
-                            <div>
-                                <h5 class="fw-bold mb-1" style="font-family: var(--font-heading);">Call Us</h5>
-                                <p class="text-muted mb-0" style="font-size: 0.95rem;">
-                                    +91 98765 43210<br>
-                                    <span class="small">(Mon - Sat: 9:00 AM - 5:00 PM)</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+        .cu-campus-img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 0 !important;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+            display: block;
+        }
+
+        .cu-content-col {
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding-left: 1.5rem !important;
+            padding-right: 0 !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .cu-title {
+            font-family: var(--font-heading, 'Outfit', sans-serif);
+            font-size: clamp(1.85rem, 2.5vw, 2.25rem);
+            font-weight: 800;
+            color: #0f2942;
+            margin-bottom: 0.35rem;
+            line-height: 1.2;
+        }
+
+        .cu-subtitle {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 0.95rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .cu-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .cu-icon-box {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            border-radius: 8px;
+            background-color: #fef2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ef3724;
+            font-size: 0.9rem;
+        }
+
+        .cu-item-text {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 0.95rem;
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        .cu-item-link {
+            color: #334155 !important;
+            text-decoration: none !important;
+            transition: color 0.2s ease;
+        }
+
+            .cu-item-link:hover {
+                color: #ef3724 !important;
+            }
+
+        .cu-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background-color: #ef3724;
+            color: #ffffff !important;
+            padding: 0.85rem 2rem;
+            border-radius: 6px;
+            font-family: var(--font-heading, 'Outfit', sans-serif);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none !important;
+            box-shadow: 0 4px 14px rgba(239, 55, 36, 0.25);
+            transition: all 0.25s ease;
+            width: fit-content;
+        }
+
+            .cu-btn:hover {
+                background-color: #d62828;
+                color: #ffffff !important;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(239, 55, 36, 0.35);
+            }
+
+        @media (max-width: 991.98px) {
+            .cu-row {
+                flex-direction: column;
+            }
+
+            .cu-img-col {
+                flex: 0 0 100%;
+                max-width: 100%;
+                padding-right: 0 !important;
+                margin-bottom: 2rem;
+            }
+
+            .cu-campus-img {
+                height: 240px;
+            }
+
+            .cu-content-col {
+                flex: 0 0 100%;
+                max-width: 100%;
+                padding-left: 0 !important;
+            }
+        }
+    </style>
+    <section id="connectSection">
+        <div class="cu-container">
+            <div class="cu-row">
+
+                <!-- Left: 50% Campus Image -->
+                <div class="cu-img-col">
+                    <img src="assets/images/rku_campus_main_building.png" alt="RK University Campus" class="cu-campus-img" onerror="this.src='assets/images/slider_1.jpg';" loading="lazy" decoding="async" />
                 </div>
 
-                <!-- Right: Floating Help Box -->
-                <div class="col-lg-6">
-                    <div class="help-desk-banner" id="helpDeskBanner">
-                        <div class="help-desk-info">
-                            <h4 class="fw-bold text-dark mb-2" style="font-family: var(--font-heading);">We are here to help you!</h4>
-                            <p class="text-muted mb-4" style="font-size: 0.88rem;">Our team is always ready to assist you with placements and career guidance.</p>
-                            <button class="btn btn-rku" id="btnHelpContact">Contact Placement Office <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                <!-- Right: 50% Content -->
+                <div class="cu-content-col">
+                    <h3 class="cu-title">Contact Us</h3>
+                    <p class="cu-subtitle">We're here to help you with your career journey.</p>
+
+                    <div class="cu-items-list" id="aboutContactDetails">
+                        <div class="cu-item">
+                            <div class="cu-icon-box"><i class="fa-solid fa-location-dot"></i></div>
+                            <span class="cu-item-text">RK University, Rajkot - 360020, Gujarat, India</span>
                         </div>
-                        <img src="assets/images/hr_representative.png" alt="RKU HR representative" class="help-desk-avatar" id="imgHrRepresentative">
+                        <div class="cu-item">
+                            <div class="cu-icon-box"><i class="fa-solid fa-phone"></i></div>
+                            <a href="tel:+919876543210" class="cu-item-text cu-item-link">+91 98765 43210</a>
+                        </div>
+                        <div class="cu-item">
+                            <div class="cu-icon-box"><i class="fa-regular fa-envelope"></i></div>
+                            <a href="mailto:placement@rku.ac.in" class="cu-item-text cu-item-link">placement@rku.ac.in</a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a href="Contact.aspx" class="cu-btn" id="btnGetInTouch">Get in Touch <i class="fa-solid fa-arrow-right ms-1"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -1044,8 +2025,37 @@
     <body>
 
         <!-- ==========================================
-         1. HEADER / NAVBAR
-         ========================================== -->
+             1. HEADER TOPBAR & NAVBAR
+             ========================================== -->
+        <!-- RKU Header Topbar -->
+        <div class="rku-header-topbar d-none d-lg-block" style="background: #ffffff; border-bottom: 1px solid #edf2f7; font-size: 0.84rem; color: #334155; position: relative; z-index: 1031;">
+            <div class="container-fluid px-lg-5">
+                <div class="d-flex justify-content-between align-items-center py-2">
+                    <!-- Left: Tagline with Graduation Cap -->
+                    <div class="topbar-tagline d-flex align-items-center" style="font-weight: 500; color: #334155;">
+                        <i class="fa-solid fa-graduation-cap topbar-icon me-2" style="color: #e03627; font-size: 0.95rem;"></i>
+                        <span>Empowering Students. Connecting Companies. Building Careers.</span>
+                    </div>
+                    <!-- Right: Contact info & Social Media Icons -->
+                    <div class="topbar-contact d-flex align-items-center gap-3">
+                        <a href="tel:+919876543210" class="topbar-link" style="color: #334155; text-decoration: none; display: inline-flex; align-items: center;">
+                            <i class="fa-solid fa-phone topbar-icon me-1.5" style="color: #e03627; font-size: 0.85rem;"></i><span style="color: #334155;">+91 98765 43210</span>
+                        </a>
+                        <span class="topbar-divider" style="color: #cbd5e1;">|</span>
+                        <a href="mailto:placement@rku.ac.in" class="topbar-link" style="color: #334155; text-decoration: none; display: inline-flex; align-items: center;">
+                            <i class="fa-solid fa-envelope topbar-icon me-1.5" style="color: #e03627; font-size: 0.85rem;"></i><span style="color: #334155;">placement@rku.ac.in</span>
+                        </a>
+                        <div class="topbar-socials d-flex align-items-center gap-1.5 ms-2">
+                            <a href="https://facebook.com" target="_blank" class="social-circle-btn" title="Facebook" style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: linear-gradient(135deg, #e03627, #c5281b); color: #ffffff !important; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-facebook-f" style="color: #ffffff !important; font-size: 0.72rem;"></i></a>
+                            <a href="https://linkedin.com" target="_blank" class="social-circle-btn" title="LinkedIn" style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: linear-gradient(135deg, #e03627, #c5281b); color: #ffffff !important; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-linkedin-in" style="color: #ffffff !important; font-size: 0.72rem;"></i></a>
+                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="Instagram" style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: linear-gradient(135deg, #e03627, #c5281b); color: #ffffff !important; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-instagram" style="color: #ffffff !important; font-size: 0.72rem;"></i></a>
+                            <a href="https://youtube.com" target="_blank" class="social-circle-btn" title="YouTube" style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: linear-gradient(135deg, #e03627, #c5281b); color: #ffffff !important; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-youtube" style="color: #ffffff !important; font-size: 0.72rem;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container-fluid px-lg-5">
                 <!-- Brand Logo -->
@@ -1072,11 +2082,12 @@
                             <a class="nav-link nav-placement-btn dropdown-toggle" href="#" id="navDrives" data-bs-toggle="dropdown" aria-expanded="false">Placement <i class="fa-solid fa-chevron-down placement-caret"></i>
                             </a>
                             <ul class="dropdown-menu nav-placement-dropdown" aria-labelledby="navDrives">
-                            <li><a class="dropdown-item" href="PlacementAbout.aspx" id="navPlacementAbout">About Us</a></li>
+                                <li><a class="dropdown-item" href="PlacementAbout.aspx" id="navPlacementAbout">About Us</a></li>
                                 <li><a class="dropdown-item" href="PlacementCampusDrives.aspx" id="navPlacementCampus">Campus Drives</a></li>
                                 <li><a class="dropdown-item" href="PlacementStudentSelection.aspx" id="navPlacementSelection">Student Selection</a></li>
                                 <li><a class="dropdown-item" href="PlacementLiaisonOfficers.aspx" id="navPlacementLiaison">Liaison Officers</a></li>
                                 <li><a class="dropdown-item" href="PlacmentProminentRecruiters.aspx" id="navPlacementRecruiters">Prominent Recruiters</a></li>
+                                <li><a class="dropdown-item" href="PlacementPolicy.aspx" id="navPlacementPolicy">Placement Policy</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">

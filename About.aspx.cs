@@ -16,14 +16,12 @@ namespace RKU_PLACEMENT_PORTAL
         SqlConnection con;
         SqlDataAdapter da;
         DataSet ds;
-        SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                getcon();
                 datalist();
                 datalistSuccess();
             }
@@ -41,8 +39,8 @@ namespace RKU_PLACEMENT_PORTAL
             da = new SqlDataAdapter("select * from Placement_Team", con);
             ds = new DataSet();
             da.Fill(ds);
-            DataList1.DataSource = ds;
-            DataList1.DataBind();
+            DataListTeam.DataSource = ds;
+            DataListTeam.DataBind();
         }
 
         void datalistSuccess()
@@ -53,22 +51,6 @@ namespace RKU_PLACEMENT_PORTAL
             da.Fill(ds);
             DataListSuccess.DataSource = ds;
             DataListSuccess.DataBind();
-        }
-
-        protected void DataList1_ItemDataBound(object sender, DataListItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                int index = e.Item.ItemIndex;
-                if (index == 0)
-                {
-                    e.Item.CssClass = "placement-featured";
-                }
-                else
-                {
-                    e.Item.CssClass = "placement-member member-" + index;
-                }
-            }
         }
     }
 }

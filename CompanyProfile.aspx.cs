@@ -21,26 +21,15 @@ namespace RKU_PLACEMENT_PORTAL
         {
             if (!IsPostBack)
             {
-                ensureSchema();
                 loadCompanyProfile();
                 filldata();
             }
         }
-
         void getcon()
         {
             con = new SqlConnection(s);
             con.Open();
         }
-
-        void ensureSchema()
-        {
-            getcon();
-            cmd = new SqlCommand("IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'register_auth_company') AND name = 'compTagline') BEGIN ALTER TABLE register_auth_company ADD compTagline NVARCHAR(MAX) NULL, compDescription NVARCHAR(MAX) NULL, compIndustry NVARCHAR(100) NULL, compLocation NVARCHAR(200) NULL, compPackageRange NVARCHAR(100) NULL, compWebsite NVARCHAR(200) NULL, compTags NVARCHAR(MAX) NULL; END IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'register_auth_company') AND name = 'compLogo') BEGIN ALTER TABLE register_auth_company ADD compLogo NVARCHAR(MAX) NULL; END", con);
-            cmd.ExecuteNonQuery();
-            con.Close();
-        }
-
         void loadCompanyProfile()
         {
             getcon();
@@ -54,7 +43,6 @@ namespace RKU_PLACEMENT_PORTAL
                 ds = new DataSet();
                 da.Fill(ds);
             }
-
             if (ds.Tables[0].Rows.Count > 0)
             {
                 profileDisplayName.Text = ds.Tables[0].Rows[0]["compName"].ToString();
@@ -74,9 +62,7 @@ namespace RKU_PLACEMENT_PORTAL
                     pnlLogoPlaceholder.Visible = false;
                 }
             }
-            con.Close();
         }
-
         void filldata()
         {
             getcon();
@@ -90,7 +76,6 @@ namespace RKU_PLACEMENT_PORTAL
                 ds = new DataSet();
                 da.Fill(ds);
             }
-
             if (ds.Tables[0].Rows.Count > 0)
             {
                 cpName.Text = ds.Tables[0].Rows[0]["compName"].ToString();
@@ -102,19 +87,15 @@ namespace RKU_PLACEMENT_PORTAL
                 {
                     cpIndustry.SelectedValue = ind;
                 }
-
                 cpLocation.Text = ds.Tables[0].Rows[0]["compLocation"].ToString();
                 cpPackageRange.Text = ds.Tables[0].Rows[0]["compPackageRange"].ToString();
                 cpWebsite.Text = ds.Tables[0].Rows[0]["compWebsite"].ToString();
                 cpTags.Text = ds.Tables[0].Rows[0]["compTags"].ToString();
             }
-            con.Close();
         }
-
         protected void btnSaveCompanyProfile_Click(object sender, EventArgs e)
         {
             getcon();
-
             if (fuCompanyLogo.HasFile)
             {
                 fuCompanyLogo.SaveAs(Server.MapPath("~/CompanyUploads/" + fuCompanyLogo.FileName));
@@ -125,19 +106,10 @@ namespace RKU_PLACEMENT_PORTAL
             {
                 cmd = new SqlCommand("update register_auth_company set compName='" + cpName.Text + "',compTagline='" + cpTagline.Text + "',compDescription='" + cpDescription.Text + "',compIndustry='" + cpIndustry.SelectedValue + "',compLocation='" + cpLocation.Text + "',compPackageRange='" + cpPackageRange.Text + "',compWebsite='" + cpWebsite.Text + "',compTags='" + cpTags.Text + "' where compEmail='" + Session["company"] + "' or compUsername='" + Session["company"] + "'", con);
             }
-
             cmd.ExecuteNonQuery();
-            con.Close();
-
             loadCompanyProfile();
             filldata();
-
-            if (Master != null)
-            {
-                ((Company)Master).loadSidebarCompanyInfo();
-            }
         }
-
         protected void btnReset_Click(object sender, EventArgs e)
         {
             filldata();

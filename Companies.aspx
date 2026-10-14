@@ -9,9 +9,33 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Companies | RK University Placement Portal</title>
-        <meta name="description" content="Explore top recruiting companies visiting RK University campus. Browse company profiles, job openings, packages, and apply for your dream job.">
+        <meta name="description" content="Explore 300+ recruiting companies visiting RK University campus. Browse company profiles, job openings, packages, and apply for placement drives.">
         <meta name="keywords" content="RK University Companies, Campus Recruiters, Top MNCs, Job Openings, Placement Companies Rajkot">
         <meta name="author" content="RK University">
+
+        <!-- Open Graph / Social Sharing Meta Tags -->
+        <meta property="og:title" content="Top 300+ Recruiters & Companies | RK University Placement Portal">
+        <meta property="og:description" content="Explore top MNCs, tech innovators, and healthcare corporates hiring from RK University.">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="assets/images/company-visit-1.jpeg">
+
+        <!-- Schema.org JSON-LD -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "name": "Top Campus Recruiters at RK University",
+          "description": "300+ National & Multinational companies actively recruiting from RK University.",
+          "itemListElement": [
+            { "@type": "Organization", "name": "Tata Consultancy Services (TCS)" },
+            { "@type": "Organization", "name": "Infosys" },
+            { "@type": "Organization", "name": "Wipro" },
+            { "@type": "Organization", "name": "TatvaSoft" },
+            { "@type": "Organization", "name": "Synoptek" },
+            { "@type": "Organization", "name": "Reliance Industries Limited" }
+          ]
+        }
+        </script>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
@@ -223,15 +247,28 @@
                 margin: 0 0.25rem;
             }
 
-            /* ─── FEATURED COMPANIES ─── */
+            /* ─── FEATURED COMPANIES & EQUAL HEIGHT GRID ─── */
+            #companyGrid table {
+                width: 100% !important;
+                border-collapse: separate !important;
+                border-spacing: 0.65rem 1.25rem !important;
+            }
+
+            #companyGrid td {
+                height: 100% !important;
+                vertical-align: top !important;
+            }
+
             .featured-company-card {
                 background: #fff;
                 border: 1px solid #eef0f3;
                 border-radius: 16px;
-                padding: 2rem;
+                padding: 1.5rem;
                 transition: all 0.28s ease;
                 box-shadow: 0 4px 16px rgba(0,0,0,0.03);
-                height: 100%;
+                display: flex !important;
+                flex-direction: column !important;
+                height: 100% !important;
                 position: relative;
                 overflow: hidden;
             }
@@ -261,32 +298,38 @@
                 }
 
             .company-logo-wrap {
-                width: 70px;
-                height: 70px;
-                border-radius: 14px;
+                width: 68px;
+                height: 68px;
+                min-height: 68px;
+                border-radius: 12px;
                 background: #f8f9fa;
                 border: 1px solid #eef0f3;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-bottom: 1.25rem;
+                margin-top: 0.9rem;
+                margin-bottom: 0.85rem;
+                padding: 0.35rem;
                 overflow: hidden;
             }
 
+                .company-logo-wrap img,
                 .company-logo-wrap svg {
-                    width: 80%;
-                    height: 80%;
+                    max-width: 100%;
+                    max-height: 100%;
+                    object-fit: contain;
                 }
 
             .company-type-badge {
                 display: inline-flex;
                 align-items: center;
                 gap: 0.3rem;
-                padding: 0.25rem 0.7rem;
+                padding: 0.22rem 0.65rem;
                 border-radius: 50px;
                 font-size: 0.72rem;
                 font-weight: 700;
-                margin-bottom: 0.75rem;
+                margin-bottom: 0.6rem;
+                align-self: flex-start;
             }
 
             .badge-it {
@@ -334,32 +377,44 @@
                 font-weight: 800;
                 font-size: 1.15rem;
                 color: var(--rku-dark);
-                margin-bottom: 0.4rem;
+                margin-bottom: 0.25rem;
+                line-height: 1.25;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .company-tagline {
-                font-size: 0.82rem;
+                font-size: 0.8rem;
                 color: #888;
                 font-weight: 500;
-                margin-bottom: 1rem;
+                margin-bottom: 0.65rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                min-height: 1.2rem;
             }
 
             .company-desc {
-                font-size: 0.85rem;
-                color: #666;
-                line-height: 1.6;
-                margin-bottom: 1.25rem;
+                font-size: 0.83rem;
+                color: #64748b;
+                line-height: 1.5;
+                margin-bottom: 0.85rem;
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
+                height: 3.75rem; /* Fixed height for 3 lines on all cards */
             }
 
             .company-meta-row {
                 display: flex;
-                gap: 1.25rem;
-                margin-bottom: 1.25rem;
-                flex-wrap: wrap;
+                gap: 0.85rem;
+                margin-bottom: 0.85rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                min-height: 1.25rem;
             }
 
             .cmeta {
@@ -379,15 +434,16 @@
                 background: linear-gradient(135deg, #fef2f2, #fff5f5);
                 border: 1px solid rgba(163,15,20,0.12);
                 border-radius: 10px;
-                padding: 0.6rem 1rem;
+                padding: 0.55rem 0.85rem;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-bottom: 1.25rem;
+                margin-bottom: 0.85rem;
+                min-height: 48px;
             }
 
             .pkg-label {
-                font-size: 0.72rem;
+                font-size: 0.7rem;
                 font-weight: 700;
                 color: #888;
                 text-transform: uppercase;
@@ -397,15 +453,20 @@
             .pkg-value {
                 font-family: var(--font-heading);
                 font-weight: 800;
-                font-size: 1rem;
+                font-size: 0.95rem;
                 color: var(--rku-maroon);
             }
 
             .company-tags {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.4rem;
-                margin-bottom: 1.25rem;
+                font-size: 0.78rem;
+                color: #475569;
+                line-height: 1.45;
+                margin-bottom: 1rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                height: 2.3rem; /* Fixed height for 2 lines on all cards */
             }
 
             .ctag {
@@ -421,11 +482,13 @@
             .company-card-actions {
                 display: flex;
                 gap: 0.6rem;
+                margin-top: auto !important; /* Forces buttons to stick to bottom */
+                padding-top: 0.5rem;
             }
 
             .btn-view-profile {
                 flex: 1;
-                padding: 0.55rem 1rem;
+                padding: 0.55rem 0.85rem;
                 border: 1.5px solid var(--rku-maroon);
                 border-radius: 8px;
                 color: var(--rku-maroon);
@@ -436,6 +499,9 @@
                 text-decoration: none;
                 transition: all 0.2s;
                 cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
             }
 
                 .btn-view-profile:hover {
@@ -445,7 +511,7 @@
 
             .btn-apply-now {
                 flex: 1;
-                padding: 0.55rem 1rem;
+                padding: 0.55rem 0.85rem;
                 border-radius: 8px;
                 font-weight: 700;
                 font-size: 0.82rem;
@@ -456,6 +522,9 @@
                 text-decoration: none;
                 transition: all 0.2s;
                 cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
             }
 
                 .btn-apply-now:hover {
@@ -708,8 +777,37 @@
     <body>
 
         <!-- ================================================
-     NAVBAR
-     ================================================ -->
+             HEADER TOPBAR & NAVBAR
+             ================================================ -->
+        <!-- RKU Header Topbar -->
+        <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155; position:relative; z-index:1031;">
+            <div class="container-fluid px-lg-5">
+                <div class="d-flex justify-content-between align-items-center py-2">
+                    <!-- Left: Tagline with Graduation Cap -->
+                    <div class="topbar-tagline d-flex align-items-center" style="font-weight:500; color:#334155;">
+                        <i class="fa-solid fa-graduation-cap topbar-icon me-2" style="color:#e03627; font-size:0.95rem;"></i>
+                        <span>Empowering Students. Connecting Companies. Building Careers.</span>
+                    </div>
+                    <!-- Right: Contact info & Social Media Icons -->
+                    <div class="topbar-contact d-flex align-items-center gap-3">
+                        <a href="tel:+919876543210" class="topbar-link" style="color:#334155; text-decoration:none; display:inline-flex; align-items:center;">
+                            <i class="fa-solid fa-phone topbar-icon me-1.5" style="color:#e03627; font-size:0.85rem;"></i> <span style="color:#334155;">+91 98765 43210</span>
+                        </a>
+                        <span class="topbar-divider" style="color:#cbd5e1;">|</span>
+                        <a href="mailto:placement@rku.ac.in" class="topbar-link" style="color:#334155; text-decoration:none; display:inline-flex; align-items:center;">
+                            <i class="fa-solid fa-envelope topbar-icon me-1.5" style="color:#e03627; font-size:0.85rem;"></i> <span style="color:#334155;">placement@rku.ac.in</span>
+                        </a>
+                        <div class="topbar-socials d-flex align-items-center gap-1.5 ms-2">
+                            <a href="https://facebook.com" target="_blank" class="social-circle-btn" title="Facebook" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-facebook-f" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                            <a href="https://linkedin.com" target="_blank" class="social-circle-btn" title="LinkedIn" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-linkedin-in" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="Instagram" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-instagram" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                            <a href="https://youtube.com" target="_blank" class="social-circle-btn" title="YouTube" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-youtube" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container-fluid px-lg-5">
                 <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
@@ -731,6 +829,7 @@
                                 <li><a class="dropdown-item" href="PlacementStudentSelection.aspx">Student Selection</a></li>
                                 <li><a class="dropdown-item" href="PlacementLiaisonOfficers.aspx">Liaison Officers</a></li>
                                 <li><a class="dropdown-item" href="PlacmentProminentRecruiters.aspx">Prominent Recruiters</a></li>
+                                <li><a class="dropdown-item" href="PlacementPolicy.aspx">Placement Policy</a></li>
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link active" href="Companies.aspx" id="navCompanies">Companies</a></li>
@@ -899,7 +998,7 @@
                         ${tagsHtml}
                     </div>
                     <div class="company-card-actions">
-                        <button class="btn-view-profile" onclick="event.stopPropagation();openCompanyModal('${c.id}')">View Profile</button>
+                        <a href="CompanyDetails.aspx?id=${c.id}" class="btn-view-profile text-decoration-none text-center d-flex align-items-center justify-content-center" onclick="event.stopPropagation();">View Profile</a>
                         <button class="btn-apply-now" onclick="event.stopPropagation();window.location.href='Login.aspx'">Apply Now</button>
                     </div>
                 </div>
@@ -910,27 +1009,8 @@
 
 
         function openCompanyModal(id) {
-            const companies = PortalDB.getCompanies();
-            const data = companies.find(c => c.id === id);
-            if (!data) return;
-            document.getElementById('modalCompanyName').textContent = data.name;
-            document.getElementById('modalTagline').textContent = data.tagline || '';
-            document.getElementById('modalDesc').textContent = data.description || '';
-
-            const bClass = indClassMap[data.industry] || 'badge-it';
-            document.getElementById('modalBadge').innerHTML = `<span class="company-type-badge ${bClass}">${data.industry.toUpperCase()}</span>`;
-            document.getElementById('modalPkgRange').textContent = data.packageRange || 'N/A';
-
-            const logoSvg = data.logoBase64 ? `<img src="${data.logoBase64}" alt="${data.name}" style="width:75%;height:75%;object-fit:contain;border-radius:8px;">` : `<i class="fa-solid fa-building fa-2x text-white"></i>`;
-            document.getElementById('modalLogo').innerHTML = logoSvg;
-
-            document.getElementById('modalInfoGrid').innerHTML = `
-            <div class="info-item"><div class="info-item-label">Industry</div><div class="info-item-value">${data.industry.toUpperCase()}</div></div>
-            <div class="info-item"><div class="info-item-label">Location</div><div class="info-item-value">${data.location || 'N/A'}</div></div>
-            <div class="info-item"><div class="info-item-label">Website</div><div class="info-item-value"><a href="${data.website || '#'}" style="color:var(--rku-red);" target="_blank">${data.website || 'N/A'}</a></div></div>
-        `;
-            const modal = new bootstrap.Modal(document.getElementById('companyModal'));
-            modal.show();
+            if (!id) return;
+            window.location.href = 'CompanyDetails.aspx?id=' + encodeURIComponent(id);
         }
 
         /* ─── SEARCH FILTER ─── */
@@ -1083,7 +1163,7 @@
             <div class="hero-search-box mt-4" style="margin-left: 0;">
                 <i class="fa-solid fa-magnifying-glass text-white-50 ps-2 align-self-center"></i>
                 <asp:TextBox ID="txtSearch" runat="server" CssClass="hero-search-input" placeholder="Search company name, role, or industry..."></asp:TextBox>
-                <asp:DropDownList ID="ddlIndustry" runat="server" CssClass="hero-search-select">
+                <asp:DropDownList ID="ddlIndustry" runat="server" CssClass="hero-search-select" AutoPostBack="true" OnSelectedIndexChanged="ddlIndustry_SelectedIndexChanged">
                     <asp:ListItem Value="">All Industries</asp:ListItem>
                     <asp:ListItem Value="IT">IT / Software</asp:ListItem>
                     <asp:ListItem Value="MNC">MNC</asp:ListItem>
@@ -1092,7 +1172,7 @@
                     <asp:ListItem Value="FMCG">FMCG</asp:ListItem>
                     <asp:ListItem Value="Manufacturing">Manufacturing</asp:ListItem>
                 </asp:DropDownList>
-                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-rku" style="white-space: nowrap;" />
+                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-rku" style="white-space: nowrap;" OnClick="btnSearch_Click" />
             </div>
         </div>
     </section>
@@ -1189,8 +1269,7 @@
                                 <%# Eval("compTags") %>
                             </div>
                             <div class="company-card-actions">
-                                <button type="button" class="btn-view-profile" onclick="openCompanyModal('<%# Eval("id") %>')">View Profile</button>
-                                <a href="Login.aspx" class="btn-apply-now">Apply Now</a>
+                                <a href='CompanyDetails.aspx?id=<%# Eval("id") %>' class="btn-view-profile text-decoration-none text-center d-flex align-items-center justify-content-center">View Profile</a>
                             </div>
                         </div>
                     </ItemTemplate>
@@ -1265,7 +1344,7 @@
                                     </div>
                                     <div class="info-item">
                                         <div class="info-item-label">Revenue</div>
-                                        <div class="info-item-value">₹2,28,000+ Cr</div>
+                                        <div class="info-item-value">&#8377;2,28,000+ Cr</div>
                                     </div>
                                     <div class="info-item">
                                         <div class="info-item-label">Countries</div>
@@ -1285,7 +1364,7 @@
                                             <div class="job-role-title">Software Engineer</div>
                                             <div class="job-role-dept">Engineering · Full-Time</div>
                                         </div>
-                                        <div><span class="job-pkg-badge">₹ 3.5 LPA</span></div>
+                                        <div><span class="job-pkg-badge">&#8377; 3.5 LPA</span></div>
                                         <button class="btn-apply-now" style="padding: 0.4rem 1rem; font-size: 0.8rem; flex: none;">Apply</button>
                                     </div>
                                     <div class="job-role-card">
@@ -1293,7 +1372,7 @@
                                             <div class="job-role-title">Data Analyst</div>
                                             <div class="job-role-dept">Analytics · Full-Time</div>
                                         </div>
-                                        <div><span class="job-pkg-badge">₹ 6 LPA</span></div>
+                                        <div><span class="job-pkg-badge">&#8377; 6 LPA</span></div>
                                         <button class="btn-apply-now" style="padding: 0.4rem 1rem; font-size: 0.8rem; flex: none;">Apply</button>
                                     </div>
                                     <div class="job-role-card">
@@ -1301,7 +1380,7 @@
                                             <div class="job-role-title">Cloud Engineer</div>
                                             <div class="job-role-dept">Cloud Services · Full-Time</div>
                                         </div>
-                                        <div><span class="job-pkg-badge">₹ 8 LPA</span></div>
+                                        <div><span class="job-pkg-badge">&#8377; 8 LPA</span></div>
                                         <button class="btn-apply-now" style="padding: 0.4rem 1rem; font-size: 0.8rem; flex: none;">Apply</button>
                                     </div>
                                     <div class="job-role-card">
@@ -1309,7 +1388,7 @@
                                             <div class="job-role-title">Business Analyst</div>
                                             <div class="job-role-dept">Consulting · Full-Time</div>
                                         </div>
-                                        <div><span class="job-pkg-badge">₹ 7 LPA</span></div>
+                                        <div><span class="job-pkg-badge">&#8377; 7 LPA</span></div>
                                         <button class="btn-apply-now" style="padding: 0.4rem 1rem; font-size: 0.8rem; flex: none;">Apply</button>
                                     </div>
                                 </div>
@@ -1320,7 +1399,7 @@
                                 <!-- Package Card -->
                                 <div style="background: linear-gradient(135deg,#fef2f2,#fff5f5); border: 1px solid rgba(163,15,20,0.12); border-radius: 14px; padding: 1.5rem; margin-bottom: 1.25rem;">
                                     <p style="font-size: 0.72rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Package Range at RKU</p>
-                                    <div style="font-family: var(--font-heading); font-weight: 800; font-size: 2rem; color: var(--rku-maroon);" id="modalPkgRange">₹ 3.5 – 12 LPA</div>
+                                    <div style="font-family: var(--font-heading); font-weight: 800; font-size: 2rem; color: var(--rku-maroon);" id="modalPkgRange">&#8377; 3.5 – 12 LPA</div>
                                     <p style="font-size: 0.78rem; color: #888; margin-top: 0.5rem; margin-bottom: 0;">Varies by role &amp; experience</p>
                                 </div>
                                 <!-- Eligible Courses -->
@@ -1357,6 +1436,55 @@
             </div>
         </div>
     </div>
+
+    <!-- Hero Image Slider Initialization -->
+    <script>
+        function initCompaniesHeroSlider() {
+            const slides = document.querySelectorAll('.companies-hero-slide');
+            const dots = document.querySelectorAll('.companies-hero-dot');
+            if (!slides || slides.length === 0) return;
+
+            let current = 0;
+            const total = slides.length;
+
+            function goTo(index) {
+                slides.forEach(s => s.classList.remove('active'));
+                dots.forEach(d => d.classList.remove('active'));
+                current = (index + total) % total;
+                if (slides[current]) slides[current].classList.add('active');
+                if (dots[current]) dots[current].classList.add('active');
+            }
+
+            // Auto-advance slides every 3.5 seconds
+            if (window._companiesHeroSliderTimer) {
+                clearInterval(window._companiesHeroSliderTimer);
+            }
+            window._companiesHeroSliderTimer = setInterval(() => {
+                goTo(current + 1);
+            }, 3500);
+
+            // Manual dot click handler
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (window._companiesHeroSliderTimer) {
+                        clearInterval(window._companiesHeroSliderTimer);
+                    }
+                    goTo(i);
+                    window._companiesHeroSliderTimer = setInterval(() => {
+                        goTo(current + 1);
+                    }, 3500);
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCompaniesHeroSlider);
+        } else {
+            initCompaniesHeroSlider();
+        }
+        window.addEventListener('load', initCompaniesHeroSlider);
+    </script>
 </asp:Content>
 
 
