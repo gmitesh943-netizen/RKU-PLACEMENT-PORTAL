@@ -287,6 +287,14 @@
     <Compile Include="Companies.aspx.designer.cs">
       <DependentUpon>Companies.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminContactInquiriesClass.cs" />
+    <Compile Include="AdminManageDrivesClass.cs" />
+    <Compile Include="AdminReportsClass.cs" />
+    <Compile Include="AdminStudentDirectoryClass.cs" />
+    <Compile Include="AdminTrackApplicationsClass.cs" />
+    <Compile Include="CompanyApplicantsClass.cs" />
+    <Compile Include="CompanyStudentDirectoryClass.cs" />
+    <Compile Include="StudentDrivesClass.cs" />
     <Compile Include="CompanyDetails.aspx.cs">
       <DependentUpon>CompanyDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

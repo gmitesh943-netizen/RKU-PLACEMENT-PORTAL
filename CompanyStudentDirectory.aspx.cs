@@ -17,6 +17,8 @@ namespace RKU_PLACEMENT_PORTAL
         DataSet ds;
         SqlCommand cmd;
 
+        CompanyStudentDirectoryClass studClass;
+
         string compName;
         string compUsername;
         string compEmail;
@@ -27,23 +29,26 @@ namespace RKU_PLACEMENT_PORTAL
             con = new SqlConnection(s);
             con.Open();
         }
-        void fillgrid()
+
+        void filtergrid(DataTable dt)
         {
-            getcon();
-            da = new SqlDataAdapter("select * from register_auth order by Id desc", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            GridView1.DataSource = ds;
+            GridView1.DataSource = dt;
             GridView1.DataBind();
 
-            if (ds.Tables[0].Rows.Count > 0)
+            if (dt != null && dt.Rows.Count > 0)
             {
-                lblStudentCount.Text = ds.Tables[0].Rows.Count.ToString();
+                lblStudentCount.Text = dt.Rows.Count.ToString();
             }
             else
             {
                 lblStudentCount.Text = "0";
             }
+        }
+
+        void fillgrid()
+        {
+            studClass = new CompanyStudentDirectoryClass();
+            filtergrid(studClass.select_all_students().Tables[0]);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -81,6 +86,28 @@ namespace RKU_PLACEMENT_PORTAL
                 Response.Redirect("Login.aspx");
             }
         }
+
+        //<----------- Search/Filter --------------->
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            studClass = new CompanyStudentDirectoryClass();
+            filtergrid(studClass.search_students(studentSearchInput.Text).Tables[0]);
+        }
+
+        protected void studentBranchFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            studClass = new CompanyStudentDirectoryClass();
+            filtergrid(studClass.select_students_by_branch(studentBranchFilter.SelectedValue).Tables[0]);
+        }
+
+        protected void btnClearFilters_Click(object sender, EventArgs e)
+        {
+            studentSearchInput.Text = "";
+            studentBranchFilter.SelectedIndex = 0;
+            fillgrid();
+        }
+
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "ViewProfile")
@@ -118,19 +145,20 @@ namespace RKU_PLACEMENT_PORTAL
                     if (resume != "")
                     {
                         lnkResume.NavigateUrl = ResolveUrl("~/assets/StudentPDF/" + resume);
-                        lnkResume.Visible = true;
-                        lblNoResume.Visible = false;
+                        lnkResume.Visible = true; //resume link dekhase
+                        lblNoResume.Visible = false;//remuse link hide karse nai hoy to 
                     }
                     else
                     {
-                        lnkResume.Visible = false;
-                        lblNoResume.Visible = true;
+                        lnkResume.Visible = false; ///resume messge hide kare
+                        lblNoResume.Visible = true;//resume uploaded nathi evu show karave
                     }
-
+                    //profile details display
                     pnlStudentProfile.Visible = true;
                 }
             }
         }
+
         protected void btnCloseProfile_Click(object sender, EventArgs e)
         {
             pnlStudentProfile.Visible = false;

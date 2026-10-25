@@ -402,6 +402,17 @@
         </div>
     </div>
 
+    <!-- ASP.NET Server Controls: Live Data from Database for Logged-in Company Only -->
+    <asp:HiddenField ID="hfFunnelApps" runat="server" Value="0" />
+    <asp:HiddenField ID="hfFunnelReview" runat="server" Value="0" />
+    <asp:HiddenField ID="hfFunnelShortlisted" runat="server" Value="0" />
+    <asp:HiddenField ID="hfFunnelInterviews" runat="server" Value="0" />
+    <asp:HiddenField ID="hfFunnelSelected" runat="server" Value="0" />
+
+    <asp:HiddenField ID="hfDeptLabels" runat="server" Value="" />
+    <asp:HiddenField ID="hfDeptData" runat="server" Value="" />
+    <asp:HiddenField ID="hfDeptTotal" runat="server" Value="0" />
+
     <!-- Charts Row -->
     <div class="row g-3 mb-4">
         <div class="col-lg-7">
@@ -571,11 +582,12 @@
         });
 
         function initOverviewCharts() {
-            const colorRed = '#ef3724';
-            const colorOrange = '#fd7e14';
-            const colorGreen = '#16a34a';
-            const colorBlue = '#2563eb';
-            const colorAmber = '#d97706';
+            // ─── 1. Recruitment Funnel & Progress (Logged-in Company Data) ───
+            const fApps = parseInt(document.getElementById('<%= hfFunnelApps.ClientID %>').value) || 0;
+            const fReview = parseInt(document.getElementById('<%= hfFunnelReview.ClientID %>').value) || 0;
+            const fShort = parseInt(document.getElementById('<%= hfFunnelShortlisted.ClientID %>').value) || 0;
+            const fInterviews = parseInt(document.getElementById('<%= hfFunnelInterviews.ClientID %>').value) || 0;
+            const fSelected = parseInt(document.getElementById('<%= hfFunnelSelected.ClientID %>').value) || 0;
 
             const ctxGrowth = document.getElementById('admChartGrowth');
             if (ctxGrowth) {
@@ -585,13 +597,7 @@
                         labels: ['Applications', 'Under Review', 'Shortlisted', 'Interviews', 'Selected'],
                         datasets: [{
                             label: 'Candidates',
-                            data: [
-                                parseInt(document.getElementById('<%= lblStatTotalApps.ClientID %>').innerText) || 28,
-                                12,
-                                9,
-                                6,
-                                parseInt(document.getElementById('<%= lblStatPlacedStudents.ClientID %>').innerText) || 4
-                            ],
+                            data: [fApps, fReview, fShort, fInterviews, fSelected],
                             backgroundColor: [
                                 'rgba(239, 55, 36, 0.85)',
                                 'rgba(253, 126, 20, 0.85)',
@@ -605,33 +611,113 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return ' ' + context.parsed.y + ' Candidates';
+                                    }
+                                }
+                            }
+                        },
                         scales: {
-                            y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { font: { family: "'Outfit', sans-serif" } } },
-                            x: { grid: { display: false }, ticks: { font: { family: "'Outfit', sans-serif" } } }
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1,
+                                    precision: 0,
+                                    font: { family: "'Outfit', sans-serif" }
+                                },
+                                grid: { color: '#f1f5f9' }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { font: { family: "'Outfit', sans-serif" } }
+                            }
                         }
                     }
                 });
             }
 
+            // ─── 2. Candidate Demographics (Logged-in Company Data - Comma Separated) ───
+            const rawLabels = (document.getElementById('<%= hfDeptLabels.ClientID %>').value || '').trim();
+            const rawData = (document.getElementById('<%= hfDeptData.ClientID %>').value || '').trim();
+            const totalApplicants = parseInt(document.getElementById('<%= hfDeptTotal.ClientID %>').value) || 0;
+
+            const deptLabels = rawLabels ? rawLabels.split(',') : [];
+            const deptData = rawData ? rawData.split(',').map(n => parseInt(n) || 0) : [];
+
+            const palette = [
+                '#ef3724', '#2563eb', '#16a34a', '#fd7e14', '#0dcef0',
+                '#8b5cf6', '#d97706', '#ec4899', '#64748b'
+            ];
+
             const ctxDept = document.getElementById('admChartDepartment');
             if (ctxDept) {
-                new Chart(ctxDept, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Computer / IT', 'Mechanical', 'Management', 'Civil / Others'],
-                        datasets: [{
-                            data: [55, 20, 18, 7],
-                            backgroundColor: [colorRed, colorOrange, colorBlue, '#cbd5e1']
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { family: "'Outfit', sans-serif", size: 11 } } } },
-                        cutout: '68%'
-                    }
-                });
+                if (totalApplicants === 0 || deptLabels.length === 0) {
+                    new Chart(ctxDept, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['No Applicants Yet'],
+                            datasets: [{
+                                data: [1],
+                                backgroundColor: ['#e2e8f0']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: { boxWidth: 10, font: { family: "'Outfit', sans-serif", size: 11 } }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function () {
+                                            return ' 0 Applications for this company';
+                                        }
+                                    }
+                                }
+                            },
+                            cutout: '68%'
+                        }
+                    });
+                } else {
+                    const bgColors = deptLabels.map((_, i) => palette[i % palette.length]);
+
+                    new Chart(ctxDept, {
+                        type: 'doughnut',
+                        data: {
+                            labels: deptLabels,
+                            datasets: [{
+                                data: deptData,
+                                backgroundColor: bgColors
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: { boxWidth: 10, font: { family: "'Outfit', sans-serif", size: 11 } }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function (context) {
+                                            const val = context.parsed;
+                                            const pct = totalApplicants > 0 ? Math.round((val / totalApplicants) * 100) : 0;
+                                            return ' ' + context.label + ': ' + val + ' (' + pct + '%)';
+                                        }
+                                    }
+                                }
+                            },
+                            cutout: '68%'
+                        }
+                    });
+                }
             }
         }
     </script>

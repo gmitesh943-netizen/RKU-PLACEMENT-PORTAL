@@ -1,4 +1,4 @@
-<%@ Page Title="Prominent Recruiters | Placement Portal | RK University" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="PlacementProminentRecruiters.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.PlacementProminentRecruiters" %>
+<%@ Page Title="Prominent Recruiters | Placement Portal | RK University" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="PlacmentProminentRecruiters.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.PlacmentProminentRecruiters" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

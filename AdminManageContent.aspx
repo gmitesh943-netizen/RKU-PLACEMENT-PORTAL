@@ -340,9 +340,6 @@
         <a href="#section-gallery" class="filter-tab-btn">
             <i class="fa-regular fa-images me-1.5"></i>Campus Gallery
         </a>
-        <a href="#section-companies" class="filter-tab-btn">
-            <i class="fa-solid fa-building me-1.5"></i>Companies Directory
-        </a>
         <a href="#section-team" class="filter-tab-btn">
             <i class="fa-solid fa-users-gear me-1.5"></i>Placement Team
         </a>
@@ -725,108 +722,6 @@
     </div>
 
     <!-- =====================================================
-         SECTION 3: COMPANIES DIRECTORY
-    ====================================================== -->
-    <div id="section-companies" class="section-anchor">
-        <div class="row g-4 mb-5">
-            <div class="col-xl-7 col-lg-6">
-                <div class="dir-main-card h-100">
-                    <div class="dir-main-card-head">
-                        <h6 class="fw-bold mb-0 text-dark font-heading">
-                            <i class="fa-solid fa-building me-2" style="color: #e03627;"></i>Companies List
-                        </h6>
-                        <span class="tab-count-badge" id="companyCountBadge">0 companies</span>
-                    </div>
-                    <div class="p-0">
-                        <div id="adminCompaniesList" style="max-height: 620px; overflow-y: auto;">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-5 col-lg-6">
-                <div class="dir-main-card" style="position: sticky; top: 20px;">
-                    <div class="dir-main-card-head">
-                        <h6 class="fw-bold mb-0 font-heading text-dark" id="companyFormTitle">
-                            <i class="fa-solid fa-building me-2" style="color: #e03627;"></i>Add Company
-                        </h6>
-                    </div>
-                    <div class="dir-main-card-body">
-                        <div id="companyForm">
-                            <input type="hidden" id="editCompanyId" value="">
-
-                            <div class="mb-3">
-                                <label class="form-label text-muted small fw-bold">Company Name</label>
-                                <input type="text" class="form-control" id="compName" placeholder="e.g. Wipro Technologies">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label text-muted small fw-bold">Industry / Category</label>
-                                <select class="form-select" id="compIndustry">
-                                    <option value="">-- Select Industry --</option>
-                                    <option value="it">IT / Software</option>
-                                    <option value="mnc">MNC</option>
-                                    <option value="consulting">Consulting</option>
-                                    <option value="finance">Finance</option>
-                                    <option value="fmcg">FMCG</option>
-                                    <option value="manufacturing">Manufacturing</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label text-muted small fw-bold">Tagline</label>
-                                <input type="text" class="form-control" id="compTagline" placeholder="e.g. Apply thought">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label text-muted small fw-bold">Description</label>
-                                <textarea class="form-control" id="compDesc" rows="2" placeholder="Brief description of the company..."></textarea>
-                            </div>
-
-                            <div class="row g-2 mb-3">
-                                <div class="col-6">
-                                    <label class="form-label text-muted small fw-bold">Location</label>
-                                    <input type="text" class="form-control" id="compLocation" placeholder="e.g. Bangalore">
-                                </div>
-                                <div class="col-6">
-                                    <label class="form-label text-muted small fw-bold">Package Range</label>
-                                    <input type="text" class="form-control" id="compPackage" placeholder="e.g. 3.5 - 8 LPA">
-                                </div>
-                            </div>
-
-                            <div class="row g-2 mb-3">
-                                <div class="col-6">
-                                    <label class="form-label text-muted small fw-bold">Open Roles</label>
-                                    <input type="text" class="form-control" id="compRoles" placeholder="e.g. 15 Open Roles">
-                                </div>
-                                <div class="col-6">
-                                    <label class="form-label text-muted small fw-bold">Website</label>
-                                    <input type="url" class="form-control" id="compWebsite" placeholder="https://wipro.com">
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label text-muted small fw-bold">Company Logo (Optional)</label>
-                                <input type="file" class="form-control" id="compLogo" accept="image/*">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label text-muted small fw-bold">Tags <span class="text-muted fw-normal">(comma-separated)</span></label>
-                                <input type="text" class="form-control" id="compTags" placeholder="Java, Python, React">
-                            </div>
-
-                            <div class="d-grid gap-2 mt-3">
-                                <button type="button" class="btn btn-rku btn-sm py-2" id="companySubmitBtn" onclick="saveCompany(event)"><i class="fa-solid fa-plus me-1"></i>Add Company</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm py-2" id="companyCancelBtn" style="display: none;" onclick="cancelEditCompany()"><i class="fa-solid fa-xmark me-1"></i>Cancel Edit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- =====================================================
          SECTION 4: PLACEMENT TEAM
     ====================================================== -->
     <div id="section-team" class="section-anchor">
@@ -966,7 +861,6 @@
             const titleBar = document.getElementById('panelTitleBar');
             if (titleBar) titleBar.textContent = 'Manage Website Content';
 
-            renderCompaniesList();
         });
 
         // Student Photo Preview Helper
@@ -1035,134 +929,5 @@
             });
         }
 
-        // 3. Companies Directory Management
-        function renderCompaniesList() {
-            if (typeof PortalDB === 'undefined' || !PortalDB.getCompanies) return;
-            const companies = PortalDB.getCompanies();
-            const list = document.getElementById('adminCompaniesList');
-            const countBadge = document.getElementById('companyCountBadge');
-            if (countBadge) countBadge.textContent = `${companies.length} companies`;
-            if (!list) return;
-            list.innerHTML = '';
-
-            if (companies.length === 0) {
-                list.innerHTML = `<p class="text-center text-muted small py-4">No companies added yet.</p>`;
-                return;
-            }
-
-            companies.forEach(c => {
-                const div = document.createElement('div');
-                div.className = 'p-3 border-bottom d-flex justify-content-between align-items-center bg-white';
-                const logoHtml = c.logoBase64 ? `<img src="${c.logoBase64}" alt="${c.name}" class="company-table-logo me-2">` : `<div class="company-avatar-fallback me-2" style="width:38px;height:38px;font-size:0.95rem;">${(c.name || 'C').charAt(0).toUpperCase()}</div>`;
-                div.innerHTML = `
-                    <div class="d-flex align-items-center gap-2" style="max-width: 78%;">
-                        ${logoHtml}
-                        <div>
-                            <h6 class="fw-bold mb-0 text-dark font-heading" style="font-size:0.92rem;">${c.name}</h6>
-                            <p class="mb-0 text-muted small">${c.industry} &bull; ${c.location || '-'} &bull; ${c.packageRange || '-'}</p>
-                        </div>
-                    </div>
-                    <div class="d-flex gap-1.5">
-                        <button type="button" class="btn-action-profile" onclick="editCompany('${c.id}')" title="Edit Company"><i class="fa-regular fa-pen-to-square"></i>Edit</button>
-                        <button type="button" class="btn-action-delete" onclick="deleteCompany('${c.id}')" title="Delete Company"><i class="fa-regular fa-trash-can"></i>Delete</button>
-                    </div>
-                `;
-                list.appendChild(div);
-            });
-        }
-
-        async function saveCompany(e) {
-            if (e) e.preventDefault();
-            if (typeof PortalDB === 'undefined') return;
-            const editId = document.getElementById('editCompanyId').value;
-            const name = document.getElementById('compName').value.trim();
-            const industry = document.getElementById('compIndustry').value.trim();
-            const tagline = document.getElementById('compTagline').value.trim();
-            const description = document.getElementById('compDesc').value.trim();
-            const location = document.getElementById('compLocation').value.trim();
-            const packageRange = document.getElementById('compPackage').value.trim();
-            const openRoles = document.getElementById('compRoles').value.trim();
-            const website = document.getElementById('compWebsite').value.trim();
-            const tagsInput = document.getElementById('compTags').value.trim();
-            const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()) : [];
-
-            if (!name) {
-                alert('Please enter Company Name.');
-                document.getElementById('compName').focus();
-                return;
-            }
-            if (!industry) {
-                alert('Please select Industry.');
-                document.getElementById('compIndustry').focus();
-                return;
-            }
-
-            const fileInput = document.getElementById('compLogo');
-            let logoBase64 = editId ? (PortalDB.getCompanies().find(c => c.id === editId)?.logoBase64 || '') : '';
-            if (fileInput && fileInput.files.length > 0) {
-                try {
-                    logoBase64 = await getBase64(fileInput.files[0]);
-                } catch (error) {
-                    alert('Error reading logo file.');
-                    return;
-                }
-            }
-
-            const companyData = { name, industry, tagline, description, location, packageRange, openRoles, website, logoBase64, tags };
-
-            if (editId) {
-                PortalDB.updateCompany(editId, companyData);
-                alert('Company updated successfully!');
-            } else {
-                PortalDB.addCompany(companyData);
-                alert('Company added successfully!');
-            }
-
-            cancelEditCompany();
-            renderCompaniesList();
-        }
-
-        function deleteCompany(id) {
-            if (confirm('Are you sure you want to delete this company?')) {
-                PortalDB.deleteCompany(id);
-                renderCompaniesList();
-            }
-        }
-
-        function editCompany(id) {
-            const c = PortalDB.getCompanies().find(x => x.id === id);
-            if (!c) return;
-            document.getElementById('editCompanyId').value = c.id;
-            document.getElementById('compName').value = c.name;
-            document.getElementById('compIndustry').value = c.industry;
-            document.getElementById('compTagline').value = c.tagline || '';
-            document.getElementById('compDesc').value = c.description || '';
-            document.getElementById('compLocation').value = c.location || '';
-            document.getElementById('compPackage').value = c.packageRange || '';
-            document.getElementById('compRoles').value = c.openRoles || '';
-            document.getElementById('compWebsite').value = c.website || '';
-            document.getElementById('compTags').value = c.tags ? c.tags.join(', ') : '';
-            document.getElementById('companyFormTitle').innerHTML = '<i class="fa-solid fa-pen-to-square me-2" style="color:#e03627;"></i>Edit Company';
-            document.getElementById('companySubmitBtn').innerHTML = '<i class="fa-solid fa-floppy-disk me-1"></i> Save Changes';
-            document.getElementById('companyCancelBtn').style.display = 'inline-block';
-            document.getElementById('companyForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function cancelEditCompany() {
-            document.getElementById('editCompanyId').value = '';
-            document.getElementById('compName').value = '';
-            document.getElementById('compIndustry').value = '';
-            document.getElementById('compTagline').value = '';
-            document.getElementById('compDesc').value = '';
-            document.getElementById('compLocation').value = '';
-            document.getElementById('compPackage').value = '';
-            document.getElementById('compRoles').value = '';
-            document.getElementById('compWebsite').value = '';
-            document.getElementById('compLogo').value = '';
-            document.getElementById('compTags').value = '';
-            document.getElementById('companyFormTitle').innerHTML = '<i class="fa-solid fa-building me-2" style="color:#e03627;"></i>Add Company';
-            document.getElementById('companySubmitBtn').innerHTML = '<i class="fa-solid fa-plus me-1"></i> Add Company';
-            document.getElementById('companyCancelBtn').style.display = 'none';
-        }
     </script>
 </asp:Content>

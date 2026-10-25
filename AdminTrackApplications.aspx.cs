@@ -17,7 +17,15 @@ namespace RKU_PLACEMENT_PORTAL
         SqlDataAdapter da;
         DataSet ds;
 
+        AdminTrackApplicationsClass appClass;
+
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
+
+        public void getcon()
+        {
+            con = new SqlConnection(s);
+            con.Open();
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,80 +36,30 @@ namespace RKU_PLACEMENT_PORTAL
                 fillStats();
             }
         }
-        public void getcon()
+
+        void filtergrid(DataTable dt)
         {
-            con = new SqlConnection(s);
-            con.Open();
+            gvMasterApplications.DataSource = dt;
+            gvMasterApplications.DataBind();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                lblRecordsCount.Text = dt.Rows.Count + " Applications";
+            }
+            else
+            {
+                lblRecordsCount.Text = "0 Applications";
+            }
         }
 
         // ==================== Grid View fill data ====================
         void fillgrid()
         {
-            getcon();
-            da = new SqlDataAdapter("select ca.*, rac.compName, rac.compLogo, (select top 1 r.photoUrl from register_auth r where (r.regEmail = ca.StudentEmail and ca.StudentEmail <> '') or (r.regUsername = ca.StudentUsername and ca.StudentUsername <> '') or (r.regRollNo = ca.StudentRollNo and ca.StudentRollNo <> '') order by case when r.photoUrl is not null and r.photoUrl <> '' then 0 else 1 end, r.Id desc) as photoUrl from Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername or ca.CompanyUsername = rac.compEmail) order by ca.Id desc", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            gvMasterApplications.DataSource = ds;
-            gvMasterApplications.DataBind();
-
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                lblRecordsCount.Text = ds.Tables[0].Rows.Count + " Applications";
-            }
-            else
-            {
-                lblRecordsCount.Text = "0 Applications";
-            }
-        }
-        // ==================== Search mate ====================
-        void filter()
-        {
-            getcon();
-            string query = "select ca.*, rac.compName, rac.compLogo, (select top 1 r.photoUrl from register_auth r where (r.regEmail = ca.StudentEmail and ca.StudentEmail <> '') or (r.regUsername = ca.StudentUsername and ca.StudentUsername <> '') or (r.regRollNo = ca.StudentRollNo and ca.StudentRollNo <> '') order by case when r.photoUrl is not null and r.photoUrl <> '' then 0 else 1 end, r.Id desc) as photoUrl from Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername or ca.CompanyUsername = rac.compEmail) where 1=1";
-
-
-            if (ddlCompanyFilter.SelectedValue != "All" && ddlCompanyFilter.SelectedValue != "0" && ddlCompanyFilter.SelectedValue != "")
-            {
-                string comp = ddlCompanyFilter.SelectedValue.Trim();
-                query = query + " and (ca.CompanyUsername = '" + comp + "' or rac.compUsername = '" + comp + "' or rac.compEmail = '" + comp + "' or rac.compName = (select top 1 c.compName from register_auth_company c where c.compUsername = '" + comp + "' or c.compEmail = '" + comp + "'))";
-            }
-
-
-            if (ddlStatusFilter.SelectedValue == "Selected")
-            {
-                query = query + " and (ca.ApplicationStatus = 'Selected' or ca.ApplicationStatus = 'Offer Accepted')";
-            }
-            else if (ddlStatusFilter.SelectedValue != "All" && ddlStatusFilter.SelectedValue != "")
-            {
-                query = query + " and ca.ApplicationStatus = '" + ddlStatusFilter.SelectedValue + "'";
-            }
-
-
-            string kw = txtSearch.Text.Trim();
-            if (kw != "")
-            {
-                query = query + " and (ca.StudentName like '%" + kw + "%' or ca.StudentRollNo like '%" + kw + "%' or ca.StudentBranch like '%" + kw + "%' or ca.JobRole like '%" + kw + "%' or rac.compName like '%" + kw + "%')";
-            }
-
-            query = query + " order by ca.Id desc";
-
-            da = new SqlDataAdapter(query, con);
-            ds = new DataSet();
-            da.Fill(ds);
-            gvMasterApplications.DataSource = ds;
-            gvMasterApplications.DataBind();
-
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                lblRecordsCount.Text = ds.Tables[0].Rows.Count + " Applications";
-            }
-            else
-            {
-                lblRecordsCount.Text = "0 Applications";
-            }
+            appClass = new AdminTrackApplicationsClass();
+            filtergrid(appClass.select_all_applications().Tables[0]);
         }
 
-        // ==================== drop down ma comoany na name mate  ====================
+        //--------------------- drop down ma company na name mate ----------------
         void loadCompanies()
         {
             getcon();
@@ -115,6 +73,7 @@ namespace RKU_PLACEMENT_PORTAL
 
             ddlCompanyFilter.Items.Insert(0, new ListItem("All Companies / Recruiters (" + ds.Tables[0].Rows.Count + ")", "All"));
         }
+
         void fillStats()
         {
             getcon();
@@ -148,18 +107,27 @@ namespace RKU_PLACEMENT_PORTAL
             lblKpiInterviews.Text = interviews.ToString();
             lblKpiSelected.Text = selected.ToString();
         }
+
+        //<----------- Search/Filter --------------->
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            filter();
+            appClass = new AdminTrackApplicationsClass();
+            filtergrid(appClass.filter_applications(txtSearch.Text, ddlCompanyFilter.SelectedValue, ddlStatusFilter.SelectedValue).Tables[0]);
         }
+
         protected void ddlCompanyFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filter();
+            appClass = new AdminTrackApplicationsClass();
+            filtergrid(appClass.filter_applications(txtSearch.Text, ddlCompanyFilter.SelectedValue, ddlStatusFilter.SelectedValue).Tables[0]);
         }
+
         protected void ddlStatusFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filter();
+            appClass = new AdminTrackApplicationsClass();
+            filtergrid(appClass.filter_applications(txtSearch.Text, ddlCompanyFilter.SelectedValue, ddlStatusFilter.SelectedValue).Tables[0]);
         }
+
         protected void btnReset_Click(object sender, EventArgs e)
         {
             txtSearch.Text = "";

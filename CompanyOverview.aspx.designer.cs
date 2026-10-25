@@ -105,6 +105,78 @@ namespace RKU_PLACEMENT_PORTAL
         protected global::System.Web.UI.WebControls.HyperLink lnkShortcutProfile;
 
         /// <summary>
+        /// hfFunnelApps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfFunnelApps;
+
+        /// <summary>
+        /// hfFunnelReview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfFunnelReview;
+
+        /// <summary>
+        /// hfFunnelShortlisted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfFunnelShortlisted;
+
+        /// <summary>
+        /// hfFunnelInterviews control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfFunnelInterviews;
+
+        /// <summary>
+        /// hfFunnelSelected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfFunnelSelected;
+
+        /// <summary>
+        /// hfDeptLabels control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfDeptLabels;
+
+        /// <summary>
+        /// hfDeptData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfDeptData;
+
+        /// <summary>
+        /// hfDeptTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfDeptTotal;
+
+        /// <summary>
         /// lnkViewAllDrives control.
         /// </summary>
         /// <remarks>

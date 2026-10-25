@@ -14,12 +14,19 @@ namespace RKU_PLACEMENT_PORTAL
         DataSet ds;
         SqlCommand cmd;
 
+        StudentDrivesClass driveClass;
+
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
         void getcon()
         {
             con = new SqlConnection(s);
             con.Open();
+        }
+
+        string getStudentUser()
+        {
+            return Session["student"] != null ? Session["student"].ToString() : "";
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -30,15 +37,49 @@ namespace RKU_PLACEMENT_PORTAL
                 updateStats();
             }
         }
+
+        void filterdata(DataTable dt)
+        {
+            DataList1.DataSource = dt;
+            DataList1.DataBind();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                driveCountLabel.Text = dt.Rows.Count.ToString() + " Drives";
+                noResultMessage.Visible = false;
+            }
+            else
+            {
+                driveCountLabel.Text = "0 Drives";
+                noResultMessage.Visible = true;
+            }
+        }
+
         void datalist()
         {
-            getcon();
-            string sess = Session["student"] != null ? Session["student"].ToString() : "";
-            da = new SqlDataAdapter("select d.*, c.compName, c.compLogo, c.compIndustry, case when d.DriveStatus <> 'Open' then 'Closed' when exists (select 1 from Company_Applications a where a.DriveId = d.Id and (a.StudentEmail = '" + sess + "' or a.StudentUsername = '" + sess + "' or a.StudentRollNo = '" + sess + "')) then 'Applied' else 'Apply Now' end as ApplyButton from Company_Drives d left join register_auth_company c on (d.CompanyUsername = c.compUsername or d.CompanyUsername = c.compEmail) order by d.Id desc", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            DataList1.DataSource = ds;
-            DataList1.DataBind();
+            driveClass = new StudentDrivesClass();
+            filterdata(driveClass.select_all_drives(getStudentUser()).Tables[0]);
+        }
+
+        //<----------- Search/Filter --------------->
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            driveClass = new StudentDrivesClass();
+            filterdata(driveClass.search_drives(txtSearch.Text, getStudentUser()).Tables[0]);
+        }
+
+        protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            driveClass = new StudentDrivesClass();
+            filterdata(driveClass.select_drives_by_status(ddlStatus.SelectedValue, getStudentUser()).Tables[0]);
+        }
+
+        protected void btnResetFilter_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = "";
+            ddlStatus.SelectedIndex = 0;
+            datalist();
         }
 
         void updateStats()
@@ -59,7 +100,7 @@ namespace RKU_PLACEMENT_PORTAL
             statEligibleCount.Text = ds.Tables[0].Rows[0][0].ToString();
 
             // Applied Drives Count 
-            string sess = Session["student"] != null ? Session["student"].ToString() : "";
+            string sess = getStudentUser();
             da = new SqlDataAdapter("select count(*) from Company_Applications where StudentEmail='" + sess + "' or StudentUsername='" + sess + "' or StudentRollNo='" + sess + "'", con);
             ds = new DataSet();
             da.Fill(ds);
@@ -71,7 +112,7 @@ namespace RKU_PLACEMENT_PORTAL
             if (e.CommandName == "Apply")
             {
                 string driveId = e.CommandArgument.ToString();
-                string sess = Session["student"] != null ? Session["student"].ToString() : "";
+                string sess = getStudentUser();
 
                 if (sess != "")
                 {
@@ -91,7 +132,6 @@ namespace RKU_PLACEMENT_PORTAL
                         string sCgpa = ds.Tables[0].Rows[0]["cgpa"].ToString();
                         string sResume = ds.Tables[0].Rows[0]["resumeUrl"].ToString();
 
-
                         da = new SqlDataAdapter("select * from Company_Drives where Id='" + driveId + "'", con);
                         ds = new DataSet();
                         da.Fill(ds);
@@ -104,7 +144,7 @@ namespace RKU_PLACEMENT_PORTAL
 
                             if (driveStatus == "Open")
                             {
-                                // check a aaply  
+                                // check if already applied
                                 da = new SqlDataAdapter("select count(*) from Company_Applications where DriveId='" + driveId + "' and (StudentEmail='" + sEmail + "' or StudentUsername='" + sUser + "' or StudentRollNo='" + sRoll + "')", con);
                                 ds = new DataSet();
                                 da.Fill(ds);

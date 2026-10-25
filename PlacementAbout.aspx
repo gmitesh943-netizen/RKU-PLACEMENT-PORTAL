@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="PlacementAbout.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.PlacementAbout" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="PlacementAbout.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.PlacementAbout" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -189,18 +189,18 @@
                 overflow: hidden;
                 background-color: #f1f3f5;
                 flex-shrink: 0;
-                filter: grayscale(100%);
-                transition: filter 0.25s ease;
-            }
-
-            .coordinator-grid-card:hover .coordinator-avatar-wrapper {
-                filter: grayscale(0%);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             }
 
             .coordinator-avatar-wrapper img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                transition: transform 0.25s ease;
+            }
+
+            .coordinator-grid-card:hover .coordinator-avatar-wrapper img {
+                transform: scale(1.05);
             }
 
             .coordinator-info-box {
@@ -501,11 +501,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-1.jpg" alt="Vishal Subhedar" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Vishal Subhedar</h4>
@@ -523,11 +519,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-2.jpg" alt="Hrideshang Parikh" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Hrideshang Parikh</h4>
@@ -545,11 +537,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-3.jpg" alt="Adityarajsinh Parmar" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Adityarajsinh Parmar</h4>
@@ -567,11 +555,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-4.jpg" alt="Vivek Makadiya" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Vivek Makadiya</h4>
@@ -589,11 +573,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-5.jpg" alt="Aghesh Vakariya" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Aghesh Vakariya</h4>
@@ -611,11 +591,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-6.jpg" alt="Ritesh Mavani" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Ritesh Mavani</h4>
@@ -633,11 +609,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-7.jpg" alt="Kalpesh Kathrot" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Kalpesh Kathrot</h4>
@@ -655,11 +627,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-8.jpg" alt="Kunal Tanna" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Kunal Tanna</h4>
@@ -677,11 +645,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-9.jpg" alt="Rushikumar Dajera" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Rushikumar Dajera</h4>
@@ -699,11 +663,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-10.jpg" alt="Pankaj Somaiya" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Pankaj Somaiya</h4>
@@ -721,11 +681,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-11.jpg" alt="Dharmin Goriya" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Dharmin Goriya</h4>
@@ -743,11 +699,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-12.jpg" alt="Arjun Baradokia" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Arjun Baradokia</h4>
@@ -765,11 +717,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-13.jpg" alt="Mitesh Katadiya" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Mitesh Katadiya</h4>
@@ -787,11 +735,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-14.jpg" alt="Final Madiya" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Final Madiya</h4>
@@ -809,11 +753,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <svg viewBox="0 0 100 120" width="80" height="100" fill="#bbb">
-                                        <rect width="100" height="120" fill="#f1f3f5" />
-                                        <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
-                                        <path d="M15,100 C15,80 30,70 50,70 C70,70 85,80 85,100 Z" fill="#d0d4dc" />
-                                    </svg>
+                                    <img src="assets/images/coordinators/coordinator-15.jpg" alt="Pooja Popat" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
                                     <h4 class="coordinator-card-name">Pooja Popat</h4>
@@ -1005,10 +945,10 @@
                     </div>
                     <p class="mb-4">Empowering students by bridging the gap between academia and corporate world. Providing quality training and dream placements.</p>
                     <div class="footer-social-links" id="footerSocials">
-                        <a href="#" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" title="Twitter" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="#" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="#" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://facebook.com" target="_blank" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://twitter.com" target="_blank" title="X (Twitter)" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://linkedin.com" target="_blank" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://instagram.com" target="_blank" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
                     </div>
                 </div>
 
@@ -1017,9 +957,9 @@
                     <h5>Quick Links</h5>
                     <ul class="footer-links" id="footerQuickLinks">
                         <li><a href="About.aspx">About Us</a></li>
-                        <li><a href="#">Placement Drives</a></li>
-                        <li><a href="#">Companies</a></li>
-
+                        <li><a href="#">Academics</a></li>
+                        <li><a href="PlacementCampusDrives.aspx">Placement Drives</a></li>
+                        <li><a href="Companies.aspx">Companies</a></li>
                         <li><a href="Contact.aspx">Contact Us</a></li>
                     </ul>
                 </div>
@@ -1029,9 +969,9 @@
                     <h5>Students</h5>
                     <ul class="footer-links" id="footerStudentLinks">
                         <li><a href="Register.aspx">Student Registration</a></li>
-                        <li><a href="#">Student Login</a></li>
-                        <li><a href="#">Available Jobs</a></li>
-                        <li><a href="#">Applied Jobs</a></li>
+                        <li><a href="Login.aspx">Student Login</a></li>
+                        <li><a href="PlacementCampusDrives.aspx">Available Jobs</a></li>
+                        <li><a href="StudentApplications.aspx">Applied Jobs</a></li>
                         <li><a href="#">Interview Schedule</a></li>
                         <li><a href="#">Resume Builder</a></li>
                     </ul>
@@ -1048,11 +988,11 @@
                         </p>
                         <p>
                             <i class="fa-solid fa-phone"></i>
-                            <span>+91 97124 89122</span>
+                            <span>+91 98765 43210</span>
                         </p>
                         <p>
                             <i class="fa-solid fa-envelope"></i>
-                            <a href="mailto:placement@rku.ac.in" class="text-white-50" id="linkFooterEmail">placement@rku.ac.in</a>
+                            <a href="mailto:placement@rku.ac.in" id="linkFooterEmail">placement@rku.ac.in</a>
                         </p>
                     </div>
                 </div>
@@ -1069,9 +1009,9 @@
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <div class="footer-links d-inline-flex gap-3 mb-0" id="footerBottomLinks">
-                            <a href="#" class="text-white-50" style="font-size: 0.8rem;">Privacy Policy</a>
-                            <span class="text-white-50">|</span>
-                            <a href="#" class="text-white-50" style="font-size: 0.8rem;">Terms of Service</a>
+                            <a href="#" style="font-size: 0.8rem;">Privacy Policy</a>
+                            <span style="color: rgba(255, 255, 255, 0.7);">|</span>
+                            <a href="#" style="font-size: 0.8rem;">Terms of Service</a>
                         </div>
                     </div>
                 </div>

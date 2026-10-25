@@ -33,40 +33,40 @@ namespace RKU_PLACEMENT_PORTAL
         protected global::System.Web.UI.WebControls.Label statClosedCount;
 
         /// <summary>
-        /// driveSearchInput control.
+        /// txtSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox driveSearchInput;
+        protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
         /// <summary>
-        /// btnFilterAll control.
+        /// btnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFilterAll;
+        protected global::System.Web.UI.WebControls.Button btnSearch;
 
         /// <summary>
-        /// btnFilterOpen control.
+        /// ddlStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFilterOpen;
+        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
 
         /// <summary>
-        /// btnFilterClosed control.
+        /// btnClearFilters control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFilterClosed;
+        protected global::System.Web.UI.WebControls.Button btnClearFilters;
 
         /// <summary>
         /// driveCountLabel control.
@@ -85,5 +85,14 @@ namespace RKU_PLACEMENT_PORTAL
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataList DataList1;
+
+        /// <summary>
+        /// noDrivesMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl noDrivesMessage;
     }
 }

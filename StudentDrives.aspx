@@ -449,11 +449,12 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </span>
                     <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control border-start-0 ps-0" placeholder="Search by role, company name or industry..." Style="border-radius: 0 10px 10px 0; border-color: var(--rku-border);"></asp:TextBox>
+                    <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" CssClass="btn btn-sm btn-rku px-3 fw-semibold ms-2" Style="border-radius: 8px;" />
                 </div>
             </div>
 
             <div class="col-12 col-md-3">
-                <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-select" ClientIDMode="Static">
+                <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged">
                     <asp:ListItem Value="all">All Status (Open &amp; Closed)</asp:ListItem>
                     <asp:ListItem Value="open">Open Only</asp:ListItem>
                     <asp:ListItem Value="closed">Closed Only</asp:ListItem>
@@ -461,7 +462,7 @@
             </div>
 
             <div class="col-12 col-md-3">
-                <asp:LinkButton ID="btnResetFilter" runat="server" CssClass="btn btn-outline-secondary w-100 rounded-pill fw-semibold" OnClientClick="clearFilters(); return false;" Style="font-size: 0.85rem; padding: 0.55rem 1rem;">
+                <asp:LinkButton ID="btnResetFilter" runat="server" CssClass="btn btn-outline-secondary w-100 rounded-pill fw-semibold" OnClick="btnResetFilter_Click" Style="font-size: 0.85rem; padding: 0.55rem 1rem;">
                     <i class="fa-solid fa-rotate-left me-1"></i>Reset Filter
                 </asp:LinkButton>
             </div>
@@ -565,7 +566,7 @@
     </div>
 
     <!-- No Result Message -->
-    <div id="noResultMessage" class="text-center py-5" style="display: none;">
+    <div id="noResultMessage" runat="server" visible="false" class="text-center py-5">
         <div class="stat-icon-chip mx-auto mb-3" style="width: 60px; height: 60px; background: #f8fafc; color: #94a3b8; font-size: 1.6rem; border: 1px solid var(--rku-border);">
             <i class="fa-solid fa-folder-open"></i>
         </div>
@@ -576,68 +577,4 @@
     <!-- Alert Hidden Fields -->
     <asp:HiddenField ID="hfAlertType" runat="server" />
     <asp:HiddenField ID="hfAlertMessage" runat="server" />
-
-    <!-- JavaScript Filter -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var searchBox = document.getElementById("<%= txtSearch.ClientID %>");
-            var statusBox = document.getElementById("<%= ddlStatus.ClientID %>");
-
-            if (searchBox) {
-                searchBox.addEventListener("keyup", filterDrives);
-            }
-            if (statusBox) {
-                statusBox.addEventListener("change", filterDrives);
-            }
-        });
-
-        function filterDrives() {
-            var searchBox = document.getElementById("<%= txtSearch.ClientID %>");
-            var statusBox = document.getElementById("<%= ddlStatus.ClientID %>");
-
-            var search = searchBox ? searchBox.value.toLowerCase() : "";
-            var status = statusBox ? statusBox.value.toLowerCase() : "all";
-
-            var drives = document.querySelectorAll(".drive-item");
-            var found = 0;
-
-            drives.forEach(function (drive) {
-                var company = (drive.getAttribute("data-company") || "").toLowerCase();
-                var role = (drive.getAttribute("data-role") || "").toLowerCase();
-                var industry = (drive.getAttribute("data-industry") || "").toLowerCase();
-                var driveStatus = (drive.getAttribute("data-status") || "").toLowerCase();
-
-                var searchMatch = company.includes(search) || role.includes(search) || industry.includes(search);
-                var statusMatch = (status === "all") || (driveStatus === status);
-
-                if (searchMatch && statusMatch) {
-                    drive.style.display = "";
-                    if (drive.parentElement && drive.parentElement.tagName === "SPAN") {
-                        drive.parentElement.style.display = "";
-                    }
-                    found++;
-                } else {
-                    drive.style.display = "none";
-                    if (drive.parentElement && drive.parentElement.tagName === "SPAN") {
-                        drive.parentElement.style.display = "none";
-                    }
-                }
-            });
-
-            var noResult = document.getElementById("noResultMessage");
-            if (noResult) {
-                noResult.style.display = (found === 0) ? "block" : "none";
-            }
-        }
-
-        function clearFilters() {
-            var searchBox = document.getElementById("<%= txtSearch.ClientID %>");
-            var statusBox = document.getElementById("<%= ddlStatus.ClientID %>");
-
-            if (searchBox) searchBox.value = "";
-            if (statusBox) statusBox.value = "all";
-
-            filterDrives();
-        }
-    </script>
 </asp:Content>

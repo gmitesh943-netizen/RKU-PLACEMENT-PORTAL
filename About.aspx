@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.About" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.About" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -17,10 +17,10 @@
                     </div>
                     <p class="mb-4">Empowering students by bridging the gap between academia and corporate world. Providing quality training and dream placements.</p>
                     <div class="footer-social-links" id="footerSocials">
-                        <a href="#" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" title="Twitter" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="#" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="#" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://facebook.com" target="_blank" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://twitter.com" target="_blank" title="X (Twitter)" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://linkedin.com" target="_blank" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://instagram.com" target="_blank" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
                     </div>
                 </div>
 
@@ -28,12 +28,11 @@
                 <div class="col-lg-3 col-md-6">
                     <h5>Quick Links</h5>
                     <ul class="footer-links" id="footerQuickLinks">
-                        <li><a href="Index.aspx">About Us</a></li>
+                        <li><a href="About.aspx">About Us</a></li>
                         <li><a href="#">Academics</a></li>
-                        <li><a href="#">Placement Drives</a></li>
-                        <li><a href="#">Companies</a></li>
-
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="PlacementCampusDrives.aspx">Placement Drives</a></li>
+                        <li><a href="Companies.aspx">Companies</a></li>
+                        <li><a href="Contact.aspx">Contact Us</a></li>
                     </ul>
                 </div>
 
@@ -42,9 +41,9 @@
                     <h5>Students</h5>
                     <ul class="footer-links" id="footerStudentLinks">
                         <li><a href="Register.aspx">Student Registration</a></li>
-                        <li><a href="#">Student Login</a></li>
-                        <li><a href="#">Available Jobs</a></li>
-                        <li><a href="#">Applied Jobs</a></li>
+                        <li><a href="Login.aspx">Student Login</a></li>
+                        <li><a href="PlacementCampusDrives.aspx">Available Jobs</a></li>
+                        <li><a href="StudentApplications.aspx">Applied Jobs</a></li>
                         <li><a href="#">Interview Schedule</a></li>
                         <li><a href="#">Resume Builder</a></li>
                     </ul>
@@ -65,7 +64,7 @@
                         </p>
                         <p>
                             <i class="fa-solid fa-envelope"></i>
-                            <a href="mailto:placement@rku.ac.in" class="text-white-50" id="linkFooterEmail">placement@rku.ac.in</a>
+                            <a href="mailto:placement@rku.ac.in" id="linkFooterEmail">placement@rku.ac.in</a>
                         </p>
                     </div>
                 </div>
@@ -82,9 +81,9 @@
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <div class="footer-links d-inline-flex gap-3 mb-0" id="footerBottomLinks">
-                            <a href="#" class="text-white-50" style="font-size: 0.8rem;">Privacy Policy</a>
-                            <span class="text-white-50">|</span>
-                            <a href="#" class="text-white-50" style="font-size: 0.8rem;">Terms of Service</a>
+                            <a href="#" style="font-size: 0.8rem;">Privacy Policy</a>
+                            <span style="color: rgba(255, 255, 255, 0.7);">|</span>
+                            <a href="#" style="font-size: 0.8rem;">Terms of Service</a>
                         </div>
                     </div>
                 </div>

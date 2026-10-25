@@ -14,10 +14,16 @@ namespace RKU_PLACEMENT_PORTAL
     {
         SqlConnection con;
         SqlCommand cmd;
-        SqlDataAdapter da;
-        DataSet ds;
+
+        AdminContactInquiriesClass inquiryClass;
 
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
+
+        void getcon()
+        {
+            con = new SqlConnection(s);
+            con.Open();
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,24 +33,42 @@ namespace RKU_PLACEMENT_PORTAL
             }
         }
 
-        void getcon()
+        void filtergrid(DataTable dt)
         {
-            con = new SqlConnection(s);
-            con.Open();
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+
+            if (lblInquiryCount != null)
+            {
+                lblInquiryCount.Text = (dt != null ? dt.Rows.Count : 0).ToString();
+            }
         }
 
         void GridContact()
         {
-            getcon();
-            da = new SqlDataAdapter("select * from contact order by id desc", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            GridView1.DataSource = ds;
-            GridView1.DataBind();
-            if (lblInquiryCount != null)
-            {
-                lblInquiryCount.Text = ds.Tables[0].Rows.Count.ToString();
-            }
+            inquiryClass = new AdminContactInquiriesClass();
+            filtergrid(inquiryClass.select_all_inquiries().Tables[0]);
+        }
+
+        //<----------- Search/Filter --------------->
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            inquiryClass = new AdminContactInquiriesClass();
+            filtergrid(inquiryClass.filter_inquiries(inquirySearchInput.Text, inquiryDeptFilter.SelectedValue).Tables[0]);
+        }
+
+        protected void inquiryDeptFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            inquiryClass = new AdminContactInquiriesClass();
+            filtergrid(inquiryClass.filter_inquiries(inquirySearchInput.Text, inquiryDeptFilter.SelectedValue).Tables[0]);
+        }
+
+        protected void btnReset_Click(object sender, EventArgs e)
+        {
+            inquirySearchInput.Text = "";
+            inquiryDeptFilter.SelectedIndex = 0;
+            GridContact();
         }
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)

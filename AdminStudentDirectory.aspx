@@ -407,6 +407,8 @@
         </div>
     </div>
 
+    <asp:HiddenField ID="hfActiveTab" runat="server" Value="students" />
+
     <!-- Modern Pill Tab Navigation -->
     <ul class="nav directory-tabs" id="directoryTabs" role="tablist">
         <li class="nav-item" role="presentation">
@@ -439,18 +441,20 @@
                         <div class="col-md-7 d-flex gap-2 flex-wrap flex-sm-nowrap justify-content-end">
                             <div class="input-group input-group-sm" style="max-width: 320px;">
                                 <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
-                                <input type="text" class="form-control form-control-sm border-start-0" id="studentSearchInput" placeholder="Search by name, roll, email, branch..." onkeyup="filterStudentTable()">
+                                <asp:TextBox ID="studentSearchInput" runat="server" CssClass="form-control form-control-sm border-start-0" placeholder="Search by name, roll, email, branch..."></asp:TextBox>
+                                <asp:Button ID="btnStudentSearch" runat="server" Text="Search" OnClick="btnStudentSearch_Click" CssClass="btn btn-sm btn-danger px-2.5 fw-semibold" Style="border-radius: 0 8px 8px 0;" />
                             </div>
-                            <select class="form-select form-select-sm" id="studentBranchFilter" onchange="filterStudentTable()" style="border-radius: 8px; min-width: 140px; max-width: 170px;">
-                                <option value="all">All Branches</option>
-                                <option value="Computer Science">Computer Science / IT</option>
-                                <option value="BCA">BCA</option>
-                                <option value="MCA">MCA</option>
-                                <option value="Computer Engineering">Computer Eng</option>
-                                <option value="Information Technology">Information Tech</option>
-                                <option value="Mechanical Engineering">Mechanical</option>
-                                <option value="Civil Engineering">Civil</option>
-                            </select>
+                            <asp:DropDownList ID="studentBranchFilter" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="studentBranchFilter_SelectedIndexChanged" Style="border-radius: 8px; min-width: 140px; max-width: 170px;">
+                                <asp:ListItem Value="all" Text="All Branches" Selected="True"></asp:ListItem>
+                                <asp:ListItem Value="Computer Science" Text="Computer Science / IT"></asp:ListItem>
+                                <asp:ListItem Value="BCA" Text="BCA"></asp:ListItem>
+                                <asp:ListItem Value="MCA" Text="MCA"></asp:ListItem>
+                                <asp:ListItem Value="Computer Engineering" Text="Computer Eng"></asp:ListItem>
+                                <asp:ListItem Value="Information Technology" Text="Information Tech"></asp:ListItem>
+                                <asp:ListItem Value="Mechanical Engineering" Text="Mechanical"></asp:ListItem>
+                                <asp:ListItem Value="Civil Engineering" Text="Civil"></asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:Button ID="btnResetStudent" runat="server" Text="Reset" OnClick="btnResetStudent_Click" CssClass="btn btn-sm btn-light border px-2.5 fw-semibold" Style="border-radius: 8px;" />
                         </div>
                     </div>
                 </div>
@@ -572,16 +576,18 @@
                         <div class="col-md-7 d-flex gap-2 flex-wrap flex-sm-nowrap justify-content-end">
                             <div class="input-group input-group-sm" style="max-width: 320px;">
                                 <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
-                                <input type="text" class="form-control form-control-sm border-start-0" id="companySearchInput" placeholder="Search company, industry, location..." onkeyup="filterCompanyTable()">
+                                <asp:TextBox ID="companySearchInput" runat="server" CssClass="form-control form-control-sm border-start-0" placeholder="Search company, industry, location..."></asp:TextBox>
+                                <asp:Button ID="btnCompanySearch" runat="server" Text="Search" OnClick="btnCompanySearch_Click" CssClass="btn btn-sm btn-danger px-2.5 fw-semibold" Style="border-radius: 0 8px 8px 0;" />
                             </div>
-                            <select class="form-select form-select-sm" id="companyIndustryFilter" onchange="filterCompanyTable()" style="border-radius: 8px; min-width: 140px; max-width: 170px;">
-                                <option value="all">All Industries</option>
-                                <option value="Information Technology">Information Tech</option>
-                                <option value="Software Development">Software Dev</option>
-                                <option value="Consulting">Consulting</option>
-                                <option value="Finance">Finance &amp; Banking</option>
-                                <option value="Manufacturing">Manufacturing</option>
-                            </select>
+                            <asp:DropDownList ID="companyIndustryFilter" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="companyIndustryFilter_SelectedIndexChanged" Style="border-radius: 8px; min-width: 140px; max-width: 170px;">
+                                <asp:ListItem Value="all" Text="All Industries" Selected="True"></asp:ListItem>
+                                <asp:ListItem Value="Information Technology" Text="Information Tech"></asp:ListItem>
+                                <asp:ListItem Value="Software Development" Text="Software Dev"></asp:ListItem>
+                                <asp:ListItem Value="Consulting" Text="Consulting"></asp:ListItem>
+                                <asp:ListItem Value="Finance" Text="Finance &amp; Banking"></asp:ListItem>
+                                <asp:ListItem Value="Manufacturing" Text="Manufacturing"></asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:Button ID="btnResetCompany" runat="server" Text="Reset" OnClick="btnResetCompany_Click" CssClass="btn btn-sm btn-light border px-2.5 fw-semibold" Style="border-radius: 8px;" />
                         </div>
                     </div>
                 </div>
@@ -1014,40 +1020,29 @@
             companyDrawerInst.show();
         }
 
-        function filterStudentTable() {
-            var query = document.getElementById('studentSearchInput').value.toLowerCase();
-            var branch = document.getElementById('studentBranchFilter').value.toLowerCase();
-            var rows = document.querySelectorAll('#students-pane table tbody tr:not(:first-child)');
-
-            rows.forEach(function (row) {
-                var text = row.innerText.toLowerCase();
-                var matchesSearch = text.indexOf(query) > -1;
-                var matchesBranch = branch === 'all' || text.indexOf(branch) > -1;
-
-                if (matchesSearch && matchesBranch) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
+        document.addEventListener('DOMContentLoaded', function () {
+            var hf = document.getElementById('<%= hfActiveTab.ClientID %>');
+            if (hf && hf.value === 'companies') {
+                var compTabEl = document.getElementById('companies-tab');
+                if (compTabEl) {
+                    var compTab = new bootstrap.Tab(compTabEl);
+                    compTab.show();
                 }
-            });
-        }
+            }
 
-        function filterCompanyTable() {
-            var query = document.getElementById('companySearchInput').value.toLowerCase();
-            var industry = document.getElementById('companyIndustryFilter').value.toLowerCase();
-            var rows = document.querySelectorAll('#companies-pane table tbody tr:not(:first-child)');
+            var stTabEl = document.getElementById('students-tab');
+            if (stTabEl) {
+                stTabEl.addEventListener('shown.bs.tab', function () {
+                    if (hf) hf.value = 'students';
+                });
+            }
 
-            rows.forEach(function (row) {
-                var text = row.innerText.toLowerCase();
-                var matchesSearch = text.indexOf(query) > -1;
-                var matchesIndustry = industry === 'all' || text.indexOf(industry) > -1;
-
-                if (matchesSearch && matchesIndustry) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        }
+            var cpTabEl = document.getElementById('companies-tab');
+            if (cpTabEl) {
+                cpTabEl.addEventListener('shown.bs.tab', function () {
+                    if (hf) hf.value = 'companies';
+                });
+            }
+        });
     </script>
 </asp:Content>

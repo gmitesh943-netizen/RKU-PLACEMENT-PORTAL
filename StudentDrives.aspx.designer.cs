@@ -69,6 +69,15 @@ namespace RKU_PLACEMENT_PORTAL
         protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
         /// <summary>
+        /// btnSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSearch;
+
+        /// <summary>
         /// ddlStatus control.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace RKU_PLACEMENT_PORTAL
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataList DataList1;
+
+        /// <summary>
+        /// noResultMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl noResultMessage;
 
         /// <summary>
         /// hfAlertType control.

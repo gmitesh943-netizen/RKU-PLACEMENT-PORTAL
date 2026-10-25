@@ -2,7 +2,7 @@
    RK University Placement Portal - Custom JavaScript
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+function initPortalMain() {
     // 1. Initialize Stat Counters (Animate numbers on scroll)
     initCounters();
 
@@ -11,7 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Dynamic navbar updates based on session authentication
     updateNavbarSession();
-});
+
+    // 4. Initialize FAQ Accordion Toggle
+    initFaqAccordion();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPortalMain);
+} else {
+    initPortalMain();
+}
 
 /**
  * Check if user is logged in and adjust navbar links accordingly
@@ -61,39 +70,43 @@ function updateNavbarSession() {
  */
 function initCounters() {
     const counters = document.querySelectorAll('.counter-value');
-    const speed = 200; // The lower the slower
+    if (!counters || counters.length === 0) return;
+    const speed = 100; // Smooth animation speed
 
     const startCounter = (counter) => {
-        const updateCount = () => {
-            const target = +counter.getAttribute('data-target');
-            const count = +counter.innerText.replace(/[+,%]/g, '');
-            const isPercentage = counter.getAttribute('data-target-type') === 'percent';
-            const isCurrency = counter.getAttribute('data-target-type') === 'currency';
-            
-            // Calculate increment
-            const inc = target / speed;
+        if (counter.dataset.started === 'true') return;
+        counter.dataset.started = 'true';
 
-            if (count < target) {
-                // Add increment and check if it exceeds target
-                let nextVal = count + inc;
-                if (nextVal > target) nextVal = target;
-                
-                // Format output
-                let formattedVal = Math.ceil(nextVal);
+        const target = +counter.getAttribute('data-target') || 0;
+        const isPercentage = counter.getAttribute('data-target-type') === 'percent';
+        const isCurrency = counter.getAttribute('data-target-type') === 'currency';
+        const isK = counter.getAttribute('data-target-type') === 'k';
+
+        // Calculate increment
+        const inc = Math.max(target / speed, 0.2);
+        let current = 0;
+
+        const updateCount = () => {
+            current += inc;
+            if (current < target) {
+                let formattedVal = Math.ceil(current);
                 if (isPercentage) {
                     counter.innerText = formattedVal + '%';
                 } else if (isCurrency) {
                     counter.innerText = formattedVal + ' LPA';
+                } else if (isK) {
+                    counter.innerText = formattedVal + 'K+';
                 } else {
                     counter.innerText = formattedVal + '+';
                 }
-                
-                setTimeout(updateCount, 1);
+                setTimeout(updateCount, 15);
             } else {
                 if (isPercentage) {
                     counter.innerText = target + '%';
                 } else if (isCurrency) {
                     counter.innerText = target + ' LPA';
+                } else if (isK) {
+                    counter.innerText = target + 'K+';
                 } else {
                     counter.innerText = target + '+';
                 }
@@ -102,23 +115,81 @@ function initCounters() {
         updateCount();
     };
 
-    // Intersection Observer to trigger counter when visible
-    const observerOptions = {
-        threshold: 0.5
-    };
+    if ('IntersectionObserver' in window) {
+        const observerOptions = {
+            threshold: 0.15
+        };
 
-    const counterObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counter = entry.target;
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+    }
+
+    // Safety fallback: if not triggered within 700ms, start counters directly
+    setTimeout(() => {
+        counters.forEach(counter => {
+            if (counter.dataset.started !== 'true') {
                 startCounter(counter);
-                counterObserver.unobserve(counter);
             }
         });
-    }, observerOptions);
+    }, 700);
+}
 
-    counters.forEach(counter => {
-        counterObserver.observe(counter);
+/**
+ * Initialize FAQ Accordion with smooth toggle and Bootstrap fallback
+ */
+function initFaqAccordion() {
+    const faqButtons = document.querySelectorAll('.faq-pill-btn');
+    if (!faqButtons || faqButtons.length === 0) return;
+
+    faqButtons.forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetSelector = this.getAttribute('data-bs-target') || this.getAttribute('data-target');
+            if (!targetSelector) return;
+            const targetEl = document.querySelector(targetSelector);
+            if (!targetEl) return;
+
+            const isCurrentlyOpen = targetEl.classList.contains('show');
+
+            // Close other items in the accordion group
+            const parentAccordion = document.getElementById('faqAccordion');
+            if (parentAccordion) {
+                parentAccordion.querySelectorAll('.collapse').forEach(panel => {
+                    if (panel !== targetEl) {
+                        panel.classList.remove('show');
+                        panel.style.display = 'none';
+                    }
+                });
+                parentAccordion.querySelectorAll('.faq-pill-btn').forEach(otherBtn => {
+                    if (otherBtn !== btn) {
+                        otherBtn.classList.add('collapsed');
+                        otherBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+
+            if (isCurrentlyOpen) {
+                targetEl.classList.remove('show');
+                targetEl.style.display = 'none';
+                this.classList.add('collapsed');
+                this.setAttribute('aria-expanded', 'false');
+            } else {
+                targetEl.classList.add('show');
+                targetEl.style.display = 'block';
+                this.classList.remove('collapsed');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
     });
 }
 

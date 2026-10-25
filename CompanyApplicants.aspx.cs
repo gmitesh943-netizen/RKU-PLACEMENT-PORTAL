@@ -16,10 +16,13 @@ namespace RKU_PLACEMENT_PORTAL
         SqlDataAdapter da;
         DataSet ds;
         SqlCommand cmd;
+        CompanyApplicantsClass compClass;
 
         string compName;
         string compUsername;
         string compEmail;
+        string compUser;
+        string compCond;
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
         void getcon()
@@ -28,48 +31,46 @@ namespace RKU_PLACEMENT_PORTAL
             con.Open();
         }
 
-        void fillgrid()
+        string getCompanyUser()
         {
-            getcon();
-            string query = "";
+            if (ViewState["compEmail"] != null && !string.IsNullOrEmpty(ViewState["compEmail"].ToString()))
+            {
+                return ViewState["compEmail"].ToString();
+            }
+            if (ViewState["compUsername"] != null && !string.IsNullOrEmpty(ViewState["compUsername"].ToString()))
+            {
+                return ViewState["compUsername"].ToString();
+            }
+            return Session["company"] != null ? Session["company"].ToString() : "";
+        }
 
-            if (ddlDriveFilter.SelectedValue != "0" && ddlStatusFilter.SelectedValue != "All")
-            {
-                query = "select * from Company_Applications where (CompanyUsername='" + ViewState["compUsername"] + "' or CompanyUsername='" + ViewState["compEmail"] + "' or CompanyUsername is null) and DriveId='" + ddlDriveFilter.SelectedValue + "' and ApplicationStatus='" + ddlStatusFilter.SelectedValue + "' order by Id desc";
-            }
-            else if (ddlDriveFilter.SelectedValue != "0")
-            {
-                query = "select * from Company_Applications where (CompanyUsername='" + ViewState["compUsername"] + "' or CompanyUsername='" + ViewState["compEmail"] + "' or CompanyUsername is null) and DriveId='" + ddlDriveFilter.SelectedValue + "' order by Id desc";
-            }
-            else if (ddlStatusFilter.SelectedValue != "All")
-            {
-                query = "select * from Company_Applications where (CompanyUsername='" + ViewState["compUsername"] + "' or CompanyUsername='" + ViewState["compEmail"] + "' or CompanyUsername is null) and ApplicationStatus='" + ddlStatusFilter.SelectedValue + "' order by Id desc";
-            }
-            else
-            {
-                query = "select * from Company_Applications where CompanyUsername='" + ViewState["compUsername"] + "' or CompanyUsername='" + ViewState["compEmail"] + "' or CompanyUsername is null order by Id desc";
-            }
-            da = new SqlDataAdapter(query, con);
-            ds = new DataSet();
-            da.Fill(ds);
-            GridView1.DataSource = ds;
+        void filtergrid(DataTable dt)
+        {
+            GridView1.DataSource = dt;
             GridView1.DataBind();
 
-            //application count code 
-            if (ds.Tables[0].Rows.Count > 0)
+            if (dt != null && dt.Rows.Count > 0)
             {
-                lblApplicantCount.Text = ds.Tables[0].Rows.Count.ToString();
+                lblApplicantCount.Text = dt.Rows.Count.ToString();
             }
             else
             {
                 lblApplicantCount.Text = "0";
             }
-            con.Close();
         }
+
+        void fillgrid()
+        {
+            compClass = new CompanyApplicantsClass();
+            filtergrid(compClass.select_all_applicants(getCompanyUser()).Tables[0]);
+        }
+
         void loadDrives()
         {
             getcon();
-            da = new SqlDataAdapter("select Id, JobRole, PackageOffered from Company_Drives where CompanyUsername='" + ViewState["compUsername"] + "' or CompanyUsername='" + ViewState["compEmail"] + "'", con);
+            compUser = getCompanyUser();
+            compCond = "(CompanyUsername='" + compUser + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + compUser + "' or compUsername='" + compUser + "') or CompanyUsername in (select compEmail from register_auth_company where compEmail='" + compUser + "' or compUsername='" + compUser + "'))";
+            da = new SqlDataAdapter("select Id, JobRole, PackageOffered from Company_Drives where " + compCond, con);
             ds = new DataSet();
             da.Fill(ds);
 
@@ -79,23 +80,17 @@ namespace RKU_PLACEMENT_PORTAL
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 string text = ds.Tables[0].Rows[i]["JobRole"].ToString() + " (" + ds.Tables[0].Rows[i]["PackageOffered"].ToString() + ")";
+
+                //Add the job drive to the DropDownList with its ID as the value
                 ddlDriveFilter.Items.Add(new ListItem(text, ds.Tables[0].Rows[i]["Id"].ToString()));
             }
         }
+
         void fillStats()
         {
             getcon();
-            string compCond = "(CompanyUsername='" + ViewState["compUsername"] + "' or CompanyUsername='" + ViewState["compEmail"] + "' or CompanyUsername is null)";
-
-            // Check if applications exist for this company
-            da = new SqlDataAdapter("select count(*) from Company_Applications where " + compCond, con);
-            ds = new DataSet();
-            da.Fill(ds);
-
-            if (Convert.ToInt32(ds.Tables[0].Rows[0][0]) == 0)
-            {
-                compCond = "1=1";
-            }
+            string compUser = getCompanyUser();
+            string compCond = "(CompanyUsername='" + compUser + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + compUser + "' or compUsername='" + compUser + "') or CompanyUsername in (select compEmail from register_auth_company where compEmail='" + compUser + "' or compUsername='" + compUser + "') or DriveId in (select Id from Company_Drives where CompanyUsername='" + compUser + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + compUser + "' or compUsername='" + compUser + "') or CompanyUsername in (select compEmail from register_auth_company where compEmail='" + compUser + "' or compUsername='" + compUser + "')))";
 
             // Total Applications
             da = new SqlDataAdapter("select count(*) from Company_Applications where " + compCond, con);
@@ -121,6 +116,7 @@ namespace RKU_PLACEMENT_PORTAL
             da.Fill(ds);
             statPending.InnerText = ds.Tables[0].Rows[0][0].ToString();
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["company"] != null)
@@ -145,7 +141,7 @@ namespace RKU_PLACEMENT_PORTAL
                     ViewState["compUsername"] = Session["company"].ToString();
                     ViewState["compEmail"] = Session["company"].ToString();
                 }
-             
+
                 if (!IsPostBack)
                 {
                     loadDrives();
@@ -158,27 +154,55 @@ namespace RKU_PLACEMENT_PORTAL
                 Response.Redirect("Login.aspx");
             }
         }
+
+        //<----------- Search/Filter --------------->
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            compClass = new CompanyApplicantsClass();
+            filtergrid(compClass.search_applicants(txtSearch.Text, getCompanyUser()).Tables[0]);
+        }
+
+        // Driver filter
         protected void ddlDriveFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            fillgrid();
+            compClass = new CompanyApplicantsClass();
+            filtergrid(compClass.select_applicants_by_drive(ddlDriveFilter.SelectedValue, getCompanyUser()).Tables[0]);
         }
+
+        // Status filter
         protected void ddlStatusFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
+            compClass = new CompanyApplicantsClass();
+            filtergrid(compClass.select_applicants_by_status(ddlStatusFilter.SelectedValue, getCompanyUser()).Tables[0]);
+        }
+
+        // Clear button
+        protected void btnClearFilters_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = "";
+            ddlDriveFilter.SelectedIndex = 0;
+            ddlStatusFilter.SelectedIndex = 0;
             fillgrid();
         }
+
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 DropDownList ddl = (DropDownList)e.Row.FindControl("ddlRowStatus");
+
+                //read and extract column values GridView row at runtime without needing  type-casting.
                 string status = DataBinder.Eval(e.Row.DataItem, "ApplicationStatus").ToString();
 
+                //DropDownList all ListItem  check kare valyu valo  option che e check kare 
                 if (ddl != null && ddl.Items.FindByValue(status) != null)
                 {
                     ddl.SelectedValue = status;
                 }
             }
         }
+
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "UpdateStatus")
@@ -193,7 +217,7 @@ namespace RKU_PLACEMENT_PORTAL
 
                 cmd = new SqlCommand("update Company_Applications set ApplicationStatus='" + status + "' where Id='" + appId + "'", con);
                 cmd.ExecuteNonQuery();
-                con.Close();
+
                 fillgrid();
                 fillStats();
             }
@@ -219,6 +243,7 @@ namespace RKU_PLACEMENT_PORTAL
                 }
             }
         }
+
         protected void btnSaveSchedule_Click(object sender, EventArgs e)
         {
             getcon();

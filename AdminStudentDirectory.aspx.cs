@@ -13,9 +13,9 @@ namespace RKU_PLACEMENT_PORTAL
     public partial class AdminStudentDirectory : System.Web.UI.Page
     {
         SqlConnection con;
-        SqlDataAdapter da;
-        DataSet ds;
         SqlCommand cmd;
+
+        AdminStudentDirectoryClass dirClass;
 
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
@@ -24,45 +24,98 @@ namespace RKU_PLACEMENT_PORTAL
             con = new SqlConnection(s);
             con.Open();
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                getcon();
                 GridStudent();
                 GridCompany();
             }
         }
-        void GridStudent()
-        {
-            getcon();
-            da = new SqlDataAdapter("select * from register_auth order by Id desc", con);
-            ds = new DataSet();
-            da.Fill(ds);
 
-            GridView1.DataSource = ds;
+        void filterStudentGrid(DataTable dt)
+        {
+            GridView1.DataSource = dt;
             GridView1.DataBind();
 
             if (lblStudentCount != null)
             {
-                lblStudentCount.Text = ds.Tables[0].Rows.Count.ToString();
+                lblStudentCount.Text = (dt != null ? dt.Rows.Count : 0).ToString();
             }
         }
 
-        void GridCompany()
+        void filterCompanyGrid(DataTable dt)
         {
-            getcon();
-            da = new SqlDataAdapter("select * from register_auth_company order by Id desc", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            GridView2.DataSource = ds;
+            GridView2.DataSource = dt;
             GridView2.DataBind();
 
             if (lblCompanyCount != null)
             {
-                lblCompanyCount.Text = ds.Tables[0].Rows.Count.ToString();
+                lblCompanyCount.Text = (dt != null ? dt.Rows.Count : 0).ToString();
             }
         }
+
+        void GridStudent()
+        {
+            dirClass = new AdminStudentDirectoryClass();
+            filterStudentGrid(dirClass.select_all_students().Tables[0]);
+        }
+
+        void GridCompany()
+        {
+            dirClass = new AdminStudentDirectoryClass();
+            filterCompanyGrid(dirClass.select_all_companies().Tables[0]);
+        }
+
+        //<----------- Student Search/Filter --------------->
+
+        protected void btnStudentSearch_Click(object sender, EventArgs e)
+        {
+            hfActiveTab.Value = "students";
+            dirClass = new AdminStudentDirectoryClass();
+            filterStudentGrid(dirClass.search_students(studentSearchInput.Text).Tables[0]);
+        }
+
+        protected void studentBranchFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            hfActiveTab.Value = "students";
+            dirClass = new AdminStudentDirectoryClass();
+            filterStudentGrid(dirClass.select_students_by_branch(studentBranchFilter.SelectedValue).Tables[0]);
+        }
+
+        protected void btnResetStudent_Click(object sender, EventArgs e)
+        {
+            hfActiveTab.Value = "students";
+            studentSearchInput.Text = "";
+            studentBranchFilter.SelectedIndex = 0;
+            GridStudent();
+        }
+
+        //<----------- Company Search/Filter --------------->
+
+        protected void btnCompanySearch_Click(object sender, EventArgs e)
+        {
+            hfActiveTab.Value = "companies";
+            dirClass = new AdminStudentDirectoryClass();
+            filterCompanyGrid(dirClass.search_companies(companySearchInput.Text).Tables[0]);
+        }
+
+        protected void companyIndustryFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            hfActiveTab.Value = "companies";
+            dirClass = new AdminStudentDirectoryClass();
+            filterCompanyGrid(dirClass.select_companies_by_industry(companyIndustryFilter.SelectedValue).Tables[0]);
+        }
+
+        protected void btnResetCompany_Click(object sender, EventArgs e)
+        {
+            hfActiveTab.Value = "companies";
+            companySearchInput.Text = "";
+            companyIndustryFilter.SelectedIndex = 0;
+            GridCompany();
+        }
+
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "cmd_del")

@@ -321,14 +321,16 @@
                 <div class="col-md-8 d-flex gap-2 flex-wrap flex-sm-nowrap justify-content-end align-items-center">
                     <div class="input-group input-group-sm" style="max-width: 280px;">
                         <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
-                        <asp:TextBox ID="driveSearchInput" runat="server" CssClass="form-control form-control-sm border-start-0" placeholder="Search role, company, venue..." ClientIDMode="Static" onkeyup="filterDrives()"></asp:TextBox>
+                        <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control form-control-sm border-start-0" placeholder="Search role, company, venue..."></asp:TextBox>
+                        <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" CssClass="btn btn-sm btn-danger px-2.5 fw-semibold" Style="border-radius: 0 8px 8px 0;" />
                     </div>
-                    <div class="d-flex gap-1.5" id="studentDriveFilterTabs">
-                        <asp:Button ID="btnFilterAll" runat="server" CssClass="btn btn-sm filter-tab-btn active" Text="All Drives" OnClientClick="setStudentDriveFilter('all', this); return false;" />
-                        <asp:Button ID="btnFilterOpen" runat="server" CssClass="btn btn-sm filter-tab-btn" Text="Open" OnClientClick="setStudentDriveFilter('open', this); return false;" />
-                        <asp:Button ID="btnFilterClosed" runat="server" CssClass="btn btn-sm filter-tab-btn" Text="Closed" OnClientClick="setStudentDriveFilter('closed', this); return false;" />
-                    </div>
-                    <asp:Label ID="driveCountLabel" runat="server" CssClass="tab-count-badge" ClientIDMode="Static" Text="0 Drives" style="font-size: 0.8rem; padding: 5px 12px;"></asp:Label>
+                    <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" Style="border-radius: 8px; font-weight: 500; width: auto; max-width: 140px;">
+                        <asp:ListItem Value="All" Text="All Drives" Selected="True"></asp:ListItem>
+                        <asp:ListItem Value="Open" Text="Open"></asp:ListItem>
+                        <asp:ListItem Value="Closed" Text="Closed"></asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:Button ID="btnClearFilters" runat="server" Text="Reset" OnClick="btnClearFilters_Click" CssClass="btn btn-sm btn-light border px-2.5 fw-semibold" Style="border-radius: 8px;" />
+                    <asp:Label ID="driveCountLabel" runat="server" CssClass="tab-count-badge" Text="0 Drives" style="font-size: 0.8rem; padding: 5px 12px;"></asp:Label>
                 </div>
             </div>
         </div>
@@ -429,7 +431,7 @@
                 </asp:DataList>
 
                 <!-- Empty State Message -->
-                <div id="noDrivesMessage" class="text-center text-muted small py-5" style="display: none;">
+                <div id="noDrivesMessage" runat="server" visible="false" class="text-center text-muted small py-5">
                     <i class="fa-solid fa-briefcase text-muted opacity-25 mb-3" style="font-size: 3rem;"></i>
                     <h6 class="fw-bold text-dark font-heading">No campus drives found</h6>
                     <p class="text-muted small">No recruitment drives match your current search or filter criteria.</p>
@@ -520,7 +522,6 @@
 
     <!-- Client-Side Filtering and Side Drawer Script -->
     <script>
-        let studentDriveFilter = 'all';
         let driveDrawerInst = null;
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -529,51 +530,7 @@
 
             const titleBar = document.getElementById('panelTitleBar');
             if (titleBar) titleBar.textContent = 'Campus Placement Drives';
-
-            filterDrives();
         });
-
-        function setStudentDriveFilter(filter, el) {
-            studentDriveFilter = filter;
-            document.querySelectorAll('#studentDriveFilterTabs .filter-tab-btn').forEach(btn => btn.classList.remove('active'));
-            if (el) el.classList.add('active');
-            filterDrives();
-        }
-
-        function filterDrives() {
-            const search = document.getElementById('driveSearchInput');
-            const query = search ? (search.value || '').toLowerCase().trim() : '';
-            const rows = document.querySelectorAll('.dir-grid-trow');
-            let visibleCount = 0;
-
-            rows.forEach(row => {
-                const searchText = (row.getAttribute('data-search') || '').toLowerCase();
-                const status = (row.getAttribute('data-status') || '').toLowerCase();
-
-                const matchesSearch = !query || searchText.includes(query);
-                let matchesFilter = true;
-
-                if (studentDriveFilter === 'open') {
-                    matchesFilter = (status === 'open');
-                } else if (studentDriveFilter === 'closed') {
-                    matchesFilter = (status === 'closed');
-                }
-
-                const show = matchesSearch && matchesFilter;
-                row.style.setProperty('display', show ? 'flex' : 'none', 'important');
-                if (show) visibleCount++;
-            });
-
-            const countLabel = document.getElementById('driveCountLabel');
-            if (countLabel) {
-                countLabel.textContent = visibleCount + ' Drive' + (visibleCount !== 1 ? 's' : '');
-            }
-
-            const emptyState = document.getElementById('noDrivesMessage');
-            if (emptyState) {
-                emptyState.style.display = (visibleCount === 0) ? 'block' : 'none';
-            }
-        }
 
         function viewDriveFromBtn(btn) {
             const id = btn.getAttribute('data-id') || '';

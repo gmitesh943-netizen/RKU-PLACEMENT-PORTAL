@@ -14,6 +14,8 @@ namespace RKU_PLACEMENT_PORTAL
         DataSet ds;
         SqlCommand cmd;
 
+        AdminManageDrivesClass driveClass;
+
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
         void getcon()
@@ -31,15 +33,48 @@ namespace RKU_PLACEMENT_PORTAL
             }
         }
 
+        void filterdata(DataTable dt)
+        {
+            DataList1.DataSource = dt;
+            DataList1.DataBind();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                driveCountLabel.Text = dt.Rows.Count.ToString() + " Drives";
+                noDrivesMessage.Visible = false;
+            }
+            else
+            {
+                driveCountLabel.Text = "0 Drives";
+                noDrivesMessage.Visible = true;
+            }
+        }
+
         void datalist()
         {
-            getcon();
-            da = new SqlDataAdapter("select d.*, c.compName, c.compLogo, c.compIndustry from Company_Drives d left join register_auth_company c on (d.CompanyUsername = c.compUsername or d.CompanyUsername = c.compEmail) order by d.Id desc", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            DataList1.DataSource = ds;
-            DataList1.DataBind();
-            con.Close();
+            driveClass = new AdminManageDrivesClass();
+            filterdata(driveClass.select_all_drives().Tables[0]);
+        }
+
+        //<----------- Search/Filter --------------->
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            driveClass = new AdminManageDrivesClass();
+            filterdata(driveClass.search_drives(txtSearch.Text).Tables[0]);
+        }
+
+        protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            driveClass = new AdminManageDrivesClass();
+            filterdata(driveClass.select_drives_by_status(ddlStatus.SelectedValue).Tables[0]);
+        }
+
+        protected void btnClearFilters_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = "";
+            ddlStatus.SelectedIndex = 0;
+            datalist();
         }
 
         void updateStats()
@@ -77,8 +112,6 @@ namespace RKU_PLACEMENT_PORTAL
                 getcon();
                 cmd = new SqlCommand("delete from Company_Drives where Id='" + e.CommandArgument + "'", con);
                 cmd.ExecuteNonQuery();
-                con.Close();
-
                 datalist();
                 updateStats();
             }

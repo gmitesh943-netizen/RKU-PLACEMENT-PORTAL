@@ -1,4 +1,4 @@
-<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainMaster.master.cs" Inherits="RKU_PLACEMENT_PORTAL.MainMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainMaster.master.cs" Inherits="RKU_PLACEMENT_PORTAL.MainMaster" %>
 
 <!DOCTYPE html>
 
@@ -15,7 +15,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/style.css?v=2" rel="stylesheet">
+    <link href="css/style.css?v=3" rel="stylesheet">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
@@ -881,7 +881,7 @@
                             <!-- Stat 1: Students Placed -->
                             <div class="stat-highlight-item" id="statCardStudents">
                                 <span class="stat-watermark">10K+</span>
-                                <h3 class="stat-highlight-num counter-value" data-target="5000">0</h3>
+                                <h3 class="stat-highlight-num counter-value" data-target="10" data-target-type="k">0</h3>
                                 <div class="stat-highlight-title">Students Placed</div>
                                 <div class="stat-highlight-desc">Across top companies</div>
                             </div>
@@ -1508,6 +1508,9 @@
                     .story-nav-btn.prev-btn {
                         margin-right: -16px;
                     }
+                    .story-nav-btn.next-btn {
+                        margin-left: -16px;
+                    }
 
                     /* Carousel viewport & track */
                     .story-viewport {
@@ -1521,7 +1524,8 @@
                         width: 100%;
                     }
                     .story-track > span,
-                    .story-track > span > span {
+                    .story-track > span > span,
+                    .story-track > div {
                         display: contents;
                     }
                     .story-slide-item {
@@ -1882,6 +1886,10 @@
                                             </asp:DataList>
                                         </div>
                                     </div>
+                                    <!-- Next Arrow -->
+                                    <button type="button" class="story-nav-btn next-btn" onclick="nextStorySlide()" aria-label="Next Story">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
                                 </div>
 
                                 <!-- Dots -->
@@ -2275,90 +2283,91 @@
 
             <asp:ContentPlaceHolder ID="ContentPlaceHolder3" runat="server">
                 <footer class="footer pt-5" id="siteFooter">
-                    <div class="container px-lg-5">
-                        <div class="row g-4 pb-5">
+        <div class="container px-lg-5">
+            <div class="row g-4 pb-5">
 
-                            <!-- Column 1: About Info -->
-                            <div class="col-lg-3 col-md-6">
-                                <div class="footer-logo d-flex align-items-center mb-3">
-                                    <img src="assets/images/RKU LOGO.png" alt="RK University" class="me-2" style="height: 36px; width: auto; max-width: 220px; object-fit: contain;">
-                                </div>
-                                <p class="mb-4">Empowering students by bridging the gap between academia and corporate world. Providing quality training and dream placements.</p>
-                                <div class="footer-social-links" id="footerSocials">
-                                    <a href="#" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
-                                    <a href="#" title="Twitter" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
-                                    <a href="#" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
-                                    <a href="#" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
-                                </div>
-                            </div>
+                <!-- Column 1: About Info -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-logo d-flex align-items-center mb-3">
+                        <img src="assets/images/RKU LOGO.png" alt="RK University" class="me-2" style="height: 36px; width: auto; max-width: 220px; object-fit: contain;">
+                    </div>
+                    <p class="mb-4">Empowering students by bridging the gap between academia and corporate world. Providing quality training and dream placements.</p>
+                    <div class="footer-social-links" id="footerSocials">
+                        <a href="https://facebook.com" target="_blank" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://twitter.com" target="_blank" title="X (Twitter)" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://linkedin.com" target="_blank" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://instagram.com" target="_blank" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
 
-                            <!-- Column 2: Quick Links -->
-                            <div class="col-lg-3 col-md-6">
-                                <h5>Quick Links</h5>
-                                <ul class="footer-links" id="footerQuickLinks">
-                                    <li><a href="#">About Us</a></li>
-                                    <li><a href="#">Academics</a></li>
-                                    <li><a href="#">Placement Drives</a></li>
-                                    <li><a href="#">Companies</a></li>
+                <!-- Column 2: Quick Links -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links" id="footerQuickLinks">
+                        <li><a href="About.aspx">About Us</a></li>
+                        <li><a href="#">Academics</a></li>
+                        <li><a href="PlacementCampusDrives.aspx">Placement Drives</a></li>
+                        <li><a href="Companies.aspx">Companies</a></li>
+                        <li><a href="Contact.aspx">Contact Us</a></li>
+                    </ul>
+                </div>
 
-                                    <li><a href="#">Contact Us</a></li>
-                                </ul>
-                            </div>
+                <!-- Column 3: Students Links -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Students</h5>
+                    <ul class="footer-links" id="footerStudentLinks">
+                        <li><a href="Register.aspx">Student Registration</a></li>
+                        <li><a href="Login.aspx">Student Login</a></li>
+                        <li><a href="PlacementCampusDrives.aspx">Available Jobs</a></li>
+                        <li><a href="StudentApplications.aspx">Applied Jobs</a></li>
+                        <li><a href="#">Interview Schedule</a></li>
+                        <li><a href="#">Resume Builder</a></li>
+                    </ul>
+                </div>
 
-                            <!-- Column 3: Students Links -->
-                            <div class="col-lg-3 col-md-6">
-                                <h5>Students</h5>
-                                <ul class="footer-links" id="footerStudentLinks">
-                                    <li><a href="Register.aspx">Student Registration</a></li>
-                                    <li><a href="#">Student Login</a></li>
-                                    <li><a href="#">Available Jobs</a></li>
-                                    <li><a href="#">Applied Jobs</a></li>
-                                    <li><a href="#">Interview Schedule</a></li>
-                                    <li><a href="#">Resume Builder</a></li>
-                                </ul>
-                            </div>
+                <!-- Column 4: Contact Placement Cell -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Placement Cell</h5>
+                    <div class="footer-contact-info" id="footerContactInfo">
+                        <p>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>RK University, Rajkot - 360020,<br>
+                                Gujarat, India</span>
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-phone"></i>
+                            <span>+91 98765 43210</span>
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-envelope"></i>
+                            <a href="mailto:placement@rku.ac.in" id="linkFooterEmail">placement@rku.ac.in</a>
+                        </p>
+                    </div>
+                </div>
 
-                            <!-- Column 4: Contact Placement Cell -->
-                            <div class="col-lg-3 col-md-6">
-                                <h5>Placement Cell</h5>
-                                <div class="footer-contact-info" id="footerContactInfo">
-                                    <p>
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <span>RK University, Rajkot - 360020,<br>
-                                            Gujarat, India</span>
-                                    </p>
-                                    <p>
-                                        <i class="fa-solid fa-phone"></i>
-                                        <span>+91 98765 43210</span>
-                                    </p>
-                                    <p>
-                                        <i class="fa-solid fa-envelope"></i>
-                                        <a href="mailto:placement@rku.ac.in" class="text-white-50" id="linkFooterEmail">placement@rku.ac.in</a>
-                                    </p>
-                                </div>
-                            </div>
+            </div>
+        </div>
 
+        <!-- Bottom Copyright -->
+        <div class="footer-bottom">
+            <div class="container px-lg-5">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                        <p class="mb-0" id="copyrightText">&copy; 2026 RK University Placement Portal. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-links d-inline-flex gap-3 mb-0" id="footerBottomLinks">
+                            <a href="#" style="font-size: 0.8rem;">Privacy Policy</a>
+                            <span style="color: rgba(255, 255, 255, 0.7);">|</span>
+                            <a href="#" style="font-size: 0.8rem;">Terms of Service</a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-                    <!-- Bottom Copyright -->
-                    <div class="footer-bottom">
-                        <div class="container px-lg-5">
-                            <div class="row align-items-center">
-                                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
-                                    <p class="mb-0" id="copyrightText">&copy; 2026 RK University Placement Portal. All Rights Reserved.</p>
-                                </div>
-                                <div class="col-md-6 text-center text-md-end">
-                                    <div class="footer-links d-inline-flex gap-3 mb-0" id="footerBottomLinks">
-                                        <a href="#" class="text-white-50" style="font-size: 0.8rem;">Privacy Policy</a>
-                                        <span class="text-white-50">|</span>
-                                        <a href="#" class="text-white-50" style="font-size: 0.8rem;">Terms of Service</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+            </asp:ContentPlaceHolder>
 
                 <!-- Database -->
                 <script src="js/portal-db.js"></script>
@@ -2374,9 +2383,11 @@
 
                 <!-- Dynamic Data Loading -->
                 <script>
-                    document.addEventListener('DOMContentLoaded', () => {
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderDynamicIndexData);
+                    } else {
                         renderDynamicIndexData();
-                    });
+                    }
 
                     function renderDynamicIndexData() {
                         const companies = (window.PortalDB && typeof PortalDB.getCompanies === 'function') ? PortalDB.getCompanies() : [];
@@ -2573,8 +2584,7 @@
 
 
 
-</asp:ContentPlaceHolder>
-        </div>
+</div>
 
         <!-- Floating Quick Action & Helpdesk Widget -->
         <div class="rku-floating-widget" style="position: fixed; bottom: 25px; right: 25px; z-index: 1050;">

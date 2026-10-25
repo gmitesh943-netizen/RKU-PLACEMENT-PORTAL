@@ -26,7 +26,6 @@ namespace RKU_PLACEMENT_PORTAL
                 filldata();
             }
         }
-
         void getcon()
         {
             con = new SqlConnection(s);

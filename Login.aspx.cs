@@ -23,12 +23,9 @@ namespace RKU_PLACEMENT_PORTAL
         void getcon()
         {
             con = new SqlConnection(s);
-            if (con.State == ConnectionState.Closed)
-            {
-                con.Open();
-            }
+            con.Open();
         }
-
+        
         protected void Button1_Click(object sender, EventArgs e)
         {
             string role = hfSelectedRole.Value;

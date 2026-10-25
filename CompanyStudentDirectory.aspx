@@ -2,89 +2,143 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        /* Card & Layout Enhancements */
-        .page-header-box {
-            background: #ffffff;
-            border: 1px solid #e9ecef;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
-            padding: 1.25rem 1.5rem;
-            margin-bottom: 1.25rem;
+        :root {
+            --rku-orange-red: #ef3724;
+            --rku-orange-red-dark: #d82b19;
+            --rku-dark: #0f172a;
+            --rku-gray: #64748b;
+            --rku-light: #f8fafc;
+            --rku-border: #e2e8f0;
         }
 
-        .filter-container-box {
+        /* ─── HERO HEADER (Matching AdminDashboard) ─── */
+        .dash-hero-card {
             background: #ffffff;
-            border: 1px solid #eef2f6;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-            padding: 1.25rem;
-            margin-bottom: 1.25rem;
+            border: 1px solid var(--rku-border);
+            border-radius: 18px;
+            padding: 1.75rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
         }
 
-        /* Modern Badges & Indicators */
-        .roll-badge-pro {
+            .dash-hero-card::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 6px;
+                background: linear-gradient(180deg, var(--rku-orange-red) 0%, var(--rku-orange-red-dark) 100%);
+            }
+
+        .hero-badge-red {
+            background: rgba(239, 55, 36, 0.08);
+            border: 1px solid rgba(239, 55, 36, 0.2);
+            color: var(--rku-orange-red);
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            letter-spacing: 0.5px;
+        }
+
+        /* ─── CONTAINER CARD ─── */
+        .dash-card-white {
+            background: #ffffff;
+            border: 1px solid var(--rku-border);
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ─── BUTTONS ─── */
+        .btn-rku-orange {
+            background: linear-gradient(135deg, #ef3724 0%, #d82b19 100%) !important;
+            background-color: #ef3724 !important;
+            border: 1px solid #d82b19 !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            padding: 0.45rem 1.15rem !important;
+            border-radius: 50px !important;
+            font-size: 0.82rem !important;
+            transition: all 0.25s ease !important;
+            text-decoration: none !important;
+            display: inline-block !important;
+            text-align: center !important;
+            box-shadow: 0 4px 14px rgba(239, 55, 36, 0.25) !important;
+            cursor: pointer !important;
+        }
+
+            .btn-rku-orange:hover {
+                background: linear-gradient(135deg, #d82b19 0%, #a30f14 100%) !important;
+                background-color: #d82b19 !important;
+                border-color: #a30f14 !important;
+                color: #ffffff !important;
+                transform: translateY(-1px) !important;
+                box-shadow: 0 6px 18px rgba(239, 55, 36, 0.35) !important;
+            }
+
+        /* ─── CUSTOM DASH TABLE ─── */
+        .custom-dash-table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+        }
+
+            .custom-dash-table th {
+                background-color: #f8fafc;
+                color: var(--rku-dark);
+                font-size: 0.74rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.6px;
+                padding: 13px 14px;
+                border-bottom: 1px solid var(--rku-border);
+                white-space: nowrap;
+            }
+
+            .custom-dash-table td {
+                padding: 13px 14px;
+                vertical-align: middle;
+                border-bottom: 1px solid #f1f5f9;
+                font-size: 0.88rem;
+                background: #ffffff;
+                transition: background 0.15s ease;
+            }
+
+            .custom-dash-table tr:hover td {
+                background-color: #fffafa;
+            }
+
+            .custom-dash-table tr:last-child td {
+                border-bottom: none;
+            }
+
+        /* ─── BADGES & LABELS ─── */
+        .roll-badge {
             background: #f8fafc;
             color: #334155;
             font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
             font-weight: 700;
             font-size: 0.82rem;
-            padding: 5px 9px;
-            border-radius: 7px;
+            padding: 4px 8px;
+            border-radius: 6px;
             border: 1px solid #e2e8f0;
-            display: inline-flex;
-            align-items: center;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-            white-space: nowrap;
+            display: inline-block;
         }
-
-        /* Student Info & Contact Block - Clean & Spaced */
-        .student-info-block {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .student-name-title {
-            font-size: 0.94rem;
-            font-weight: 700;
-            color: #1e293b;
-            line-height: 1.35;
-        }
-
-        .student-contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            font-size: 0.81rem;
-            color: #64748b;
-            line-height: 1.35;
-        }
-
-            .contact-item i {
-                font-size: 0.8rem;
-                width: 14px;
-                text-align: center;
-                color: #64748b;
-            }
-
-            .contact-item span {
-                color: #475569;
-                word-break: break-all;
-            }
 
         .cpi-badge-pro {
             background: rgba(16, 185, 129, 0.1);
             color: #059669;
             border: 1px solid rgba(16, 185, 129, 0.2);
             font-size: 0.76rem;
-            font-weight: 600;
-            padding: 2px 8px;
+            font-weight: 700;
+            padding: 3px 8px;
             border-radius: 6px;
             display: inline-flex;
             align-items: center;
@@ -95,14 +149,14 @@
             color: #64748b;
             border: 1px solid #e2e8f0;
             font-size: 0.76rem;
-            font-weight: 500;
-            padding: 2px 8px;
+            font-weight: 600;
+            padding: 3px 8px;
             border-radius: 6px;
             display: inline-flex;
             align-items: center;
         }
 
-        /* Skills Pill Layout */
+        /* ─── SKILLS PILLS ─── */
         .skills-cell-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -116,7 +170,7 @@
             border: 1px solid #e2e8f0;
             font-size: 0.73rem;
             font-weight: 600;
-            padding: 2px 7px;
+            padding: 3px 8px;
             border-radius: 5px;
             display: inline-block;
             transition: all 0.15s ease;
@@ -127,19 +181,19 @@
                 color: #0f172a;
             }
 
-        /* Resume PDF Action Button */
+        /* ─── RESUME PDF BUTTON ─── */
         .btn-resume-action {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 5px;
-            padding: 5px 10px;
-            border-radius: 7px;
+            padding: 5px 11px;
+            border-radius: 8px;
             background: #fef2f2;
             color: #ef4444;
             border: 1px solid #fee2e2;
             text-decoration: none !important;
-            font-size: 0.77rem;
+            font-size: 0.78rem;
             font-weight: 700;
             transition: all 0.2s ease;
         }
@@ -149,147 +203,83 @@
                 color: #ffffff !important;
                 border-color: #ef4444;
                 transform: translateY(-1px);
-                box-shadow: 0 3px 8px rgba(239, 68, 68, 0.25);
+                box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
             }
 
-                .btn-resume-action:hover i {
-                    color: #ffffff !important;
-                }
-
-        /* Profile Button Pro */
+        /* ─── VIEW PROFILE BUTTON ─── */
         .btn-view-profile-pro {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
             padding: 6px 14px;
-            border-radius: 8px;
+            border-radius: 50px;
             background: #ffffff;
-            color: #2563eb;
-            border: 1.5px solid #bfdbfe;
+            color: var(--rku-orange-red);
+            border: 1.5px solid rgba(239, 55, 36, 0.3);
             font-size: 0.81rem;
-            font-weight: 600;
+            font-weight: 700;
             text-decoration: none !important;
             transition: all 0.2s ease;
             white-space: nowrap;
         }
 
             .btn-view-profile-pro:hover {
-                background: linear-gradient(135deg, #2563eb, #1d4ed8);
+                background: linear-gradient(135deg, #ef3724 0%, #d82b19 100%);
                 color: #ffffff !important;
-                border-color: #2563eb;
+                border-color: #ef3724;
                 transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(37, 99, 235, 0.22);
+                box-shadow: 0 4px 14px rgba(239, 55, 36, 0.25);
             }
 
-                .btn-view-profile-pro:hover i {
-                    color: #ffffff !important;
-                }
-
-        /* Responsive Table Container & Styling */
-        .table-responsive-custom {
-            border-radius: 12px;
-            border: 1px solid #eef2f6;
-            background: #ffffff;
-            box-shadow: 0 2px 12px rgba(15, 23, 42, 0.03);
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+        /* ─── STUDENT INFO BLOCK ─── */
+        .student-info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .table-custom-students {
-            margin-bottom: 0;
-            border-collapse: separate;
-            border-spacing: 0;
-            width: 100%;
-            min-width: 920px;
-        }
-
-            .table-custom-students thead th {
-                background: #f8fafc;
-                color: #475569;
-                font-size: 0.75rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-                padding: 0.95rem 1rem;
-                border-top: none;
-                border-bottom: 2px solid #e2e8f0;
-                vertical-align: middle;
-                white-space: nowrap;
-            }
-
-            .table-custom-students tbody td {
-                padding: 1.05rem 1rem;
-                vertical-align: middle;
-                border-bottom: 1px solid #f1f5f9;
-                background: #ffffff;
-                transition: all 0.15s ease;
-            }
-
-            .table-custom-students tbody tr:hover td {
-                background-color: #fbfcfe;
-            }
-
-            .table-custom-students tbody tr:last-child td {
-                border-bottom: none;
-            }
-
-        @media (max-width: 768px) {
-            .table-custom-students {
-                min-width: 860px;
-            }
-        }
-
-        /* Drawer Custom Styling */
-        .student-drawer-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ef3724;
-            box-shadow: 0 4px 12px rgba(163, 15, 20, 0.15);
-        }
-
-        .student-drawer-avatar-fallback {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ef3724, #a30f14);
-            color: #ffffff;
-            font-size: 1.8rem;
+        .student-name-title {
+            font-size: 0.92rem;
             font-weight: 700;
+            color: #1e293b;
+            line-height: 1.35;
+        }
+
+        .student-contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .contact-item {
             display: flex;
             align-items: center;
-            justify-content: center;
-            border: 3px solid #ffffff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            gap: 7px;
+            font-size: 0.81rem;
+            color: #64748b;
         }
 
-        .drawer-detail-card {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 1rem;
-            border: 1px solid #e2e8f0;
-        }
-
-        @keyframes slideInRightDrawer {
-            from {
-                transform: translateX(100%);
+            .contact-item i {
+                font-size: 0.8rem;
+                width: 14px;
+                text-align: center;
             }
 
-            to {
-                transform: translateX(0);
+            .contact-item span {
+                color: #475569;
+                word-break: break-all;
             }
-        }
 
+        /* ─── SIDE DRAWER ─── */
         .side-drawer-backdrop {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(15, 23, 42, 0.45);
-            backdrop-filter: blur(2px);
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(3px);
             z-index: 1050;
         }
 
@@ -308,41 +298,58 @@
             overflow: hidden;
             animation: slideInRightDrawer 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        @keyframes slideInRightDrawer {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .drawer-detail-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+        }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
 
-    <!-- Page Top Header -->
-    <div class="page-header-box">
+    <!-- Page Top Hero Card (AdminDashboard Design) -->
+    <div class="dash-hero-card">
         <div class="row align-items-center g-3">
             <div class="col-lg-8">
-                <div class="text-uppercase fw-bold text-rku-red small mb-1" style="letter-spacing: 0.08em; font-size: 0.75rem;">TALENT POOL</div>
-                <h3 class="mb-1 fw-bold text-dark font-heading">Student Talent Directory</h3>
-                <p class="mb-0 text-muted small">Browse registered candidates, filter by academic branch &amp; skills, inspect full profiles, and view resume PDFs.</p>
+                <div class="hero-badge-red mb-2">
+                    <i class="fa-solid fa-users me-1.5"></i>TALENT POOL
+                </div>
+                <h3 class="fw-bold text-dark font-heading mb-1">Student Talent Directory</h3>
+                <p class="text-muted small mb-0">Browse registered candidates, filter by academic branch &amp; skills, inspect full profiles, and view resume PDFs.</p>
             </div>
             <div class="col-lg-4 text-lg-end">
-                <asp:HyperLink ID="lnkManageDrives" runat="server" NavigateUrl="CompanyManageDrives.aspx" CssClass="btn btn-outline-secondary btn-sm px-3 py-2 me-2" Style="border-radius: 8px; font-weight: 600;">
-                    <i class="fa-solid fa-bullhorn me-1"></i>Campus Drives
+                <asp:HyperLink ID="lnkManageDrives" runat="server" NavigateUrl="CompanyManageDrives.aspx" CssClass="btn btn-light border rounded-pill px-3 py-2 me-2" Style="font-size: 0.82rem; font-weight: 600;">
+                    <i class="fa-solid fa-bullhorn me-1 text-muted"></i>Campus Drives
                 </asp:HyperLink>
 
-                <asp:HyperLink ID="lnkApplicants" runat="server" NavigateUrl="CompanyApplicants.aspx" CssClass="btn btn-rku btn-sm px-3 py-2" Style="border-radius: 8px; font-weight: 600;">
+                <asp:HyperLink ID="lnkApplicants" runat="server" NavigateUrl="CompanyApplicants.aspx" CssClass="btn-rku-orange">
                     <i class="fa-solid fa-list-check me-1"></i>Applications
                 </asp:HyperLink>
             </div>
         </div>
     </div>
 
-    <!-- Main Content Box: Filters + Table -->
-    <div class="filter-container-box">
+    <!-- Main Container Card: Filters + Table -->
+    <div class="dash-card-white">
         <!-- Filter Controls Row -->
-        <div class="row g-3 align-items-center mb-3 pb-3 border-bottom">
+        <div class="row g-3 align-items-end mb-4 pb-3 border-bottom">
             <div class="col-md-4">
                 <label class="form-label small fw-bold text-secondary mb-1">
-                    <i class="fa-solid fa-graduation-cap me-1 text-rku-red"></i>Filter by Branch
-               
+                    <i class="fa-solid fa-graduation-cap me-1" style="color: var(--rku-orange-red);"></i>Filter by Branch
                 </label>
-                <asp:DropDownList ID="studentBranchFilter" runat="server" ClientIDMode="Static" CssClass="form-select form-select-sm" onchange="filterStudentTable()" Style="border-radius: 8px; font-weight: 500;">
+                <asp:DropDownList ID="studentBranchFilter" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="studentBranchFilter_SelectedIndexChanged" Style="border-radius: 8px; font-weight: 500; height: 38px;">
                     <asp:ListItem Value="all" Text="All Branches" Selected="True"></asp:ListItem>
                     <asp:ListItem Value="Computer Science" Text="Computer Science / IT"></asp:ListItem>
                     <asp:ListItem Value="BCA" Text="BCA"></asp:ListItem>
@@ -356,14 +363,15 @@
 
             <div class="col-md-8">
                 <label class="form-label small fw-bold text-secondary mb-1">
-                    <i class="fa-solid fa-magnifying-glass me-1 text-rku-red"></i>Instant Candidate Search
-               
+                    <i class="fa-solid fa-magnifying-glass me-1" style="color: var(--rku-orange-red);"></i>Instant Candidate Search
                 </label>
-                <div class="input-group input-group-sm">
+                <div class="input-group">
                     <span class="input-group-text bg-light border-end-0 text-muted" style="border-radius: 8px 0 0 8px;">
                         <i class="fa-solid fa-search"></i>
                     </span>
-                    <asp:TextBox ID="studentSearchInput" runat="server" ClientIDMode="Static" CssClass="form-control form-control-sm border-start-0" Style="border-radius: 0 8px 8px 0;" placeholder="Search by student name, enrollment no, email, degree..." onkeyup="filterStudentTable()"></asp:TextBox>
+                    <asp:TextBox ID="studentSearchInput" runat="server" CssClass="form-control border-start-0" Style="border-radius: 0 8px 8px 0; height: 38px; font-size: 0.88rem;" placeholder="Search by student name, enrollment no, email, degree..."></asp:TextBox>
+                    <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" CssClass="btn-rku-orange ms-2" />
+                    <asp:Button ID="btnClearFilters" runat="server" Text="Reset" OnClick="btnClearFilters_Click" CssClass="btn btn-light border rounded-pill px-3 fw-semibold ms-1" Style="font-size: 0.82rem;" />
                 </div>
             </div>
         </div>
@@ -372,28 +380,27 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
                 <h6 class="fw-bold mb-0 text-dark font-heading">
-                    <i class="fa-solid fa-users text-rku-maroon me-2"></i>Registered Students
-                   
-                    <span class="badge bg-light text-dark border ms-1 fw-bold">
-                        <asp:Label ID="lblStudentCount" runat="server" Text="0"></asp:Label></span>
+                    <i class="fa-solid fa-users me-2" style="color: var(--rku-orange-red);"></i>Registered Students
+                    <span class="hero-badge-red ms-2">
+                        <asp:Label ID="lblStudentCount" runat="server" Text="0"></asp:Label> Total
+                    </span>
                 </h6>
             </div>
             <div class="text-muted small">
                 <i class="fa-regular fa-lightbulb text-warning me-1"></i>Click "Profile" to inspect complete candidate details
-           
             </div>
         </div>
 
         <!-- GridView Students Table (Responsive Modern Layout) -->
-        <div class="table-responsive-custom">
+        <div class="table-responsive">
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="100%"
-                CssClass="table table-custom-students align-middle mb-0 custom-gridview" GridLines="None"
+                CssClass="custom-dash-table" GridLines="None"
                 OnRowCommand="GridView1_RowCommand">
                 <Columns>
                     <asp:TemplateField HeaderText="Enrollment / ID">
                         <HeaderStyle Width="15%" />
                         <ItemTemplate>
-                            <span class="roll-badge-pro">
+                            <span class="roll-badge">
                                 <i class="fa-solid fa-id-badge text-secondary me-1.5 opacity-75"></i><%# Eval("regRollNo") != DBNull.Value && !string.IsNullOrEmpty(Eval("regRollNo").ToString()) ? Eval("regRollNo") : Eval("regUsername") %>
                             </span>
                         </ItemTemplate>
@@ -403,16 +410,16 @@
                         <HeaderStyle Width="25%" />
                         <ItemTemplate>
                             <div class="student-info-block py-1">
-                                <div class="student-name-title">
+                                <div class="student-name-title fw-bold text-dark">
                                     <%# Eval("regFullName") %>
                                 </div>
-                                <div class="student-contact-details">
+                                <div class="student-contact-details mt-1">
                                     <div class="contact-item">
-                                        <i class="fa-regular fa-envelope text-danger opacity-75"></i>
+                                        <i class="fa-regular fa-envelope" style="color: var(--rku-orange-red);"></i>
                                         <span><%# Eval("regEmail") %></span>
                                     </div>
                                     <div class="contact-item">
-                                        <i class="fa-solid fa-phone text-success opacity-75"></i>
+                                        <i class="fa-solid fa-phone text-success"></i>
                                         <span><%# Eval("regMobile") %></span>
                                     </div>
                                 </div>
@@ -431,7 +438,8 @@
                                 <span class="cpi-badge-pro">
                                     <i class="fa-solid fa-chart-line me-1"></i>CPI: <strong><%# Eval("cgpa") != DBNull.Value && !string.IsNullOrEmpty(Eval("cgpa").ToString()) ? Eval("cgpa") : "8.50" %></strong>
                                 </span>
-                                <span class="backlog-badge-pro">Backlogs: <strong><%# Eval("backlogs") != DBNull.Value && !string.IsNullOrEmpty(Eval("backlogs").ToString()) ? Eval("backlogs") : "0" %></strong>
+                                <span class="backlog-badge-pro">
+                                    Backlogs: <strong><%# Eval("backlogs") != DBNull.Value && !string.IsNullOrEmpty(Eval("backlogs").ToString()) ? Eval("backlogs") : "0" %></strong>
                                 </span>
                             </div>
                         </ItemTemplate>
@@ -453,7 +461,6 @@
                         <ItemStyle CssClass="text-center" />
                         <ItemTemplate>
                             <asp:HyperLink ID="lnkPdfResume" runat="server" NavigateUrl='<%# Eval("resumeUrl") != DBNull.Value && !string.IsNullOrEmpty(Eval("resumeUrl").ToString()) ? ResolveUrl("~/assets/StudentPDF/" + Eval("resumeUrl")) : "javascript:void(0);" %>' Target='<%# Eval("resumeUrl") != DBNull.Value && !string.IsNullOrEmpty(Eval("resumeUrl").ToString()) ? "_blank" : "_self" %>' onclick='<%# Eval("resumeUrl") != DBNull.Value && !string.IsNullOrEmpty(Eval("resumeUrl").ToString()) ? "" : "alert(\"Resume PDF not uploaded by student yet.\"); return false;" %>' CssClass="btn-resume-action" ToolTip="View / Download Student Resume PDF"><i class="fa-solid fa-file-pdf"></i> <span>PDF</span></asp:HyperLink>
-
                         </ItemTemplate>
                     </asp:TemplateField>
 
@@ -461,15 +468,13 @@
                         <HeaderStyle Width="10%" CssClass="text-center" />
                         <ItemStyle CssClass="text-center" />
                         <ItemTemplate>
-
                             <asp:LinkButton ID="btnProfile" runat="server" CommandName="ViewProfile" CommandArgument='<%# Eval("Id") %>' CssClass="btn-view-profile-pro" title="View Full Profile in Side Drawer"><i class="fa-regular fa-id-card"></i> <span>Profile</span></asp:LinkButton>
-
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
                 <EmptyDataTemplate>
                     <div class="text-center py-5">
-                        <div class="mb-3 text-muted" style="font-size: 2.8rem; opacity: 0.5;"><i class="fa-regular fa-folder-open"></i></div>
+                        <div class="mb-3" style="font-size: 2.8rem; color: var(--rku-orange-red); opacity: 0.35;"><i class="fa-regular fa-folder-open"></i></div>
                         <h6 class="fw-bold text-dark mb-1 font-heading">No Students Found</h6>
                         <p class="text-muted small mb-0">No registered students match your filter criteria.</p>
                     </div>
@@ -490,7 +495,7 @@
             <!-- Header -->
             <div class="p-3 px-4 border-bottom bg-light d-flex justify-content-between align-items-center">
                 <h6 class="fw-bold text-dark font-heading mb-0">
-                    <i class="fa-solid fa-user-graduate text-rku-maroon me-2"></i>Student Candidate Profile
+                    <i class="fa-solid fa-user-graduate me-2" style="color: var(--rku-orange-red);"></i>Student Candidate Profile
                 </h6>
                 <asp:LinkButton ID="btnCloseProfileX" runat="server" CssClass="btn-close" OnClick="btnCloseProfile_Click"></asp:LinkButton>
             </div>
@@ -499,15 +504,15 @@
             <div class="p-4" style="overflow-y: auto; flex: 1;">
                 <!-- Header with Avatar & Name -->
                 <div class="text-center pb-3 border-bottom mb-3">
-                    <div class="d-inline-block mb-2">
-                        <asp:Image ID="imgStudentPhoto" runat="server" CssClass="mx-auto" Style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #ef3724;" />
-                        <div id="divFallbackPhoto" runat="server" style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #ef3724, #a30f14); color: #fff; font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">SP</div>
+                    <div class="d-inline-block mb-2 position-relative">
+                        <asp:Image ID="imgStudentPhoto" runat="server" CssClass="mx-auto" Style="width: 86px; height: 86px; border-radius: 50%; object-fit: cover; border: 3px solid #ef3724; box-shadow: 0 4px 14px rgba(239, 55, 36, 0.2);" />
+                        <div id="divFallbackPhoto" runat="server" style="width: 86px; height: 86px; border-radius: 50%; background: linear-gradient(135deg, #ef3724, #d82b19); color: #fff; font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 14px rgba(239, 55, 36, 0.25); border: 3px solid #fff;">SP</div>
                     </div>
                     <h4 class="fw-bold mb-1 font-heading text-dark">
                         <asp:Label ID="lblStudentName" runat="server"></asp:Label>
                     </h4>
-                    <div class="text-muted small">
-                        <span class="badge text-white me-1" style="background: #ef3724;">STUDENT</span>
+                    <div class="text-muted small mt-1">
+                        <span class="hero-badge-red py-1 px-2.5 me-1">STUDENT</span>
                         Roll No: <strong class="text-dark font-monospace">
                             <asp:Label ID="lblRollNo" runat="server"></asp:Label></strong>
                     </div>
@@ -542,8 +547,9 @@
                         </div>
                         <div class="col-6 mt-2">
                             <span class="text-muted d-block">Cumulative CPI:</span>
-                            <span class="badge bg-success bg-opacity-10 text-success fw-bold fs-6">
-                                <asp:Label ID="lblCgpa" runat="server"></asp:Label></span>
+                            <span class="cpi-badge-pro fs-6">
+                                <asp:Label ID="lblCgpa" runat="server"></asp:Label>
+                            </span>
                         </div>
                         <div class="col-6 mt-2">
                             <span class="text-muted d-block">Active Backlogs:</span>
@@ -565,7 +571,7 @@
                 <!-- Resume PDF Link -->
                 <div class="drawer-detail-card mb-2">
                     <h6 class="fw-bold text-dark small mb-2"><i class="fa-solid fa-file-pdf text-danger me-2"></i>Curriculum Vitae / Resume</h6>
-                    <asp:HyperLink ID="lnkResume" runat="server" Target="_blank" CssClass="btn btn-sm btn-danger px-3 py-2 w-100" Style="border-radius: 8px;">
+                    <asp:HyperLink ID="lnkResume" runat="server" Target="_blank" CssClass="btn-rku-orange w-100 py-2 d-block">
                         <i class="fa-solid fa-file-pdf me-2"></i>View / Download Resume PDF
                     </asp:HyperLink>
                     <asp:Label ID="lblNoResume" runat="server" Text="Resume not uploaded yet." CssClass="text-muted small" Visible="false"></asp:Label>
@@ -574,29 +580,8 @@
 
             <!-- Footer Action Button -->
             <div class="p-3 border-top bg-light">
-                <asp:Button ID="btnCloseProfile" runat="server" CssClass="btn btn-outline-secondary w-100 py-2" Text="Close Profile" OnClick="btnCloseProfile_Click" Style="border-radius: 8px; font-weight: 600;" />
+                <asp:Button ID="btnCloseProfile" runat="server" CssClass="btn btn-light border w-100 py-2 rounded-pill fw-semibold" Text="Close Profile" OnClick="btnCloseProfile_Click" />
             </div>
         </div>
     </div>
-
-    <!-- Client-Side Filter Script -->
-    <script>
-        function filterStudentTable() {
-            const query = document.getElementById('studentSearchInput').value.toLowerCase();
-            const branch = document.getElementById('studentBranchFilter').value.toLowerCase();
-            const rows = document.querySelectorAll('.table-custom-students tbody tr');
-
-            rows.forEach(row => {
-                const text = row.innerText.toLowerCase();
-                const matchesSearch = !query || text.includes(query);
-                const matchesBranch = branch === 'all' || text.includes(branch);
-
-                if (matchesSearch && matchesBranch) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        }
-    </script>
 </asp:Content>
