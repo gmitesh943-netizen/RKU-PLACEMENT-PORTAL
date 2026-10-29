@@ -59,25 +59,30 @@
 
         /* ─── BUTTONS (AdminDashboard style) ─── */
         .btn-rku-orange {
-            background: var(--rku-orange-red);
-            border: 1px solid var(--rku-orange-red);
+            background: linear-gradient(135deg, #ef3724 0%, #d82b19 100%) !important;
+            background-color: #ef3724 !important;
+            border: 1px solid #d82b19 !important;
             color: #ffffff !important;
-            font-weight: 600;
-            padding: 0.45rem 1.15rem;
-            border-radius: 50px;
-            font-size: 0.82rem;
-            transition: all 0.25s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
+            font-weight: 700 !important;
+            padding: 0.38rem 1.25rem !important;
+            border-radius: 50px !important;
+            font-size: 0.82rem !important;
+            transition: all 0.25s ease !important;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 2px 8px rgba(239, 55, 36, 0.25) !important;
+            cursor: pointer !important;
         }
 
             .btn-rku-orange:hover {
-                background: var(--rku-orange-red-dark);
-                border-color: var(--rku-orange-red-dark);
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(239, 55, 36, 0.25);
+                background: linear-gradient(135deg, #d82b19 0%, #a30f14 100%) !important;
+                background-color: #d82b19 !important;
+                border-color: #a30f14 !important;
                 color: #ffffff !important;
+                transform: translateY(-1px) !important;
+                box-shadow: 0 4px 14px rgba(239, 55, 36, 0.35) !important;
             }
 
         .btn-outline-rku {
@@ -146,6 +151,30 @@
             background: #ffffff;
             padding: 2px;
             flex-shrink: 0;
+        }
+
+        /* Pagination */
+        .pagination-pages {
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--rku-dark);
+            padding: 0 0.5rem;
+        }
+
+        .pagination .btn[disabled],
+        .pagination .btn:disabled {
+            opacity: 0.5 !important;
+            cursor: not-allowed !important;
+            pointer-events: none !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .pagination .btn-light {
+            background-color: #ffffff !important;
+            border: 1px solid #cbd5e1 !important;
+            color: #475569 !important;
+            border-radius: 50px !important;
         }
     </style>
 </asp:Content>
@@ -279,6 +308,13 @@
                     </div>
                 </EmptyDataTemplate>
             </asp:GridView>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination d-flex justify-content-center align-items-center gap-3 mt-3 pt-3 border-top">
+            <asp:Button ID="btnPrevious" runat="server" Text="Previous" OnClick="btnPrevious_Click" CssClass="btn btn-sm btn-light border px-3 rounded-pill fw-semibold" />
+            <asp:Label ID="lblPages" runat="server" CssClass="pagination-pages" Text="Page 1 of 1" />
+            <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="btn btn-sm btn-rku-orange px-3 rounded-pill fw-semibold" />
         </div>
     </div>
 

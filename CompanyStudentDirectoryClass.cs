@@ -10,31 +10,17 @@ namespace RKU_PLACEMENT_PORTAL
         SqlConnection con;
         SqlDataAdapter da;
         DataSet ds;
-
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
-        void getcon()
+        public SqlConnection getcon()
         {
             con = new SqlConnection(s);
             con.Open();
+            return con;
         }
 
-        // search_students
-        public DataSet search_students(string nm)
-        {
-            if (string.IsNullOrWhiteSpace(nm))
-            {
-                return select_all_students();
-            }
-            getcon();
-            da = new SqlDataAdapter("SELECT * FROM register_auth WHERE (regFullName LIKE '%" + nm + "%' OR regRollNo LIKE '%" + nm + "%' OR regEmail LIKE '%" + nm + "%' OR regMobile LIKE '%" + nm + "%' OR degree LIKE '%" + nm + "%' OR branch LIKE '%" + nm + "%' OR skills LIKE '%" + nm + "%' OR regUsername LIKE '%" + nm + "%') ORDER BY Id DESC", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            return ds;
-        }
-
-        // select_all_students
-        public DataSet select_all_students()
+        // fill grid method
+        public DataSet select_students()
         {
             getcon();
             da = new SqlDataAdapter("SELECT * FROM register_auth ORDER BY Id DESC", con);
@@ -43,21 +29,60 @@ namespace RKU_PLACEMENT_PORTAL
             return ds;
         }
 
-        // select_students_by_branch
-        public DataSet select_students_by_branch(string branch)
+        //  search filter
+        public DataSet search_students(string nm)
         {
             getcon();
-            if (branch == "all" || branch == "All" || string.IsNullOrEmpty(branch))
+            if (string.IsNullOrWhiteSpace(nm))
             {
                 da = new SqlDataAdapter("SELECT * FROM register_auth ORDER BY Id DESC", con);
             }
             else
             {
-                da = new SqlDataAdapter("SELECT * FROM register_auth WHERE (branch LIKE '%" + branch + "%' OR degree LIKE '%" + branch + "%') ORDER BY Id DESC", con);
+                da = new SqlDataAdapter("SELECT * FROM register_auth WHERE (regFullName LIKE '%" + nm + "%' OR regRollNo LIKE '%" + nm + "%' OR regEmail LIKE '%" + nm + "%' OR regMobile LIKE '%" + nm + "%' OR degree LIKE '%" + nm + "%' OR branch LIKE '%" + nm + "%' OR skills LIKE '%" + nm + "%' OR regUsername LIKE '%" + nm + "%') ORDER BY Id DESC", con);
             }
             ds = new DataSet();
             da.Fill(ds);
             return ds;
+        }
+
+        //  branch filter
+        public DataSet select_students_by_branch(string branch)
+        {
+            getcon();
+            if (string.IsNullOrEmpty(branch) || branch == "all" || branch == "All")
+            {
+                da = new SqlDataAdapter("SELECT * FROM register_auth ORDER BY Id DESC", con);
+            }
+            else
+            {
+                da = new SqlDataAdapter("SELECT * FROM register_auth WHERE (branch = '" + branch + "' OR branch LIKE '%" + branch + "%' OR degree LIKE '%" + branch + "%') ORDER BY Id DESC", con);
+            }
+            ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+        }
+
+        //student details 
+        public DataSet select_student_by_id(int id)
+        {
+            getcon();
+            da = new SqlDataAdapter("SELECT * FROM register_auth WHERE Id = " + id, con);
+            ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+        }
+
+        // Pagination
+        public DataTable certificate_pagination(DataTable dt, int page)
+        {
+            DataTable dt2 = dt.Clone();
+            int start = page * 6;
+            for (int i = start; i < start + 6 && i < dt.Rows.Count; i++)
+            {
+                dt2.ImportRow(dt.Rows[i]);
+            }
+            return dt2;
         }
     }
 }

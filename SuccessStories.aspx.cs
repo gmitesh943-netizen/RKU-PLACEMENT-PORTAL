@@ -69,7 +69,9 @@ namespace RKU_PLACEMENT_PORTAL
                 lblFeaturedPackage.Text = ds.Tables[0].Rows[0]["Package"].ToString();
                 lblFeaturedQuote.Text = ds.Tables[0].Rows[0]["Testimonial"].ToString();
                 imgFeatured.ImageUrl = ds.Tables[0].Rows[0]["StudentPhoto"].ToString();
-                litFeaturedSkills.Text = ds.Tables[0].Rows[0]["KeySkills"].ToString();
+
+                string rawSkills = ds.Tables[0].Rows[0]["KeySkills"].ToString();
+              
             }
         }
 

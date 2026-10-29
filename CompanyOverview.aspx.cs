@@ -28,7 +28,10 @@ namespace RKU_PLACEMENT_PORTAL
             if (!IsPostBack)
             {
                 fillCompanyInfo();
-                fillCounters();
+                totalstudents();
+                activedrives();
+                totalapplications();
+                placedstudents();
                 fillDashboardCharts();
                 fillRecentDrives();
                 fillRecentApplicants();
@@ -62,38 +65,47 @@ namespace RKU_PLACEMENT_PORTAL
             }
         }
 
-        void fillCounters()
+        void totalstudents()
+        {
+            getcon();
+            cmd = new SqlCommand("select isnull(count(*), 0) from register_auth", con);
+            int i = Convert.ToInt32(cmd.ExecuteScalar());
+            lblStatRegisteredStudents.Text = i.ToString();
+        }
+
+        void activedrives()
         {
             getcon();
             string abc = Session["company"] != null ? Session["company"].ToString() : "";
+            cmd = new SqlCommand("select isnull(count(*), 0) from Company_Drives where DriveStatus='Open' and (CompanyUsername='" + abc + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + abc + "' or compUsername='" + abc + "'))", con);
+            int i = Convert.ToInt32(cmd.ExecuteScalar());
+            lblStatActiveDrives.Text = i.ToString();
+        }
 
-            // Total Registered Students
-            da = new SqlDataAdapter("select count(*) from register_auth", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            int studentCount = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
-            lblStatRegisteredStudents.Text = studentCount.ToString();
+        void totalapplications()
+        {
+            getcon();
+            string abc = Session["company"] != null ? Session["company"].ToString() : "";
+            cmd = new SqlCommand("select isnull(count(*), 0) from Company_Applications where CompanyUsername='" + abc + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + abc + "' or compUsername='" + abc + "') or DriveId in (select Id from Company_Drives where CompanyUsername='" + abc + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + abc + "' or compUsername='" + abc + "'))", con);
+            int i = Convert.ToInt32(cmd.ExecuteScalar());
+            lblStatTotalApps.Text = i.ToString();
+        }
 
-            // Active Drives 
-            da = new SqlDataAdapter("select count(*) from Company_Drives where DriveStatus='Open' and (CompanyUsername='" + abc + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + abc + "' or compUsername='" + abc + "'))", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            int activeDrives = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
-            lblStatActiveDrives.Text = activeDrives.ToString();
+        void placedstudents()
+        {
+            getcon();
+            string abc = Session["company"] != null ? Session["company"].ToString() : "";
+            cmd = new SqlCommand("select isnull(count(*), 0) from Company_Applications where (ApplicationStatus='Selected' or ApplicationStatus='Offer Accepted') and (CompanyUsername='" + abc + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + abc + "' or compUsername='" + abc + "') or DriveId in (select Id from Company_Drives where CompanyUsername='" + abc + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + abc + "' or compUsername='" + abc + "')))", con);
+            int i = Convert.ToInt32(cmd.ExecuteScalar());
+            lblStatPlacedStudents.Text = i.ToString();
+        }
 
-            // Applications 
-            da = new SqlDataAdapter("select count(*) from Company_Applications where CompanyUsername='" + abc + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + abc + "' or compUsername='" + abc + "') or DriveId in (select Id from Company_Drives where CompanyUsername='" + abc + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + abc + "' or compUsername='" + abc + "'))", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            int appsCount = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
-            lblStatTotalApps.Text = appsCount.ToString();
-
-            // Placed / Selected
-            da = new SqlDataAdapter("select count(*) from Company_Applications where (ApplicationStatus='Selected' or ApplicationStatus='Offer Accepted') and (CompanyUsername='" + abc + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + abc + "' or compUsername='" + abc + "') or DriveId in (select Id from Company_Drives where CompanyUsername='" + abc + "' or CompanyUsername in (select compUsername from register_auth_company where compEmail='" + abc + "' or compUsername='" + abc + "')))", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            int placedCount = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
-            lblStatPlacedStudents.Text = placedCount.ToString();
+        void fillCounters()
+        {
+            totalstudents();
+            activedrives();
+            totalapplications();
+            placedstudents();
         }
 
         //<------------------  Dashboard Charts ------------->

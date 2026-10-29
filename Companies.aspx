@@ -772,6 +772,32 @@
                     min-width: 0;
                 }
             }
+        
+            /* Pagination (Matching AdminReports.aspx) */
+            .pagination-pages {
+                font-weight: 700;
+                font-size: 0.88rem;
+                color: #1a1a1a;
+                padding: 0 0.5rem;
+            }
+
+            .pagination .btn[disabled] {
+                opacity: 0.45;
+                cursor: not-allowed;
+                pointer-events: none;
+            }
+
+            .btn-rku-orange {
+                background-color: var(--rku-orange-red, #ef3724) !important;
+                color: #fff !important;
+                border-color: var(--rku-orange-red, #ef3724) !important;
+            }
+
+            .btn-rku-orange:hover {
+                background-color: var(--rku-red, #d82b19) !important;
+                color: #fff !important;
+                border-color: var(--rku-red, #d82b19) !important;
+            }
         </style>
     </head>
     <body>
@@ -779,8 +805,9 @@
         <!-- ================================================
              HEADER TOPBAR & NAVBAR
              ================================================ -->
+        <header class="sticky-top" style="z-index: 1030;">
         <!-- RKU Header Topbar -->
-        <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155; position:relative; z-index:1031;">
+        <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155;">
             <div class="container-fluid px-lg-5">
                 <div class="d-flex justify-content-between align-items-center py-2">
                     <!-- Left: Tagline with Graduation Cap -->
@@ -808,7 +835,7 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-lg sticky-top">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid px-lg-5">
                 <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
                     <img src="assets/images/RKU LOGO.png" alt="RK University Placement Portal" class="me-2" style="height: 48px; width: auto; max-width: 240px; object-fit: contain;">
@@ -849,6 +876,7 @@
                 </div>
             </div>
         </nav>
+        </header>
 </asp:Content>
 
 
@@ -1299,20 +1327,13 @@
             </div>
             <!-- /row -->
 
-            <!-- Pagination -->
-            <div class="mt-5 d-flex justify-content-between align-items-center flex-wrap gap-3">
-                <p class="text-muted mb-0" style="font-size: 0.85rem;">Showing <strong>12</strong> of <strong>300+</strong> companies</p>
-                <div class="custom-pagination">
-                    <a href="#" class="page-pill disabled" id="pagePrev"><i class="fa-solid fa-chevron-left"></i></a>
-                    <a href="#" class="page-pill active" id="page1">1</a>
-                    <a href="#" class="page-pill" id="page2">2</a>
-                    <a href="#" class="page-pill" id="page3">3</a>
-                    <a href="#" class="page-pill" id="page4">4</a>
-                    <span class="page-pill disabled">…</span>
-                    <a href="#" class="page-pill" id="page25">25</a>
-                    <a href="#" class="page-pill" id="pageNext"><i class="fa-solid fa-chevron-right"></i></a>
-                </div>
+            <!-- Pagination (Matching AdminReports.aspx) -->
+            <div class="pagination d-flex justify-content-center align-items-center gap-3 mt-4 pt-3 border-top">
+                <asp:Button ID="btnPrevious" runat="server" Text="Previous" OnClick="btnPrevious_Click" CssClass="btn btn-sm btn-light border px-3 rounded-pill fw-semibold" />
+                <asp:Label ID="lblPages" runat="server" CssClass="pagination-pages" Text="Page 1 of 1" />
+                <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="btn btn-sm btn-rku-orange px-3 rounded-pill fw-semibold" />
             </div>
+
 
         </div>
     </section>

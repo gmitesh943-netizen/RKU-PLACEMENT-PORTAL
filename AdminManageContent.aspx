@@ -340,6 +340,9 @@
         <a href="#section-gallery" class="filter-tab-btn">
             <i class="fa-regular fa-images me-1.5"></i>Campus Gallery
         </a>
+        <a href="#section-coordinators" class="filter-tab-btn">
+            <i class="fa-solid fa-id-badge me-1.5"></i>Placement Coordinators
+        </a>
         <a href="#section-team" class="filter-tab-btn">
             <i class="fa-solid fa-users-gear me-1.5"></i>Placement Team
         </a>
@@ -722,6 +725,139 @@
     </div>
 
     <!-- =====================================================
+         SECTION 3: PLACEMENT COORDINATORS
+    ====================================================== -->
+    <div id="section-coordinators" class="section-anchor">
+                <div class="row g-4 mb-5">
+            <!-- ALL PLACEMENT COORDINATORS (GRIDVIEW) -->
+            <div class="col-xl-7 col-lg-6">
+                <div class="dir-main-card h-100">
+                    <div class="dir-main-card-head">
+                        <h6 class="fw-bold mb-0 text-dark font-heading">
+                            <i class="fa-solid fa-id-badge me-2" style="color: #e03627;"></i>Placement Coordinators
+                        </h6>
+                        <span class="tab-count-badge" id="coordinatorCountBadge" runat="server">0 coordinators</span>
+                    </div>
+                    <div class="p-0">
+                        <div id="adminCoordinatorList" style="max-height: 580px; overflow-y: auto;">
+                            <asp:GridView ID="GridViewCoordinators" runat="server" AutoGenerateColumns="False" ShowHeader="False" GridLines="None" CssClass="w-100" OnRowCommand="GridViewCoordinators_RowCommand">
+                                <Columns>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white" style="transition: background 0.15s ease;">
+                                                <div class="d-flex align-items-center gap-3" style="max-width: 78%;">
+                                                    <%# (!string.IsNullOrEmpty(Eval("CoordinatorPhoto") as string) && Eval("CoordinatorPhoto").ToString().Trim() != "" && Eval("CoordinatorPhoto").ToString() != "~/assets/images/coordinators/") ? 
+                                                        "<img src='" + ResolveUrl(Eval("CoordinatorPhoto").ToString()) + "' class='student-table-avatar' onerror=\"this.style.display='none';this.nextElementSibling.style.display='inline-flex';\" alt='Coordinator Photo' />" : "" %>
+                                                    <div class="student-table-avatar-fallback" style='<%# (!string.IsNullOrEmpty(Eval("CoordinatorPhoto") as string) && Eval("CoordinatorPhoto").ToString().Trim() != "" && Eval("CoordinatorPhoto").ToString() != "~/assets/images/coordinators/") ? "display:none;": "display:inline-flex;" %>'>
+                                                        <%# Eval("CoordinatorName") != DBNull.Value && Eval("CoordinatorName").ToString().Trim().Length > 0 ? Eval("CoordinatorName").ToString().Trim().Substring(0, 1).ToUpper() : "C" %>
+                                                    </div>
+                                                    <div>
+                                                        <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                                                            <span class="badge bg-secondary text-white rounded-pill px-2.5 py-0.5" style="font-size: 0.68rem;"><%# Eval("Designation") %></span>
+                                                            <span class="cpi-tag" style="color: #a30f14; background: rgba(224, 54, 39, 0.08); font-weight: 700;"><%# Eval("Package") %></span>
+                                                        </div>
+                                                        <h6 class="fw-bold mb-0 text-dark font-heading" style="font-size: 0.95rem;"><%# Eval("CoordinatorName") %></h6>
+                                                        <p class="mb-0 text-muted small mt-0.5"><%# Eval("Department") %> (<%# Eval("Designation") %>)</p>
+                                                        <small class="text-muted"><i class="fa-solid fa-phone me-1 text-success"></i>Contact: <%# Eval("ContactNo") %></small>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex gap-1.5">
+                                                    <asp:LinkButton ID="btnCoordEdit" runat="server" CommandName="cmd_cedt" CommandArgument='<%# Eval("CoordinatorId") %>' CssClass="btn-action-profile" ToolTip="Edit Coordinator">
+                                                        <i class="fa-regular fa-pen-to-square"></i>Edit
+                                                    </asp:LinkButton>
+                                                    <asp:LinkButton ID="btnCoordDelete" runat="server" CommandName="cmd_cdel" CommandArgument='<%# Eval("CoordinatorId") %>' CssClass="btn-action-delete" ToolTip="Delete Coordinator" OnClientClick="return confirm('Are you sure you want to delete this coordinator?');">
+                                                        <i class="fa-regular fa-trash-can"></i>Delete
+                                                    </asp:LinkButton>
+                                                </div>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:Label ID="lblNoCoordinators" runat="server" CssClass="text-center text-muted small py-5 d-block" Text="No coordinators added yet." Visible="false"></asp:Label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COORDINATOR FORM -->
+            <div class="col-xl-5 col-lg-6">
+                <div class="dir-main-card" style="position: sticky; top: 20px;">
+                    <div class="dir-main-card-head">
+                        <h6 class="fw-bold mb-0 font-heading text-dark" id="coordinatorFormTitle" runat="server">
+                            <i class="fa-solid fa-id-badge me-2" style="color: #e03627;"></i>Add Placement Coordinator
+                        </h6>
+                    </div>
+                    <div class="dir-main-card-body">
+                        <!-- Photo Upload -->
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-bold">Coordinator Photo</label>
+                            <label for="coordinatorPhoto" class="img-upload-zone d-block" style="cursor: pointer;">
+                                <asp:Image ID="coordinatorImagePreview" runat="server" ClientIDMode="Static"
+                                    Style="display: none; width: 80px; height: 80px; object-fit: cover; border-radius: 10px; margin: 0 auto 10px;" />
+                                <div id="coordinatorUploadHint" runat="server" clientidmode="Static">
+                                    <i class="fa-solid fa-cloud-arrow-up fa-2x text-muted mb-2 d-block"></i>
+                                    <span class="text-muted small">Click to upload photo</span>
+                                </div>
+                            </label>
+                            <asp:FileUpload ID="coordinatorPhoto" runat="server" ClientIDMode="Static"
+                                CssClass="d-none" accept="image/*" onchange="previewCoordinatorImage(this)" />
+                        </div>
+
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-bold">Full Name</label>
+                            <asp:TextBox ID="coordName" runat="server" ClientIDMode="Static"
+                                CssClass="form-control" placeholder="e.g. Vishal Subhedar" />
+                        </div>
+
+                        <!-- Department / Degree & Branch -->
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-bold">Degree &amp; Branch / Department</label>
+                            <asp:TextBox ID="coordDepartment" runat="server" ClientIDMode="Static"
+                                CssClass="form-control" placeholder="e.g. B.Tech Computer Engineering" />
+                        </div>
+
+                        <!-- Designation -->
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-bold">Designation (Role)</label>
+                            <asp:TextBox ID="coordDesignation" runat="server" ClientIDMode="Static"
+                                CssClass="form-control" placeholder="e.g. Assistant Professor" />
+                        </div>
+
+                        <!-- Contact -->
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-bold">Contact Number</label>
+                            <asp:TextBox ID="coordContact" runat="server" ClientIDMode="Static"
+                                CssClass="form-control" placeholder="e.g. 97251 18180" />
+                        </div>
+
+                        <!-- Package -->
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-bold">Package</label>
+                            <asp:TextBox ID="coordPackage" runat="server" ClientIDMode="Static"
+                                CssClass="form-control" placeholder="e.g. Rs. 20 LPA" />
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-grid gap-2 mt-3">
+                            <asp:Button ID="coordSubmitBtn" runat="server" ClientIDMode="Static"
+                                Text="Add Coordinator" CssClass="btn btn-rku btn-sm py-2"
+                                CausesValidation="false" UseSubmitBehavior="false"
+                                OnClick="coordSubmitBtn_Click" />
+
+                            <asp:Button ID="coordCancelBtn" runat="server" ClientIDMode="Static"
+                                Text="Cancel" CssClass="btn btn-outline-secondary btn-sm py-2"
+                                CausesValidation="false" UseSubmitBehavior="false"
+                                OnClick="coordCancelBtn_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
          SECTION 4: PLACEMENT TEAM
     ====================================================== -->
     <div id="section-team" class="section-anchor">
@@ -927,6 +1063,25 @@
                 reader.onload = () => resolve(reader.result);
                 reader.onerror = error => reject(error);
             });
+        }
+
+        // Coordinator Photo Preview Helper
+        function previewCoordinatorImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.getElementById('coordinatorImagePreview');
+                    if (img) {
+                        img.src = e.target.result;
+                        img.style.display = 'block';
+                    }
+                    const hint = document.getElementById('coordinatorUploadHint');
+                    if (hint) {
+                        hint.style.display = 'none';
+                    }
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
         }
 
     </script>

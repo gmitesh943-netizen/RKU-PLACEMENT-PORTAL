@@ -235,6 +235,20 @@
             flex-shrink: 0;
             box-shadow: 0 2px 6px rgba(239, 55, 36, 0.25);
         }
+
+        /* Pagination */
+        .pagination-pages {
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--rku-dark);
+            padding: 0 0.5rem;
+        }
+
+        .pagination .btn[disabled] {
+            opacity: 0.45;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
     </style>
 </asp:Content>
 
@@ -260,8 +274,8 @@
                 </p>
             </div>
             <div class="col-lg-4 text-lg-end d-flex gap-2 justify-content-lg-end flex-wrap align-items-center">
-                <asp:Button ID="btnExportCsv" runat="server" Text="Export Roster CSV" OnClick="btnExportCsv_Click" 
-                    CssClass="btn-rku-orange shadow-sm" Style="background: linear-gradient(135deg, #ef3724, #d82b19) !important; color: #ffffff !important; border: 1px solid #d82b19 !important; font-weight: 700 !important; border-radius: 50px !important; padding: 0.55rem 1.4rem !important; display: inline-block !important;" />
+                <asp:Button ID="btnExportPlacedPdf" runat="server" Text="Export Placed PDF" OnClick="btnExportPlacedPdf_Click" 
+                    CssClass="btn-rku-orange shadow-sm" Style="background: linear-gradient(135deg, #10b981, #059669) !important; color: #ffffff !important; border: 1px solid #059669 !important; font-weight: 700 !important; border-radius: 50px !important; padding: 0.55rem 1.4rem !important; display: inline-block !important;" />
             </div>
         </div>
     </div>
@@ -328,8 +342,11 @@
                         <asp:Label ID="lblRptDrives" runat="server" Text="0"></asp:Label>
                     </h2>
                 </div>
-                <div class="mt-3 pt-2 border-top d-flex align-items-center gap-1 text-muted small" style="font-size: 0.78rem;">
-                    <i class="fa-solid fa-bolt text-warning me-1"></i>Active Recruitment Events
+                <div class="mt-3 pt-2 border-top d-flex align-items-center justify-content-between gap-1 text-muted small" style="font-size: 0.78rem;">
+                    <span><i class="fa-solid fa-bolt text-warning me-1"></i>Active Recruitment Events</span>
+                    <asp:LinkButton ID="btnExportDrivesPdf" runat="server" OnClick="btnExportDrivesPdf_Click" ToolTip="Export Drives PDF" CssClass="text-danger fw-bold text-decoration-none" style="font-size: 0.75rem;">
+                        <i class="fa-solid fa-file-pdf me-1"></i>PDF
+                    </asp:LinkButton>
                 </div>
             </div>
         </div>
@@ -357,8 +374,21 @@
         </div>
     </div>
 
+    <!-- Quick Report Navigation Tabs -->
+    <div class="d-flex flex-wrap gap-2 mb-4">
+        <a href="#sec-roster-report" class="btn btn-sm btn-white border rounded-pill px-3 fw-bold text-dark shadow-xs" style="background: #ffffff;">
+            <i class="fa-solid fa-table-list me-1" style="color: var(--rku-orange-red);"></i>1. Master Recruitment Roster
+        </a>
+        <a href="#sec-company-report" class="btn btn-sm btn-white border rounded-pill px-3 fw-bold text-dark shadow-xs" style="background: #ffffff;">
+            <i class="fa-solid fa-building me-1" style="color: var(--rku-orange-red);"></i>2. Company-Wise Recruitment
+        </a>
+        <a href="#sec-branch-report" class="btn btn-sm btn-white border rounded-pill px-3 fw-bold text-dark shadow-xs" style="background: #ffffff;">
+            <i class="fa-solid fa-chart-pie me-1" style="color: var(--rku-orange-red);"></i>3. Branch-Wise Statistics
+        </a>
+    </div>
+
     <!-- Main Card Container (Matching AdminDashboard) -->
-    <div class="dash-card-white">
+    <div class="dash-card-white" id="sec-roster-report">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 pb-3 mb-3 border-bottom">
             <div>
                 <h6 class="fw-bold mb-1 text-dark font-heading" style="font-size: 1.05rem;">
@@ -476,6 +506,289 @@
                     </div>
                 </EmptyDataTemplate>
             </asp:GridView>
+        </div>
+
+        <div class="pagination d-flex justify-content-center align-items-center gap-3 mt-3 pt-3 border-top">
+            <asp:Button ID="btnPrevious" runat="server" Text="Previous" OnClick="btnPrevious_Click" CssClass="btn btn-sm btn-light border px-3 rounded-pill fw-semibold" />
+            <asp:Label ID="lblPages" runat="server" CssClass="pagination-pages" Text="Page 1 of 1" />
+            <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="btn btn-sm btn-rku-orange px-3 rounded-pill fw-semibold" />
+        </div>
+    </div>
+
+    <!-- 2. Company-Wise Recruitment Report Card -->
+    <div class="dash-card-white" id="sec-company-report">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 pb-3 mb-3 border-bottom">
+            <div>
+                <div class="d-inline-flex align-items-center gap-2 mb-1">
+                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-2.5 py-0.5 small fw-bold" style="font-size: 0.72rem;">
+                        <i class="fa-regular fa-building me-1"></i>Recruiter Intelligence
+                    </span>
+                </div>
+                <h6 class="fw-bold mb-1 text-dark font-heading" style="font-size: 1.12rem;">
+                    <i class="fa-solid fa-briefcase me-2" style="color: var(--rku-orange-red);"></i>Company-Wise Recruitment Report
+                </h6>
+                <div class="text-muted small" style="font-size: 0.82rem;">
+                    Analyze company participation, campus drives held, applicants, shortlists, and final selections
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 flex-wrap flex-sm-nowrap align-items-center">
+                <asp:Button ID="btnExportCompanyCsv" runat="server" Text="Export Company PDF" OnClick="btnExportCompanyCsv_Click"
+                    CssClass="btn-rku-orange shadow-sm" Style="background: linear-gradient(135deg, #ef3724, #d82b19) !important; color: #ffffff !important; border: 1px solid #d82b19 !important; font-weight: 700 !important; border-radius: 50px !important; padding: 0.55rem 1.4rem !important; display: inline-block !important;" />
+            </div>
+        </div>
+
+        <!-- Filter Sub-bar -->
+        <div class="d-flex gap-2 flex-wrap flex-sm-nowrap align-items-center mb-3">
+            <div class="input-group input-group-sm" style="max-width: 250px;">
+                <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <asp:TextBox ID="txtSearchCompany" runat="server" CssClass="form-control form-control-sm border-start-0" placeholder="Search company, industry..."></asp:TextBox>
+            </div>
+
+            <asp:DropDownList ID="ddlCompanyStatus" runat="server" AutoPostBack="true" OnSelectedIndexChanged="CompanyStatusFilter_Changed"
+                CssClass="form-select form-select-sm" style="border-radius: 8px; min-width: 140px; max-width: 170px;">
+                <asp:ListItem Value="All">All Statuses</asp:ListItem>
+                <asp:ListItem Value="Active">Active Drives</asp:ListItem>
+                <asp:ListItem Value="Completed">Completed Drives</asp:ListItem>
+            </asp:DropDownList>
+
+            <asp:Button ID="btnFilterCompany" runat="server" Text="Filter" OnClick="btnFilterCompany_Click" CssClass="btn btn-sm btn-rku-orange px-3 rounded-pill" />
+            <asp:Button ID="btnResetCompany" runat="server" Text="Reset" OnClick="btnResetCompany_Click" CssClass="btn btn-sm btn-light border px-3 rounded-pill" />
+        </div>
+
+        <!-- GridView Display for Company Report -->
+        <div class="table-responsive">
+            <asp:GridView ID="gvCompanyReport" runat="server" AutoGenerateColumns="False"
+                CssClass="table align-middle custom-dash-table w-100 mb-0" GridLines="None"
+                ShowHeaderWhenEmpty="True">
+                <Columns>
+                    <asp:TemplateField HeaderText="Company Name">
+                        <HeaderStyle Width="26%" />
+                        <ItemTemplate>
+                            <div class="d-flex align-items-center gap-2.5">
+                                <%# Eval("compLogo") != DBNull.Value && !string.IsNullOrEmpty(Eval("compLogo").ToString()) ? 
+                                    "<img src='" + ResolveUrl(Eval("compLogo").ToString().StartsWith("~") || Eval("compLogo").ToString().StartsWith("/") ? Eval("compLogo").ToString() : "~/assets/CompanyLogos/" + Eval("compLogo")) + "' class='rounded-circle border' style='width:38px;height:38px;object-fit:cover;' onerror=\"this.style.display='none';this.nextElementSibling.style.display='inline-flex';\" alt='Logo' />" : "" %>
+                                <div class="candidate-avatar" style='<%# Eval("compLogo") != DBNull.Value && !string.IsNullOrEmpty(Eval("compLogo").ToString()) ? "display:none;": "display:inline-flex;" %>'>
+                                    <%# Eval("compName") != null && Eval("compName").ToString().Trim().Length > 0 ? Eval("compName").ToString().Trim().Substring(0, 1).ToUpper() : "C" %>
+                                </div>
+                                <div>
+                                    <div class="fw-bold font-heading text-dark">
+                                        <asp:Label ID="lblCompName" runat="server" Text='<%# Eval("compName") %>'></asp:Label>
+                                    </div>
+                                    <div class="text-muted small">
+                                        <asp:Label ID="lblCompEmail" runat="server" Text='<%# Eval("compEmail") %>'></asp:Label>
+                                    </div>
+                                </div>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Industry">
+                        <HeaderStyle Width="15%" />
+                        <ItemTemplate>
+                            <span class="badge bg-light text-secondary border">
+                                <asp:Label ID="lblIndustry" runat="server" Text='<%# Eval("compIndustry") %>'></asp:Label>
+                            </span>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Total Drives">
+                        <HeaderStyle Width="12%" CssClass="text-center" />
+                        <ItemStyle CssClass="text-center" />
+                        <ItemTemplate>
+                            <div class="fw-bold text-dark">
+                                <asp:Label ID="lblTotalDrives" runat="server" Text='<%# Eval("TotalDrives") %>'></asp:Label>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Applicants">
+                        <HeaderStyle Width="12%" CssClass="text-center" />
+                        <ItemStyle CssClass="text-center" />
+                        <ItemTemplate>
+                            <div class="fw-semibold text-secondary">
+                                <asp:Label ID="lblTotalApplicants" runat="server" Text='<%# Eval("TotalApplicants") %>'></asp:Label>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Shortlisted">
+                        <HeaderStyle Width="12%" CssClass="text-center" />
+                        <ItemStyle CssClass="text-center" />
+                        <ItemTemplate>
+                            <div class="fw-bold text-info">
+                                <asp:Label ID="lblShortlisted" runat="server" Text='<%# Eval("ShortlistedCount") %>'></asp:Label>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Selected / Hired">
+                        <HeaderStyle Width="12%" CssClass="text-center" />
+                        <ItemStyle CssClass="text-center" />
+                        <ItemTemplate>
+                            <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1 rounded-pill fw-bold">
+                                <asp:Label ID="lblHired" runat="server" Text='<%# Eval("HiredCount") %>'></asp:Label> Hired
+                            </span>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Status">
+                        <HeaderStyle Width="11%" />
+                        <ItemTemplate>
+                            <span class='badge <%# Convert.ToString(Eval("Status")) == "Active" ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border" %> px-2 py-0.5 rounded-pill small fw-semibold'>
+                                <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>'></asp:Label>
+                            </span>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+
+                <EmptyDataTemplate>
+                    <div class="text-center text-muted small py-5">
+                        <i class="fa-regular fa-building text-muted opacity-25 mb-3" style="font-size: 3rem;"></i>
+                        <h6 class="fw-bold text-dark font-heading">No company recruitment records found</h6>
+                        <p class="text-muted small">No company drives or applications registered yet.</p>
+                    </div>
+                </EmptyDataTemplate>
+            </asp:GridView>
+        </div>
+
+        <div class="pagination d-flex justify-content-center align-items-center gap-3 mt-3 pt-3 border-top">
+            <asp:Button ID="btnPreviousCompany" runat="server" Text="Previous" OnClick="btnPreviousCompany_Click" CssClass="btn btn-sm btn-light border px-3 rounded-pill fw-semibold" />
+            <asp:Label ID="lblPagesCompany" runat="server" CssClass="pagination-pages" Text="Page 1 of 1" />
+            <asp:Button ID="btnNextCompany" runat="server" Text="Next" OnClick="btnNextCompany_Click" CssClass="btn btn-sm btn-rku-orange px-3 rounded-pill fw-semibold" />
+        </div>
+    </div>
+
+    <!-- 3. Branch-Wise Placement Statistics Report Card -->
+    <div class="dash-card-white" id="sec-branch-report">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 pb-3 mb-3 border-bottom">
+            <div>
+                <div class="d-inline-flex align-items-center gap-2 mb-1">
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-2.5 py-0.5 small fw-bold" style="font-size: 0.72rem;">
+                        <i class="fa-solid fa-graduation-cap me-1"></i>Academic Analytics
+                    </span>
+                </div>
+                <h6 class="fw-bold mb-1 text-dark font-heading" style="font-size: 1.12rem;">
+                    <i class="fa-solid fa-chart-pie me-2" style="color: var(--rku-orange-red);"></i>Branch-Wise Placement Statistics Report
+                </h6>
+                <div class="text-muted small" style="font-size: 0.82rem;">
+                    Department-level placement success ratios, registered student count, placed vs. unplaced talent, and success rates
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 flex-wrap flex-sm-nowrap align-items-center">
+                <asp:Button ID="btnExportBranchCsv" runat="server" Text="Export Branch PDF" OnClick="btnExportBranchCsv_Click"
+                    CssClass="btn-rku-orange shadow-sm" Style="background: linear-gradient(135deg, #ef3724, #d82b19) !important; color: #ffffff !important; border: 1px solid #d82b19 !important; font-weight: 700 !important; border-radius: 50px !important; padding: 0.55rem 1.4rem !important; display: inline-block !important;" />
+            </div>
+        </div>
+
+        <!-- Filter Sub-bar -->
+        <div class="d-flex gap-2 flex-wrap flex-sm-nowrap align-items-center mb-3">
+            <div class="input-group input-group-sm" style="max-width: 250px;">
+                <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <asp:TextBox ID="txtSearchBranch" runat="server" CssClass="form-control form-control-sm border-start-0" placeholder="Search branch, degree..."></asp:TextBox>
+            </div>
+
+            <asp:DropDownList ID="ddlBranchDegree" runat="server" AutoPostBack="true" OnSelectedIndexChanged="BranchDegreeFilter_Changed"
+                CssClass="form-select form-select-sm" style="border-radius: 8px; min-width: 140px; max-width: 170px;">
+                <asp:ListItem Value="All">All Degrees</asp:ListItem>
+                <asp:ListItem Value="BCA">BCA</asp:ListItem>
+                <asp:ListItem Value="MCA">MCA</asp:ListItem>
+                <asp:ListItem Value="B.Tech">B.Tech</asp:ListItem>
+                <asp:ListItem Value="Diploma">Diploma</asp:ListItem>
+            </asp:DropDownList>
+
+            <asp:Button ID="btnFilterBranch" runat="server" Text="Filter" OnClick="btnFilterBranch_Click" CssClass="btn btn-sm btn-rku-orange px-3 rounded-pill" />
+            <asp:Button ID="btnResetBranch" runat="server" Text="Reset" OnClick="btnResetBranch_Click" CssClass="btn btn-sm btn-light border px-3 rounded-pill" />
+        </div>
+
+        <!-- GridView Display for Branch Report -->
+        <div class="table-responsive">
+            <asp:GridView ID="gvBranchReport" runat="server" AutoGenerateColumns="False"
+                CssClass="table align-middle custom-dash-table w-100 mb-0" GridLines="None"
+                ShowHeaderWhenEmpty="True">
+                <Columns>
+                    <asp:TemplateField HeaderText="Branch / Stream">
+                        <HeaderStyle Width="28%" />
+                        <ItemTemplate>
+                            <div class="fw-bold font-heading text-dark">
+                                <asp:Label ID="lblBranchName" runat="server" Text='<%# Eval("BranchName") %>'></asp:Label>
+                            </div>
+                            <div class="text-muted small">Faculty of Technology &amp; Computer Science</div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Program">
+                        <HeaderStyle Width="14%" />
+                        <ItemTemplate>
+                            <span class="dept-badge">
+                                <i class="fa-solid fa-graduation-cap me-1" style="color: var(--rku-orange-red);"></i>
+                                <asp:Label ID="lblDegreeProgram" runat="server" Text='<%# Eval("DegreeProgram") %>'></asp:Label>
+                            </span>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Total Enrolled">
+                        <HeaderStyle Width="14%" CssClass="text-center" />
+                        <ItemStyle CssClass="text-center" />
+                        <ItemTemplate>
+                            <div class="fw-bold text-dark">
+                                <asp:Label ID="lblTotalEnrolled" runat="server" Text='<%# Eval("TotalEnrolled") %>'></asp:Label>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Placed Students">
+                        <HeaderStyle Width="14%" CssClass="text-center" />
+                        <ItemStyle CssClass="text-center" />
+                        <ItemTemplate>
+                            <div class="fw-bold text-success">
+                                <asp:Label ID="lblPlacedCount" runat="server" Text='<%# Eval("PlacedCount") %>'></asp:Label>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Unplaced">
+                        <HeaderStyle Width="14%" CssClass="text-center" />
+                        <ItemStyle CssClass="text-center" />
+                        <ItemTemplate>
+                            <div class="fw-semibold text-secondary">
+                                <asp:Label ID="lblUnplacedCount" runat="server" Text='<%# Eval("UnplacedCount") %>'></asp:Label>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Placement Rate (%)">
+                        <HeaderStyle Width="16%" CssClass="text-center" />
+                        <ItemStyle CssClass="text-center" />
+                        <ItemTemplate>
+                            <div class="d-flex align-items-center justify-content-center gap-2">
+                                <div class="progress flex-grow-1" style="height: 6px; max-width: 70px;">
+                                    <div class='progress-bar <%# Convert.ToInt32(Eval("PlacementRateInt")) >= 75 ? "bg-success" : (Convert.ToInt32(Eval("PlacementRateInt")) >= 50 ? "bg-info" : "bg-warning") %>' 
+                                         role="progressbar" style='width: <%# Eval("PlacementRateInt") %>%;'></div>
+                                </div>
+                                <span class='fw-bold <%# Convert.ToInt32(Eval("PlacementRateInt")) >= 75 ? "text-success" : (Convert.ToInt32(Eval("PlacementRateInt")) >= 50 ? "text-info" : "text-warning") %> small'>
+                                    <asp:Label ID="lblPlacementRate" runat="server" Text='<%# Eval("PlacementRate") %>'></asp:Label>
+                                </span>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+
+                <EmptyDataTemplate>
+                    <div class="text-center text-muted small py-5">
+                        <i class="fa-solid fa-graduation-cap text-muted opacity-25 mb-3" style="font-size: 3rem;"></i>
+                        <h6 class="fw-bold text-dark font-heading">No academic branch records found</h6>
+                        <p class="text-muted small">No student enrollments registered yet.</p>
+                    </div>
+                </EmptyDataTemplate>
+            </asp:GridView>
+        </div>
+
+        <div class="pagination d-flex justify-content-center align-items-center gap-3 mt-3 pt-3 border-top">
+            <asp:Button ID="btnPreviousBranch" runat="server" Text="Previous" OnClick="btnPreviousBranch_Click" CssClass="btn btn-sm btn-light border px-3 rounded-pill fw-semibold" />
+            <asp:Label ID="lblPagesBranch" runat="server" CssClass="pagination-pages" Text="Page 1 of 1" />
+            <asp:Button ID="btnNextBranch" runat="server" Text="Next" OnClick="btnNextBranch_Click" CssClass="btn btn-sm btn-rku-orange px-3 rounded-pill fw-semibold" />
         </div>
     </div>
 

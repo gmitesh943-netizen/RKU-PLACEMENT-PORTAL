@@ -1,0 +1,585 @@
+<%@ Page Title="Verify OTP | RKU Placement Portal" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="verifyotp.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.verifyotp" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="Verify your OTP code securely to reset your RK University Placement Portal password.">
+    <meta name="keywords" content="RK University verify OTP, two-step verification, placement portal">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        .live-placement-ticker {
+            display: none !important;
+        }
+
+        :root {
+            --rku-maroon: #a30f14;
+            --rku-red: #ef3724;
+            --rku-red-light: #fff5f5;
+            --rku-dark: #111111;
+            --rku-text: #334155;
+            --rku-border: #e5e7eb;
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: radial-gradient(circle at top left, rgba(239, 55, 36, 0.08), transparent 28%), radial-gradient(circle at bottom right, rgba(163, 15, 20, 0.08), transparent 25%), #f8fafc;
+            color: var(--rku-text);
+        }
+
+        .fp-shell {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .fp-card {
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(229, 231, 235, 0.9);
+            border-radius: 28px;
+            box-shadow: 0 24px 80px rgba(15, 23, 42, 0.10);
+            overflow: hidden;
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .fp-hero {
+            background: linear-gradient(135deg, rgba(163, 15, 20, 0.96), rgba(239, 55, 36, 0.95)), url('assets/images/contact-form.png') center/cover no-repeat;
+            color: #fff;
+            min-height: 100%;
+            padding: 2.4rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+            .fp-hero::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28));
+            }
+
+            .fp-hero > * {
+                position: relative;
+                z-index: 1;
+            }
+
+        .brand-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+            .brand-row img {
+                height: 80px;
+                width: auto;
+                object-fit: contain;
+                filter: brightness(0) invert(1);
+            }
+
+        .fp-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3vw, 3rem);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 1rem;
+        }
+
+            .fp-title span {
+                color: #ffe7e4;
+            }
+
+        .fp-lead {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            opacity: 0.95;
+            max-width: 26rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .fp-form-panel {
+            padding: 2.4rem;
+        }
+
+        .eyebrow {
+            color: var(--rku-red);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 0.75rem;
+            margin-bottom: 0.55rem;
+        }
+
+        .panel-title {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: clamp(1.8rem, 2.4vw, 2.4rem);
+            color: var(--rku-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .panel-subtitle {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            margin-bottom: 1.4rem;
+        }
+
+        .input-wrap {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+            .input-wrap .form-control {
+                border-radius: 16px;
+                border: 1px solid var(--rku-border);
+                min-height: 56px;
+                padding-left: 3rem;
+                padding-right: 1rem;
+                box-shadow: none;
+            }
+
+                .input-wrap .form-control:focus {
+                    border-color: rgba(239, 55, 36, 0.45);
+                    box-shadow: 0 0 0 0.2rem rgba(239, 55, 36, 0.08);
+                }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            pointer-events: none;
+        }
+
+        .otp-input-field {
+            letter-spacing: 0.35em;
+            font-weight: 700;
+            font-size: 1.35rem !important;
+            text-align: center;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        .btn-rku {
+            min-height: 56px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(135deg, var(--rku-maroon), var(--rku-red));
+            color: #fff;
+            font-weight: 700;
+            width: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+            .btn-rku:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 12px 28px rgba(239, 55, 36, 0.22);
+                color: #fff;
+            }
+
+        .btn-soft {
+            min-height: 54px;
+            border-radius: 16px;
+            border: 1px solid var(--rku-border);
+            background: #fff;
+            color: var(--rku-dark);
+            font-weight: 700;
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+            .btn-soft:hover {
+                background: #f8fafc;
+                color: var(--rku-dark);
+            }
+
+        .footer-link {
+            color: var(--rku-red);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+            .footer-link:hover {
+                text-decoration: underline;
+            }
+
+        .otp-inputs-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .otp-box-digit {
+            width: 52px;
+            height: 60px;
+            text-align: center;
+            font-size: 1.65rem;
+            font-weight: 700;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            border-radius: 14px;
+            border: 2px solid var(--rku-border);
+            background: #ffffff;
+            color: var(--rku-dark);
+            transition: all 0.2s ease-in-out;
+            padding: 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .otp-box-digit:focus {
+            border-color: var(--rku-red);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(239, 55, 36, 0.12);
+            background: #fff;
+        }
+
+        @media (max-width: 576px) {
+            .otp-inputs-row {
+                gap: 6px;
+            }
+            .otp-box-digit {
+                width: 42px;
+                height: 50px;
+                font-size: 1.3rem;
+                border-radius: 10px;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .fp-hero {
+                min-height: auto;
+            }
+
+            .fp-form-panel,
+            .fp-hero {
+                padding: 1.6rem;
+            }
+        }
+    </style>
+</asp:Content>
+
+<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+    <header class="sticky-top" style="z-index: 1030;">
+        <!-- RKU Header Topbar -->
+    <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155;">
+        <div class="container-fluid px-lg-5">
+            <div class="d-flex justify-content-between align-items-center py-2">
+                <!-- Left: Tagline with Graduation Cap -->
+                <div class="topbar-tagline d-flex align-items-center" style="font-weight:500; color:#334155;">
+                    <i class="fa-solid fa-graduation-cap topbar-icon me-2" style="color:#e03627; font-size:0.95rem;"></i>
+                    <span>Empowering Students. Connecting Companies. Building Careers.</span>
+                </div>
+                <!-- Right: Contact info & Social Media Icons -->
+                <div class="topbar-contact d-flex align-items-center gap-3">
+                    <a href="tel:+919876543210" class="topbar-link" style="color:#334155; text-decoration:none; display:inline-flex; align-items:center;">
+                        <i class="fa-solid fa-phone topbar-icon me-1.5" style="color:#e03627; font-size:0.85rem;"></i> <span style="color:#334155;">+91 98765 43210</span>
+                    </a>
+                    <span class="topbar-divider" style="color:#cbd5e1;">|</span>
+                    <a href="mailto:placement@rku.ac.in" class="topbar-link" style="color:#334155; text-decoration:none; display:inline-flex; align-items:center;">
+                        <i class="fa-solid fa-envelope topbar-icon me-1.5" style="color:#e03627; font-size:0.85rem;"></i> <span style="color:#334155;">placement@rku.ac.in</span>
+                    </a>
+                    <div class="topbar-socials d-flex align-items-center gap-1.5 ms-2">
+                        <a href="https://facebook.com" target="_blank" class="social-circle-btn" title="Facebook" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-facebook-f" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="social-circle-btn" title="LinkedIn" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-linkedin-in" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                        <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="Instagram" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-instagram" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                        <a href="https://youtube.com" target="_blank" class="social-circle-btn" title="YouTube" style="width:26px; height:26px; min-width:26px; border-radius:50%; background:linear-gradient(135deg, #e03627, #c5281b); color:#ffffff !important; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-youtube" style="color:#ffffff !important; font-size:0.72rem;"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid px-lg-5">
+            <!-- Brand Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
+                <img src="assets/images/RKU LOGO.png" alt="RK University Placement Portal" class="me-2" style="height: 48px; width: auto; max-width: 240px; object-fit: contain;">
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggleButton">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Index.aspx" id="navHome">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="About.aspx" id="navAbout">About Us</a>
+                    </li>
+
+                    <li class="nav-item dropdown" id="navItemPlacement">
+                        <a class="nav-link nav-placement-btn dropdown-toggle" href="#" id="navDrives" data-bs-toggle="dropdown" aria-expanded="false">
+                            Placement <i class="fa-solid fa-chevron-down placement-caret"></i>
+                        </a>
+                        <ul class="dropdown-menu nav-placement-dropdown" aria-labelledby="navDrives">
+                            <li><a class="dropdown-item" href="PlacementAbout.aspx" id="navPlacementAbout">About Us</a></li>
+                            <li><a class="dropdown-item" href="PlacementCampusDrives.aspx" id="navPlacementCampus">Campus Drives</a></li>
+                            <li><a class="dropdown-item" href="PlacementStudentSelection.aspx" id="navPlacementSelection">Student Selection</a></li>
+                            <li><a class="dropdown-item" href="PlacementLiaisonOfficers.aspx" id="navPlacementLiaison">Liaison Officers</a></li>
+                            <li><a class="dropdown-item" href="PlacmentProminentRecruiters.aspx" id="navPlacementRecruiters">Prominent Recruiters</a></li>
+                            <li><a class="dropdown-item" href="PlacementPolicy.aspx" id="navPlacementPolicy">Placement Policy</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Companies.aspx" id="navCompanies">Companies</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="SuccessStories.aspx" id="navStories">Success Stories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Contact.aspx" id="navContact">Contact</a>
+                    </li>
+                </ul>
+
+                <!-- User Actions -->
+                <div class="navbar-actions d-flex align-items-center">
+                    <a href="Login.aspx" class="btn btn-login" id="btnLogin">Login</a>
+                    <a href="Register.aspx" class="btn btn-register" id="btnRegister">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+        </header>
+</asp:Content>
+
+<asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
+    <main class="fp-shell">
+        <div class="container">
+            <div class="row g-0 fp-card">
+                <div class="col-lg-5">
+                    <section class="fp-hero">
+                        <div class="brand-row">
+                            <img src="assets/images/RKU LOGO.png" alt="RK University">
+                        </div>
+                        <div class="mb-3">
+                            <i class="fa-solid fa-shield-halved fa-3x text-white" style="opacity:0.88;"></i>
+                        </div>
+                        <h3 class="fp-title">Two-Step <span>Verification</span></h3>
+                        <p class="fp-lead">
+                            Protecting your student credentials and placement profile with secure passcode verification.
+                        </p>
+                    </section>
+                </div>
+
+                <div class="col-lg-7">
+                    <section class="fp-form-panel">
+                        <div class="eyebrow">OTP Verification</div>
+                        <h2 class="panel-title">Enter One-Time Code</h2>
+                        <p class="panel-subtitle" id="otpSubtitle">
+                            Please enter the 6-digit verification code sent to <strong class="text-dark"><asp:Literal ID="litMaskedEmail" runat="server"></asp:Literal></strong>.
+                        </p>
+
+                        <!-- Demo Info Toast -->
+                        <div id="demoOtpBox" class="alert alert-info py-2 px-3 small rounded-3 mb-3">
+                            <i class="fa-solid fa-circle-info me-1"></i> Demo / Test OTP code: <strong class="font-monospace fs-6"><asp:Literal ID="litDemoOtp" runat="server"></asp:Literal></strong>
+                        </div>
+
+                        <!-- Error Alert -->
+                        <asp:Label ID="lblOtpError" runat="server" CssClass="text-danger fw-bold d-block mb-3 text-center"></asp:Label>
+
+                        <div class="otp-inputs-row">
+                            <asp:TextBox ID="otp0" runat="server" MaxLength="1" CssClass="form-control otp-box-digit" autocomplete="off" inputmode="numeric"></asp:TextBox>
+                            <asp:TextBox ID="otp1" runat="server" MaxLength="1" CssClass="form-control otp-box-digit" autocomplete="off" inputmode="numeric"></asp:TextBox>
+                            <asp:TextBox ID="otp2" runat="server" MaxLength="1" CssClass="form-control otp-box-digit" autocomplete="off" inputmode="numeric"></asp:TextBox>
+                            <asp:TextBox ID="otp3" runat="server" MaxLength="1" CssClass="form-control otp-box-digit" autocomplete="off" inputmode="numeric"></asp:TextBox>
+                            <asp:TextBox ID="otp4" runat="server" MaxLength="1" CssClass="form-control otp-box-digit" autocomplete="off" inputmode="numeric"></asp:TextBox>
+                            <asp:TextBox ID="otp5" runat="server" MaxLength="1" CssClass="form-control otp-box-digit" autocomplete="off" inputmode="numeric"></asp:TextBox>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <asp:Button ID="fpVerifyOtpBtn" runat="server" CssClass="btn-rku" Text="Verify OTP &amp; Proceed" OnClick="fpVerifyOtpBtn_Click" />
+                            <asp:Button ID="btnResendOtp" runat="server" CssClass="btn-soft" Text="Resend Code" OnClick="btnResendOtp_Click" />
+                        </div>
+
+                        <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
+                            <a href="ForgotPassword.aspx" class="footer-link"><i class="fa-solid fa-arrow-left me-1"></i>Request New OTP</a>
+                            <a href="Login.aspx" class="footer-link">Back to Sign In <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+</asp:Content>
+
+<asp:Content ID="Content7" runat="server" ContentPlaceHolderID="ContentPlaceHolder3">
+    <footer class="footer pt-5" id="siteFooter">
+        <div class="container px-lg-5">
+            <div class="row g-4 pb-5">
+
+                <!-- Column 1: About Info -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-logo d-flex align-items-center mb-3">
+                        <img src="assets/images/RKU LOGO.png" alt="RK University" class="me-2" style="height: 36px; width: auto; max-width: 220px; object-fit: contain;">
+                    </div>
+                    <p class="mb-4">Empowering students by bridging the gap between academia and corporate world. Providing quality training and dream placements.</p>
+                    <div class="footer-social-links" id="footerSocials">
+                        <a href="https://facebook.com" target="_blank" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://twitter.com" target="_blank" title="X (Twitter)" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://linkedin.com" target="_blank" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://instagram.com" target="_blank" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links" id="footerQuickLinks">
+                        <li><a href="About.aspx">About Us</a></li>
+                        <li><a href="#">Academics</a></li>
+                        <li><a href="PlacementCampusDrives.aspx">Placement Drives</a></li>
+                        <li><a href="Companies.aspx">Companies</a></li>
+                        <li><a href="Contact.aspx">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Students Links -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Students</h5>
+                    <ul class="footer-links" id="footerStudentLinks">
+                        <li><a href="Register.aspx">Student Registration</a></li>
+                        <li><a href="Login.aspx">Student Login</a></li>
+                        <li><a href="PlacementCampusDrives.aspx">Available Jobs</a></li>
+                        <li><a href="StudentApplications.aspx">Applied Jobs</a></li>
+                        <li><a href="#">Interview Schedule</a></li>
+                        <li><a href="#">Resume Builder</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact Placement Cell -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Placement Cell</h5>
+                    <div class="footer-contact-info" id="footerContactInfo">
+                        <p>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>RK University, Rajkot - 360020,<br>
+                                Gujarat, India</span>
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-phone"></i>
+                            <span>+91 98765 43210</span>
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-envelope"></i>
+                            <a href="mailto:placement@rku.ac.in" id="linkFooterEmail">placement@rku.ac.in</a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Bottom Copyright -->
+        <div class="footer-bottom">
+            <div class="container px-lg-5">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                        <p class="mb-0" id="copyrightText">&copy; 2026 RK University Placement Portal. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-links d-inline-flex gap-3 mb-0" id="footerBottomLinks">
+                            <a href="#" style="font-size: 0.8rem;">Privacy Policy</a>
+                            <span style="color: rgba(255, 255, 255, 0.7);">|</span>
+                            <a href="#" style="font-size: 0.8rem;">Terms of Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/portal-db.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const boxes = [
+                document.getElementById('<%= otp0.ClientID %>'),
+                document.getElementById('<%= otp1.ClientID %>'),
+                document.getElementById('<%= otp2.ClientID %>'),
+                document.getElementById('<%= otp3.ClientID %>'),
+                document.getElementById('<%= otp4.ClientID %>'),
+                document.getElementById('<%= otp5.ClientID %>')
+            ];
+
+            boxes.forEach((box, index) => {
+                if (!box) return;
+
+                box.addEventListener('input', function () {
+                    const val = this.value.replace(/[^0-9]/g, '');
+                    this.value = val ? val.charAt(val.length - 1) : '';
+
+                    if (this.value && index < 5 && boxes[index + 1]) {
+                        boxes[index + 1].focus();
+                        boxes[index + 1].select();
+                    }
+                });
+
+                box.addEventListener('keydown', function (e) {
+                    if (e.key === 'Backspace') {
+                        if (!this.value && index > 0 && boxes[index - 1]) {
+                            boxes[index - 1].focus();
+                            boxes[index - 1].value = '';
+                        }
+                    } else if (e.key === 'ArrowLeft' && index > 0 && boxes[index - 1]) {
+                        boxes[index - 1].focus();
+                    } else if (e.key === 'ArrowRight' && index < 5 && boxes[index + 1]) {
+                        boxes[index + 1].focus();
+                    }
+                });
+
+                box.addEventListener('paste', function (e) {
+                    e.preventDefault();
+                    const clipData = (e.clipboardData || window.clipboardData).getData('text').trim().replace(/[^0-9]/g, '');
+                    if (clipData) {
+                        for (let i = 0; i < 6; i++) {
+                            if (clipData[i] && boxes[i]) {
+                                boxes[i].value = clipData[i];
+                            }
+                        }
+                        const lastIdx = Math.min(clipData.length, 6) - 1;
+                        if (boxes[lastIdx]) boxes[lastIdx].focus();
+                    }
+                });
+            });
+
+            const firstEmpty = boxes.find(b => b && !b.value);
+            if (firstEmpty) firstEmpty.focus();
+        });
+    </script>
+</asp:Content>

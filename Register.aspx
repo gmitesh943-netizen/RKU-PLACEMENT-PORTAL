@@ -444,8 +444,9 @@
     <!-- ==========================================
          1. HEADER TOPBAR & NAVBAR
          ========================================== -->
-    <!-- RKU Header Topbar -->
-    <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155; position:relative; z-index:1031;">
+    <header class="sticky-top" style="z-index: 1030;">
+        <!-- RKU Header Topbar -->
+    <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155;">
         <div class="container-fluid px-lg-5">
             <div class="d-flex justify-content-between align-items-center py-2">
                 <!-- Left: Tagline with Graduation Cap -->
@@ -473,7 +474,7 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid px-lg-5">
             <!-- Brand Logo -->
             <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
@@ -580,6 +581,7 @@
             </div>
         </div>
     </nav>
+        </header>
 </asp:Content>
 
 <asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
@@ -949,138 +951,7 @@
     </section>
     <%-- end register-main-section --%>
 
-    <%-- ==========================================
-         GRIDVIEWS SECTION (below register card)
-         ========================================== --%>
-    <section style="padding: 2rem 0 3rem 0; background-color: #f8fafc;">
-        <div class="container">
-
-            <h4 class="fw-bold mb-3" style="color: #111;">Student GridView</h4>
-            <div class="table-responsive mb-4">
-                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="100%"
-                    CssClass="table table-bordered table-hover table-sm align-middle"
-                    HeaderStyle-BackColor="#ef3724" HeaderStyle-ForeColor="White" OnRowCommand="GridView1_RowCommand">
-                    <Columns>
-                        <asp:TemplateField HeaderText="Id">
-                            <ItemTemplate>
-                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("Id") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Name">
-                            <ItemTemplate>
-                                <asp:Label ID="Label2" runat="server" Text='<%# Eval("regFullName") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Enrollment">
-                            <ItemTemplate>
-                                <asp:Label ID="Label3" runat="server" Text='<%# Eval("regRollNo") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Email">
-                            <ItemTemplate>
-                                <asp:Label ID="Label4" runat="server" Text='<%# Eval("regEmail") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Mobile">
-                            <ItemTemplate>
-                                <asp:Label ID="Label5" runat="server" Text='<%# Eval("regMobile") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Username">
-                            <ItemTemplate>
-                                <asp:Label ID="Label6" runat="server" Text='<%# Eval("regUsername") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Password">
-                            <ItemTemplate>
-                                <asp:Label ID="Label7" runat="server" Text='<%# Eval("regPassword") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="ConfirmPassword">
-                            <ItemTemplate>
-                                <asp:Label ID="Label8" runat="server" Text='<%# Eval("regConfirmPassword") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Edit">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_edt">Edit</asp:LinkButton>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Delate">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_del">Delate</asp:LinkButton>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-
-<HeaderStyle BackColor="#EF3724" ForeColor="White"></HeaderStyle>
-                </asp:GridView>
-            </div>
-
-            <h4 class="fw-bold mb-3" style="color: #111;">Company GridView</h4>
-            <div class="table-responsive">
-                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" Width="100%"
-                    CssClass="table table-bordered table-hover table-sm align-middle"
-                    HeaderStyle-BackColor="#ef3724" HeaderStyle-ForeColor="White" OnRowCommand="GridView2_RowCommand">
-                    <Columns>
-                        <asp:TemplateField HeaderText="Id">
-                            <ItemTemplate>
-                                <asp:Label ID="Label9" runat="server" Text='<%# Eval("Id") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="CompanyName">
-                            <ItemTemplate>
-                                <asp:Label ID="Label10" runat="server" Text='<%# Eval("compName") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="HRName">
-                            <ItemTemplate>
-                                <asp:Label ID="Label11" runat="server" Text='<%# Eval("compHRName") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Email">
-                            <ItemTemplate>
-                                <asp:Label ID="Label12" runat="server" Text='<%# Eval("compEmail") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Mobile">
-                            <ItemTemplate>
-                                <asp:Label ID="Label13" runat="server" Text='<%# Eval("compMobile") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Username">
-                            <ItemTemplate>
-                                <asp:Label ID="Label14" runat="server" Text='<%# Eval("compUsername") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Password">
-                            <ItemTemplate>
-                                <asp:Label ID="Label15" runat="server" Text='<%# Eval("compPassword") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="ConfirmPassword">
-                            <ItemTemplate>
-                                <asp:Label ID="Label16" runat="server" Text='<%# Eval("compConfirmPassword") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Edit">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton3" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_cedt">Edit</asp:LinkButton>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Delate">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton4" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_cdel">Delate</asp:LinkButton>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-
-<HeaderStyle BackColor="#EF3724" ForeColor="White"></HeaderStyle>
-                </asp:GridView>
-            </div>
-
-        </div>
-    </section>
+ 
 
 </asp:Content>
 

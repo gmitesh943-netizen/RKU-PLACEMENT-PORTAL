@@ -281,6 +281,20 @@
                 width: 100% !important;
             }
         }
+
+        /* Pagination */
+        .pagination-pages {
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: #1e293b;
+            padding: 0 0.5rem;
+        }
+
+        .pagination .btn[disabled] {
+            opacity: 0.45;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
     </style>
 </asp:Content>
 
@@ -437,6 +451,13 @@
                     <p class="text-muted small">No recruitment drives match your current search or filter criteria.</p>
                 </div>
             </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination d-flex justify-content-center align-items-center gap-3 mt-3 pt-3 border-top">
+            <asp:Button ID="btnPrevious" runat="server" Text="Previous" OnClick="btnPrevious_Click" CssClass="btn btn-sm btn-light border px-3 rounded-pill fw-semibold" />
+            <asp:Label ID="lblPages" runat="server" CssClass="pagination-pages" Text="Page 1 of 1" />
+            <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="btn btn-sm btn-danger px-3 rounded-pill fw-semibold" />
         </div>
     </div>
 

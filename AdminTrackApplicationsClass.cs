@@ -10,121 +10,99 @@ namespace RKU_PLACEMENT_PORTAL
         SqlConnection con;
         SqlDataAdapter da;
         DataSet ds;
-
+        SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
-        void getcon()
+        public SqlConnection getcon()
         {
             con = new SqlConnection(s);
             con.Open();
+            return con;
         }
 
-        string getBaseQuery()
+        // fill grid method
+        public DataSet select_applications()
         {
-            return "SELECT ca.*, rac.compName, rac.compLogo, (SELECT TOP 1 r.photoUrl FROM register_auth r WHERE (r.regEmail = ca.StudentEmail AND ca.StudentEmail <> '') OR (r.regUsername = ca.StudentUsername AND ca.StudentUsername <> '') OR (r.regRollNo = ca.StudentRollNo AND ca.StudentRollNo <> '') ORDER BY CASE WHEN r.photoUrl IS NOT NULL AND r.photoUrl <> '' THEN 0 ELSE 1 END, r.Id DESC) AS photoUrl FROM Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail)";
+            getcon();
+            da = new SqlDataAdapter("SELECT ca.*, rac.compName, rac.compLogo, (SELECT TOP 1 r.photoUrl FROM register_auth r WHERE (r.regEmail = ca.StudentEmail AND ca.StudentEmail <> '') OR (r.regUsername = ca.StudentUsername AND ca.StudentUsername <> '') OR (r.regRollNo = ca.StudentRollNo AND ca.StudentRollNo <> '') ORDER BY CASE WHEN r.photoUrl IS NOT NULL AND r.photoUrl <> '' THEN 0 ELSE 1 END, r.Id DESC) AS photoUrl FROM Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail) ORDER BY ca.Id DESC", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            return ds;
         }
 
-        // search_applications
-        public DataSet search_applications(string search)
+        //  search filter
+        public DataSet search_applications(string nm)
         {
-            if (string.IsNullOrWhiteSpace(search))
+            getcon();
+            if (string.IsNullOrWhiteSpace(nm))
             {
-                return select_all_applications();
+                da = new SqlDataAdapter("SELECT ca.*, rac.compName, rac.compLogo, (SELECT TOP 1 r.photoUrl FROM register_auth r WHERE (r.regEmail = ca.StudentEmail AND ca.StudentEmail <> '') OR (r.regUsername = ca.StudentUsername AND ca.StudentUsername <> '') OR (r.regRollNo = ca.StudentRollNo AND ca.StudentRollNo <> '') ORDER BY CASE WHEN r.photoUrl IS NOT NULL AND r.photoUrl <> '' THEN 0 ELSE 1 END, r.Id DESC) AS photoUrl FROM Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail) ORDER BY ca.Id DESC", con);
             }
-            getcon();
-            string baseQ = getBaseQuery();
-            da = new SqlDataAdapter(baseQ + " WHERE (ca.StudentName LIKE '%" + search + "%' OR ca.StudentRollNo LIKE '%" + search + "%' OR ca.StudentBranch LIKE '%" + search + "%' OR ca.JobRole LIKE '%" + search + "%' OR rac.compName LIKE '%" + search + "%' OR ca.ApplicationStatus LIKE '%" + search + "%') ORDER BY ca.Id DESC", con);
+            else
+            {
+                da = new SqlDataAdapter("SELECT ca.*, rac.compName, rac.compLogo, (SELECT TOP 1 r.photoUrl FROM register_auth r WHERE (r.regEmail = ca.StudentEmail AND ca.StudentEmail <> '') OR (r.regUsername = ca.StudentUsername AND ca.StudentUsername <> '') OR (r.regRollNo = ca.StudentRollNo AND ca.StudentRollNo <> '') ORDER BY CASE WHEN r.photoUrl IS NOT NULL AND r.photoUrl <> '' THEN 0 ELSE 1 END, r.Id DESC) AS photoUrl FROM Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail) WHERE (ca.StudentName LIKE '%" + nm + "%' OR ca.StudentRollNo LIKE '%" + nm + "%' OR ca.StudentBranch LIKE '%" + nm + "%' OR ca.JobRole LIKE '%" + nm + "%' OR rac.compName LIKE '%" + nm + "%' OR ca.ApplicationStatus LIKE '%" + nm + "%' OR CAST(ca.Id AS VARCHAR) LIKE '%" + nm + "%') ORDER BY ca.Id DESC", con);
+            }
             ds = new DataSet();
             da.Fill(ds);
             return ds;
         }
 
-        // select_all_applications
-        public DataSet select_all_applications()
-        {
-            getcon();
-            string baseQ = getBaseQuery();
-            da = new SqlDataAdapter(baseQ + " ORDER BY ca.Id DESC", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            return ds;
-        }
-
-        // select_applications_by_company
+        //  company filter
         public DataSet select_applications_by_company(string company)
         {
             getcon();
-            string baseQ = getBaseQuery();
-            if (string.IsNullOrEmpty(company) || company == "All" || company == "0")
+            if (company == "all" || company == "All" || company == "0")
             {
-                da = new SqlDataAdapter(baseQ + " ORDER BY ca.Id DESC", con);
+                da = new SqlDataAdapter("SELECT ca.*, rac.compName, rac.compLogo, (SELECT TOP 1 r.photoUrl FROM register_auth r WHERE (r.regEmail = ca.StudentEmail AND ca.StudentEmail <> '') OR (r.regUsername = ca.StudentUsername AND ca.StudentUsername <> '') OR (r.regRollNo = ca.StudentRollNo AND ca.StudentRollNo <> '') ORDER BY CASE WHEN r.photoUrl IS NOT NULL AND r.photoUrl <> '' THEN 0 ELSE 1 END, r.Id DESC) AS photoUrl FROM Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail) ORDER BY ca.Id DESC", con);
             }
             else
             {
-                da = new SqlDataAdapter(baseQ + " WHERE (ca.CompanyUsername = '" + company + "' OR rac.compUsername = '" + company + "' OR rac.compEmail = '" + company + "' OR rac.compName = (SELECT TOP 1 c.compName FROM register_auth_company c WHERE c.compUsername = '" + company + "' OR c.compEmail = '" + company + "')) ORDER BY ca.Id DESC", con);
+                da = new SqlDataAdapter("SELECT ca.*, rac.compName, rac.compLogo, (SELECT TOP 1 r.photoUrl FROM register_auth r WHERE (r.regEmail = ca.StudentEmail AND ca.StudentEmail <> '') OR (r.regUsername = ca.StudentUsername AND ca.StudentUsername <> '') OR (r.regRollNo = ca.StudentRollNo AND ca.StudentRollNo <> '') ORDER BY CASE WHEN r.photoUrl IS NOT NULL AND r.photoUrl <> '' THEN 0 ELSE 1 END, r.Id DESC) AS photoUrl FROM Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail) WHERE (ca.CompanyUsername = '" + company + "' OR rac.compUsername = '" + company + "' OR rac.compEmail = '" + company + "' OR rac.compName = (SELECT TOP 1 c.compName FROM register_auth_company c WHERE c.compUsername = '" + company + "' OR c.compEmail = '" + company + "')) ORDER BY ca.Id DESC", con);
             }
             ds = new DataSet();
             da.Fill(ds);
             return ds;
         }
 
-        // select_applications_by_status
+        //  status filter
         public DataSet select_applications_by_status(string status)
         {
             getcon();
-            string baseQ = getBaseQuery();
-            if (string.IsNullOrEmpty(status) || status == "All")
+            if (status == "all" || status == "All")
             {
-                da = new SqlDataAdapter(baseQ + " ORDER BY ca.Id DESC", con);
+                da = new SqlDataAdapter("SELECT ca.*, rac.compName, rac.compLogo, (SELECT TOP 1 r.photoUrl FROM register_auth r WHERE (r.regEmail = ca.StudentEmail AND ca.StudentEmail <> '') OR (r.regUsername = ca.StudentUsername AND ca.StudentUsername <> '') OR (r.regRollNo = ca.StudentRollNo AND ca.StudentRollNo <> '') ORDER BY CASE WHEN r.photoUrl IS NOT NULL AND r.photoUrl <> '' THEN 0 ELSE 1 END, r.Id DESC) AS photoUrl FROM Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail) ORDER BY ca.Id DESC", con);
             }
-            else if (status == "Selected")
+            else if (status == "Selected" || status == "Offer Accepted")
             {
-                da = new SqlDataAdapter(baseQ + " WHERE (ca.ApplicationStatus = 'Selected' OR ca.ApplicationStatus = 'Offer Accepted') ORDER BY ca.Id DESC", con);
+                da = new SqlDataAdapter("SELECT ca.*, rac.compName, rac.compLogo, (SELECT TOP 1 r.photoUrl FROM register_auth r WHERE (r.regEmail = ca.StudentEmail AND ca.StudentEmail <> '') OR (r.regUsername = ca.StudentUsername AND ca.StudentUsername <> '') OR (r.regRollNo = ca.StudentRollNo AND ca.StudentRollNo <> '') ORDER BY CASE WHEN r.photoUrl IS NOT NULL AND r.photoUrl <> '' THEN 0 ELSE 1 END, r.Id DESC) AS photoUrl FROM Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail) WHERE (ca.ApplicationStatus = 'Selected' OR ca.ApplicationStatus = 'Offer Accepted') ORDER BY ca.Id DESC", con);
             }
             else
             {
-                da = new SqlDataAdapter(baseQ + " WHERE ca.ApplicationStatus = '" + status + "' ORDER BY ca.Id DESC", con);
+                da = new SqlDataAdapter("SELECT ca.*, rac.compName, rac.compLogo, (SELECT TOP 1 r.photoUrl FROM register_auth r WHERE (r.regEmail = ca.StudentEmail AND ca.StudentEmail <> '') OR (r.regUsername = ca.StudentUsername AND ca.StudentUsername <> '') OR (r.regRollNo = ca.StudentRollNo AND ca.StudentRollNo <> '') ORDER BY CASE WHEN r.photoUrl IS NOT NULL AND r.photoUrl <> '' THEN 0 ELSE 1 END, r.Id DESC) AS photoUrl FROM Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail) WHERE ca.ApplicationStatus = '" + status + "' ORDER BY ca.Id DESC", con);
             }
             ds = new DataSet();
             da.Fill(ds);
             return ds;
         }
 
-        // filter_applications (combines search + company + status)
-        public DataSet filter_applications(string search, string company, string status)
+        // Delete application 
+        public void delete_application(int id)
         {
             getcon();
-            string baseQ = getBaseQuery();
-            string query = baseQ + " WHERE 1=1";
+            cmd = new SqlCommand("delete from Company_Applications where Id = " + id, con);
+            cmd.ExecuteNonQuery();
+        }
 
-            if (!string.IsNullOrEmpty(company) && company != "All" && company != "0")
+        // Pagination
+        public DataTable certificate_pagination(DataTable dt, int page)
+        {
+            DataTable dt2 = dt.Clone();
+            int start = page * 6;
+            for (int i = start; i < start + 6 && i < dt.Rows.Count; i++)
             {
-                query += " AND (ca.CompanyUsername = '" + company + "' OR rac.compUsername = '" + company + "' OR rac.compEmail = '" + company + "' OR rac.compName = (SELECT TOP 1 c.compName FROM register_auth_company c WHERE c.compUsername = '" + company + "' OR c.compEmail = '" + company + "'))";
+                dt2.ImportRow(dt.Rows[i]);
             }
-
-            if (!string.IsNullOrEmpty(status) && status != "All")
-            {
-                if (status == "Selected")
-                {
-                    query += " AND (ca.ApplicationStatus = 'Selected' OR ca.ApplicationStatus = 'Offer Accepted')";
-                }
-                else
-                {
-                    query += " AND ca.ApplicationStatus = '" + status + "'";
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(search))
-            {
-                query += " AND (ca.StudentName LIKE '%" + search + "%' OR ca.StudentRollNo LIKE '%" + search + "%' OR ca.StudentBranch LIKE '%" + search + "%' OR ca.JobRole LIKE '%" + search + "%' OR rac.compName LIKE '%" + search + "%')";
-            }
-
-            query += " ORDER BY ca.Id DESC";
-
-            da = new SqlDataAdapter(query, con);
-            ds = new DataSet();
-            da.Fill(ds);
-            return ds;
+            return dt2;
         }
     }
 }

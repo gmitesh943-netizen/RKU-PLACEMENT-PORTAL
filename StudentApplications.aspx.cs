@@ -26,25 +26,70 @@ namespace RKU_PLACEMENT_PORTAL
             con = new SqlConnection(s);
             con.Open();
         }
+
         void fillgrid()
         {
             getcon();
             da = new SqlDataAdapter("select a.*, c.compName, c.compLogo from Company_Applications a left join register_auth_company c on (a.CompanyUsername = c.compUsername or a.CompanyUsername = c.compEmail) where a.StudentRollNo='" + ViewState["rollno"] + "' or a.StudentEmail='" + ViewState["email"] + "' or a.StudentUsername='" + ViewState["email"] + "' order by a.Id desc", con);
             ds = new DataSet();
             da.Fill(ds);
-            GridView1.DataSource = ds;
+
+            DataTable dt = ds.Tables[0];
+
+            int page = Convert.ToInt32(ViewState["page"]);
+            int totalPages = (int)Math.Ceiling(dt.Rows.Count / 6.0);
+
+            if (totalPages > 0 && page >= totalPages)
+            {
+                page = totalPages - 1;
+                ViewState["page"] = page;
+            }
+
+            GridView1.DataSource = certificate_pagination(dt, page);
             GridView1.DataBind();
 
             //--------------display kare  total number of applications------------
-            if (ds.Tables[0].Rows.Count > 0)
+            if (dt.Rows.Count > 0)
             {
-                lblApplicationCount.Text = ds.Tables[0].Rows.Count + " Applications";
+                lblApplicationCount.Text = dt.Rows.Count + " Applications";
             }
             else
             {
                 lblApplicationCount.Text = "0 Applications";
             }
+
+            lblPages.Text = "Page " + (page + 1) + " of " + (totalPages > 0 ? totalPages : 1);
+
+            btnPrevious.Enabled = page > 0;
+            btnNext.Enabled = (page + 1) * 6 < dt.Rows.Count;
         }
+
+        // Pagination method (6 records per page)
+        public DataTable certificate_pagination(DataTable dt, int page)
+        {
+            DataTable dt2 = dt.Clone();
+            int start = page * 6;
+            for (int i = start; i < start + 6 && i < dt.Rows.Count; i++)
+            {
+                dt2.ImportRow(dt.Rows[i]);
+            }
+            return dt2;
+        }
+
+        // Previous Button
+        protected void btnPrevious_Click(object sender, EventArgs e)
+        {
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) - 1;
+            fillgrid();
+        }
+
+        // Next Button
+        protected void btnNext_Click(object sender, EventArgs e)
+        {
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) + 1;
+            fillgrid();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["student"] != null)
@@ -63,12 +108,16 @@ namespace RKU_PLACEMENT_PORTAL
                     ViewState["nm"] = nm;
                     ViewState["rollno"] = rollno;
                     ViewState["email"] = email;
-                    fillgrid();
                 }
                 else
                 {
                     ViewState["rollno"] = Session["student"].ToString();
                     ViewState["email"] = Session["student"].ToString();
+                }
+
+                if (!IsPostBack)
+                {
+                    ViewState["page"] = 0;
                     fillgrid();
                 }
             }

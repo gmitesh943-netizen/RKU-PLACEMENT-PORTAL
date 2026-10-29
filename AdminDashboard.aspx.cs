@@ -92,7 +92,7 @@ namespace RKU_PLACEMENT_PORTAL
             da.Fill(ds);
             gvRecentApplications.DataSource = ds;
             gvRecentApplications.DataBind();
-            con.Close();
+            
         }
     }
 }

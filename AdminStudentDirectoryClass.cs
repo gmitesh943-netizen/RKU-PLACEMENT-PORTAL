@@ -10,33 +10,20 @@ namespace RKU_PLACEMENT_PORTAL
         SqlConnection con;
         SqlDataAdapter da;
         DataSet ds;
-
+        SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
-        void getcon()
+        public SqlConnection getcon()
         {
             con = new SqlConnection(s);
             con.Open();
+            return con;
         }
 
-        // ================= STUDENT METHODS =================
+        // ------------------STUDENT METHODS --------------
 
-        // search_students
-        public DataSet search_students(string nm)
-        {
-            if (string.IsNullOrWhiteSpace(nm))
-            {
-                return select_all_students();
-            }
-            getcon();
-            da = new SqlDataAdapter("SELECT * FROM register_auth WHERE (regFullName LIKE '%" + nm + "%' OR regRollNo LIKE '%" + nm + "%' OR regEmail LIKE '%" + nm + "%' OR regMobile LIKE '%" + nm + "%' OR degree LIKE '%" + nm + "%' OR branch LIKE '%" + nm + "%' OR skills LIKE '%" + nm + "%' OR regUsername LIKE '%" + nm + "%') ORDER BY Id DESC", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            return ds;
-        }
-
-        // select_all_students
-        public DataSet select_all_students()
+        // fill student grid method
+        public DataSet select_students()
         {
             getcon();
             da = new SqlDataAdapter("SELECT * FROM register_auth ORDER BY Id DESC", con);
@@ -45,41 +32,53 @@ namespace RKU_PLACEMENT_PORTAL
             return ds;
         }
 
-        // select_students_by_branch
-        public DataSet select_students_by_branch(string branch)
+        //  student search filter
+        public DataSet search_students(string nm)
         {
             getcon();
-            if (branch == "all" || branch == "All" || string.IsNullOrEmpty(branch))
+            if (string.IsNullOrWhiteSpace(nm))
             {
                 da = new SqlDataAdapter("SELECT * FROM register_auth ORDER BY Id DESC", con);
             }
             else
             {
-                da = new SqlDataAdapter("SELECT * FROM register_auth WHERE (branch LIKE '%" + branch + "%' OR degree LIKE '%" + branch + "%') ORDER BY Id DESC", con);
+                da = new SqlDataAdapter("SELECT * FROM register_auth WHERE (regFullName LIKE '%" + nm + "%' OR regRollNo LIKE '%" + nm + "%' OR regEmail LIKE '%" + nm + "%' OR regMobile LIKE '%" + nm + "%' OR degree LIKE '%" + nm + "%' OR branch LIKE '%" + nm + "%' OR skills LIKE '%" + nm + "%' OR regUsername LIKE '%" + nm + "%') ORDER BY Id DESC", con);
             }
             ds = new DataSet();
             da.Fill(ds);
             return ds;
         }
 
-        // ================= COMPANY METHODS =================
-
-        // search_companies
-        public DataSet search_companies(string search)
+        //  student branch filter
+        public DataSet select_students_by_branch(string branch)
         {
-            if (string.IsNullOrWhiteSpace(search))
-            {
-                return select_all_companies();
-            }
             getcon();
-            da = new SqlDataAdapter("SELECT * FROM register_auth_company WHERE (compName LIKE '%" + search + "%' OR compEmail LIKE '%" + search + "%' OR compContact LIKE '%" + search + "%' OR compIndustry LIKE '%" + search + "%' OR compLocation LIKE '%" + search + "%' OR compUsername LIKE '%" + search + "%' OR compWebsite LIKE '%" + search + "%') ORDER BY Id DESC", con);
+            if (branch == "all" || branch == "All")
+            {
+                da = new SqlDataAdapter("SELECT * FROM register_auth ORDER BY Id DESC", con);
+            }
+            else
+            {
+                da = new SqlDataAdapter("SELECT * FROM register_auth WHERE (branch = '" + branch + "' OR branch LIKE '%" + branch + "%' OR degree LIKE '%" + branch + "%') ORDER BY Id DESC", con);
+            }
             ds = new DataSet();
             da.Fill(ds);
             return ds;
         }
 
-        // select_all_companies
-        public DataSet select_all_companies()
+        // Delete student 
+        public void delete_student(int id)
+        {
+            getcon();
+            cmd = new SqlCommand("delete from register_auth where Id = " + id, con);
+            cmd.ExecuteNonQuery();
+        }
+
+      
+        // -------------------------- COMPANY METHODS -----------------
+
+        // fill company grid method
+        public DataSet select_companies()
         {
             getcon();
             da = new SqlDataAdapter("SELECT * FROM register_auth_company ORDER BY Id DESC", con);
@@ -88,21 +87,58 @@ namespace RKU_PLACEMENT_PORTAL
             return ds;
         }
 
-        // select_companies_by_industry
-        public DataSet select_companies_by_industry(string industry)
+        //  company search filter
+        public DataSet search_companies(string nm)
         {
             getcon();
-            if (industry == "all" || industry == "All" || string.IsNullOrEmpty(industry))
+            if (string.IsNullOrWhiteSpace(nm))
             {
                 da = new SqlDataAdapter("SELECT * FROM register_auth_company ORDER BY Id DESC", con);
             }
             else
             {
-                da = new SqlDataAdapter("SELECT * FROM register_auth_company WHERE compIndustry LIKE '%" + industry + "%' ORDER BY Id DESC", con);
+                da = new SqlDataAdapter("SELECT * FROM register_auth_company WHERE (compName LIKE '%" + nm + "%' OR compEmail LIKE '%" + nm + "%' OR compMobile LIKE '%" + nm + "%' OR compHRName LIKE '%" + nm + "%' OR compIndustry LIKE '%" + nm + "%' OR compLocation LIKE '%" + nm + "%' OR compUsername LIKE '%" + nm + "%' OR compWebsite LIKE '%" + nm + "%') ORDER BY Id DESC", con);
             }
             ds = new DataSet();
             da.Fill(ds);
             return ds;
+        }
+
+        //  company filter
+        public DataSet select_companies_by_industry(string industry)
+        {
+            getcon();
+            if ( industry == "all" || industry == "All")
+            {
+                da = new SqlDataAdapter("SELECT * FROM register_auth_company ORDER BY Id DESC", con);
+            }
+            else
+            {
+                da = new SqlDataAdapter("SELECT * FROM register_auth_company WHERE compIndustry = '" + industry + "' OR compIndustry LIKE '%" + industry + "%' ORDER BY Id DESC", con);
+            }
+            ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+        }
+
+        // Delete company 
+        public void delete_company(int id)
+        {
+            getcon();
+            cmd = new SqlCommand("delete from register_auth_company where Id = " + id, con);
+            cmd.ExecuteNonQuery();
+        }
+
+        // Pagination
+        public DataTable certificate_pagination(DataTable dt, int page)
+        {
+            DataTable dt2 = dt.Clone();
+            int start = page * 6;
+            for (int i = start; i < start + 6 && i < dt.Rows.Count; i++)
+            {
+                dt2.ImportRow(dt.Rows[i]);
+            }
+            return dt2;
         }
     }
 }

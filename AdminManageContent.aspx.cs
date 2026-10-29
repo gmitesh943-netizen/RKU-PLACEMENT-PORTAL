@@ -30,6 +30,7 @@ namespace RKU_PLACEMENT_PORTAL
                 fillGrid();
                 fillStoryGrid();
                 fillGalleryGrid();
+                fillCoordinatorGrid();
                 fillTeamGrid();
             }
         }
@@ -406,6 +407,140 @@ namespace RKU_PLACEMENT_PORTAL
         {
             clearGallery();
         }
+        //========================== PLACEMENT COORDINATORS ==========================
+        void coordImgUpload()
+        {
+            if (coordinatorPhoto.HasFile)
+            {
+                fnm = "~/assets/images/coordinators/" + coordinatorPhoto.FileName;
+                coordinatorPhoto.SaveAs(Server.MapPath(fnm));
+            }
+            else
+            {
+                fnm = "";
+            }
+        }
+
+        void clearCoordinator()
+        {
+            coordName.Text = "";
+            coordDepartment.Text = "";
+            coordDesignation.Text = "";
+            coordContact.Text = "";
+            coordPackage.Text = "";
+            coordinatorImagePreview.ImageUrl = "";
+            coordinatorImagePreview.Style["display"] = "none";
+            coordinatorUploadHint.Style["display"] = "block";
+            coordSubmitBtn.Text = "Add Coordinator";
+            coordinatorFormTitle.InnerHtml = "<i class=\"fa-solid fa-id-badge me-2\" style=\"color: #e03627;\"></i>Add Placement Coordinator";
+        }
+
+        void fillCoordinatorGrid()
+        {
+            getcon();
+            da = new SqlDataAdapter("select * from Placement_Coordinators", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            GridViewCoordinators.DataSource = ds;
+            GridViewCoordinators.DataBind();
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                lblNoCoordinators.Visible = false;
+                coordinatorCountBadge.InnerText = ds.Tables[0].Rows.Count + " coordinators";
+            }
+            else
+            {
+                lblNoCoordinators.Visible = true;
+                coordinatorCountBadge.InnerText = "0 coordinators";
+            }
+        }
+
+        void fillCoordinatorData()
+        {
+            getcon();
+            da = new SqlDataAdapter("select * from Placement_Coordinators where CoordinatorId='" + ViewState["coordid"] + "'", con);
+            ds = new DataSet();
+            da.Fill(ds);
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                coordName.Text = ds.Tables[0].Rows[0]["CoordinatorName"].ToString();
+                coordDepartment.Text = ds.Tables[0].Rows[0]["Department"].ToString();
+                coordDesignation.Text = ds.Tables[0].Rows[0]["Designation"].ToString();
+                coordContact.Text = ds.Tables[0].Rows[0]["ContactNo"].ToString();
+                coordPackage.Text = ds.Tables[0].Rows[0]["Package"].ToString();
+
+                string img = ds.Tables[0].Rows[0]["CoordinatorPhoto"].ToString();
+                if (!string.IsNullOrEmpty(img) && img != "~/assets/images/coordinators/")
+                {
+                    coordinatorImagePreview.ImageUrl = img;
+                    coordinatorImagePreview.Style["display"] = "block";
+                    coordinatorUploadHint.Style["display"] = "none";
+                }
+                else
+                {
+                    coordinatorImagePreview.ImageUrl = "";
+                    coordinatorImagePreview.Style["display"] = "none";
+                    coordinatorUploadHint.Style["display"] = "block";
+                }
+            }
+        }
+
+        protected void coordSubmitBtn_Click(object sender, EventArgs e)
+        {
+            if (coordSubmitBtn.Text == "Add Coordinator")
+            {
+                getcon();
+                coordImgUpload();
+                cmd = new SqlCommand("insert into Placement_Coordinators(CoordinatorName,Department,Designation,ContactNo,Package,CoordinatorPhoto) values('" + coordName.Text + "','" + coordDepartment.Text + "','" + coordDesignation.Text + "','" + coordContact.Text + "','" + coordPackage.Text + "','" + fnm + "')", con);
+                cmd.ExecuteNonQuery();
+                clearCoordinator();
+                fillCoordinatorGrid();
+            }
+            else
+            {
+                getcon();
+                if (coordinatorPhoto.HasFile)
+                {
+                    coordImgUpload();
+                    cmd = new SqlCommand("update Placement_Coordinators set CoordinatorName='" + coordName.Text + "',Department='" + coordDepartment.Text + "',Designation='" + coordDesignation.Text + "',ContactNo='" + coordContact.Text + "',Package='" + coordPackage.Text + "',CoordinatorPhoto='" + fnm + "' where CoordinatorId='" + ViewState["coordid"] + "'", con);
+                }
+                else
+                {
+                    cmd = new SqlCommand("update Placement_Coordinators set CoordinatorName='" + coordName.Text + "',Department='" + coordDepartment.Text + "',Designation='" + coordDesignation.Text + "',ContactNo='" + coordContact.Text + "',Package='" + coordPackage.Text + "' where CoordinatorId='" + ViewState["coordid"] + "'", con);
+                }
+                cmd.ExecuteNonQuery();
+                fillCoordinatorGrid();
+                clearCoordinator();
+                coordSubmitBtn.Text = "Add Coordinator";
+            }
+        }
+
+        protected void GridViewCoordinators_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "cmd_cedt")
+            {
+                string id = e.CommandArgument.ToString();
+                ViewState["coordid"] = id;
+                coordSubmitBtn.Text = "Update";
+                coordinatorFormTitle.InnerHtml = "<i class=\"fa-solid fa-pen-to-square me-2\" style=\"color: #e03627;\"></i>Edit Coordinator";
+                fillCoordinatorData();
+            }
+            else if (e.CommandName == "cmd_cdel")
+            {
+                getcon();
+                cmd = new SqlCommand("delete from Placement_Coordinators where CoordinatorId='" + e.CommandArgument + "'", con);
+                cmd.ExecuteNonQuery();
+                fillCoordinatorGrid();
+            }
+        }
+
+        protected void coordCancelBtn_Click(object sender, EventArgs e)
+        {
+            clearCoordinator();
+        }
+
         //========================== PLACEMENT TEAM ==========================
         void teamImgUpload()
         {

@@ -43,6 +43,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.6, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.13.6\lib\net461\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -187,6 +193,8 @@
     <Content Include="css\student-panel.css" />
     <Content Include="css\style.css" />
     <Content Include="ForgotPassword.aspx" />
+    <Content Include="verifyotp.aspx" />
+    <Content Include="ResetPassword.aspx" />
     <Content Include="Index.aspx" />
     <Content Include="js\main.js" />
     <Content Include="js\portal-db.js" />
@@ -295,6 +303,7 @@
     <Compile Include="CompanyApplicantsClass.cs" />
     <Compile Include="CompanyStudentDirectoryClass.cs" />
     <Compile Include="StudentDrivesClass.cs" />
+    <Compile Include="PlacementCampusDrivesClass.cs" />
     <Compile Include="CompanyDetails.aspx.cs">
       <DependentUpon>CompanyDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -357,6 +366,20 @@
     </Compile>
     <Compile Include="ForgotPassword.aspx.designer.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="verifyotp.aspx.cs">
+      <DependentUpon>verifyotp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="verifyotp.aspx.designer.cs">
+      <DependentUpon>verifyotp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ResetPassword.aspx.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>

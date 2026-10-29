@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="SuccessStories.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.SuccessStories" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="SuccessStories.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.SuccessStories" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -48,6 +48,11 @@
         <link href="css/style.css" rel="stylesheet">
 
         <style>
+
+            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap');
+
+
+
             /* Hero Section Custom Overlay */
             .stories-hero {
                 position: relative;
@@ -125,80 +130,208 @@
                 letter-spacing: 0.5px;
             }
 
-            /* Featured Story Panel */
+            /* ==========================================
+               Featured Story Panel (SS2 Redesign)
+               ========================================== */
             .featured-story-panel {
-                background-color: #fff;
-                border-radius: 16px;
-                border: 1px solid #eef0f3;
-                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-                padding: 2.25rem 2.5rem;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .featured-avatar-box {
+                background-color: #ffffff;
                 border-radius: 14px;
-                overflow: hidden;
                 border: 1px solid #eef0f3;
-                background-color: #f8f9fa;
-                height: 460px;
-                max-width: 100%;
-                margin: 0 auto;
-                width: 100%;
+                box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);
+                padding: 2.75rem 2.75rem;
+                position: relative;
             }
 
-                .featured-avatar-box svg,
-                .featured-avatar-box img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    object-position: top center;
-                    display: block;
-                }
+            .featured-photo-frame {
+                position: relative;
+                display: inline-block;
+                width: 100%;
+                max-width: 370px;
+                margin-top: 14px;
+                margin-left: 14px;
+            }
+
+            .featured-red-corner {
+                position: absolute;
+                top: -14px;
+                left: -14px;
+                width: 65px;
+                height: 85px;
+                background-color: #e02424;
+                border-top-left-radius: 6px;
+                z-index: 1;
+            }
+
+            .featured-student-photo {
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                height: 380px;
+                object-fit: cover;
+                object-position: top center;
+                border-radius: 4px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+                display: block;
+                background-color: #f1f3f5;
+            }
+
+            .featured-kicker {
+                display: block;
+                font-size: 0.76rem;
+                font-weight: 700;
+                letter-spacing: 1.2px;
+                text-transform: uppercase;
+                color: #64748b;
+                margin-bottom: 0.6rem;
+                font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+            }
+
+            .featured-student-name {
+                font-family: 'Playfair Display', Georgia, serif;
+                font-size: 2.35rem;
+                font-weight: 700;
+                color: #0f172a;
+                line-height: 1.15;
+                margin-bottom: 0.35rem;
+            }
+
+            .featured-student-degree {
+                font-size: 0.95rem;
+                font-weight: 500;
+                color: #64748b;
+                margin-bottom: 1.35rem;
+            }
+
+            .featured-recruiter-box {
+                display: flex;
+                align-items: center;
+                gap: 1.15rem;
+                margin-bottom: 1.35rem;
+            }
+
+            .featured-recruiter-logo {
+                display: flex;
+                align-items: center;
+                flex-shrink: 0;
+            }
+
+            .featured-recruiter-line {
+                width: 1px;
+                height: 32px;
+                background-color: #cbd5e1;
+                flex-shrink: 0;
+            }
+
+            .featured-recruiter-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .featured-recruiter-company {
+                font-size: 0.92rem;
+                font-weight: 600;
+                color: #334155;
+                line-height: 1.25;
+            }
+
+            .featured-recruiter-placed {
+                font-size: 0.82rem;
+                color: #64748b;
+                line-height: 1.25;
+                margin-top: 2px;
+            }
+
+            .featured-quote-text {
+                font-size: 0.94rem;
+                line-height: 1.65;
+                color: #475569;
+                margin-bottom: 1.4rem;
+                font-style: normal;
+            }
+
+            .featured-skills-section {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+                margin-bottom: 1.75rem;
+            }
+
+            .featured-skills-title {
+                font-size: 0.88rem;
+                font-weight: 600;
+                color: #475569;
+                margin-right: 0.25rem;
+            }
+
+            .featured-skills-badges {
+                display: inline-flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .featured-skill-pill,
+            .featured-skills-badges .skill-badge {
+                background-color: #ffffff;
+                color: #475569;
+                border: 1px solid #d1d5db;
+                padding: 0.32rem 0.85rem;
+                border-radius: 6px;
+                font-size: 0.82rem;
+                font-weight: 500;
+                display: inline-block;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+            }
+
+            .btn-read-full-story {
+                background: #e02424;
+                color: #ffffff !important;
+                font-weight: 600;
+                font-size: 0.92rem;
+                padding: 0.65rem 1.6rem;
+                border-radius: 6px;
+                display: inline-flex;
+                align-items: center;
+                text-decoration: none;
+                transition: all 0.2s ease;
+                border: none;
+                box-shadow: 0 2px 6px rgba(224, 36, 36, 0.2);
+            }
+
+            .btn-read-full-story:hover {
+                background: #b91c1c;
+                color: #ffffff !important;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(224, 36, 36, 0.35);
+            }
 
             @media (max-width: 991.98px) {
-                .featured-avatar-box {
-                    height: 380px;
-                }
-
                 .featured-story-panel {
-                    padding: 1.5rem;
+                    padding: 1.75rem;
+                }
+                .featured-photo-frame {
+                    margin-top: 14px;
+                    margin-left: 14px;
+                    max-width: 320px;
+                }
+                .featured-student-photo {
+                    height: 320px;
+                }
+                .featured-student-name {
+                    font-size: 1.9rem;
+                    margin-top: 1rem;
                 }
             }
 
             @media (max-width: 575.98px) {
-                .featured-avatar-box {
-                    height: 300px;
+                .featured-student-photo {
+                    height: 280px;
                 }
-            }
-
-            .quote-icon {
-                font-size: 2.4rem;
-                color: #fca5a5;
-                line-height: 1;
-                margin-bottom: 0.5rem;
-            }
-
-            .featured-quote-text {
-                font-style: italic;
-                color: #475569;
-                font-size: 0.95rem;
-                line-height: 1.7;
-                margin-bottom: 1.25rem;
-            }
-
-            .skill-badge {
-                background-color: #f1f5f9;
-                color: #334155;
-                border: 1px solid #e2e8f0;
-                padding: 0.35rem 0.75rem;
-                border-radius: 6px;
-                font-size: 0.78rem;
-                font-weight: 600;
-                font-family: var(--font-heading);
-                display: inline-block;
-                margin-right: 0.4rem;
-                margin-bottom: 0.4rem;
+                .featured-student-name {
+                    font-size: 1.6rem;
+                }
             }
 
             /* Success Cards */
@@ -935,8 +1068,9 @@
         <!-- ==========================================
              1. HEADER TOPBAR & NAVBAR
              ========================================== -->
+        <header class="sticky-top" style="z-index: 1030;">
         <!-- RKU Header Topbar -->
-        <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155; position:relative; z-index:1031;">
+        <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155;">
             <div class="container-fluid px-lg-5">
                 <div class="d-flex justify-content-between align-items-center py-2">
                     <!-- Left: Tagline with Graduation Cap -->
@@ -964,7 +1098,7 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-lg sticky-top">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid px-lg-5">
                 <!-- Brand Logo -->
                 <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
@@ -1022,6 +1156,7 @@
                 </div>
             </div>
         </nav>
+        </header>
 </asp:Content>
 
 
@@ -1274,11 +1409,12 @@
             <div class="featured-story-panel" id="featuredStoryPanel">
                 <div class="row g-4 align-items-center">
 
-                    <!-- Left: Profile picture -->
-                    <div class="col-lg-5">
-                        <div class="featured-avatar-box">
-                            <asp:Image ID="imgFeatured" runat="server" ImageUrl="~/assets/PlacmentStudentImage/WhatsApp Image 2026-05-27 at 12.58.45 PM.jpeg" AlternateText="Featured Student" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-                            <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:#f1f3f5;">
+                    <!-- Left: Profile picture with red corner accent -->
+                    <div class="col-lg-5 text-center text-lg-start">
+                        <div class="featured-photo-frame">
+                            <div class="featured-red-corner"></div>
+                            <asp:Image ID="imgFeatured" runat="server" CssClass="featured-student-photo" ImageUrl="~/assets/images/student_new_1.png" AlternateText="Featured Student" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                            <div class="featured-photo-fallback" style="display:none;width:100%;height:380px;align-items:center;justify-content:center;background:#f1f3f5;border-radius:4px;position:relative;z-index:2;">
                                 <svg viewBox="0 0 100 120" width="100%" height="100%" fill="#bbb">
                                     <rect width="100" height="120" fill="#f1f3f5" />
                                     <circle cx="50" cy="45" r="22" fill="#d0d4dc" />
@@ -1290,41 +1426,47 @@
 
                     <!-- Right: Quotes and Details -->
                     <div class="col-lg-7 ps-lg-4">
-                        <span style="color: #ef3724; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.8px; text-transform: uppercase; font-family: var(--font-heading);"></span>
-                        <h2 class="fw-bold mt-1 mb-1" style="font-family: var(--font-heading); font-size: 2.2rem; color: #1e293b;">
-                            <asp:Label ID="lblFeaturedName" runat="server" Text="Mitesh Gauswami"></asp:Label>
+                        <span class="featured-kicker">FEATURED SUCCESS STORY</span>
+                        <h2 class="featured-student-name">
+                            <asp:Label ID="lblFeaturedName" runat="server" Text="Krishna Patel"></asp:Label>
                         </h2>
-                        <p class="text-muted fw-semibold mb-3" style="font-size: 0.88rem;">
-                            <asp:Label ID="lblFeaturedDegree" runat="server" Text="MCA"></asp:Label>
+                        <p class="featured-student-degree">
+                            <asp:Label ID="lblFeaturedDegree" runat="server" Text="BCA | 2024 Batch"></asp:Label>
                         </p>
 
-                        <div class="d-flex align-items-center gap-4 mb-3">
-                            <div>
-                                <span class="d-block text-muted small fw-bold" style="font-size: 0.75rem;">Placed at</span>
-                                <span class="fw-bold" style="color: #1e293b; font-size: 1.05rem; font-family: var(--font-heading);">
-                                    <asp:Label ID="lblFeaturedCompany" runat="server" Text="TCS"></asp:Label>
-                                </span>
+                        <!-- Recruiter Block -->
+                        <div class="featured-recruiter-box">
+                            <div class="featured-recruiter-logo">
+                                <svg viewBox="0 0 75 28" width="60" height="24" aria-label="TCS">
+                                    <text x="0" y="22" font-family="'Outfit', sans-serif" font-weight="900" font-size="26" fill="#ef3724">tcs</text>
+                                </svg>
                             </div>
-                            <div class="border rounded px-3 py-1 bg-white" style="border-color: #e2e8f0 !important;">
-                                <span class="d-block text-muted small fw-bold" style="font-size: 0.7rem;">Package</span>
-                                <span class="fw-bold" style="color: #ef3724; font-size: 1.05rem; font-family: var(--font-heading);">
-                                    <asp:Label ID="lblFeaturedPackage" runat="server" Text="12 LPA"></asp:Label>
-                                </span>
+                            <div class="featured-recruiter-line"></div>
+                            <div class="featured-recruiter-info">
+                                <div class="featured-recruiter-company">Tata Consultancy Services</div>
+                                <div class="featured-recruiter-placed">Placed at <asp:Label ID="lblFeaturedCompany" runat="server" Text="TCS"></asp:Label></div>
                             </div>
                         </div>
 
-                        <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+                        <!-- Clean Quote -->
                         <p class="featured-quote-text">
-                            "<asp:Label ID="lblFeaturedQuote" runat="server" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."></asp:Label>"
+                            “<asp:Label ID="lblFeaturedQuote" runat="server" Text="RK University provided the right platform, guidance and support to help me build my career. The placement cell team was always there whenever I needed help."></asp:Label>”
                         </p>
 
-                        <div class="mb-4">
-                            <asp:Literal ID="litFeaturedSkills" runat="server" Text="<span class='skill-badge'>c#</span><span class='skill-badge'>css</span><span class='skill-badge'>html</span><span class='skill-badge'>react</span>"></asp:Literal>
+                        <!-- Key Skills -->
+                        <div class="featured-skills-section">
+                            <span class="featured-skills-title">Key Skills:</span>
+                            <div class="featured-skills-badges">
+                                <asp:Literal ID="litFeaturedSkills" runat="server" Text="<span class='featured-skill-pill'>Java</span><span class='featured-skill-pill'>SQL</span><span class='featured-skill-pill'>Problem Solving</span><span class='featured-skill-pill'>Communication</span>"></asp:Literal>
+                            </div>
                         </div>
 
-                        <div class="d-flex gap-3">
-                            <a href="#" class="btn btn-rku" style="background: #ef3724; border-color: #ef3724; color: #fff; font-weight: 600; padding: 0.5rem 1.4rem; border-radius: 6px; font-size: 0.9rem; text-decoration: none;">View Profile</a>
-                            <a href="#" class="btn btn-outline-rku" style="background: #fff; border: 1.5px solid #ef3724; color: #ef3724; font-weight: 600; padding: 0.5rem 1.2rem; border-radius: 6px; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center;"><i class="fa-brands fa-linkedin me-2"></i>LinkedIn</a>
+                        <!-- Action Button & hidden package label -->
+                        <div class="mt-4 pt-1">
+                            <a href="#successStoriesGridSection" class="btn-read-full-story">
+                                Read Full Story <i class="fa-solid fa-arrow-right ms-2"></i>
+                            </a>
+                            <asp:Label ID="lblFeaturedPackage" runat="server" style="display:none;"></asp:Label>
                         </div>
 
                     </div>

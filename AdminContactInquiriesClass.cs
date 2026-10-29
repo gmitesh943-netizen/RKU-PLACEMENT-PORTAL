@@ -10,78 +10,78 @@ namespace RKU_PLACEMENT_PORTAL
         SqlConnection con;
         SqlDataAdapter da;
         DataSet ds;
-
+        SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
-        void getcon()
+        public SqlConnection getcon()
         {
             con = new SqlConnection(s);
             con.Open();
+            return con;
         }
 
-        // search_inquiries
-        public DataSet search_inquiries(string search)
+        // fillgrid 
+        public DataSet select_inquiries()
         {
-            if (string.IsNullOrWhiteSpace(search))
+            getcon();
+            da = new SqlDataAdapter("select * from contact order by Id desc", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+        }
+
+        // Pagination
+        public DataTable certificate_pagination(DataTable dt, int page)
+        {
+            DataTable dt2 = dt.Clone();
+            int start = page * 6;
+            for (int i = start; i < start + 6 && i < dt.Rows.Count; i++)
             {
-                return select_all_inquiries();
+                dt2.ImportRow(dt.Rows[i]);
             }
-            getcon();
-            da = new SqlDataAdapter("SELECT * FROM contact WHERE (Name LIKE '%" + search + "%' OR Email LIKE '%" + search + "%' OR Mobile LIKE '%" + search + "%' OR Department LIKE '%" + search + "%' OR Subject LIKE '%" + search + "%' OR Message LIKE '%" + search + "%' OR CAST(Id AS VARCHAR) LIKE '%" + search + "%') ORDER BY Id DESC", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            return ds;
+            return dt2;
         }
 
-        // select_all_inquiries
-        public DataSet select_all_inquiries()
+        //  search filter
+        public DataSet search_inquiries(string nm)
         {
             getcon();
-            da = new SqlDataAdapter("SELECT * FROM contact ORDER BY Id DESC", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            return ds;
-        }
-
-        // select_inquiries_by_dept
-        public DataSet select_inquiries_by_dept(string dept)
-        {
-            getcon();
-            if (string.IsNullOrEmpty(dept) || dept == "all" || dept == "All")
+            if (string.IsNullOrWhiteSpace(nm))
             {
-                da = new SqlDataAdapter("SELECT * FROM contact ORDER BY Id DESC", con);
+                da = new SqlDataAdapter("select * from contact order by Id desc", con);
             }
             else
             {
-                da = new SqlDataAdapter("SELECT * FROM contact WHERE Department LIKE '%" + dept + "%' ORDER BY Id DESC", con);
+                da = new SqlDataAdapter("select * from contact where (Name like '%" + nm + "%' or Email like '%" + nm + "%' or Mobile like '%" + nm + "%' or Department like '%" + nm + "%' or Subject like '%" + nm + "%' or Message like '%" + nm + "%' or CAST(Id AS VARCHAR) like '%" + nm + "%') order by Id desc", con);
             }
             ds = new DataSet();
             da.Fill(ds);
             return ds;
         }
 
-        // filter_inquiries (combines search + department)
-        public DataSet filter_inquiries(string search, string dept)
+        //  department filter
+        public DataSet select_inquiries_by_dept(string dept)
         {
             getcon();
-            string query = "SELECT * FROM contact WHERE 1=1";
-
-            if (!string.IsNullOrEmpty(dept) && dept != "all" && dept != "All")
+            if (dept == "all" || dept == "All")
             {
-                query += " AND Department LIKE '%" + dept + "%'";
+                da = new SqlDataAdapter("select * from contact order by Id desc", con);
             }
-
-            if (!string.IsNullOrWhiteSpace(search))
+            else
             {
-                query += " AND (Name LIKE '%" + search + "%' OR Email LIKE '%" + search + "%' OR Mobile LIKE '%" + search + "%' OR Department LIKE '%" + search + "%' OR Subject LIKE '%" + search + "%' OR Message LIKE '%" + search + "%' OR CAST(Id AS VARCHAR) LIKE '%" + search + "%')";
+                da = new SqlDataAdapter("select * from contact where Department = '" + dept + "' or Department like '%" + dept + "%' order by Id desc", con);
             }
-
-            query += " ORDER BY Id DESC";
-
-            da = new SqlDataAdapter(query, con);
             ds = new DataSet();
             da.Fill(ds);
             return ds;
+        }
+
+        // Delete inquiry 
+        public void delete_inquiry(int id)
+        {
+            getcon();
+            cmd = new SqlCommand("delete from contact where Id = " + id, con);
+            cmd.ExecuteNonQuery();
         }
     }
 }

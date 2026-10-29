@@ -406,8 +406,9 @@
         <!-- ==========================================
              1. HEADER TOPBAR & NAVBAR
              ========================================== -->
+        <header class="sticky-top" style="z-index: 1030;">
         <!-- RKU Header Topbar -->
-        <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155; position:relative; z-index:1031;">
+        <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155;">
             <div class="container-fluid px-lg-5">
                 <div class="d-flex justify-content-between align-items-center py-2">
                     <!-- Left: Tagline with Graduation Cap -->
@@ -436,7 +437,7 @@
         </div>
 
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg sticky-top">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid px-lg-5">
                 <!-- Brand Logo -->
                 <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
@@ -489,6 +490,7 @@
                 </div>
             </div>
         </nav>
+        </header>
 </asp:Content>
 
 <asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">

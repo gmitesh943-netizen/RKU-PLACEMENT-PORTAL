@@ -119,10 +119,11 @@
     <body>
 
         <!-- ==========================================
-                         1. HEADER TOPBAR & NAVBAR
+                         1. HEADER TOPBAR & NAVBAR (FIXED TOGETHER)
                          ========================================== -->
+        <header class="sticky-top" style="z-index: 1030;">
         <!-- RKU Header Topbar -->
-        <div class="rku-header-topbar d-none d-lg-block" style="background: #ffffff; border-bottom: 1px solid #edf2f7; font-size: 0.84rem; color: #334155; position: relative; z-index: 1031;">
+        <div class="rku-header-topbar d-none d-lg-block" style="background: #ffffff; border-bottom: 1px solid #edf2f7; font-size: 0.84rem; color: #334155;">
             <div class="container-fluid px-lg-5">
                 <div class="d-flex justify-content-between align-items-center py-2">
                     <!-- Left: Tagline with Graduation Cap -->
@@ -150,12 +151,12 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-lg sticky-top">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid px-lg-5">
                 <!-- Brand Logo -->
-                <a class="navbar-brand d-flex align-items-center" href="#" id="navbarBrandLink">
+                <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
                     <img src="assets/images/RKU LOGO.png" alt="RK University Placement Portal" class="me-2" style="height: 48px; width: auto; max-width: 240px; object-fit: contain;">
-                </a>&nbsp;<!-- Mobile Toggle -->
+                </a><!-- Mobile Toggle -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggleButton">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -187,6 +188,7 @@
                 </div>
             </div>
         </nav>
+        </header>
 
         <!-- ==========================================
              GET EXPERT CALL POPUP MODAL (RKU THEME)

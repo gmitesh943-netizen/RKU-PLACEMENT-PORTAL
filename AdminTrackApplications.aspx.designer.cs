@@ -13,5 +13,8 @@ namespace RKU_PLACEMENT_PORTAL
         protected global::System.Web.UI.WebControls.Button btnReset;
         protected global::System.Web.UI.WebControls.Label lblRecordsCount;
         protected global::System.Web.UI.WebControls.GridView gvMasterApplications;
+        protected global::System.Web.UI.WebControls.Button btnPrevious;
+        protected global::System.Web.UI.WebControls.Label lblPages;
+        protected global::System.Web.UI.WebControls.Button btnNext;
     }
 }

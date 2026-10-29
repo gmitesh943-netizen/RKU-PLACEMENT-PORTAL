@@ -23,6 +23,7 @@ namespace RKU_PLACEMENT_PORTAL
         {
             if (!IsPostBack)
             {
+                ViewState["page"] = 0;
                 fillGrid();
             }
         }
@@ -33,23 +34,31 @@ namespace RKU_PLACEMENT_PORTAL
             con.Open();
         }
 
+        public DataTable certificate_pagination(DataTable dt, int page)
+        {
+            DataTable dt2 = dt.Clone();
+            int start = page * 9;
+            for (int i = start; i < start + 9 && i < dt.Rows.Count; i++)
+            {
+                dt2.ImportRow(dt.Rows[i]);
+            }
+            return dt2;
+        }
+
         void fillGrid()
         {
-            getcon();
-            da = new SqlDataAdapter("select * from register_auth_company order by id desc", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            DataList1.DataSource = ds;
-            DataList1.DataBind();
+            filterData();
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            ViewState["page"] = 0;
             filterData();
         }
 
         protected void ddlIndustry_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ViewState["page"] = 0;
             filterData();
         }
 
@@ -76,8 +85,36 @@ namespace RKU_PLACEMENT_PORTAL
 
             ds = new DataSet();
             da.Fill(ds);
-            DataList1.DataSource = ds;
+            DataTable dt = ds.Tables[0];
+
+            int page = Convert.ToInt32(ViewState["page"]);
+            int totalPages = (int)Math.Ceiling(dt.Rows.Count / 9.0);
+
+            if (totalPages > 0 && page >= totalPages)
+            {
+                page = totalPages - 1;
+                ViewState["page"] = page;
+            }
+
+            DataList1.DataSource = certificate_pagination(dt, page);
             DataList1.DataBind();
+
+            lblPages.Text = "Page " + (page + 1) + " of " + (totalPages > 0 ? totalPages : 1);
+
+            btnPrevious.Enabled = page > 0;
+            btnNext.Enabled = (page + 1) * 9 < dt.Rows.Count;
+        }
+
+        protected void btnPrevious_Click(object sender, EventArgs e)
+        {
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) - 1;
+            filterData();
+        }
+
+        protected void btnNext_Click(object sender, EventArgs e)
+        {
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) + 1;
+            filterData();
         }
     }
 }

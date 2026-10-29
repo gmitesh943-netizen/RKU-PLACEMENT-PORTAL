@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -12,72 +9,16 @@ namespace RKU_PLACEMENT_PORTAL
 {
     public partial class CompanyStudentDirectory : System.Web.UI.Page
     {
-        SqlConnection con;
-        SqlDataAdapter da;
-        DataSet ds;
-        SqlCommand cmd;
-
-        CompanyStudentDirectoryClass studClass;
-
-        string compName;
-        string compUsername;
-        string compEmail;
-        string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
-
-        void getcon()
-        {
-            con = new SqlConnection(s);
-            con.Open();
-        }
-
-        void filtergrid(DataTable dt)
-        {
-            GridView1.DataSource = dt;
-            GridView1.DataBind();
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                lblStudentCount.Text = dt.Rows.Count.ToString();
-            }
-            else
-            {
-                lblStudentCount.Text = "0";
-            }
-        }
-
-        void fillgrid()
-        {
-            studClass = new CompanyStudentDirectoryClass();
-            filtergrid(studClass.select_all_students().Tables[0]);
-        }
+        CompanyStudentDirectoryClass studClass = new CompanyStudentDirectoryClass();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["company"] != null)
             {
-                getcon();
-                da = new SqlDataAdapter("select * from register_auth_company where compEmail='" + Session["company"] + "' or compUsername='" + Session["company"] + "'", con);
-                ds = new DataSet();
-                da.Fill(ds);
-
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    compName = ds.Tables[0].Rows[0]["compName"].ToString();
-                    compUsername = ds.Tables[0].Rows[0]["compUsername"].ToString();
-                    compEmail = ds.Tables[0].Rows[0]["compEmail"].ToString();
-
-                    ViewState["compName"] = compName;
-                    ViewState["compUsername"] = compUsername;
-                    ViewState["compEmail"] = compEmail;
-                }
-                else
-                {
-                    ViewState["compUsername"] = Session["company"].ToString();
-                    ViewState["compEmail"] = Session["company"].ToString();
-                }
-
+                startcon();
                 if (!IsPostBack)
                 {
+                    ViewState["page"] = 0;
                     fillgrid();
                 }
             }
@@ -87,50 +28,115 @@ namespace RKU_PLACEMENT_PORTAL
             }
         }
 
-        //<----------- Search/Filter --------------->
+        void startcon()
+        {
+            studClass = new CompanyStudentDirectoryClass();
+            studClass.getcon();
+        }
 
+        //without filter all show 
+        void fillgrid()
+        {
+            studClass = new CompanyStudentDirectoryClass();
+            DataTable dt = studClass.select_students().Tables[0];
+
+            lblStudentCount.Text = dt.Rows.Count.ToString();
+
+            int page = Convert.ToInt32(ViewState["page"]);
+            int totalPages = (int)Math.Ceiling(dt.Rows.Count / 6.0);
+
+            if (totalPages > 0 && page >= totalPages)
+            {
+                page = totalPages - 1;
+                ViewState["page"] = page;
+            }
+
+            GridView1.DataSource = studClass.certificate_pagination(dt, page);
+            GridView1.DataBind();
+
+            lblPages.Text = "Page " + (page + 1) + " of " + (totalPages > 0 ? totalPages : 1);
+
+            btnPrevious.Enabled = page > 0;
+            btnNext.Enabled = (page + 1) * 6 < dt.Rows.Count;
+        }
+
+        // With filter show data
+        void filtergrid(DataTable dt)
+        {
+            lblStudentCount.Text = (dt != null ? dt.Rows.Count.ToString() : "0");
+
+            ViewState["page"] = 0;
+
+            GridView1.DataSource = studClass.certificate_pagination(dt, 0);
+            GridView1.DataBind();
+
+            int totalPages = dt != null ? (int)Math.Ceiling(dt.Rows.Count / 6.0) : 0;
+
+            lblPages.Text = "Page 1 of " + (totalPages > 0 ? totalPages : 1);
+
+            btnPrevious.Enabled = false;
+            btnNext.Enabled = dt != null && dt.Rows.Count > 6;
+        }
+
+        // Previous Button
+        protected void btnPrevious_Click(object sender, EventArgs e)
+        {
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) - 1;
+            fillgrid();
+        }
+
+        // Next Button
+        protected void btnNext_Click(object sender, EventArgs e)
+        {
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) + 1;
+            fillgrid();
+        }
+
+        // SearchButton 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             studClass = new CompanyStudentDirectoryClass();
             filtergrid(studClass.search_students(studentSearchInput.Text).Tables[0]);
         }
 
+        // Branch
         protected void studentBranchFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             studClass = new CompanyStudentDirectoryClass();
             filtergrid(studClass.select_students_by_branch(studentBranchFilter.SelectedValue).Tables[0]);
         }
 
+        // ResetButton
         protected void btnClearFilters_Click(object sender, EventArgs e)
         {
+            ViewState["page"] = 0;
             studentSearchInput.Text = "";
             studentBranchFilter.SelectedIndex = 0;
             fillgrid();
         }
 
+        // Profile View
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "ViewProfile")
             {
-                getcon();
-                da = new SqlDataAdapter("select * from register_auth where Id='" + e.CommandArgument + "'", con);
-                ds = new DataSet();
-                da.Fill(ds);
+                studClass = new CompanyStudentDirectoryClass();
+                DataTable dt = studClass.select_student_by_id(Convert.ToInt32(e.CommandArgument)).Tables[0];
 
-                if (ds.Tables[0].Rows.Count > 0)
+                if (dt.Rows.Count > 0)
                 {
-                    lblStudentName.Text = ds.Tables[0].Rows[0]["regFullName"].ToString();
-                    lblRollNo.Text = ds.Tables[0].Rows[0]["regRollNo"].ToString();
-                    lblEmail.Text = ds.Tables[0].Rows[0]["regEmail"].ToString();
-                    lblMobile.Text = ds.Tables[0].Rows[0]["regMobile"].ToString();
-                    lblDegreeBranch.Text = ds.Tables[0].Rows[0]["degree"].ToString() + " (" + ds.Tables[0].Rows[0]["branch"].ToString() + ")";
-                    lblSemester.Text = ds.Tables[0].Rows[0]["semester"].ToString() + " Sem";
-                    lblCgpa.Text = ds.Tables[0].Rows[0]["cgpa"].ToString();
-                    lblBacklogs.Text = ds.Tables[0].Rows[0]["backlogs"].ToString();
-                    lblSkills.Text = ds.Tables[0].Rows[0]["skills"].ToString();
+                    lblStudentName.Text = dt.Rows[0]["regFullName"].ToString();
+                    lblRollNo.Text = dt.Rows[0]["regRollNo"].ToString();
+                    lblEmail.Text = dt.Rows[0]["regEmail"].ToString();
+                    lblMobile.Text = dt.Rows[0]["regMobile"].ToString();
+                    lblDegreeBranch.Text = dt.Rows[0]["degree"].ToString() + " (" + dt.Rows[0]["branch"].ToString() + ")";
+                    lblSemester.Text = dt.Rows[0]["semester"].ToString() + " Sem";
+                    lblCgpa.Text = dt.Rows[0]["cgpa"].ToString();
+                    lblBacklogs.Text = dt.Rows[0]["backlogs"].ToString();
+                    lblSkills.Text = dt.Rows[0]["skills"].ToString();
 
-                    string photo = ds.Tables[0].Rows[0]["photoUrl"].ToString();
-                    if (photo != "")
+                    string photo = dt.Rows[0]["photoUrl"].ToString();
+                    if (!string.IsNullOrEmpty(photo))
                     {
                         imgStudentPhoto.ImageUrl = ResolveUrl("~/assets/ProfilePhotos/" + photo);
                         imgStudentPhoto.Visible = true;
@@ -141,19 +147,20 @@ namespace RKU_PLACEMENT_PORTAL
                         imgStudentPhoto.Visible = false;
                         divFallbackPhoto.Visible = true;
                     }
-                    string resume = ds.Tables[0].Rows[0]["resumeUrl"].ToString();
-                    if (resume != "")
+
+                    string resume = dt.Rows[0]["resumeUrl"].ToString();
+                    if (!string.IsNullOrEmpty(resume))
                     {
                         lnkResume.NavigateUrl = ResolveUrl("~/assets/StudentPDF/" + resume);
-                        lnkResume.Visible = true; //resume link dekhase
-                        lblNoResume.Visible = false;//remuse link hide karse nai hoy to 
+                        lnkResume.Visible = true;
+                        lblNoResume.Visible = false;
                     }
                     else
                     {
-                        lnkResume.Visible = false; ///resume messge hide kare
-                        lblNoResume.Visible = true;//resume uploaded nathi evu show karave
+                        lnkResume.Visible = false;
+                        lblNoResume.Visible = true;
                     }
-                    //profile details display
+
                     pnlStudentProfile.Visible = true;
                 }
             }

@@ -331,7 +331,7 @@
     <!-- ==========================================
          EXACT HEADER (TOPBAR & NAVBAR) FROM INDEX.ASPX
          ========================================== -->
-    <div class="rku-header-topbar d-none d-lg-block" style="background: #ffffff; border-bottom: 1px solid #edf2f7; font-size: 0.84rem; color: #334155; position: relative; z-index: 1031;">
+    <div class="rku-header-topbar d-none d-lg-block" style="background: #ffffff; border-bottom: 1px solid #edf2f7; font-size: 0.84rem; color: #334155; position: sticky; top: 0; z-index: 1035;">
         <div class="container-fluid px-lg-5">
             <div class="d-flex justify-content-between align-items-center py-2">
                 <!-- Left: Tagline with Graduation Cap -->

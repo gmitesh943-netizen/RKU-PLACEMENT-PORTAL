@@ -1,7 +1,7 @@
 using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -13,15 +13,15 @@ namespace RKU_PLACEMENT_PORTAL
         SqlDataAdapter da;
         DataSet ds;
         SqlCommand cmd;
-
-        StudentDrivesClass driveClass;
+        StudentDrivesClass driveClass = new StudentDrivesClass();
 
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
-        void getcon()
+        public SqlConnection getcon()
         {
             con = new SqlConnection(s);
             con.Open();
+            return con;
         }
 
         string getStudentUser()
@@ -31,55 +31,113 @@ namespace RKU_PLACEMENT_PORTAL
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            startcon();
             if (!IsPostBack)
             {
-                datalist();
+                ViewState["page"] = 0;
+                fillgrid();
                 updateStats();
             }
         }
 
-        void filterdata(DataTable dt)
-        {
-            DataList1.DataSource = dt;
-            DataList1.DataBind();
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                driveCountLabel.Text = dt.Rows.Count.ToString() + " Drives";
-                noResultMessage.Visible = false;
-            }
-            else
-            {
-                driveCountLabel.Text = "0 Drives";
-                noResultMessage.Visible = true;
-            }
-        }
-
-        void datalist()
+        void startcon()
         {
             driveClass = new StudentDrivesClass();
-            filterdata(driveClass.select_all_drives(getStudentUser()).Tables[0]);
+            driveClass.getcon();
         }
 
-        //<----------- Search/Filter --------------->
+        //without filter all show 
+        void fillgrid()
+        {
+            driveClass = new StudentDrivesClass();
+            DataTable dt = driveClass.select_drives(getStudentUser()).Tables[0];
 
+            driveCountLabel.Text = dt.Rows.Count.ToString() + " Drives";
+            noResultMessage.Visible = (dt.Rows.Count == 0);
+
+            int page = Convert.ToInt32(ViewState["page"]);
+            int totalPages = (int)Math.Ceiling(dt.Rows.Count / 6.0);
+
+            if (totalPages > 0 && page >= totalPages)
+            {
+                page = totalPages - 1;
+                ViewState["page"] = page;
+            }
+
+            DataList1.DataSource = driveClass.certificate_pagination(dt, page);
+            DataList1.DataBind();
+
+            lblPages.Text = "Page " + (page + 1) + " of " + (totalPages > 0 ? totalPages : 1);
+
+            btnPrevious.Enabled = page > 0;
+            btnNext.Enabled = (page + 1) * 6 < dt.Rows.Count;
+        }
+
+        // With filter show data
+        void filtergrid(DataTable dt)
+        {
+            driveCountLabel.Text = (dt != null ? dt.Rows.Count.ToString() : "0") + " Drives";
+            noResultMessage.Visible = (dt == null || dt.Rows.Count == 0);
+
+            ViewState["page"] = 0;
+
+            DataList1.DataSource = driveClass.certificate_pagination(dt, 0);
+            DataList1.DataBind();
+
+            int totalPages = dt != null ? (int)Math.Ceiling(dt.Rows.Count / 6.0) : 0;
+
+            lblPages.Text = "Page 1 of " + (totalPages > 0 ? totalPages : 1);
+
+            btnPrevious.Enabled = false;
+            btnNext.Enabled = dt != null && dt.Rows.Count > 6;
+        }
+
+        // Previous Button
+        protected void btnPrevious_Click(object sender, EventArgs e)
+        {
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) - 1;
+            fillgrid();
+        }
+
+        // Next Button
+        protected void btnNext_Click(object sender, EventArgs e)
+        {
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) + 1;
+            fillgrid();
+        }
+
+        // SearchButton 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             driveClass = new StudentDrivesClass();
-            filterdata(driveClass.search_drives(txtSearch.Text, getStudentUser()).Tables[0]);
+            filtergrid(driveClass.search_drives(txtSearch.Text, getStudentUser()).Tables[0]);
         }
 
+        // Status
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             driveClass = new StudentDrivesClass();
-            filterdata(driveClass.select_drives_by_status(ddlStatus.SelectedValue, getStudentUser()).Tables[0]);
+            filtergrid(driveClass.select_drives_by_status(ddlStatus.SelectedValue, getStudentUser()).Tables[0]);
         }
 
+        // ResetButton
         protected void btnResetFilter_Click(object sender, EventArgs e)
         {
+            ViewState["page"] = 0;
             txtSearch.Text = "";
             ddlStatus.SelectedIndex = 0;
-            datalist();
+            fillgrid();
+        }
+
+        // Backward compatibility
+        void datalist()
+        {
+            fillgrid();
+        }
+
+        void filterdata(DataTable dt)
+        {
+            filtergrid(dt);
         }
 
         void updateStats()
@@ -158,7 +216,7 @@ namespace RKU_PLACEMENT_PORTAL
                             }
                         }
                     }
-                    datalist();
+                    fillgrid();
                     updateStats();
                 }
             }

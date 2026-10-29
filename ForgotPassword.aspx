@@ -88,7 +88,7 @@
             }
 
                 .brand-row img {
-                    height: 44px;
+                    height: 80px;
                     width: auto;
                     object-fit: contain;
                     filter: brightness(0) invert(1);
@@ -287,8 +287,9 @@
     <!-- ==========================================
          1. HEADER TOPBAR & NAVBAR
          ========================================== -->
-    <!-- RKU Header Topbar -->
-    <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155; position:relative; z-index:1031;">
+    <header class="sticky-top" style="z-index: 1030;">
+        <!-- RKU Header Topbar -->
+    <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155;">
         <div class="container-fluid px-lg-5">
             <div class="d-flex justify-content-between align-items-center py-2">
                 <!-- Left: Tagline with Graduation Cap -->
@@ -316,7 +317,7 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid px-lg-5">
             <!-- Brand Logo -->
             <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
@@ -423,6 +424,7 @@
             </div>
         </div>
     </nav>
+        </header>
 </asp:Content>
 
 <asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
@@ -437,13 +439,6 @@
                             <div class="brand-copy">
                             </div>
                         </div>
-
-                        <h1 class="fp-title">Reset <span>Password</span> with OTP</h1>
-                        <p class="fp-lead">
-                            Use your enrollment, email, or username to receive a secure OTP.
-                            Enter that OTP on the same page to create a new password instantly.
-                        </p>
-
                     </section>
                 </div>
 
@@ -455,45 +450,15 @@
                             Enter your enrollment number, username, or email address. We will generate a secure OTP for that account.
                         </p>
 
-                        <form id="requestForm" autocomplete="off">
-                            <div class="input-wrap">
-                                <i class="fa-regular fa-user input-icon"></i>
-                                <input type="text" id="identifierInput" class="form-control" placeholder="Enrollment / Email / Username" required>
-                            </div>
-                            <button type="submit" class="btn-rku" id="requestBtn">
-                                <i class="fa-solid fa-paper-plane me-2"></i>Send OTP
-                            </button>
-                        </form>
+                        <div class="input-wrap">
+                            <i class="fa-regular fa-user input-icon"></i>
+                            <asp:TextBox ID="fpEmail" runat="server" CssClass="form-control" placeholder="Enrollment / Email / Username" autocomplete="off"></asp:TextBox>
+                        </div>
+                        <asp:Button ID="fpSendOtpBtn" runat="server" CssClass="btn-rku" Text="Send OTP" OnClick="fpSendOtpBtn_Click" />
 
-                        <form id="otpForm" class="d-none mt-3" autocomplete="off">
-                            <div class="input-wrap">
-                                <i class="fa-solid fa-key input-icon"></i>
-                                <input type="text" id="otpInput" maxlength="6" class="form-control" placeholder="Enter 6-digit OTP" inputmode="numeric" required>
-                            </div>
+                        <asp:Label ID="lblMsg" runat="server" CssClass="d-block mt-3 text-center fw-bold text-danger"></asp:Label>
 
-                            <div class="input-wrap">
-                                <i class="fa-solid fa-lock input-icon"></i>
-                                <input type="password" id="newPassword" class="form-control" placeholder="New Password" required>
-                            </div>
-
-                            <div class="input-wrap">
-                                <i class="fa-solid fa-lock input-icon"></i>
-                                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm New Password" required>
-                            </div>
-
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="btn-rku" id="verifyBtn">
-                                    <i class="fa-solid fa-shield-check me-2"></i>Verify OTP & Update Password
-                                </button>
-                                <button type="button" class="btn-soft" id="resendOtpBtn">
-                                    Resend OTP
-                                </button>
-                                <a href="Login.aspx" class="btn-soft text-decoration-none d-flex align-items-center justify-content-center">Back to Login
-                                </a>
-                            </div>
-                        </form>
-
-                        <div class="mt-3">
+                        <div class="mt-4 pt-2 border-top">
                             <a href="Login.aspx" class="footer-link"><i class="fa-solid fa-arrow-left me-1"></i>Return to Sign In</a>
                         </div>
                     </section>
@@ -594,204 +559,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/portal-db.js"></script>
     <script src="js/main.js"></script>
-    <script>
-        const EMAILJS_CONFIG = {
-            publicKey: '',   // Example: 'your_public_key'
-            serviceId: '',   // Example: 'service_xxxxxxx'
-            templateId: ''   // Example: 'template_xxxxxxx'
-        };
-
-        const requestForm = document.getElementById('requestForm');
-        const otpForm = document.getElementById('otpForm');
-        const pageTitle = document.getElementById('pageTitle');
-        const pageSubtitle = document.getElementById('pageSubtitle');
-        const identifierInput = document.getElementById('identifierInput');
-        const requestBtn = document.getElementById('requestBtn');
-        const verifyBtn = document.getElementById('verifyBtn');
-        const resendOtpBtn = document.getElementById('resendOtpBtn');
-        const otpInput = document.getElementById('otpInput');
-
-        let lastIdentifier = '';
-
-        async function sendEmailJSMail(payload) {
-            if (!window.emailjs || !EMAILJS_CONFIG.publicKey || !EMAILJS_CONFIG.serviceId || !EMAILJS_CONFIG.templateId) {
-                return { success: false, message: 'EmailJS is not configured.' };
-            }
-
-            if (!window.__emailjsInitialized) {
-                emailjs.init(EMAILJS_CONFIG.publicKey);
-                window.__emailjsInitialized = true;
-            }
-
-            const templateParams = {
-                to_email: payload.to_email,
-                to_name: payload.to_name || payload.username || payload.to_email,
-                username: payload.username || payload.to_name || '',
-                otp_code: payload.otp_code,
-                expires_in: payload.expires_in || '1 hour',
-                portal_name: 'RK University Placement Portal'
-            };
-
-            await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams);
-            return { success: true };
-        }
-
-        async function requestOtp(identifier) {
-            if (!identifier) {
-                pageSubtitle.textContent = 'Please enter your enrollment, username, or email address.';
-                return;
-            }
-
-            requestBtn.disabled = true;
-            requestBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Sending...';
-
-            try {
-                const result = PortalDB.createPasswordResetRequest(identifier);
-                if (!result.success) {
-                    pageSubtitle.textContent = result.message || 'Unable to create OTP request.';
-                    return;
-                }
-
-                const otpCode = result.token;
-                const expiresMinutes = Math.round((result.expiresAt - Date.now()) / 60000);
-                lastIdentifier = identifier;
-
-                try {
-                    await sendEmailJSMail({
-                        to_email: result.user.email,
-                        to_name: result.user.name || result.user.username,
-                        username: result.user.username,
-                        otp_code: otpCode,
-                        expires_in: `${expiresMinutes} minutes`
-                    });
-                } catch (mailError) {
-                    console.warn('Email send failed:', mailError);
-                }
-
-                pageTitle.textContent = 'Verify OTP & Set Password';
-                pageSubtitle.textContent = 'Enter the OTP you received and then choose your new password.';
-                requestForm.classList.add('d-none');
-                otpForm.classList.remove('d-none');
-                if (!window.emailjs || !EMAILJS_CONFIG.publicKey || !EMAILJS_CONFIG.serviceId || !EMAILJS_CONFIG.templateId) {
-                    pageSubtitle.textContent = `EmailJS not configured. Use this OTP for testing: ${otpCode}`;
-                }
-                otpInput.focus();
-            } finally {
-                requestBtn.disabled = false;
-                requestBtn.innerHTML = '<i class="fa-solid fa-paper-plane me-2"></i> Send OTP';
-            }
-        }
-
-        requestForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            await requestOtp(identifierInput.value.trim());
-        });
-
-        otpForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-
-            const enteredOtp = otpInput.value.trim();
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (!enteredOtp || enteredOtp.length !== 6) {
-                pageSubtitle.textContent = 'Please enter the 6-digit OTP.';
-                return;
-            }
-
-            if (!newPassword || newPassword.length < 6) {
-                pageSubtitle.textContent = 'Password must be at least 6 characters long.';
-                return;
-            }
-
-            if (newPassword !== confirmPassword) {
-                pageSubtitle.textContent = 'Passwords do not match.';
-                return;
-            }
-
-            verifyBtn.disabled = true;
-            verifyBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Verifying...';
-
-            const result = PortalDB.consumePasswordResetToken(enteredOtp, newPassword);
-            if (!result.success) {
-                pageSubtitle.textContent = result.message || 'Invalid OTP or password update failed.';
-                verifyBtn.disabled = false;
-                verifyBtn.innerHTML = '<i class="fa-solid fa-shield-check me-2"></i> Verify OTP & Update Password';
-                return;
-            }
-
-            otpForm.insertAdjacentHTML(
-                'beforeend',
-                '<div class="mt-3 alert alert-success rounded-4 mb-0">Password changed successfully. <a href="Login.aspx" class="fw-bold">Go back to login</a>.</div>'
-            );
-            verifyBtn.disabled = true;
-            verifyBtn.innerHTML = '<i class="fa-solid fa-check me-2"></i> Password Updated';
-
-            setTimeout(() => {
-                window.location.href = 'Login.aspx';
-            }, 1800);
-        });
-
-        resendOtpBtn.addEventListener('click', async () => {
-            if (!lastIdentifier) {
-                pageSubtitle.textContent = 'Please send OTP first.';
-                return;
-            }
-            await requestOtp(lastIdentifier);
-        });
-
-        requestForm.classList.remove('d-none');
-        otpForm.classList.add('d-none');
-
-        if (window.emailjs && EMAILJS_CONFIG.publicKey && EMAILJS_CONFIG.serviceId && EMAILJS_CONFIG.templateId) {
-            emailjs.init(EMAILJS_CONFIG.publicKey);
-            window.__emailjsInitialized = true;
-        }
-    </script>
-    <!-- Code injected by live-server -->
-    <script>
-        // <![CDATA[  <-- For SVG support
-        if ('WebSocket' in window) {
-            (function () {
-                function refreshCSS() {
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-                    var head = document.getElementsByTagName("head")[0];
-                    for (var i = 0; i < sheets.length; ++i) {
-                        var elem = sheets[i];
-                        var parent = elem.parentElement || head;
-                        parent.removeChild(elem);
-                        var rel = elem.rel;
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                        }
-                        parent.appendChild(elem);
-                    }
-                }
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-                var socket = new WebSocket(address);
-                socket.onmessage = function (msg) {
-                    if (msg.data == 'reload') window.location.reload();
-                    else if (msg.data == 'refreshcss') refreshCSS();
-                };
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                    console.log('Live reload enabled.');
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                }
-            })();
-        }
-        else {
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-        }
-        // ]]>
-    </script>
-    </body>
-</html>
-
-
-
 </asp:Content>
-
-
-

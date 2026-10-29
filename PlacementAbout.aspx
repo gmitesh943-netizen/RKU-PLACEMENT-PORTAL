@@ -166,6 +166,21 @@
                     }
 
             /* Coordinator Cards Grid */
+            .coordinator-datalist {
+                border-collapse: separate;
+                border-spacing: 0;
+                width: 100%;
+            }
+            .coordinator-datalist td {
+                padding: 8px !important;
+                vertical-align: top;
+            }
+            @media (max-width: 768px) {
+                .coordinator-datalist, .coordinator-datalist tbody, .coordinator-datalist tr, .coordinator-datalist td {
+                    display: block !important;
+                    width: 100% !important;
+                }
+            }
             .coordinator-grid-card {
                 background-color: #fff;
                 border: 1px solid #eef0f3;
@@ -325,8 +340,9 @@
         <!-- ==========================================
              1. HEADER TOPBAR & NAVBAR
              ========================================== -->
+        <header class="sticky-top" style="z-index: 1030;">
         <!-- RKU Header Topbar -->
-        <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155; position:relative; z-index:1031;">
+        <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155;">
             <div class="container-fluid px-lg-5">
                 <div class="d-flex justify-content-between align-items-center py-2">
                     <!-- Left: Tagline with Graduation Cap -->
@@ -354,7 +370,7 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-lg sticky-top">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid px-lg-5">
                 <!-- Brand Logo -->
                 <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
@@ -412,6 +428,7 @@
                 </div>
             </div>
         </nav>
+        </header>
 </asp:Content>
 
 <asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
@@ -494,280 +511,35 @@
                         </ul>
                     </div>
 
-                    <!-- Coordinator Cards Grid -->
-                    <div class="row g-3 mb-5">
-
-                        <!-- Card 1 -->
-                        <div class="col-xl-4 col-md-6">
+                                        <!-- Coordinator Cards Grid (DataList 3 Columns per Row) -->
+                    <asp:DataList ID="DataList1" runat="server" RepeatColumns="3" RepeatDirection="Horizontal" Width="100%" CssClass="mb-5 coordinator-datalist">
+                        <ItemStyle Width="33.33%" CssClass="align-top" VerticalAlign="Top" />
+                        <ItemTemplate>
                             <div class="coordinator-grid-card d-flex gap-3 align-items-center">
                                 <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-1.jpg" alt="Vishal Subhedar" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
+                                    <asp:Image ID="imgCoordinator" runat="server" 
+                                        ImageUrl='<%# !string.IsNullOrEmpty(Eval("CoordinatorPhoto") as string) && Eval("CoordinatorPhoto").ToString().Trim() != "" ? ResolveUrl(Eval("CoordinatorPhoto").ToString()) : "assets/images/team_tpo_profile.png" %>' 
+                                        AlternateText='<%# Eval("CoordinatorName") %>' 
+                                        onerror="this.src='assets/images/team_tpo_profile.png';" />
                                 </div>
                                 <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Vishal Subhedar</h4>
+                                    <h4 class="coordinator-card-name">
+                                        <asp:Label ID="lblName" runat="server" Text='<%# Eval("CoordinatorName") %>'></asp:Label>
+                                    </h4>
                                     <p class="coordinator-card-dept">
-                                        B.Tech Computer Engineering<br>
-                                        (Assistant Professor)
+                                        <asp:Label ID="lblDepartment" runat="server" Text='<%# Eval("Department") %>'></asp:Label><br>
+                                        (<asp:Label ID="lblDesignation" runat="server" Text='<%# Eval("Designation").ToString().Replace("(", "").Replace(")", "").Trim() %>'></asp:Label>)
                                     </p>
-                                    <p class="coordinator-card-contact">Contact: 97251 18180</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 20 LPA</p>
+                                    <p class="coordinator-card-contact">
+                                        Contact: <asp:Label ID="lblContact" runat="server" Text='<%# Eval("ContactNo") %>'></asp:Label>
+                                    </p>
+                                    <p class="coordinator-card-pkg">
+                                        Package: <asp:Label ID="lblPackage" runat="server" Text='<%# Eval("Package").ToString().Replace("Package: ", "").Replace("Package:", "").Trim() %>'></asp:Label>
+                                    </p>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-2.jpg" alt="Hrideshang Parikh" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Hrideshang Parikh</h4>
-                                    <p class="coordinator-card-dept">
-                                        B.Tech Information Engineering<br>
-                                        (Co-coordinator TPO)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 90160 51240</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 40 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-3.jpg" alt="Adityarajsinh Parmar" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Adityarajsinh Parmar</h4>
-                                    <p class="coordinator-card-dept">
-                                        B.Tech Computer Engineering<br>
-                                        (Assistant Professor)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 97450 81240</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 20 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-4.jpg" alt="Vivek Makadiya" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Vivek Makadiya</h4>
-                                    <p class="coordinator-card-dept">
-                                        B.Tech Computer Engineering<br>
-                                        (Assistant Professor)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 76142 57992</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 20 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 5 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-5.jpg" alt="Aghesh Vakariya" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Aghesh Vakariya</h4>
-                                    <p class="coordinator-card-dept">
-                                        B.Tech Information Technology<br>
-                                        (Assistant Professor)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 99790 28882</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 28 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 6 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-6.jpg" alt="Ritesh Mavani" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Ritesh Mavani</h4>
-                                    <p class="coordinator-card-dept">
-                                        B.Tech Civil Engineering<br>
-                                        (Assistant Professor - Civil)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 91538 56858</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 25 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 7 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-7.jpg" alt="Kalpesh Kathrot" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Kalpesh Kathrot</h4>
-                                    <p class="coordinator-card-dept">
-                                        MBA<br>
-                                        (Assistant Professor)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 91045 42143</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 20 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 8 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-8.jpg" alt="Kunal Tanna" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Kunal Tanna</h4>
-                                    <p class="coordinator-card-dept">
-                                        MCA<br>
-                                        (Assistant Professor)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 63529 27119</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 28 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 9 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-9.jpg" alt="Rushikumar Dajera" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Rushikumar Dajera</h4>
-                                    <p class="coordinator-card-dept">
-                                        MBA<br>
-                                        &nbsp;
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 70482 44927</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 28 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 10 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-10.jpg" alt="Pankaj Somaiya" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Pankaj Somaiya</h4>
-                                    <p class="coordinator-card-dept">
-                                        MBA<br>
-                                        (Assistant Professor)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 90360 41445</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 28 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 11 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-11.jpg" alt="Dharmin Goriya" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Dharmin Goriya</h4>
-                                    <p class="coordinator-card-dept">
-                                        MCA<br>
-                                        (Senior UI/UX Developer)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 63250 55219</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 28 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 12 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-12.jpg" alt="Arjun Baradokia" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Arjun Baradokia</h4>
-                                    <p class="coordinator-card-dept">
-                                        MCA<br>
-                                        (Edu Connectivity Services Ltd.)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 74050 84543</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 25 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 13 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-13.jpg" alt="Mitesh Katadiya" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Mitesh Katadiya</h4>
-                                    <p class="coordinator-card-dept">
-                                        MCA<br>
-                                        (WordPress Expert)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 63556 85496</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 20 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 14 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-14.jpg" alt="Final Madiya" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Final Madiya</h4>
-                                    <p class="coordinator-card-dept">
-                                        MPT<br>
-                                        (Spin Motors Pvt. Ltd.)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 99251 10219</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 40 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 15 -->
-                        <div class="col-xl-4 col-md-6">
-                            <div class="coordinator-grid-card d-flex gap-3 align-items-center">
-                                <div class="coordinator-avatar-wrapper">
-                                    <img src="assets/images/coordinators/coordinator-15.jpg" alt="Pooja Popat" loading="lazy" onerror="this.src='assets/images/team_tpo_profile.png';" />
-                                </div>
-                                <div class="coordinator-info-box">
-                                    <h4 class="coordinator-card-name">Pooja Popat</h4>
-                                    <p class="coordinator-card-dept">
-                                        MPT<br>
-                                        (HR Generalist)
-                                    </p>
-                                    <p class="coordinator-card-contact">Contact: 74050 84543</p>
-                                    <p class="coordinator-card-pkg">Package: Rs. 20 LPA</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                        </ItemTemplate>
+                    </asp:DataList>
 
                     <!-- Diagram Section -->
                     <div class="bg-white p-4 rounded-3 border border-1 border-light-subtle shadow-sm mb-5">

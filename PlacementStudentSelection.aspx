@@ -235,6 +235,57 @@
                         margin-bottom: 0;
                     }
             }
+
+            /* Pagination */
+            .pagination-pages {
+                font-weight: 700;
+                font-size: 0.88rem;
+                color: #0c1a30;
+                padding: 0 0.5rem;
+            }
+
+            .btn-rku-orange {
+                background: linear-gradient(135deg, #ef3724 0%, #d82b19 100%) !important;
+                background-color: #ef3724 !important;
+                border: 1px solid #d82b19 !important;
+                color: #ffffff !important;
+                font-weight: 700 !important;
+                padding: 0.38rem 1.25rem !important;
+                border-radius: 50px !important;
+                font-size: 0.82rem !important;
+                transition: all 0.25s ease !important;
+                text-decoration: none !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                box-shadow: 0 2px 8px rgba(239, 55, 36, 0.25) !important;
+                cursor: pointer !important;
+            }
+
+                .btn-rku-orange:hover {
+                    background: linear-gradient(135deg, #d82b19 0%, #a30f14 100%) !important;
+                    background-color: #d82b19 !important;
+                    border-color: #a30f14 !important;
+                    color: #ffffff !important;
+                    transform: translateY(-1px) !important;
+                    box-shadow: 0 4px 14px rgba(239, 55, 36, 0.35) !important;
+                }
+
+            .pagination .btn[disabled],
+            .pagination .btn:disabled {
+                opacity: 0.5 !important;
+                cursor: not-allowed !important;
+                pointer-events: none !important;
+                box-shadow: none !important;
+                transform: none !important;
+            }
+
+            .pagination .btn-light {
+                background-color: #ffffff !important;
+                border: 1px solid #cbd5e1 !important;
+                color: #475569 !important;
+                border-radius: 50px !important;
+            }
         </style>
 </asp:Content>
 
@@ -242,8 +293,9 @@
     <!-- ==========================================
          1. HEADER TOPBAR & NAVBAR
          ========================================== -->
-    <!-- RKU Header Topbar -->
-    <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155; position:relative; z-index:1031;">
+    <header class="sticky-top" style="z-index: 1030;">
+        <!-- RKU Header Topbar -->
+    <div class="rku-header-topbar d-none d-lg-block" style="background:#ffffff; border-bottom:1px solid #edf2f7; font-size:0.84rem; color:#334155;">
         <div class="container-fluid px-lg-5">
             <div class="d-flex justify-content-between align-items-center py-2">
                 <!-- Left: Tagline with Graduation Cap -->
@@ -271,7 +323,7 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid px-lg-5">
             <!-- Brand Logo -->
             <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
@@ -378,6 +430,7 @@
             </div>
         </div>
     </nav>
+        </header>
 </asp:Content>
 
 <asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
@@ -527,6 +580,13 @@
                     </div>
                 </ItemTemplate>
             </asp:DataList>
+
+            <!-- Pagination Controls -->
+            <div class="pagination d-flex justify-content-center align-items-center gap-3 mt-4 mb-4 pt-3 border-top">
+                <asp:Button ID="btnPrevious" runat="server" Text="Previous" OnClick="btnPrevious_Click" CssClass="btn btn-sm btn-light border px-3 rounded-pill fw-semibold" />
+                <asp:Label ID="lblPages" runat="server" CssClass="pagination-pages" Text="Page 1 of 1" />
+                <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="btn btn-sm btn-rku-orange px-3 rounded-pill fw-semibold" />
+            </div>
 
             <!-- Our Recruiters section -->
             <div class="mt-5 pt-4 text-center">
