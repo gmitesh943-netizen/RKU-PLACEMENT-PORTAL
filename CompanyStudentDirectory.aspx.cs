@@ -1,7 +1,12 @@
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using CrystalDecisions.Web;
 using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -9,7 +14,14 @@ namespace RKU_PLACEMENT_PORTAL
 {
     public partial class CompanyStudentDirectory : System.Web.UI.Page
     {
+        private ReportDocument cr = new ReportDocument();
+
         CompanyStudentDirectoryClass studClass = new CompanyStudentDirectoryClass();
+
+        SqlConnection con;
+        SqlDataAdapter da;
+        DataSet ds;
+        SqlCommand cmd;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,7 +43,12 @@ namespace RKU_PLACEMENT_PORTAL
         void startcon()
         {
             studClass = new CompanyStudentDirectoryClass();
-            studClass.getcon();
+            con = studClass.getcon();
+        }
+
+        void getcon()
+        {
+            startcon();
         }
 
         //without filter all show 
@@ -169,6 +186,26 @@ namespace RKU_PLACEMENT_PORTAL
         protected void btnCloseProfile_Click(object sender, EventArgs e)
         {
             pnlStudentProfile.Visible = false;
+        }
+
+        protected void studentredrpt_Click(object sender, EventArgs e)
+        {
+
+            getcon();
+            da = new SqlDataAdapter("select * from register_auth ", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            string s = Server.MapPath("~/Student_reg_Report.xml");
+
+
+            string path = Server.MapPath("~/Student_reg.rpt");
+            cr = new ReportDocument();
+            cr.Load(path);
+            cr.SetDataSource(ds.Tables[0]);
+            cr.Refresh();
+            CrystalReportViewer1.ReportSource = cr;
+            Response.Clear();
+            cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Student_reg");
         }
     }
 }

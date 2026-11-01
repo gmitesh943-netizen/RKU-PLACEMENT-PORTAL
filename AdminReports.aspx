@@ -1,5 +1,7 @@
 <%@ Page Title="Reports & Analytics | RKU Placement Portal" Language="C#" MasterPageFile="~/Admin-panel.Master" AutoEventWireup="true" CodeBehind="AdminReports.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.AdminReports" EnableEventValidation="false" %>
 
+<%@ Register Assembly="CrystalDecisions.Web, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         :root {
@@ -154,10 +156,10 @@
                 box-shadow: 0 6px 20px rgba(239, 55, 36, 0.4) !important;
             }
 
-        .btn-rku-orange.btn-sm {
-            padding: 0.35rem 1rem !important;
-            font-size: 0.78rem !important;
-        }
+            .btn-rku-orange.btn-sm {
+                padding: 0.35rem 1rem !important;
+                font-size: 0.78rem !important;
+            }
 
         /* ─── CUSTOM DASH TABLE ─── */
         .custom-dash-table {
@@ -266,15 +268,15 @@
                         <i class="fa-solid fa-circle text-success me-1" style="font-size: 0.55rem;"></i>Live Placement Analytics
                     </span>
                 </div>
-                <h2 class="fw-extrabold text-dark mb-1 font-heading" style="font-size: 1.75rem; letter-spacing: -0.02em;">
-                    Placement Performance &amp; Reports
+                <h2 class="fw-extrabold text-dark mb-1 font-heading" style="font-size: 1.75rem; letter-spacing: -0.02em;">Placement Performance &amp; Reports
                 </h2>
                 <p class="text-muted mb-0 small" style="max-width: 650px; font-size: 0.88rem; line-height: 1.5;">
                     Comprehensive recruitment analytics dashboard tracking student placement outcomes, campus drives, and master candidate roster.
+               
                 </p>
             </div>
             <div class="col-lg-4 text-lg-end d-flex gap-2 justify-content-lg-end flex-wrap align-items-center">
-                <asp:Button ID="btnExportPlacedPdf" runat="server" Text="Export Placed PDF" OnClick="btnExportPlacedPdf_Click" 
+                <asp:Button ID="btnExportPlacedPdf" runat="server" Text="Export Placed PDF" OnClick="btnExportPlacedPdf_Click"
                     CssClass="btn-rku-orange shadow-sm" Style="background: linear-gradient(135deg, #10b981, #059669) !important; color: #ffffff !important; border: 1px solid #059669 !important; font-weight: 700 !important; border-radius: 50px !important; padding: 0.55rem 1.4rem !important; display: inline-block !important;" />
             </div>
         </div>
@@ -300,6 +302,7 @@
                 </div>
                 <div class="mt-3 pt-2 border-top d-flex align-items-center gap-1 text-muted small" style="font-size: 0.78rem;">
                     <i class="fa-solid fa-circle-check text-success me-1"></i>Active Student Profiles
+               
                 </div>
             </div>
         </div>
@@ -322,6 +325,7 @@
                 </div>
                 <div class="mt-3 pt-2 border-top d-flex align-items-center gap-1 text-muted small" style="font-size: 0.78rem;">
                     <i class="fa-solid fa-star text-warning me-1"></i>Verified Selections
+               
                 </div>
             </div>
         </div>
@@ -344,9 +348,11 @@
                 </div>
                 <div class="mt-3 pt-2 border-top d-flex align-items-center justify-content-between gap-1 text-muted small" style="font-size: 0.78rem;">
                     <span><i class="fa-solid fa-bolt text-warning me-1"></i>Active Recruitment Events</span>
-                    <asp:LinkButton ID="btnExportDrivesPdf" runat="server" OnClick="btnExportDrivesPdf_Click" ToolTip="Export Drives PDF" CssClass="text-danger fw-bold text-decoration-none" style="font-size: 0.75rem;">
+                    <asp:LinkButton ID="btnExportDrivesPdf" runat="server" OnClick="btnExportDrivesPdf_Click" ToolTip="Export Drives PDF" CssClass="text-danger fw-bold text-decoration-none" Style="font-size: 0.75rem;">
                         <i class="fa-solid fa-file-pdf me-1"></i>PDF
                     </asp:LinkButton>
+                    <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" />
+
                 </div>
             </div>
         </div>
@@ -369,6 +375,7 @@
                 </div>
                 <div class="mt-3 pt-2 border-top d-flex align-items-center gap-1 text-muted small" style="font-size: 0.78rem;">
                     <i class="fa-solid fa-arrow-trend-up text-success me-1"></i>Overall Conversion Rate
+               
                 </div>
             </div>
         </div>
@@ -396,6 +403,7 @@
                 </h6>
                 <div class="text-muted small" style="font-size: 0.8rem;">
                     Search, filter and analyze candidate applications across all companies
+               
                 </div>
             </div>
 
@@ -405,8 +413,8 @@
                     <asp:TextBox ID="txtReportSearch" runat="server" CssClass="form-control form-control-sm border-start-0" placeholder="Search student, roll, branch..."></asp:TextBox>
                 </div>
 
-                <asp:DropDownList ID="ddlReportStatus" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ReportFilter_Changed" 
-                    CssClass="form-select form-select-sm" style="border-radius: 8px; min-width: 140px; max-width: 170px;">
+                <asp:DropDownList ID="ddlReportStatus" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ReportFilter_Changed"
+                    CssClass="form-select form-select-sm" Style="border-radius: 8px; min-width: 140px; max-width: 170px;">
                     <asp:ListItem Value="All">All Statuses</asp:ListItem>
                     <asp:ListItem Value="Selected">Placed Only</asp:ListItem>
                     <asp:ListItem Value="Shortlisted">Shortlisted</asp:ListItem>
@@ -529,6 +537,7 @@
                 </h6>
                 <div class="text-muted small" style="font-size: 0.82rem;">
                     Analyze company participation, campus drives held, applicants, shortlists, and final selections
+               
                 </div>
             </div>
 
@@ -536,6 +545,8 @@
                 <asp:Button ID="btnExportCompanyCsv" runat="server" Text="Export Company PDF" OnClick="btnExportCompanyCsv_Click"
                     CssClass="btn-rku-orange shadow-sm" Style="background: linear-gradient(135deg, #ef3724, #d82b19) !important; color: #ffffff !important; border: 1px solid #d82b19 !important; font-weight: 700 !important; border-radius: 50px !important; padding: 0.55rem 1.4rem !important; display: inline-block !important;" />
             </div>
+            <CR:CrystalReportViewer ID="CrystalReportViewer2" runat="server" AutoDataBind="true" />
+
         </div>
 
         <!-- Filter Sub-bar -->
@@ -546,7 +557,7 @@
             </div>
 
             <asp:DropDownList ID="ddlCompanyStatus" runat="server" AutoPostBack="true" OnSelectedIndexChanged="CompanyStatusFilter_Changed"
-                CssClass="form-select form-select-sm" style="border-radius: 8px; min-width: 140px; max-width: 170px;">
+                CssClass="form-select form-select-sm" Style="border-radius: 8px; min-width: 140px; max-width: 170px;">
                 <asp:ListItem Value="All">All Statuses</asp:ListItem>
                 <asp:ListItem Value="Active">Active Drives</asp:ListItem>
                 <asp:ListItem Value="Completed">Completed Drives</asp:ListItem>
@@ -627,7 +638,8 @@
                         <ItemStyle CssClass="text-center" />
                         <ItemTemplate>
                             <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1 rounded-pill fw-bold">
-                                <asp:Label ID="lblHired" runat="server" Text='<%# Eval("HiredCount") %>'></asp:Label> Hired
+                                <asp:Label ID="lblHired" runat="server" Text='<%# Eval("HiredCount") %>'></asp:Label>
+                                Hired
                             </span>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -673,12 +685,16 @@
                 </h6>
                 <div class="text-muted small" style="font-size: 0.82rem;">
                     Department-level placement success ratios, registered student count, placed vs. unplaced talent, and success rates
+               
                 </div>
             </div>
 
             <div class="d-flex gap-2 flex-wrap flex-sm-nowrap align-items-center">
                 <asp:Button ID="btnExportBranchCsv" runat="server" Text="Export Branch PDF" OnClick="btnExportBranchCsv_Click"
                     CssClass="btn-rku-orange shadow-sm" Style="background: linear-gradient(135deg, #ef3724, #d82b19) !important; color: #ffffff !important; border: 1px solid #d82b19 !important; font-weight: 700 !important; border-radius: 50px !important; padding: 0.55rem 1.4rem !important; display: inline-block !important;" />
+               
+                <CR:CrystalReportViewer ID="CrystalReportViewer3" runat="server" AutoDataBind="true" />
+
             </div>
         </div>
 
@@ -690,7 +706,7 @@
             </div>
 
             <asp:DropDownList ID="ddlBranchDegree" runat="server" AutoPostBack="true" OnSelectedIndexChanged="BranchDegreeFilter_Changed"
-                CssClass="form-select form-select-sm" style="border-radius: 8px; min-width: 140px; max-width: 170px;">
+                CssClass="form-select form-select-sm" Style="border-radius: 8px; min-width: 140px; max-width: 170px;">
                 <asp:ListItem Value="All">All Degrees</asp:ListItem>
                 <asp:ListItem Value="BCA">BCA</asp:ListItem>
                 <asp:ListItem Value="MCA">MCA</asp:ListItem>
@@ -764,8 +780,9 @@
                         <ItemTemplate>
                             <div class="d-flex align-items-center justify-content-center gap-2">
                                 <div class="progress flex-grow-1" style="height: 6px; max-width: 70px;">
-                                    <div class='progress-bar <%# Convert.ToInt32(Eval("PlacementRateInt")) >= 75 ? "bg-success" : (Convert.ToInt32(Eval("PlacementRateInt")) >= 50 ? "bg-info" : "bg-warning") %>' 
-                                         role="progressbar" style='width: <%# Eval("PlacementRateInt") %>%;'></div>
+                                    <div class='progress-bar <%# Convert.ToInt32(Eval("PlacementRateInt")) >= 75 ? "bg-success" : (Convert.ToInt32(Eval("PlacementRateInt")) >= 50 ? "bg-info" : "bg-warning") %>'
+                                        role="progressbar" style='width: <%# Eval("PlacementRateInt") %>%;'>
+                                    </div>
                                 </div>
                                 <span class='fw-bold <%# Convert.ToInt32(Eval("PlacementRateInt")) >= 75 ? "text-success" : (Convert.ToInt32(Eval("PlacementRateInt")) >= 50 ? "text-info" : "text-warning") %> small'>
                                     <asp:Label ID="lblPlacementRate" runat="server" Text='<%# Eval("PlacementRate") %>'></asp:Label>

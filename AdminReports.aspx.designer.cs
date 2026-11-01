@@ -14,16 +14,14 @@ namespace RKU_PLACEMENT_PORTAL
     public partial class AdminReports
     {
 
-
         /// <summary>
         /// btnExportPlacedPdf control.
         /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnExportPlacedPdf;
-
-        /// <summary>
-        /// btnExportDrivesPdf control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.LinkButton btnExportDrivesPdf;
 
         /// <summary>
         /// lblRptStudents control.
@@ -51,6 +49,24 @@ namespace RKU_PLACEMENT_PORTAL
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRptDrives;
+
+        /// <summary>
+        /// btnExportDrivesPdf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnExportDrivesPdf;
+
+        /// <summary>
+        /// CrystalReportViewer1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CrystalDecisions.Web.CrystalReportViewer CrystalReportViewer1;
 
         /// <summary>
         /// lblRptRate control.
@@ -105,6 +121,34 @@ namespace RKU_PLACEMENT_PORTAL
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvReportRoster;
+
+        /// <summary>
+        /// btnPrevious control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPrevious;
+
+        /// <summary>
+        /// lblPages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPages;
+
+        /// <summary>
+        /// btnNext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNext;
+
         /// <summary>
         /// btnExportCompanyCsv control.
         /// </summary>
@@ -115,13 +159,49 @@ namespace RKU_PLACEMENT_PORTAL
         protected global::System.Web.UI.WebControls.Button btnExportCompanyCsv;
 
         /// <summary>
-        /// btnExportBranchCsv control.
+        /// CrystalReportViewer2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportBranchCsv;
+        protected global::CrystalDecisions.Web.CrystalReportViewer CrystalReportViewer2;
+
+        /// <summary>
+        /// txtSearchCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSearchCompany;
+
+        /// <summary>
+        /// ddlCompanyStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCompanyStatus;
+
+        /// <summary>
+        /// btnFilterCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFilterCompany;
+
+        /// <summary>
+        /// btnResetCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnResetCompany;
 
         /// <summary>
         /// gvCompanyReport control.
@@ -133,6 +213,87 @@ namespace RKU_PLACEMENT_PORTAL
         protected global::System.Web.UI.WebControls.GridView gvCompanyReport;
 
         /// <summary>
+        /// btnPreviousCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPreviousCompany;
+
+        /// <summary>
+        /// lblPagesCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPagesCompany;
+
+        /// <summary>
+        /// btnNextCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNextCompany;
+
+        /// <summary>
+        /// btnExportBranchCsv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportBranchCsv;
+
+        /// <summary>
+        /// CrystalReportViewer3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CrystalDecisions.Web.CrystalReportViewer CrystalReportViewer3;
+
+        /// <summary>
+        /// txtSearchBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSearchBranch;
+
+        /// <summary>
+        /// ddlBranchDegree control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBranchDegree;
+
+        /// <summary>
+        /// btnFilterBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFilterBranch;
+
+        /// <summary>
+        /// btnResetBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnResetBranch;
+
+        /// <summary>
         /// gvBranchReport control.
         /// </summary>
         /// <remarks>
@@ -142,88 +303,30 @@ namespace RKU_PLACEMENT_PORTAL
         protected global::System.Web.UI.WebControls.GridView gvBranchReport;
 
         /// <summary>
-        /// txtSearchCompany control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.TextBox txtSearchCompany;
-
-        /// <summary>
-        /// ddlCompanyStatus control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCompanyStatus;
-
-        /// <summary>
-        /// btnFilterCompany control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Button btnFilterCompany;
-
-        /// <summary>
-        /// btnResetCompany control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Button btnResetCompany;
-
-        /// <summary>
-        /// txtSearchBranch control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.TextBox txtSearchBranch;
-
-        /// <summary>
-        /// ddlBranchDegree control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.DropDownList ddlBranchDegree;
-
-        /// <summary>
-        /// btnFilterBranch control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Button btnFilterBranch;
-
-        /// <summary>
-        /// btnResetBranch control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Button btnResetBranch;
-
-        /// <summary>
-        /// btnPrevious control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Button btnPrevious;
-
-        /// <summary>
-        /// lblPages control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Label lblPages;
-
-        /// <summary>
-        /// btnNext control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Button btnNext;
-
-        /// <summary>
-        /// btnPreviousCompany control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Button btnPreviousCompany;
-
-        /// <summary>
-        /// lblPagesCompany control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Label lblPagesCompany;
-
-        /// <summary>
-        /// btnNextCompany control.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Button btnNextCompany;
-
-        /// <summary>
         /// btnPreviousBranch control.
         /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnPreviousBranch;
 
         /// <summary>
         /// lblPagesBranch control.
         /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPagesBranch;
 
         /// <summary>
         /// btnNextBranch control.
         /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnNextBranch;
     }
 }

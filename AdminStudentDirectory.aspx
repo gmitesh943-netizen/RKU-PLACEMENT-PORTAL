@@ -1,4 +1,6 @@
-<%@ Page Title="Student & Company Directory | RKU Placement Portal" Language="C#" MasterPageFile="~/Admin-panel.Master" AutoEventWireup="true" CodeBehind="AdminStudentDirectory.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.AdminStudentDirectory" %>
+﻿<%@ Page Title="Student & Company Directory | RKU Placement Portal" Language="C#" MasterPageFile="~/Admin-panel.Master" AutoEventWireup="true" CodeBehind="AdminStudentDirectory.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.AdminStudentDirectory" %>
+
+<%@ Register Assembly="CrystalDecisions.Web, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -56,16 +58,72 @@
             transition: all 0.2s ease;
         }
 
-        .hero-stat-badge.student-badge {
-            background: #fef2f2;
-            color: #e03627;
-            border: 1px solid #fee2e2;
+            .hero-stat-badge.student-badge {
+                background: #fef2f2;
+                color: #e03627;
+                border: 1px solid #fee2e2;
+            }
+
+            .hero-stat-badge.company-badge {
+                background: #f8fafc;
+                color: #0f172a;
+                border: 1px solid #e2e8f0;
+            }
+
+        /* Hero Report Action Buttons */
+        .btn-hero-report {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.55rem 1.25rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            white-space: nowrap;
+            line-height: 1.25;
+            letter-spacing: 0.01em;
+            outline: none;
         }
 
-        .hero-stat-badge.company-badge {
-            background: #f8fafc;
-            color: #0f172a;
-            border: 1px solid #e2e8f0;
+        .btn-hero-report-student {
+            background: linear-gradient(135deg, #e03627, #c5281b);
+            color: #ffffff !important;
+            border: 1px solid #c5281b;
+            box-shadow: 0 4px 14px rgba(224, 54, 39, 0.22);
+        }
+
+        .btn-hero-report-student:hover {
+            background: linear-gradient(135deg, #c5281b, #a91f14);
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(224, 54, 39, 0.35);
+        }
+
+        .btn-hero-report-student:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(224, 54, 39, 0.2);
+        }
+
+        .btn-hero-report-company {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #ffffff !important;
+            border: 1px solid #0f172a;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+        }
+
+        .btn-hero-report-company:hover {
+            background: linear-gradient(135deg, #0f172a, #020617);
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.3);
+        }
+
+        .btn-hero-report-company:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
         }
 
         /* Modern Pill Navigation Tabs */
@@ -75,37 +133,37 @@
             margin-bottom: 1.25rem;
         }
 
-        .directory-tabs .nav-link {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: #64748b;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 0.65rem 1.3rem;
-            transition: all 0.25s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
+            .directory-tabs .nav-link {
+                font-weight: 700;
+                font-size: 0.9rem;
+                color: #64748b;
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 0.65rem 1.3rem;
+                transition: all 0.25s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
 
-        .directory-tabs .nav-link:hover {
-            color: #0f172a;
-            border-color: #cbd5e1;
-            background: #fafbfc;
-        }
+                .directory-tabs .nav-link:hover {
+                    color: #0f172a;
+                    border-color: #cbd5e1;
+                    background: #fafbfc;
+                }
 
-        .directory-tabs .nav-link.active {
-            color: #ffffff !important;
-            background: linear-gradient(135deg, #e03627, #c5281b) !important;
-            border-color: transparent !important;
-            box-shadow: 0 4px 14px rgba(224, 54, 39, 0.25);
-        }
+                .directory-tabs .nav-link.active {
+                    color: #ffffff !important;
+                    background: linear-gradient(135deg, #e03627, #c5281b) !important;
+                    border-color: transparent !important;
+                    box-shadow: 0 4px 14px rgba(224, 54, 39, 0.25);
+                }
 
-        .directory-tabs .nav-link.active .tab-count-badge {
-            background: rgba(255, 255, 255, 0.28);
-            color: #ffffff;
-        }
+                    .directory-tabs .nav-link.active .tab-count-badge {
+                        background: rgba(255, 255, 255, 0.28);
+                        color: #ffffff;
+                    }
 
         .tab-count-badge {
             background: #f1f5f9;
@@ -140,32 +198,32 @@
             border-spacing: 0;
         }
 
-        .dir-table thead th {
-            background: #f8fafc !important;
-            color: #475569 !important;
-            font-weight: 700 !important;
-            font-size: 0.78rem !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.06em !important;
-            padding: 1rem 1.15rem !important;
-            border-top: none !important;
-            border-bottom: 2px solid #e2e8f0 !important;
-            vertical-align: middle;
-            white-space: nowrap;
-        }
+            .dir-table thead th {
+                background: #f8fafc !important;
+                color: #475569 !important;
+                font-weight: 700 !important;
+                font-size: 0.78rem !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.06em !important;
+                padding: 1rem 1.15rem !important;
+                border-top: none !important;
+                border-bottom: 2px solid #e2e8f0 !important;
+                vertical-align: middle;
+                white-space: nowrap;
+            }
 
-        .dir-table tbody td {
-            padding: 1.05rem 1.15rem !important;
-            vertical-align: middle;
-            border-bottom: 1px solid #f1f5f9;
-            background: #ffffff;
-            font-size: 0.88rem;
-            transition: background 0.15s ease;
-        }
+            .dir-table tbody td {
+                padding: 1.05rem 1.15rem !important;
+                vertical-align: middle;
+                border-bottom: 1px solid #f1f5f9;
+                background: #ffffff;
+                font-size: 0.88rem;
+                transition: background 0.15s ease;
+            }
 
-        .dir-table tbody tr:hover td {
-            background-color: #f8fafc !important;
-        }
+            .dir-table tbody tr:hover td {
+                background-color: #f8fafc !important;
+            }
 
         /* Badges & Tags */
         .roll-badge {
@@ -234,11 +292,11 @@
             white-space: nowrap;
         }
 
-        .btn-action-profile:hover {
-            background: #0f172a;
-            color: #ffffff;
-            border-color: #0f172a;
-        }
+            .btn-action-profile:hover {
+                background: #0f172a;
+                color: #ffffff;
+                border-color: #0f172a;
+            }
 
         .btn-action-delete {
             display: inline-flex;
@@ -258,11 +316,11 @@
             white-space: nowrap;
         }
 
-        .btn-action-delete:hover {
-            background: #e03627;
-            color: #ffffff;
-            border-color: #e03627;
-        }
+            .btn-action-delete:hover {
+                background: #e03627;
+                color: #ffffff;
+                border-color: #e03627;
+            }
 
         .resume-view-btn {
             display: inline-flex;
@@ -278,11 +336,11 @@
             text-decoration: none;
         }
 
-        .resume-view-btn:hover {
-            background: #e03627;
-            color: #ffffff;
-            transform: scale(1.06);
-        }
+            .resume-view-btn:hover {
+                background: #e03627;
+                color: #ffffff;
+                transform: scale(1.06);
+            }
 
         /* Avatar styling */
         .student-table-avatar {
@@ -401,22 +459,30 @@
     <!-- Hero Header Banner (Consistent White Card + Red Kicker) -->
     <div class="directory-hero-card">
         <div class="row align-items-center g-3">
-            <div class="col-lg-7">
+            <div class="col-xl-5 col-lg-4">
                 <div class="directory-hero-kicker">
-                    <i class="fa-solid fa-users-gear me-1"></i> MASTER DIRECTORY
+                    <i class="fa-solid fa-users-gear me-1"></i>MASTER DIRECTORY
                 </div>
                 <h2>User &amp; Recruiter Management</h2>
                 <p>
                     Manage all registered student candidates and recruitment company partners across the campus placement portal.
                 </p>
             </div>
-            <div class="col-lg-5 text-lg-end d-flex gap-2 justify-content-lg-end flex-wrap">
+            <div class="col-xl-7 col-lg-8 text-lg-end d-flex gap-2 justify-content-lg-end flex-wrap align-items-center">
                 <span class="hero-stat-badge student-badge shadow-sm">
-                    <i class="fa-solid fa-user-graduate"></i> Registered Students: <strong><asp:Label ID="lblStudentCount" runat="server" Text="0"></asp:Label></strong>
+                    <i class="fa-solid fa-user-graduate"></i>Registered Students: <strong>
+                        <asp:Label ID="lblStudentCount" runat="server" Text="0"></asp:Label></strong>
                 </span>
                 <span class="hero-stat-badge company-badge shadow-sm">
-                    <i class="fa-solid fa-building"></i> Partner Companies: <strong><asp:Label ID="lblCompanyCount" runat="server" Text="0"></asp:Label></strong>
+                    <i class="fa-solid fa-building"></i>Partner Companies: <strong>
+                        <asp:Label ID="lblCompanyCount" runat="server" Text="0"></asp:Label></strong>
                 </span>
+
+                <asp:Button ID="btnStudentReport" runat="server" Text="Student Report" OnClick="btnStudentReport_Click1" CssClass="btn-hero-report btn-hero-report-student shadow-sm" />
+                <asp:Button ID="btnCompanyReport" runat="server" Text="Company Report" OnClick="btnCompanyReport_Click1" CssClass="btn-hero-report btn-hero-report-company shadow-sm" />
+
+                <CR:CrystalReportViewer ID="CryStudentreport" runat="server" AutoDataBind="true" />
+                <CR:CrystalReportViewer ID="Crycompanyreport" runat="server" AutoDataBind="true" />
             </div>
         </div>
     </div>
@@ -427,13 +493,13 @@
     <ul class="nav directory-tabs" id="directoryTabs" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="students-tab" data-bs-toggle="tab" data-bs-target="#students-pane" type="button" role="tab">
-                <i class="fa-solid fa-user-graduate"></i> Registered Students 
+                <i class="fa-solid fa-user-graduate"></i>Registered Students 
                 <span class="tab-count-badge ms-1"><%= lblStudentCount.Text %></span>
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="companies-tab" data-bs-toggle="tab" data-bs-target="#companies-pane" type="button" role="tab">
-                <i class="fa-solid fa-building"></i> Recruiter Companies 
+                <i class="fa-solid fa-building"></i>Recruiter Companies 
                 <span class="tab-count-badge ms-1"><%= lblCompanyCount.Text %></span>
             </button>
         </li>
@@ -496,7 +562,7 @@
                                     <div class="d-flex align-items-center gap-3">
                                         <%# Eval("photoUrl") != DBNull.Value && !string.IsNullOrEmpty(Eval("photoUrl").ToString()) ? 
                                             "<img src='" + ResolveUrl(Eval("photoUrl").ToString().StartsWith("http") || Eval("photoUrl").ToString().StartsWith("/") || Eval("photoUrl").ToString().StartsWith("~") ? Eval("photoUrl").ToString() : "~/assets/ProfilePhotos/" + Eval("photoUrl")) + "' class='student-table-avatar' onerror=\"this.style.display='none';this.nextElementSibling.style.display='inline-flex';\" alt='Student Photo' />" : "" %>
-                                        <div class="student-table-avatar-fallback" style='<%# Eval("photoUrl") != DBNull.Value && !string.IsNullOrEmpty(Eval("photoUrl").ToString()) ? "display:none;" : "display:inline-flex;" %>'>
+                                        <div class="student-table-avatar-fallback" style='<%# Eval("photoUrl") != DBNull.Value && !string.IsNullOrEmpty(Eval("photoUrl").ToString()) ? "display:none;": "display:inline-flex;" %>'>
                                             <%# Eval("regFullName") != DBNull.Value && Eval("regFullName").ToString().Trim().Length > 0 ? Eval("regFullName").ToString().Trim().Substring(0, 1).ToUpper() : "S" %>
                                         </div>
                                         <div>
@@ -516,7 +582,7 @@
                                 <HeaderStyle Width="20%" />
                                 <ItemTemplate>
                                     <div class="fw-bold text-dark" style="font-size: 0.88rem;">
-                                        <%# Eval("degree") != DBNull.Value && !string.IsNullOrEmpty(Eval("degree").ToString()) ? Eval("degree") : "BCA" %> 
+                                        <%# Eval("degree") != DBNull.Value && !string.IsNullOrEmpty(Eval("degree").ToString()) ? Eval("degree") : "BCA" %>
                                         <span class="text-muted fw-normal" style="font-size: 0.82rem;">(<%# Eval("branch") != DBNull.Value && !string.IsNullOrEmpty(Eval("branch").ToString()) ? Eval("branch") : "Computer Science" %>)</span>
                                     </div>
                                     <div class="d-flex gap-1.5 align-items-center mt-1.5 flex-wrap">
@@ -538,9 +604,9 @@
                             <asp:TemplateField HeaderText="Resume" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
                                 <HeaderStyle Width="8%" />
                                 <ItemTemplate>
-                                    <a href='<%# Eval("resumeUrl") != DBNull.Value && !string.IsNullOrEmpty(Eval("resumeUrl").ToString()) ? ResolveUrl("~/assets/StudentPDF/" + Eval("resumeUrl")) : "javascript:alert(\"Resume not uploaded by student yet.\");" %>' 
-                                       target='<%# Eval("resumeUrl") != DBNull.Value && !string.IsNullOrEmpty(Eval("resumeUrl").ToString()) ? "_blank" : "_self" %>' 
-                                       class='resume-view-btn' title='View Resume PDF'>
+                                    <a href='<%# Eval("resumeUrl") != DBNull.Value && !string.IsNullOrEmpty(Eval("resumeUrl").ToString()) ? ResolveUrl("~/assets/StudentPDF/" + Eval("resumeUrl")) : "javascript:alert(\"Resume not uploaded by student yet.\");" %>'
+                                        target='<%# Eval("resumeUrl") != DBNull.Value && !string.IsNullOrEmpty(Eval("resumeUrl").ToString()) ? "_blank" : "_self" %>'
+                                        class='resume-view-btn' title='View Resume PDF'>
                                         <i class='fa-solid fa-file-pdf fs-6'></i>
                                     </a>
                                 </ItemTemplate>
@@ -624,7 +690,7 @@
                                     <div class="d-flex align-items-center gap-3">
                                         <%# Eval("compLogo") != DBNull.Value && !string.IsNullOrEmpty(Eval("compLogo").ToString()) ? 
                                             "<img src='" + ResolveUrl(Eval("compLogo").ToString().StartsWith("~") || Eval("compLogo").ToString().StartsWith("/") ? Eval("compLogo").ToString() : "~/CompanyUploads/" + Eval("compLogo")) + "' class='rounded-3 border' style='width:42px;height:42px;object-fit:cover;' onerror=\"this.style.display='none';this.nextElementSibling.style.display='inline-flex';\" alt='Company Logo' />" : "" %>
-                                        <div class="company-avatar-fallback" style='<%# Eval("compLogo") != DBNull.Value && !string.IsNullOrEmpty(Eval("compLogo").ToString()) ? "display:none;" : "display:inline-flex;" %>'>
+                                        <div class="company-avatar-fallback" style='<%# Eval("compLogo") != DBNull.Value && !string.IsNullOrEmpty(Eval("compLogo").ToString()) ? "display:none;": "display:inline-flex;" %>'>
                                             <%# Eval("compName") != DBNull.Value && Eval("compName").ToString().Trim().Length > 0 ? Eval("compName").ToString().Trim().Substring(0, 1).ToUpper() : "C" %>
                                         </div>
                                         <div>
@@ -879,7 +945,7 @@
         function openStudentSlideProfile(name, roll, email, mobile, degree, branch, semester, cgpa, backlogs, skills, resume, photo) {
             document.getElementById('drawerStudentName').innerText = name || 'Student';
             document.getElementById('drawerRollNo').innerText = roll || '-';
-            
+
             const emailLink = document.getElementById('drawerEmailLink');
             emailLink.innerText = email || '-';
             emailLink.href = 'mailto:' + (email || '');
@@ -969,7 +1035,7 @@
         function openCompanySlideProfile(name, email, mobile, username, industry, location, packageRange, website, tags, description, logo) {
             document.getElementById('drawerCompName').innerText = name || 'Company';
             document.getElementById('drawerCompLocation').innerText = location || 'India';
-            
+
             const emailLink = document.getElementById('drawerCompEmailLink');
             emailLink.innerText = email || '-';
             emailLink.href = 'mailto:' + (email || '');

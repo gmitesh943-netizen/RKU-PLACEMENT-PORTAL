@@ -37,13 +37,13 @@
             background: rgba(239, 55, 36, 0.08);
             border: 1px solid rgba(239, 55, 36, 0.2);
             color: var(--rku-orange-red);
-            font-size: 0.76rem;
-            font-weight: 700;
-            padding: 0.35rem 0.85rem;
-            border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            letter-spacing: 0.5px;
+                font-size: 0.76rem;
+                font-weight: 700;
+                padding: 0.35rem 0.85rem;
+                border-radius: 50px;
+                display: inline-flex;
+                align-items: center;
+                letter-spacing: 0.5px;
         }
 
         /* ─── 3 STAT CARDS (Matching AdminDashboard) ─── */

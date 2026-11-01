@@ -1,3 +1,7 @@
+﻿using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using CrystalDecisions.Web;
+using CrystalDecisions.Web.Design;
 using System;
 using System.Configuration;
 using System.Data;
@@ -6,8 +10,6 @@ using System.IO;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 
 namespace RKU_PLACEMENT_PORTAL
 {
@@ -16,7 +18,11 @@ namespace RKU_PLACEMENT_PORTAL
         AdminReportsClass reportClass = new AdminReportsClass();
         SqlConnection con;
         SqlDataAdapter da;
+        DataSet ds;
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
+
+        private CrystalDecisions.CrystalReports.Engine.ReportDocument cr = new ReportDocument();
+        static string Crypath = "";
 
         void getcon()
         {
@@ -300,190 +306,72 @@ namespace RKU_PLACEMENT_PORTAL
             }
         }
 
-        // 1. Candidate Placement Master Roster Report (PDF)
-        protected void btnExportCsv_Click(object sender, EventArgs e)
-        {
-            getcon();
 
-            string q = "select ca.StudentRollNo as [Roll No], ca.StudentName as [Student Name], " +
-                       "ca.StudentBranch as [Branch], ca.StudentCgpa as [CGPA], ca.JobRole as [Job Role], " +
-                       "ISNULL(rac.compName, ca.CompanyUsername) as [Company], " +
-                       "ca.ApplicationStatus as [Status], " +
-                       "CONVERT(VARCHAR(10), ca.AppliedDate, 120) as [Applied Date] " +
-                       "from Company_Applications ca " +
-                       "LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail) " +
-                       "order by ca.Id desc";
 
-            da = new SqlDataAdapter(q, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            con.Close();
-
-            using (MemoryStream ms = new MemoryStream())
-            {
-                Document doc = new Document(PageSize.A4.Rotate());
-
-                PdfWriter.GetInstance(doc, ms);
-                doc.Open();
-
-                PdfPTable table = new PdfPTable(dt.Columns.Count);
-
-                // Add column names
-                foreach (DataColumn column in dt.Columns)
-                {
-                    table.AddCell(column.ColumnName);
-                }
-
-                // Add database data
-                foreach (DataRow row in dt.Rows)
-                {
-                    foreach (DataColumn column in dt.Columns)
-                    {
-                        string value = row[column] == DBNull.Value ? "" : Convert.ToString(row[column]);
-                        table.AddCell(value);
-                    }
-                }
-
-                doc.Add(table);
-                doc.Close();
-
-                byte[] bytes = ms.ToArray();
-
-                Response.Clear();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("Content-Disposition", "attachment; filename=RKU_Placement_Roster.pdf");
-                Response.BinaryWrite(bytes);
-                Response.Flush();
-                Response.SuppressContent = true;
-                Context.ApplicationInstance.CompleteRequest();
-            }
-        }
-
-        // 2. Placed / Selected Students Report (PDF)
+        // 1. Placed / Selected Students 
         protected void btnExportPlacedPdf_Click(object sender, EventArgs e)
         {
+            //getcon();
+            //string q = "select ca.StudentRollNo as [Roll No], ca.StudentName as [Student Name], ca.StudentBranch as [Branch], ca.StudentCgpa as [CGPA], ca.JobRole as [Job Role], ISNULL(rac.compName, ca.CompanyUsername) as [Company], ca.ApplicationStatus as [Status], CONVERT(VARCHAR(10), ca.AppliedDate, 120) as [Placed Date] from Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail) where (ca.ApplicationStatus = 'Selected' or ca.ApplicationStatus = 'Offer Accepted' or ca.ApplicationStatus = 'Placed') order by ca.Id desc;";
+
+
+            //da = new SqlDataAdapter(q, con);
+            //DataTable dt = new DataTable();
+            //da.Fill(dt);
+
+            //con.Close();
+
+            //}
             getcon();
+            da = new SqlDataAdapter("select ca.StudentRollNo as [Roll No], ca.StudentName as [Student Name], ca.StudentBranch as [Branch], ca.StudentCgpa as [CGPA], ca.JobRole as [Job Role], ISNULL(rac.compName, ca.CompanyUsername) as [Company], ca.ApplicationStatus as [Status], CONVERT(VARCHAR(10), ca.AppliedDate, 120) as [Placed Date] from Company_Applications ca LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail) where (ca.ApplicationStatus = 'Selected' or ca.ApplicationStatus = 'Offer Accepted' or ca.ApplicationStatus = 'Placed') order by ca.Id desc", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            string s = Server.MapPath("~/Placed_Students_Report.xml");
+            ds.WriteXmlSchema(s);
 
-            string q = "select ca.StudentRollNo as [Roll No], ca.StudentName as [Student Name], " +
-                       "ca.StudentBranch as [Branch], ca.StudentCgpa as [CGPA], ca.JobRole as [Job Role], " +
-                       "ISNULL(rac.compName, ca.CompanyUsername) as [Company], " +
-                       "ca.ApplicationStatus as [Status], " +
-                       "CONVERT(VARCHAR(10), ca.AppliedDate, 120) as [Placed Date] " +
-                       "from Company_Applications ca " +
-                       "LEFT JOIN register_auth_company rac ON (ca.CompanyUsername = rac.compUsername OR ca.CompanyUsername = rac.compEmail) " +
-                       "where (ca.ApplicationStatus = 'Selected' or ca.ApplicationStatus = 'Offer Accepted' or ca.ApplicationStatus = 'Placed') " +
-                       "order by ca.Id desc";
 
-            da = new SqlDataAdapter(q, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
+            string path = Server.MapPath("~/Place_Student.rpt");
+            cr.Load(path);
+            cr.SetDataSource(ds.Tables[0]);
+            cr.Refresh();
+            CrystalReportViewer1.ReportSource = cr;
+            cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Place_Student");
 
-            con.Close();
-
-            using (MemoryStream ms = new MemoryStream())
-            {
-                Document doc = new Document(PageSize.A4.Rotate());
-
-                PdfWriter.GetInstance(doc, ms);
-                doc.Open();
-
-                PdfPTable table = new PdfPTable(dt.Columns.Count);
-
-                // Add column names
-                foreach (DataColumn column in dt.Columns)
-                {
-                    table.AddCell(column.ColumnName);
-                }
-
-                // Add database data
-                foreach (DataRow row in dt.Rows)
-                {
-                    foreach (DataColumn column in dt.Columns)
-                    {
-                        string value = row[column] == DBNull.Value ? "" : Convert.ToString(row[column]);
-                        table.AddCell(value);
-                    }
-                }
-
-                doc.Add(table);
-                doc.Close();
-
-                byte[] bytes = ms.ToArray();
-
-                Response.Clear();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("Content-Disposition", "attachment; filename=RKU_Placed_Students_Report.pdf");
-                Response.BinaryWrite(bytes);
-                Response.Flush();
-                Response.SuppressContent = true;
-                Context.ApplicationInstance.CompleteRequest();
-            }
         }
 
-        // 3. Company-Wise Recruitment Report (PDF)
+        // 2. Company-Wise Recruitment ]
         protected void btnExportCompanyCsv_Click(object sender, EventArgs e)
         {
+            //getcon();
+
+            //string q = "SELECT c.compName as [Company Name], c.compEmail as [Email], " +
+            //           "ISNULL(NULLIF(c.compIndustry, ''), 'IT & Software') AS [Industry], " +
+            //           "(SELECT COUNT(*) FROM Company_Drives d WHERE d.CompanyUsername = c.compUsername OR d.CompanyUsername = c.compEmail) AS [Total Drives], " +
+            //           "(SELECT COUNT(*) FROM Company_Applications a WHERE a.CompanyUsername = c.compUsername OR a.CompanyUsername = c.compEmail OR a.DriveId IN (SELECT Id FROM Company_Drives WHERE CompanyUsername = c.compUsername OR CompanyUsername = c.compEmail)) AS [Applicants], " +
+            //           "(SELECT COUNT(*) FROM Company_Applications a WHERE (a.ApplicationStatus = 'Shortlisted') AND (a.CompanyUsername = c.compUsername OR a.CompanyUsername = c.compEmail OR a.DriveId IN (SELECT Id FROM Company_Drives WHERE CompanyUsername = c.compUsername OR CompanyUsername = c.compEmail))) AS [Shortlisted], " +
+            //           "(SELECT COUNT(*) FROM Company_Applications a WHERE (a.ApplicationStatus = 'Selected' OR a.ApplicationStatus = 'Offer Accepted' OR a.ApplicationStatus = 'Placed') AND (a.CompanyUsername = c.compUsername OR a.CompanyUsername = c.compEmail OR a.DriveId IN (SELECT Id FROM Company_Drives WHERE CompanyUsername = c.compUsername OR CompanyUsername = c.compEmail))) AS [Hired], " +
+            //           "CASE WHEN EXISTS (SELECT 1 FROM Company_Drives d WHERE (d.CompanyUsername = c.compUsername OR d.CompanyUsername = c.compEmail) AND d.DriveStatus = 'Open') THEN 'Active' " +
+            //           "WHEN EXISTS (SELECT 1 FROM Company_Drives d WHERE (d.CompanyUsername = c.compUsername OR d.CompanyUsername = c.compEmail)) THEN 'Completed' " +
+            //           "ELSE 'Registered' END AS [Status] " +
+            //           "FROM register_auth_company c ORDER BY [Applicants] DESC, c.Id DESC";
+
             getcon();
+            da = new SqlDataAdapter("SELECT c.compName as [Company Name], c.compEmail as [Email], ISNULL(NULLIF(c.compIndustry, ''), 'IT & Software') AS [Industry], (SELECT COUNT(*) FROM Company_Drives d WHERE d.CompanyUsername = c.compUsername OR d.CompanyUsername = c.compEmail) AS [Total Drives], (SELECT COUNT(*) FROM Company_Applications a WHERE a.CompanyUsername = c.compUsername OR a.CompanyUsername = c.compEmail OR a.DriveId IN (SELECT Id FROM Company_Drives WHERE CompanyUsername = c.compUsername OR CompanyUsername = c.compEmail)) AS [Applicants], (SELECT COUNT(*) FROM Company_Applications a WHERE (a.ApplicationStatus = 'Shortlisted') AND (a.CompanyUsername = c.compUsername OR a.CompanyUsername = c.compEmail OR a.DriveId IN (SELECT Id FROM Company_Drives WHERE CompanyUsername = c.compUsername OR CompanyUsername = c.compEmail))) AS [Shortlisted], (SELECT COUNT(*) FROM Company_Applications a WHERE (a.ApplicationStatus = 'Selected' OR a.ApplicationStatus = 'Offer Accepted' OR a.ApplicationStatus = 'Placed') AND (a.CompanyUsername = c.compUsername OR a.CompanyUsername = c.compEmail OR a.DriveId IN (SELECT Id FROM Company_Drives WHERE CompanyUsername = c.compUsername OR CompanyUsername = c.compEmail))) AS [Hired], CASE WHEN EXISTS (SELECT 1 FROM Company_Drives d WHERE (d.CompanyUsername = c.compUsername OR d.CompanyUsername = c.compEmail) AND d.DriveStatus = 'Open') THEN 'Active' WHEN EXISTS (SELECT 1 FROM Company_Drives d WHERE (d.CompanyUsername = c.compUsername OR d.CompanyUsername = c.compEmail)) THEN 'Completed' ELSE 'Registered' END AS [Status] FROM register_auth_company c ORDER BY [Applicants] DESC, c.Id DESC", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            string s = Server.MapPath("~/Company_Recruitment_Report.xml");
+            ds.WriteXmlSchema(s);
 
-            string q = "SELECT c.compName as [Company Name], c.compEmail as [Email], " +
-                       "ISNULL(NULLIF(c.compIndustry, ''), 'IT & Software') AS [Industry], " +
-                       "(SELECT COUNT(*) FROM Company_Drives d WHERE d.CompanyUsername = c.compUsername OR d.CompanyUsername = c.compEmail) AS [Total Drives], " +
-                       "(SELECT COUNT(*) FROM Company_Applications a WHERE a.CompanyUsername = c.compUsername OR a.CompanyUsername = c.compEmail OR a.DriveId IN (SELECT Id FROM Company_Drives WHERE CompanyUsername = c.compUsername OR CompanyUsername = c.compEmail)) AS [Applicants], " +
-                       "(SELECT COUNT(*) FROM Company_Applications a WHERE (a.ApplicationStatus = 'Shortlisted') AND (a.CompanyUsername = c.compUsername OR a.CompanyUsername = c.compEmail OR a.DriveId IN (SELECT Id FROM Company_Drives WHERE CompanyUsername = c.compUsername OR CompanyUsername = c.compEmail))) AS [Shortlisted], " +
-                       "(SELECT COUNT(*) FROM Company_Applications a WHERE (a.ApplicationStatus = 'Selected' OR a.ApplicationStatus = 'Offer Accepted' OR a.ApplicationStatus = 'Placed') AND (a.CompanyUsername = c.compUsername OR a.CompanyUsername = c.compEmail OR a.DriveId IN (SELECT Id FROM Company_Drives WHERE CompanyUsername = c.compUsername OR CompanyUsername = c.compEmail))) AS [Hired], " +
-                       "CASE WHEN EXISTS (SELECT 1 FROM Company_Drives d WHERE (d.CompanyUsername = c.compUsername OR d.CompanyUsername = c.compEmail) AND d.DriveStatus = 'Open') THEN 'Active' " +
-                       "WHEN EXISTS (SELECT 1 FROM Company_Drives d WHERE (d.CompanyUsername = c.compUsername OR d.CompanyUsername = c.compEmail)) THEN 'Completed' " +
-                       "ELSE 'Registered' END AS [Status] " +
-                       "FROM register_auth_company c ORDER BY [Applicants] DESC, c.Id DESC";
 
-            da = new SqlDataAdapter(q, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            con.Close();
-
-            using (MemoryStream ms = new MemoryStream())
-            {
-                Document doc = new Document(PageSize.A4.Rotate());
-
-                PdfWriter.GetInstance(doc, ms);
-                doc.Open();
-
-                PdfPTable table = new PdfPTable(dt.Columns.Count);
-
-                // Add column names
-                foreach (DataColumn column in dt.Columns)
-                {
-                    table.AddCell(column.ColumnName);
-                }
-
-                // Add database data
-                foreach (DataRow row in dt.Rows)
-                {
-                    foreach (DataColumn column in dt.Columns)
-                    {
-                        string value = row[column] == DBNull.Value ? "" : Convert.ToString(row[column]);
-                        table.AddCell(value);
-                    }
-                }
-
-                doc.Add(table);
-                doc.Close();
-
-                byte[] bytes = ms.ToArray();
-
-                Response.Clear();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("Content-Disposition", "attachment; filename=RKU_Company_Recruitment_Report.pdf");
-                Response.BinaryWrite(bytes);
-                Response.Flush();
-                Response.SuppressContent = true;
-                Context.ApplicationInstance.CompleteRequest();
-            }
+            string path = Server.MapPath("~/Company_Recruitment.rpt");
+            cr.Load(path);
+            cr.SetDataSource(ds.Tables[0]);
+            cr.Refresh();
+            CrystalReportViewer2.ReportSource = cr;
+            cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Company_Recruitment");
         }
 
-        // 4. Branch-Wise Placement Statistics Report (PDF)
+                // 3. Branch-Wise Placement 
         protected void btnExportBranchCsv_Click(object sender, EventArgs e)
         {
             getcon();
@@ -501,109 +389,89 @@ namespace RKU_PLACEMENT_PORTAL
                        "ORDER BY [Total Enrolled] DESC";
 
             da = new SqlDataAdapter(q, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
+            ds = new DataSet();
+            da.Fill(ds);
+            string s = Server.MapPath("~/Branch_Placement_Report.xml");
+            ds.WriteXmlSchema(s);
 
-            con.Close();
-
-            using (MemoryStream ms = new MemoryStream())
-            {
-                Document doc = new Document(PageSize.A4.Rotate());
-
-                PdfWriter.GetInstance(doc, ms);
-                doc.Open();
-
-                PdfPTable table = new PdfPTable(dt.Columns.Count);
-
-                // Add column names
-                foreach (DataColumn column in dt.Columns)
-                {
-                    table.AddCell(column.ColumnName);
-                }
-
-                // Add database data
-                foreach (DataRow row in dt.Rows)
-                {
-                    foreach (DataColumn column in dt.Columns)
-                    {
-                        string value = row[column] == DBNull.Value ? "" : Convert.ToString(row[column]);
-                        table.AddCell(value);
-                    }
-                }
-
-                doc.Add(table);
-                doc.Close();
-
-                byte[] bytes = ms.ToArray();
-
-                Response.Clear();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("Content-Disposition", "attachment; filename=RKU_Branch_Placement_Statistics.pdf");
-                Response.BinaryWrite(bytes);
-                Response.Flush();
-                Response.SuppressContent = true;
-                Context.ApplicationInstance.CompleteRequest();
-            }
+            string path = Server.MapPath("~/Branch_Placement.rpt");
+            cr.Load(path);
+            cr.SetDataSource(ds.Tables[0]);
+            cr.Refresh();
+            CrystalReportViewer3.ReportSource = cr;
+            cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Branch_Placement");
+        
         }
 
-        // 5. Campus Recruitment Drives Report (PDF)
+        // 4. Campus Recruitment Drives Report (PDF)
         protected void btnExportDrivesPdf_Click(object sender, EventArgs e)
         {
-            getcon();
+            //getcon();
 
-            string q = "SELECT cd.JobRole as [Job Role], " +
-                       "ISNULL(rac.compName, cd.CompanyUsername) as [Company], " +
-                       "cd.PackageOffered as [Package], cd.VenueLocation as [Venue], " +
-                       "CONVERT(VARCHAR(10), cd.DriveDate, 120) as [Drive Date], " +
-                       "cd.DriveStatus as [Status] " +
-                       "FROM Company_Drives cd " +
-                       "LEFT JOIN register_auth_company rac ON (cd.CompanyUsername = rac.compUsername OR cd.CompanyUsername = rac.compEmail) " +
-                       "ORDER BY cd.Id DESC";
+            //string q = "SELECT cd.JobRole as [Job Role], " +
+            //           "ISNULL(rac.compName, cd.CompanyUsername) as [Company], " +
+            //           "cd.PackageOffered as [Package], cd.VenueLocation as [Venue], " +
+            //           "CONVERT(VARCHAR(10), cd.DriveDate, 120) as [Drive Date], " +
+            //           "cd.DriveStatus as [Status] " +
+            //           "FROM Company_Drives cd " +
+            //           "LEFT JOIN register_auth_company rac ON (cd.CompanyUsername = rac.compUsername OR cd.CompanyUsername = rac.compEmail) " +
+            //           "ORDER BY cd.Id DESC";
 
-            da = new SqlDataAdapter(q, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
+            //string rptPath = Server.MapPath("~/Campus_Drives.rpt");
+            //if (File.Exists(rptPath))
+            //{
+            //    da = new SqlDataAdapter(q, con);
+            //    ds = new DataSet();
+            //    da.Fill(ds);
+            //    string s = Server.MapPath("~/Campus_Drives_Report.xml");
+            //    ds.WriteXmlSchema(s);
 
-            con.Close();
+            //    cr.Load(rptPath);
+            //    cr.SetDataSource(ds.Tables[0]);
+            //    cr.Refresh();
+            //    CrystalReportViewer1.ReportSource = cr;
+            //    cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Campus_Drives");
+            //}
+            //else
+            //{
+            //    da = new SqlDataAdapter(q, con);
+            //    DataTable dt = new DataTable();
+            //    da.Fill(dt);
+            //    con.Close();
 
-            using (MemoryStream ms = new MemoryStream())
-            {
-                Document doc = new Document(PageSize.A4.Rotate());
+            //    using (MemoryStream ms = new MemoryStream())
+            //    {
+            //        iTextSharp.text.Document doc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4.Rotate());
+            //        iTextSharp.text.pdf.PdfWriter.GetInstance(doc, ms);
+            //        doc.Open();
 
-                PdfWriter.GetInstance(doc, ms);
-                doc.Open();
+            //        iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(dt.Columns.Count);
+            //        foreach (DataColumn column in dt.Columns)
+            //        {
+            //            table.AddCell(column.ColumnName);
+            //        }
+            //        foreach (DataRow row in dt.Rows)
+            //        {
+            //            foreach (DataColumn column in dt.Columns)
+            //            {
+            //                string value = row[column] == DBNull.Value ? "" : Convert.ToString(row[column]);
+            //                table.AddCell(value);
+            //            }
+            //        }
+            //        doc.Add(table);
+            //        doc.Close();
 
-                PdfPTable table = new PdfPTable(dt.Columns.Count);
-
-                // Add column names
-                foreach (DataColumn column in dt.Columns)
-                {
-                    table.AddCell(column.ColumnName);
-                }
-
-                // Add database data
-                foreach (DataRow row in dt.Rows)
-                {
-                    foreach (DataColumn column in dt.Columns)
-                    {
-                        string value = row[column] == DBNull.Value ? "" : Convert.ToString(row[column]);
-                        table.AddCell(value);
-                    }
-                }
-
-                doc.Add(table);
-                doc.Close();
-
-                byte[] bytes = ms.ToArray();
-
-                Response.Clear();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("Content-Disposition", "attachment; filename=RKU_Campus_Drives_Report.pdf");
-                Response.BinaryWrite(bytes);
-                Response.Flush();
-                Response.SuppressContent = true;
-                Context.ApplicationInstance.CompleteRequest();
-            }
+            //        byte[] bytes = ms.ToArray();
+            //        Response.Clear();
+            //        Response.ContentType = "application/pdf";
+            //        Response.AddHeader("Content-Disposition", "attachment; filename=RKU_Campus_Drives_Report.pdf");
+            //        Response.BinaryWrite(bytes);
+            //        Response.Flush();
+            //        Response.SuppressContent = true;
+            //        Context.ApplicationInstance.CompleteRequest();
+            //    }
+            
         }
     }
+      
 }

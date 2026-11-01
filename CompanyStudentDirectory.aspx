@@ -1,5 +1,7 @@
 <%@ Page Title="Student Directory | RKU Placement Portal" Language="C#" MasterPageFile="~/Company-Panel.Master" AutoEventWireup="true" CodeBehind="CompanyStudentDirectory.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.CompanyStudentDirectory" %>
 
+<%@ Register Assembly="CrystalDecisions.Web, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         :root {
@@ -81,6 +83,40 @@
                 color: #ffffff !important;
                 transform: translateY(-1px) !important;
                 box-shadow: 0 6px 18px rgba(239, 55, 36, 0.35) !important;
+            }
+
+        .btn-report-pill {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+            background-color: #0f172a !important;
+            border: 1px solid #0f172a !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            padding: 0.45rem 1.15rem !important;
+            border-radius: 50px !important;
+            font-size: 0.82rem !important;
+            transition: all 0.25s ease !important;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2) !important;
+            cursor: pointer !important;
+            white-space: nowrap !important;
+            line-height: 1.5 !important;
+        }
+
+            .btn-report-pill:hover {
+                background: linear-gradient(135deg, #0f172a 0%, #020617 100%) !important;
+                background-color: #020617 !important;
+                border-color: #020617 !important;
+                color: #ffffff !important;
+                transform: translateY(-1px) !important;
+                box-shadow: 0 6px 18px rgba(15, 23, 42, 0.3) !important;
+            }
+
+            .btn-report-pill:active {
+                transform: translateY(0) !important;
+                box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15) !important;
             }
 
         /* ─── CUSTOM DASH TABLE ─── */
@@ -303,6 +339,7 @@
             from {
                 transform: translateX(100%);
             }
+
             to {
                 transform: translateX(0);
             }
@@ -336,21 +373,24 @@
     <!-- Page Top Hero Card (AdminDashboard Design) -->
     <div class="dash-hero-card">
         <div class="row align-items-center g-3">
-            <div class="col-lg-8">
+            <div class="col-xl-6 col-lg-5">
                 <div class="hero-badge-red mb-2">
                     <i class="fa-solid fa-users me-1.5"></i>TALENT POOL
                 </div>
                 <h3 class="fw-bold text-dark font-heading mb-1">Student Talent Directory</h3>
                 <p class="text-muted small mb-0">Browse registered candidates, filter by academic branch &amp; skills, inspect full profiles, and view resume PDFs.</p>
             </div>
-            <div class="col-lg-4 text-lg-end">
-                <asp:HyperLink ID="lnkManageDrives" runat="server" NavigateUrl="CompanyManageDrives.aspx" CssClass="btn btn-light border rounded-pill px-3 py-2 me-2" Style="font-size: 0.82rem; font-weight: 600;">
+            <div class="col-xl-6 col-lg-7 text-lg-end d-flex gap-2 justify-content-lg-end flex-wrap align-items-center">
+                <asp:HyperLink ID="lnkManageDrives" runat="server" NavigateUrl="CompanyManageDrives.aspx" CssClass="btn btn-light border rounded-pill px-3 py-2" Style="font-size: 0.82rem; font-weight: 600;">
                     <i class="fa-solid fa-bullhorn me-1 text-muted"></i>Campus Drives
                 </asp:HyperLink>
 
                 <asp:HyperLink ID="lnkApplicants" runat="server" NavigateUrl="CompanyApplicants.aspx" CssClass="btn-rku-orange">
                     <i class="fa-solid fa-list-check me-1"></i>Applications
                 </asp:HyperLink>
+
+                <asp:Button ID="studentredrpt" runat="server" Text="Student List" OnClick="studentredrpt_Click" CssClass="btn-report-pill" />
+                <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" />
             </div>
         </div>
     </div>
@@ -362,6 +402,7 @@
             <div class="col-md-4">
                 <label class="form-label small fw-bold text-secondary mb-1">
                     <i class="fa-solid fa-graduation-cap me-1" style="color: var(--rku-orange-red);"></i>Filter by Branch
+               
                 </label>
                 <asp:DropDownList ID="studentBranchFilter" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="studentBranchFilter_SelectedIndexChanged" Style="border-radius: 8px; font-weight: 500; height: 38px;">
                     <asp:ListItem Value="all" Text="All Branches" Selected="True"></asp:ListItem>
@@ -378,6 +419,7 @@
             <div class="col-md-8">
                 <label class="form-label small fw-bold text-secondary mb-1">
                     <i class="fa-solid fa-magnifying-glass me-1" style="color: var(--rku-orange-red);"></i>Instant Candidate Search
+               
                 </label>
                 <div class="input-group">
                     <span class="input-group-text bg-light border-end-0 text-muted" style="border-radius: 8px 0 0 8px;">
@@ -395,13 +437,16 @@
             <div>
                 <h6 class="fw-bold mb-0 text-dark font-heading">
                     <i class="fa-solid fa-users me-2" style="color: var(--rku-orange-red);"></i>Registered Students
+                   
                     <span class="hero-badge-red ms-2">
-                        <asp:Label ID="lblStudentCount" runat="server" Text="0"></asp:Label> Total
+                        <asp:Label ID="lblStudentCount" runat="server" Text="0"></asp:Label>
+                        Total
                     </span>
                 </h6>
             </div>
             <div class="text-muted small">
                 <i class="fa-regular fa-lightbulb text-warning me-1"></i>Click "Profile" to inspect complete candidate details
+           
             </div>
         </div>
 
@@ -452,8 +497,7 @@
                                 <span class="cpi-badge-pro">
                                     <i class="fa-solid fa-chart-line me-1"></i>CPI: <strong><%# Eval("cgpa") != DBNull.Value && !string.IsNullOrEmpty(Eval("cgpa").ToString()) ? Eval("cgpa") : "8.50" %></strong>
                                 </span>
-                                <span class="backlog-badge-pro">
-                                    Backlogs: <strong><%# Eval("backlogs") != DBNull.Value && !string.IsNullOrEmpty(Eval("backlogs").ToString()) ? Eval("backlogs") : "0" %></strong>
+                                <span class="backlog-badge-pro">Backlogs: <strong><%# Eval("backlogs") != DBNull.Value && !string.IsNullOrEmpty(Eval("backlogs").ToString()) ? Eval("backlogs") : "0" %></strong>
                                 </span>
                             </div>
                         </ItemTemplate>

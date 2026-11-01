@@ -9,7 +9,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>About RKU | Placement Portal | RK University</title>
-
+        <a href="PlacementAbout.aspx">PlacementAbout.aspx</a>
         <!-- Meta Tags for SEO -->
         <meta name="description" content="About RK University Training & Placement Cell. Our objectives, team, coordinators, competency assessments, and skill-based workshops.">
         <meta name="keywords" content="RK University, Placement Cell, About RKU, TPO Rajkot, Placement Coordinators, Training objectives">

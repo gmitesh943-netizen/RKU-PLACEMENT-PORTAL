@@ -1,5 +1,12 @@
+﻿using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using CrystalDecisions.Web;
 using System;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -7,6 +14,11 @@ namespace RKU_PLACEMENT_PORTAL
 {
     public partial class AdminStudentDirectory : System.Web.UI.Page
     {
+        SqlConnection con;
+        SqlDataAdapter da;
+        DataSet ds;
+        SqlCommand cmd;
+        private ReportDocument cr = new ReportDocument();
         AdminStudentDirectoryClass dirClass = new AdminStudentDirectoryClass();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -24,7 +36,14 @@ namespace RKU_PLACEMENT_PORTAL
         void startcon()
         {
             dirClass = new AdminStudentDirectoryClass();
-            dirClass.getcon();
+            con = dirClass.getcon();
+        }
+
+        void getcon()
+        {
+            string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
+            con = new SqlConnection(s);
+            con.Open();
         }
 
         // --------------------- STUDENT SECTION ------------------------
@@ -233,6 +252,85 @@ namespace RKU_PLACEMENT_PORTAL
         void GridCompany()
         {
             fillCompanyGrid();
+        }
+    
+        // Export Student Report (PDF)
+        //protected void btnStudentReport_Click(object sender, EventArgs e)
+        //{
+        //    getcon();
+        //    da = new SqlDataAdapter("select * from register_auth ", con);
+        //    ds = new DataSet();
+        //    da.Fill(ds);
+        //    string s = Server.MapPath("~/Student_reg_Report.xml");
+          
+
+        //    string path = Server.MapPath("~/Student_reg.rpt");
+        //    cr = new ReportDocument();
+        //    cr.Load(path);
+        //    cr.SetDataSource(ds.Tables[0]);
+        //    cr.Refresh();
+        //    CryStudentreport.ReportSource = cr;
+        //    Response.Clear();
+        //    cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Student_reg");
+        //}
+
+        //// Export Company Report (PDF)
+        //protected void btnCompanyReport_Click(object sender, EventArgs e)
+        //{
+        //    getcon();
+        //    da = new SqlDataAdapter("select * from register_auth_company ", con);
+        //    ds = new DataSet();
+        //    da.Fill(ds);
+        //    string s = Server.MapPath("~/Company_Reg_Report.xml");
+           
+
+        //    string path = Server.MapPath("~/company_reg.rpt");
+        //    cr = new ReportDocument();
+        //    cr.Load(path);
+        //    cr.SetDataSource(ds.Tables[0]);
+        //    cr.Refresh();
+        //    Crycompanyreport.ReportSource = cr;
+        //    Response.Clear();
+        //    cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "company_reg");
+        //}
+
+        protected void btnStudentReport_Click1(object sender, EventArgs e)
+        {
+
+            getcon();
+            da = new SqlDataAdapter("select * from register_auth ", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            string s = Server.MapPath("~/Student_reg_Report.xml");
+
+
+            string path = Server.MapPath("~/Student_reg.rpt");
+            cr = new ReportDocument();
+            cr.Load(path);
+            cr.SetDataSource(ds.Tables[0]);
+            cr.Refresh();
+            CryStudentreport.ReportSource = cr;
+            Response.Clear();
+            cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Student_reg");
+        }
+
+        protected void btnCompanyReport_Click1(object sender, EventArgs e)
+        {
+            getcon();
+            da = new SqlDataAdapter("select * from register_auth_company ", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            string s = Server.MapPath("~/Company_Reg_Report.xml");
+
+
+            string path = Server.MapPath("~/company_reg.rpt");
+            cr = new ReportDocument();
+            cr.Load(path);
+            cr.SetDataSource(ds.Tables[0]);
+            cr.Refresh();
+            Crycompanyreport.ReportSource = cr;
+            Response.Clear();
+            cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "company_reg");
         }
     }
 }
