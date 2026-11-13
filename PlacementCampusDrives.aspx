@@ -1,97 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="PlacementCampusDrives.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.PlacementCampusDrives" %>
 
-
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
-</asp:Content>
-
-<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
-
-    <!DOCTYPE html>
-
-    <html>
-
-    <head>
-
-        <meta charset="UTF-8">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <title>Campus Drives | Placement Portal | RK University</title>
-
-
-
-        <!-- Meta Tags for SEO -->
-
-        <meta name="description" content="View historical and active campus drives at RK University. Filter placement drives by year, department, or company name.">
-
-        <meta name="keywords" content="RK University, Campus Drives, Placement Drives, TPO Rajkot, TCS, Wipro, Infosys, Deloitte Drives">
-
-        <meta name="author" content="RK University">
-
-
-
-        <!-- Open Graph / Facebook / WhatsApp -->
-
-        <meta property="og:type" content="website">
-
-        <meta property="og:title" content="Campus Placement Drives & Recruitment Schedule | RK University">
-
-        <meta property="og:description" content="Explore on-campus placement drives, job roles, eligibility criteria, and upcoming hiring schedules at RK University.">
-
-        <meta property="og:image" content="images/RKU_Placement_Social_Banner.jpg">
-
-
-
-        <!-- Schema.org JSON-LD -->
-
-        <script type="application/ld+json">
-
-        {
-
-          "@context": "https://schema.org",
-
-          "@type": "CollectionPage",
-
-          "name": "RK University Campus Drives",
-
-          "description": "Information and recruitment records for campus placement drives hosted at RK University.",
-
-          "provider": {
-
-            "@type": "CollegeOrUniversity",
-
-            "name": "RK University",
-
-            "url": "https://rku.ac.in"
-
-          }
-
-        }
-
-        </script>
-
-
-
-        <!-- Bootstrap 5 CSS -->
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-
-        <!-- FontAwesome Icons -->
-
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-
-
-
-        <!-- Custom CSS -->
-
-        <link href="css/style.css" rel="stylesheet">
-
-
-
         <style>
 
             /* Sidebar Navigation Menu */
@@ -114,8 +23,6 @@
 
             }
 
-
-
             .placement-sidebar-list {
 
                 list-style: none;
@@ -125,8 +32,6 @@
                 margin: 0;
 
             }
-
-
 
             .placement-sidebar-item a {
 
@@ -152,15 +57,11 @@
 
             }
 
-
-
             .placement-sidebar-item:last-child a {
 
                 border-bottom: none;
 
             }
-
-
 
             .placement-sidebar-item a i {
 
@@ -178,8 +79,6 @@
 
             }
 
-
-
             .placement-sidebar-item.active a {
 
                 background-color: var(--rku-maroon);
@@ -188,15 +87,11 @@
 
             }
 
-
-
                 .placement-sidebar-item.active a i {
 
                     color: #fff !important;
 
                 }
-
-
 
             .placement-sidebar-item a:hover:not(.active) {
 
@@ -208,15 +103,11 @@
 
             }
 
-
-
                 .placement-sidebar-item a:hover:not(.active) i {
 
                     color: var(--rku-maroon);
 
                 }
-
-
 
             /* Content Title */
 
@@ -240,8 +131,6 @@
 
             }
 
-
-
                 .page-content-title::after {
 
                     content: '';
@@ -260,8 +149,6 @@
 
                 }
 
-
-
             /* Filter Controls */
 
             .filter-container {
@@ -279,8 +166,6 @@
                 margin-bottom: 1.5rem;
 
             }
-
-
 
             .filter-select {
 
@@ -308,8 +193,6 @@
 
             }
 
-
-
                 .filter-select:focus {
 
                     border-color: var(--rku-red);
@@ -319,8 +202,6 @@
                     background-color: #fff;
 
                 }
-
-
 
             .btn-search {
 
@@ -348,8 +229,6 @@
 
             }
 
-
-
                 .btn-search:hover {
 
                     background-color: var(--rku-maroon);
@@ -359,8 +238,6 @@
                     transform: translateY(-1px);
 
                 }
-
-
 
             /* Campus Drives Table */
 
@@ -378,8 +255,6 @@
 
             }
 
-
-
             .drives-table {
 
                 width: 100%;
@@ -391,8 +266,6 @@
                 min-width: 650px;
 
             }
-
-
 
                 .drives-table thead th {
 
@@ -416,8 +289,6 @@
 
                 }
 
-
-
                 .drives-table tbody td {
 
                     padding: 0.9rem 1.25rem;
@@ -432,23 +303,17 @@
 
                 }
 
-
-
                 .drives-table tbody tr:last-child td {
 
                     border-bottom: none;
 
                 }
 
-
-
                 .drives-table tbody tr:hover td {
 
                     background-color: #fefcfc;
 
                 }
-
-
 
                 .drives-table td a {
 
@@ -462,8 +327,6 @@
 
                 }
 
-
-
                     .drives-table td a:hover {
 
                         color: var(--rku-maroon);
@@ -471,8 +334,6 @@
                         text-decoration: underline;
 
                     }
-
-
 
             /* Pagination & Info */
 
@@ -492,8 +353,6 @@
 
             }
 
-
-
             .info-text {
 
                 font-size: 0.88rem;
@@ -503,8 +362,6 @@
                 font-weight: 500;
 
             }
-
-
 
             .custom-pagination {
 
@@ -524,23 +381,17 @@
 
             }
 
-
-
             .custom-page-item {
 
                 border-right: 1px solid #ddd;
 
             }
 
-
-
                 .custom-page-item:last-child {
 
                     border-right: none;
 
                 }
-
-
 
             .custom-page-link {
 
@@ -564,8 +415,6 @@
 
             }
 
-
-
             .custom-page-item.active .custom-page-link {
 
                 background-color: var(--rku-red);
@@ -574,8 +423,6 @@
 
             }
 
-
-
             .custom-page-link:hover:not(.active) {
 
                 background-color: #f8f9fa;
@@ -583,8 +430,6 @@
                 color: var(--rku-maroon);
 
             }
-
-
 
             .custom-page-item.disabled .custom-page-link {
 
@@ -597,13 +442,9 @@
             }
 
         </style>
+</asp:Content>
 
-    </head>
-
-    <body>
-
-
-
+<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
         <!-- ==========================================
 
              1. HEADER TOPBAR & NAVBAR
@@ -667,8 +508,6 @@
 
         </div>
 
-
-
         <nav class="navbar navbar-expand-lg">
 
             <div class="container-fluid px-lg-5">
@@ -681,8 +520,6 @@
 
                 </a>
 
-
-
                 <!-- Mobile Toggle -->
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggleButton">
@@ -690,8 +527,6 @@
                     <span class="navbar-toggler-icon"></span>
 
                 </button>
-
-
 
                 <!-- Navigation Links -->
 
@@ -741,8 +576,6 @@
 
                         </li>
 
-
-
                         <li class="nav-item">
 
                             <a class="nav-link" href="SuccessStories.aspx" id="navStories">Success Stories</a>
@@ -756,8 +589,6 @@
                         </li>
 
                     </ul>
-
-
 
                     <!-- User Actions -->
 
@@ -785,308 +616,9 @@
 
         </nav>
         </header>
-
 </asp:Content>
-
-
-
-
-
-
-
-<asp:Content ID="Content7" runat="server" ContentPlaceHolderID="ContentPlaceHolder3">
-
-    <!-- ==========================================
-
-         4. FOOTER
-
-         ========================================== -->
-
-    <footer class="footer pt-5" id="siteFooter">
-
-        <div class="container px-lg-5">
-
-            <div class="row g-4 pb-5">
-
-
-
-                <!-- Column 1: About Info -->
-
-                <div class="col-lg-3 col-md-6">
-
-                    <div class="footer-logo d-flex align-items-center mb-3">
-
-                        <img src="assets/images/RKU LOGO.png" alt="RK University" class="me-2" style="height: 36px; width: auto; max-width: 220px; object-fit: contain;">
-
-                    </div>
-
-                    <p class="mb-4">Empowering students by bridging the gap between academia and corporate world. Providing quality training and dream placements.</p>
-
-                    <div class="footer-social-links" id="footerSocials">
-
-                        <a href="https://facebook.com" target="_blank" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
-
-                        <a href="https://twitter.com" target="_blank" title="X (Twitter)" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
-
-                        <a href="https://linkedin.com" target="_blank" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
-
-                        <a href="https://instagram.com" target="_blank" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Column 2: Quick Links -->
-
-                <div class="col-lg-3 col-md-6">
-
-                    <h5>Quick Links</h5>
-
-                    <ul class="footer-links" id="footerQuickLinks">
-
-                        <li><a href="About.aspx">About Us</a></li>
-
-                        <li><a href="#">Academics</a></li>
-
-                        <li><a href="PlacementCampusDrives.aspx">Placement Drives</a></li>
-
-                        <li><a href="Companies.aspx">Companies</a></li>
-
-                        <li><a href="Contact.aspx">Contact Us</a></li>
-
-                    </ul>
-
-                </div>
-
-
-
-                <!-- Column 3: Students Links -->
-
-                <div class="col-lg-3 col-md-6">
-
-                    <h5>Students</h5>
-
-                    <ul class="footer-links" id="footerStudentLinks">
-
-                        <li><a href="Register.aspx">Student Registration</a></li>
-
-                        <li><a href="Login.aspx">Student Login</a></li>
-
-                        <li><a href="PlacementCampusDrives.aspx">Available Jobs</a></li>
-
-                        <li><a href="StudentApplications.aspx">Applied Jobs</a></li>
-
-                        <li><a href="#">Interview Schedule</a></li>
-
-                        <li><a href="#">Resume Builder</a></li>
-
-                    </ul>
-
-                </div>
-
-
-
-                <!-- Column 4: Contact Placement Cell -->
-
-                <div class="col-lg-3 col-md-6">
-
-                    <h5>Placement Cell</h5>
-
-                    <div class="footer-contact-info" id="footerContactInfo">
-
-                        <p>
-
-                            <i class="fa-solid fa-location-dot"></i>
-
-                            <span>RK University, Rajkot - 360020,<br>
-
-                                Gujarat, India</span>
-
-                        </p>
-
-                        <p>
-
-                            <i class="fa-solid fa-phone"></i>
-
-                            <span>+91 98765 43210</span>
-
-                        </p>
-
-                        <p>
-
-                            <i class="fa-solid fa-envelope"></i>
-
-                            <a href="mailto:placement@rku.ac.in" id="linkFooterEmail">placement@rku.ac.in</a>
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-            </div>
-
-        </div>
-
-
-
-        <!-- Bottom Copyright -->
-
-        <div class="footer-bottom">
-
-            <div class="container px-lg-5">
-
-                <div class="row align-items-center">
-
-                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
-
-                        <p class="mb-0" id="copyrightText">&copy; 2026 RK University Placement Portal. All Rights Reserved.</p>
-
-                    </div>
-
-                    <div class="col-md-6 text-center text-md-end">
-
-                        <div class="footer-links d-inline-flex gap-3 mb-0" id="footerBottomLinks">
-
-                            <a href="#" style="font-size: 0.8rem;">Privacy Policy</a>
-
-                            <span style="color: rgba(255, 255, 255, 0.7);">|</span>
-
-                            <a href="#" style="font-size: 0.8rem;">Terms of Service</a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </footer>
-
-
-
-    <!-- Bootstrap 5 Bundle JS -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-    <!-- Custom JS -->
-
-    <script src="js/main.js"></script>
-
-
-
-    <!-- drives JS moved into ContentPlaceHolder2 (after the table) -->
-
-    <!-- Code injected by live-server -->
-
-    <script>
-
-        // <![CDATA[  <-- For SVG support
-
-        if ('WebSocket' in window) {
-
-            (function () {
-
-                function refreshCSS() {
-
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-
-                    var head = document.getElementsByTagName("head")[0];
-
-                    for (var i = 0; i < sheets.length; ++i) {
-
-                        var elem = sheets[i];
-
-                        var parent = elem.parentElement || head;
-
-                        parent.removeChild(elem);
-
-                        var rel = elem.rel;
-
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-
-                        }
-
-                        parent.appendChild(elem);
-
-                    }
-
-                }
-
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-
-                var socket = new WebSocket(address);
-
-                socket.onmessage = function (msg) {
-
-                    if (msg.data == 'reload') window.location.reload();
-
-                    else if (msg.data == 'refreshcss') refreshCSS();
-
-                };
-
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-
-                    console.log('Live reload enabled.');
-
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-
-                }
-
-            })();
-
-        }
-
-        else {
-
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-
-        }
-
-        // ]]>
-
-    </script>
-
-    </body>
-
-</html>
-
-
-
-
-
-
-
-</asp:Content>
-
-
-
-
-
-
-
-
-
-
 
 <asp:Content ID="Content8" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
-
-
 
     <!-- ==========================================
 
@@ -1118,8 +650,6 @@
 
                     </div>
 
-
-
                     <h1 class="hero-title" id="aboutHeroTitle">Campus Drives</h1>
 
                     <p class="hero-subtitle mb-0" id="aboutHeroSubtitle">Home › Placement › Campus Drives</p>
@@ -1132,8 +662,6 @@
 
     </section>
 
-
-
     <!-- ==========================================
 
          3. MAIN LAYOUT (SIDEBAR + CONTENT)
@@ -1145,8 +673,6 @@
         <div class="container px-lg-5">
 
             <div class="row g-4">
-
-
 
                 <!-- Left Sidebar -->
 
@@ -1198,19 +724,13 @@
 
                 </div>
 
-
-
                 <!-- Right Main Content -->
 
                 <div class="col-lg-9">
 
-
-
                     <!-- Title -->
 
                     <h2 class="page-content-title mb-4">CAMPUS DRIVES</h2>
-
-
 
                     <!-- Filter Bar -->
 
@@ -1253,8 +773,6 @@
                         </div>
 
                     </div>
-
-
 
                     <!-- Table Container -->
 
@@ -1328,8 +846,6 @@
 
                     </div>
 
-
-
                     <!-- Pagination -->
 
                     <div class="pagination-container">
@@ -1340,15 +856,7 @@
 
                     </div>
 
-
-
-
-
-
-
                 </div>
-
-
 
             </div>
 
@@ -1357,16 +865,3 @@
     </section>
 
 </asp:Content>
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,14 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="Companies.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.Companies" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Companies | RK University Placement Portal</title>
         <meta name="description" content="Explore 300+ recruiting companies visiting RK University campus. Browse company profiles, job openings, packages, and apply for placement drives.">
         <meta name="keywords" content="RK University Companies, Campus Recruiters, Top MNCs, Job Openings, Placement Companies Rajkot">
         <meta name="author" content="RK University">
@@ -36,10 +28,6 @@
           ]
         }
         </script>
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
 
         <style>
             /* ─── HERO ─── */
@@ -799,9 +787,9 @@
                 border-color: var(--rku-red, #d82b19) !important;
             }
         </style>
-    </head>
-    <body>
+</asp:Content>
 
+<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
         <!-- ================================================
              HEADER TOPBAR & NAVBAR
              ================================================ -->
@@ -877,300 +865,8 @@
             </div>
         </nav>
         </header>
-</asp:Content>
-
-
-<asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder3">
-
-    <!-- ================================================
-     FOOTER
-     ================================================ -->
-    <footer class="footer pt-5" id="siteFooter">
-        <div class="container px-lg-5">
-            <div class="row g-4 pb-5">
-
-                <!-- Column 1: About Info -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer-logo d-flex align-items-center mb-3">
-                        <img src="assets/images/RKU LOGO.png" alt="RK University" class="me-2" style="height: 36px; width: auto; max-width: 220px; object-fit: contain;">
-                    </div>
-                    <p class="mb-4">Empowering students by bridging the gap between academia and corporate world. Providing quality training and dream placements.</p>
-                    <div class="footer-social-links" id="footerSocials">
-                        <a href="https://facebook.com" target="_blank" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://twitter.com" target="_blank" title="X (Twitter)" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://linkedin.com" target="_blank" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://instagram.com" target="_blank" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
-                    </div>
-                </div>
-
-                <!-- Column 2: Quick Links -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Quick Links</h5>
-                    <ul class="footer-links" id="footerQuickLinks">
-                        <li><a href="About.aspx">About Us</a></li>
-                        <li><a href="#">Academics</a></li>
-                        <li><a href="PlacementCampusDrives.aspx">Placement Drives</a></li>
-                        <li><a href="Companies.aspx">Companies</a></li>
-                        <li><a href="Contact.aspx">Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Students Links -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Students</h5>
-                    <ul class="footer-links" id="footerStudentLinks">
-                        <li><a href="Register.aspx">Student Registration</a></li>
-                        <li><a href="Login.aspx">Student Login</a></li>
-                        <li><a href="PlacementCampusDrives.aspx">Available Jobs</a></li>
-                        <li><a href="StudentApplications.aspx">Applied Jobs</a></li>
-                        <li><a href="#">Interview Schedule</a></li>
-                        <li><a href="#">Resume Builder</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Contact Placement Cell -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Placement Cell</h5>
-                    <div class="footer-contact-info" id="footerContactInfo">
-                        <p>
-                            <i class="fa-solid fa-location-dot"></i>
-                            <span>RK University, Rajkot - 360020,<br>
-                                Gujarat, India</span>
-                        </p>
-                        <p>
-                            <i class="fa-solid fa-phone"></i>
-                            <span>+91 98765 43210</span>
-                        </p>
-                        <p>
-                            <i class="fa-solid fa-envelope"></i>
-                            <a href="mailto:placement@rku.ac.in" id="linkFooterEmail">placement@rku.ac.in</a>
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Bottom Copyright -->
-        <div class="footer-bottom">
-            <div class="container px-lg-5">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
-                        <p class="mb-0" id="copyrightText">&copy; 2026 RK University Placement Portal. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <div class="footer-links d-inline-flex gap-3 mb-0" id="footerBottomLinks">
-                            <a href="#" style="font-size: 0.8rem;">Privacy Policy</a>
-                            <span style="color: rgba(255, 255, 255, 0.7);">|</span>
-                            <a href="#" style="font-size: 0.8rem;">Terms of Service</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/portal-db.js"></script>
-    <script src="js/main.js"></script>
-    <script>
-        /* ─── INDUSTRY TAB FILTER ─── */
-        const tabs = document.querySelectorAll('.itab');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                const filter = tab.dataset.tab;
-                const cards = document.querySelectorAll('#companyGrid > .col-lg-4');
-                cards.forEach(card => {
-                    const industry = card.dataset.industry;
-                    if (filter === 'all' || industry === filter) {
-                        card.style.display = '';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        /* ─── COMPANY RENDERING ─── */
-        const indClassMap = {
-            'it': 'badge-it', 'mnc': 'badge-mnc', 'consulting': 'badge-consult',
-            'finance': 'badge-fin', 'fmcg': 'badge-fmcg', 'manufacturing': 'badge-mfg'
-        };
-
-        function renderCompaniesGrid() {
-            const allCompanies = PortalDB.getCompanies();
-            const grid = document.getElementById('companyGrid');
-            grid.innerHTML = '';
-
-            if (allCompanies.length === 0) {
-                grid.innerHTML = '<div class="col-12 text-center py-5 text-muted">No companies listed yet.</div>';
-                return;
-            }
-
-            // Sort: registered companies (with linkedUsername) first
-            const sorted = [...allCompanies].sort((a, b) => {
-                if (a.linkedUsername && !b.linkedUsername) return -1;
-                if (!a.linkedUsername && b.linkedUsername) return 1;
-                return 0;
-            });
-
-            sorted.forEach(c => {
-                const bClass = indClassMap[c.industry] || 'badge-it';
-                const logoSvg = c.logoBase64 ? `<img src="${c.logoBase64}" alt="${c.name}" style="width:100%;height:100%;object-fit:contain;">` : `<i class="fa-solid fa-building fa-2x text-muted"></i>`;
-                const tagsHtml = Array.isArray(c.tags) ? c.tags.map(t => `<span class="ctag">${t}</span>`).join('') : (c.tags ? c.tags.split(',').map(t => `<span class="ctag">${t.trim()}</span>`).join('') : '');
-                const registeredBadge = c.linkedUsername ? `<span style="font-size:0.65rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border-radius:20px;padding:0.2rem 0.6rem;font-weight:700;position:absolute;top:10px;left:10px;z-index:2;"><i class="fa-solid fa-circle-check me-1"></i>Registered Partner</span>` : '';
-
-                const div = document.createElement('div');
-                div.className = 'col-lg-4 col-md-6';
-                div.dataset.industry = c.industry === 'manufacturing' ? 'mfg' : (c.industry === 'finance' ? 'fin' : (c.industry === 'consulting' ? 'consult' : c.industry));
-                div.innerHTML = `
-                <div class="featured-company-card" onclick="openCompanyModal('${c.id}')" style="cursor:pointer;position:relative;">
-                    ${registeredBadge}
-                    <div class="openings-badge"><div class="openings-dot"></div> ${c.openRoles || 'N/A'}</div>
-                    <div class="company-logo-wrap">
-                        ${logoSvg}
-                    </div>
-                    <div><span class="company-type-badge ${bClass}"><i class="fa-solid fa-circle-dot" style="font-size:0.6rem;"></i> ${(c.industry || 'IT').toUpperCase()}</span></div>
-                    <h3 class="company-name">${c.name}</h3>
-                    <p class="company-tagline">${c.tagline || ''}</p>
-                    <p class="company-desc">${c.description || ''}</p>
-                    <div class="company-meta-row">
-                        <span class="cmeta"><i class="fa-solid fa-location-dot"></i> ${c.location || 'N/A'}</span>
-                    </div>
-                    <div class="pkg-range">
-                        <div><div class="pkg-label">Package Range</div><div class="pkg-value">${c.packageRange || 'N/A'}</div></div>
-                        <div><div class="pkg-label">Hiring For</div><div style="font-size:0.82rem;font-weight:700;color:#555;">Various</div></div>
-                    </div>
-                    <div class="company-tags">
-                        ${tagsHtml}
-                    </div>
-                    <div class="company-card-actions">
-                        <a href="CompanyDetails.aspx?id=${c.id}" class="btn-view-profile text-decoration-none text-center d-flex align-items-center justify-content-center" onclick="event.stopPropagation();">View Profile</a>
-                        <button class="btn-apply-now" onclick="event.stopPropagation();window.location.href='Login.aspx'">Apply Now</button>
-                    </div>
-                </div>
-            `;
-                grid.appendChild(div);
-            });
-        }
-
-
-        function openCompanyModal(id) {
-            if (!id) return;
-            window.location.href = 'CompanyDetails.aspx?id=' + encodeURIComponent(id);
-        }
-
-        /* ─── SEARCH FILTER ─── */
-        document.getElementById('heroSearchBtn').addEventListener('click', () => {
-            const q = document.getElementById('heroSearchInput').value.toLowerCase();
-            const ind = document.getElementById('heroSearchIndustry').value;
-
-            document.querySelectorAll('#companyGrid > .col-lg-4').forEach(card => {
-                const name = card.querySelector('.company-name')?.textContent.toLowerCase() || '';
-                const desc = card.querySelector('.company-desc')?.textContent.toLowerCase() || '';
-                const industry = card.dataset.industry;
-
-                let indMatch = true;
-                if (ind) {
-                    let searchInd = ind === 'manufacturing' ? 'mfg' : (ind === 'finance' ? 'fin' : (ind === 'consulting' ? 'consult' : ind));
-                    indMatch = (industry === searchInd);
-                }
-
-                card.style.display = ((name.includes(q) || desc.includes(q)) && indMatch) ? '' : 'none';
-            });
-            document.getElementById('companyGridSection').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        /* ─── PAGINATION ─── */
-        document.querySelectorAll('.page-pill:not(.disabled)').forEach(pill => {
-            pill.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.querySelectorAll('.page-pill').forEach(p => p.classList.remove('active'));
-                pill.classList.add('active');
-            });
-        });
-
-        /* HERO IMAGE SLIDER */
-        (function () {
-            const slides = document.querySelectorAll('.companies-hero-slide');
-            const dots = document.querySelectorAll('.companies-hero-dot');
-            if (!slides.length || !dots.length) return;
-
-            let current = 0;
-            const total = slides.length;
-
-            function goTo(index) {
-                slides[current].classList.remove('active');
-                dots[current].classList.remove('active');
-                current = (index + total) % total;
-                slides[current].classList.add('active');
-                dots[current].classList.add('active');
-            }
-
-            let timer = setInterval(() => goTo(current + 1), 3000);
-
-            dots.forEach((dot, i) => {
-                dot.addEventListener('click', () => {
-                    clearInterval(timer);
-                    goTo(i);
-                    timer = setInterval(() => goTo(current + 1), 3000);
-                });
-            });
-        })();
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            // Data is loaded dynamically via DataList from SQL Database
-            // renderCompaniesGrid();
-        });
-    </script>
-    <!-- Code injected by live-server -->
-    <script>
-        // <![CDATA[  <-- For SVG support
-        if ('WebSocket' in window) {
-            (function () {
-                function refreshCSS() {
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-                    var head = document.getElementsByTagName("head")[0];
-                    for (var i = 0; i < sheets.length; ++i) {
-                        var elem = sheets[i];
-                        var parent = elem.parentElement || head;
-                        parent.removeChild(elem);
-                        var rel = elem.rel;
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                        }
-                        parent.appendChild(elem);
-                    }
-                }
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-                var socket = new WebSocket(address);
-                socket.onmessage = function (msg) {
-                    if (msg.data == 'reload') window.location.reload();
-                    else if (msg.data == 'refreshcss') refreshCSS();
-                };
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                    console.log('Live reload enabled.');
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                }
-            })();
-        }
-        else {
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-        }
-        // ]]>
-    </script>
-    </body>
-</html>
 
 </asp:Content>
-
-
 
 <asp:Content ID="Content7" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
 
@@ -1529,7 +1225,3 @@
         window.addEventListener('load', initCompaniesHeroSlider);
     </script>
 </asp:Content>
-
-
-
-

@@ -2,234 +2,102 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content4" runat="server" ContentPlaceHolderID="ContentPlaceHolder3">
-    <!-- ==========================================
-         12. FOOTER
-         ========================================== -->
-    <footer class="footer pt-5" id="siteFooter">
-        <div class="container px-lg-5">
-            <div class="row g-4 pb-5">
 
-                <!-- Column 1: About Info -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer-logo d-flex align-items-center mb-3">
-                        <img src="assets/images/RKU LOGO.png" alt="RK University" class="me-2" style="height: 36px; width: auto; max-width: 220px; object-fit: contain;">
+<asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+        <!-- ==========================================
+             1. HEADER TOPBAR & NAVBAR
+             ========================================== -->
+        <header class="sticky-top" style="z-index: 1030;">
+        <!-- RKU Header Topbar -->
+        <div class="rku-header-topbar d-none d-lg-block" style="background: #ffffff; border-bottom: 1px solid #edf2f7; font-size: 0.84rem; color: #334155;">
+            <div class="container-fluid px-lg-5">
+                <div class="d-flex justify-content-between align-items-center py-2">
+                    <!-- Left: Tagline with Graduation Cap -->
+                    <div class="topbar-tagline d-flex align-items-center" style="font-weight: 500; color: #334155;">
+                        <i class="fa-solid fa-graduation-cap topbar-icon me-2" style="color: #e03627; font-size: 0.95rem;"></i>
+                        <span>Empowering Students. Connecting Companies. Building Careers.</span>
                     </div>
-                    <p class="mb-4">Empowering students by bridging the gap between academia and corporate world. Providing quality training and dream placements.</p>
-                    <div class="footer-social-links" id="footerSocials">
-                        <a href="https://facebook.com" target="_blank" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://twitter.com" target="_blank" title="X (Twitter)" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://linkedin.com" target="_blank" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://instagram.com" target="_blank" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
-                    </div>
-                </div>
-
-                <!-- Column 2: Quick Links -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Quick Links</h5>
-                    <ul class="footer-links" id="footerQuickLinks">
-                        <li><a href="About.aspx">About Us</a></li>
-                        <li><a href="#">Academics</a></li>
-                        <li><a href="PlacementCampusDrives.aspx">Placement Drives</a></li>
-                        <li><a href="Companies.aspx">Companies</a></li>
-                        <li><a href="Contact.aspx">Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Students Links -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Students</h5>
-                    <ul class="footer-links" id="footerStudentLinks">
-                        <li><a href="Register.aspx">Student Registration</a></li>
-                        <li><a href="Login.aspx">Student Login</a></li>
-                        <li><a href="PlacementCampusDrives.aspx">Available Jobs</a></li>
-                        <li><a href="StudentApplications.aspx">Applied Jobs</a></li>
-                        <li><a href="#">Interview Schedule</a></li>
-                        <li><a href="#">Resume Builder</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Contact Placement Cell -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Placement Cell</h5>
-                    <div class="footer-contact-info" id="footerContactInfo">
-                        <p>
-                            <i class="fa-solid fa-location-dot"></i>
-                            <span>RK University, Rajkot - 360020,<br>
-                                Gujarat, India</span>
-                        </p>
-                        <p>
-                            <i class="fa-solid fa-phone"></i>
-                            <span>+91 98765 43210</span>
-                        </p>
-                        <p>
-                            <i class="fa-solid fa-envelope"></i>
-                            <a href="mailto:placement@rku.ac.in" id="linkFooterEmail">placement@rku.ac.in</a>
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Bottom Copyright -->
-        <div class="footer-bottom">
-            <div class="container px-lg-5">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
-                        <p class="mb-0" id="copyrightText">&copy; 2026 RK University Placement Portal. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <div class="footer-links d-inline-flex gap-3 mb-0" id="footerBottomLinks">
-                            <a href="#" style="font-size: 0.8rem;">Privacy Policy</a>
-                            <span style="color: rgba(255, 255, 255, 0.7);">|</span>
-                            <a href="#" style="font-size: 0.8rem;">Terms of Service</a>
+                    <!-- Right: Contact info & Social Media Icons -->
+                    <div class="topbar-contact d-flex align-items-center gap-3">
+                        <a href="tel:+919876543210" class="topbar-link" style="color: #334155; text-decoration: none; display: inline-flex; align-items: center;">
+                            <i class="fa-solid fa-phone topbar-icon me-1.5" style="color: #e03627; font-size: 0.85rem;"></i><span style="color: #334155;">+91 98765 43210</span>
+                        </a>
+                        <span class="topbar-divider" style="color: #cbd5e1;">|</span>
+                        <a href="mailto:placement@rku.ac.in" class="topbar-link" style="color: #334155; text-decoration: none; display: inline-flex; align-items: center;">
+                            <i class="fa-solid fa-envelope topbar-icon me-1.5" style="color: #e03627; font-size: 0.85rem;"></i><span style="color: #334155;">placement@rku.ac.in</span>
+                        </a>
+                        <div class="topbar-socials d-flex align-items-center gap-1.5 ms-2">
+                            <a href="https://facebook.com" target="_blank" class="social-circle-btn" title="Facebook" style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: linear-gradient(135deg, #e03627, #c5281b); color: #ffffff !important; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-facebook-f" style="color: #ffffff !important; font-size: 0.72rem;"></i></a>
+                            <a href="https://linkedin.com" target="_blank" class="social-circle-btn" title="LinkedIn" style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: linear-gradient(135deg, #e03627, #c5281b); color: #ffffff !important; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-linkedin-in" style="color: #ffffff !important; font-size: 0.72rem;"></i></a>
+                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="Instagram" style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: linear-gradient(135deg, #e03627, #c5281b); color: #ffffff !important; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-instagram" style="color: #ffffff !important; font-size: 0.72rem;"></i></a>
+                            <a href="https://youtube.com" target="_blank" class="social-circle-btn" title="YouTube" style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: linear-gradient(135deg, #e03627, #c5281b); color: #ffffff !important; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-youtube" style="color: #ffffff !important; font-size: 0.72rem;"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
 
-    <!-- Database -->
-    <script src="js/portal-db.js"></script>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid px-lg-5">
+                <!-- Brand Logo -->
+                <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
+                    <img src="assets/images/RKU LOGO.png" alt="RK University Placement Portal" class="me-2" style="height: 48px; width: auto; max-width: 240px; object-fit: contain;">
+                </a>
 
-    <!-- Bootstrap 5 Bundle JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+                <!-- Mobile Toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggleButton">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-    <!-- Custom JS -->
-    <script src="js/main.js"></script>
+                <!-- Navigation Links -->
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="Index.aspx" id="navHome">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="About.aspx" id="navAbout">About Us</a>
+                        </li>
 
-    <!-- Dynamic Data Loading -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            renderDynamicAboutData();
-        });
+                        <li class="nav-item dropdown" id="navItemPlacement">
+                            <a class="nav-link nav-placement-btn dropdown-toggle" href="#" id="navDrives" data-bs-toggle="dropdown" aria-expanded="false">Placement <i class="fa-solid fa-chevron-down placement-caret"></i>
+                            </a>
+                            <ul class="dropdown-menu nav-placement-dropdown" aria-labelledby="navDrives">
+                                <li><a class="dropdown-item" href="PlacementAbout.aspx" id="navPlacementAbout">About Us</a></li>
+                                <li><a class="dropdown-item" href="PlacementCampusDrives.aspx" id="navPlacementCampus">Campus Drives</a></li>
+                                <li><a class="dropdown-item" href="PlacementStudentSelection.aspx" id="navPlacementSelection">Student Selection</a></li>
+                                <li><a class="dropdown-item" href="PlacementLiaisonOfficers.aspx" id="navPlacementLiaison">Liaison Officers</a></li>
+                                <li><a class="dropdown-item" href="PlacmentProminentRecruiters.aspx" id="navPlacementRecruiters">Prominent Recruiters</a></li>
+                                <li><a class="dropdown-item" href="PlacementPolicy.aspx" id="navPlacementPolicy">Placement Policy</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Companies.aspx" id="navCompanies">Companies</a>
+                        </li>
 
-        function renderDynamicAboutData() {
-            const companies = PortalDB.getCompanies();
-            const recruitersTrack = document.getElementById('aboutRecruitersTrack');
-            // Placement team rendered via ASP.NET DataList control server-side
 
-            if (recruitersTrack && companies.length > 0) {
-                let trackHtml = '';
-                const marqueeCompanies = companies.slice(0, 10);
+                        <li class="nav-item">
+                            <a class="nav-link" href="SuccessStories.aspx" id="navStories">Success Stories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Contact.aspx" id="navContact">Contact</a>
+                        </li>
+                    </ul>
 
-                const createMarqueeItems = () => {
-                    return marqueeCompanies.map(c => `
-                        <div class="about-recruiter-logo-clean-item">
-                            ${c.logoBase64
-                            ? `<img src="${c.logoBase64}" alt="${c.name}">`
-                            : `<span style="font-family: var(--font-heading, 'Outfit'); font-weight: 700; font-size: 1.15rem; color: #0f2942; text-align: center;">${c.name}</span>`
-                        }
-                        </div>
-                    `).join('');
-                };
-
-                trackHtml = createMarqueeItems() + createMarqueeItems();
-                recruitersTrack.innerHTML = trackHtml;
-            }
-        }
-
-        function teamImageSrc(src) {
-            if (!src) return 'assets/images/team_tpo_profile.png';
-            if (src.startsWith('data:')) return src;
-            return encodeURI(src);
-        }
-
-        function renderPlacementTeamSection() {
-            const team = PortalDB.getPlacementTeam().slice().sort((a, b) => (Number(a.order) || 999) - (Number(b.order) || 999));
-            const featuredHost = document.getElementById('teamFeaturedMember');
-            const minisHost = document.getElementById('teamMiniMembers');
-
-            if (!featuredHost || !minisHost) return;
-
-            const featured = team.find(m => m.featured) || team[0];
-            const others = team.filter(m => !featured || m.id !== featured.id).slice(0, 4);
-
-            if (featured) {
-                featuredHost.innerHTML = `
-                    <article class="team-feature-card h-100">
-                        <div class="team-feature-media">
-                            <img src="${teamImageSrc(featured.photo)}" alt="${featured.name}" loading="lazy" decoding="async">
-                        </div>
-                        <div class="team-feature-body">
-                            <span class="team-count-badge">${featured.designation || 'Coordinator'}</span>
-                            <h4>${featured.name || ''}</h4>
-                            <p class="team-feature-role">${featured.role || ''}</p>
-                            <p class="team-feature-desc">${featured.description || ''}</p>
-                            <div class="team-contact-list">
-                                ${featured.phone ? `<div class="team-contact-item"><i class="fa-solid fa-phone"></i><span>${featured.phone}</span></div>` : ''}
-                                ${featured.email ? `<div class="team-contact-item"><i class="fa-solid fa-envelope"></i><span>${featured.email}</span></div>` : ''}
-                            </div>
-                        </div>
-                    </article>
-                `;
-            }
-
-            minisHost.innerHTML = others.map(m => `
-                <div class="col-md-6">
-                    <article class="team-mini-card">
-                        <div class="team-mini-photo">
-                            <img src="${teamImageSrc(m.photo)}" alt="${m.name}" loading="lazy" decoding="async">
-                        </div>
-                        <div class="team-mini-content">
-                            <h5>${m.name || ''}</h5>
-                            <p class="team-mini-role">${m.designation || 'Coordinator'}</p>
-                            <div class="team-mini-meta">
-                                <div class="team-mini-meta-item">
-                                    <i class="fa-solid fa-check"></i>
-                                    <span>${m.role || ''}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
+                    <!-- User Actions -->
+                    <div class="navbar-actions d-flex align-items-center">
+                        <a href="#" class="icon-btn" title="Search" id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        <a href="#" class="icon-btn position-relative" title="Notifications" id="btnNotifications">
+                            <i class="fa-regular fa-bell"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-rku-red border border-light rounded-circle"></span>
+                        </a>
+                        <a href="Login.aspx" class="btn btn-login" id="btnLogin">Login</a>
+                        <a href="Register.aspx" class="btn btn-register" id="btnRegister">Register</a>
+                    </div>
                 </div>
-            `).join('');
-        }
-    </script>
-    <!-- Code injected by live-server -->
-    <script>
-        // <![CDATA[  <-- For SVG support
-        if ('WebSocket' in window) {
-            (function () {
-                function refreshCSS() {
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-                    var head = document.getElementsByTagName("head")[0];
-                    for (var i = 0; i < sheets.length; ++i) {
-                        var elem = sheets[i];
-                        var parent = elem.parentElement || head;
-                        parent.removeChild(elem);
-                        var rel = elem.rel;
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                        }
-                        parent.appendChild(elem);
-                    }
-                }
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-                var socket = new WebSocket(address);
-                socket.onmessage = function (msg) {
-                    if (msg.data == 'reload') window.location.reload();
-                    else if (msg.data == 'refreshcss') refreshCSS();
-                };
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                    console.log('Live reload enabled.');
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                }
-            })();
-        }
-        else {
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-        }
-        // ]]>
-    </script>
-    </body>
-</html>
-
-
+            </div>
+        </nav>
+        </header>
 </asp:Content>
 
 <asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
@@ -1996,128 +1864,36 @@
             </div>
         </div>
     </section>
-</asp:Content>
 
+    <!-- Dynamic Data Loading -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDynamicAboutData();
+        });
 
-<asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>About Us | Placement Portal | RK University</title>
+        function renderDynamicAboutData() {
+            const companies = PortalDB.getCompanies();
+            const recruitersTrack = document.getElementById('aboutRecruitersTrack');
+            // Placement team rendered via ASP.NET DataList control server-side
 
-        <!-- Meta Tags for SEO -->
-        <meta name="description" content="About RK University Placement Cell - Connecting talented students with leading recruiters and career opportunities. Learn about our vision, mission, team, and placement processes.">
-        <meta name="keywords" content="RK University, Placement Cell, Placement Team, University Mission, Career Counseling, Placement Process, Recruiters Partner">
-        <meta name="author" content="RK University">
+            if (recruitersTrack && companies.length > 0) {
+                let trackHtml = '';
+                const marqueeCompanies = companies.slice(0, 10);
 
-        <!-- Bootstrap 5 CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- FontAwesome Icons -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="css/style.css" rel="stylesheet">
-    </head>
-    <body>
-
-        <!-- ==========================================
-             1. HEADER TOPBAR & NAVBAR
-             ========================================== -->
-        <header class="sticky-top" style="z-index: 1030;">
-        <!-- RKU Header Topbar -->
-        <div class="rku-header-topbar d-none d-lg-block" style="background: #ffffff; border-bottom: 1px solid #edf2f7; font-size: 0.84rem; color: #334155;">
-            <div class="container-fluid px-lg-5">
-                <div class="d-flex justify-content-between align-items-center py-2">
-                    <!-- Left: Tagline with Graduation Cap -->
-                    <div class="topbar-tagline d-flex align-items-center" style="font-weight: 500; color: #334155;">
-                        <i class="fa-solid fa-graduation-cap topbar-icon me-2" style="color: #e03627; font-size: 0.95rem;"></i>
-                        <span>Empowering Students. Connecting Companies. Building Careers.</span>
-                    </div>
-                    <!-- Right: Contact info & Social Media Icons -->
-                    <div class="topbar-contact d-flex align-items-center gap-3">
-                        <a href="tel:+919876543210" class="topbar-link" style="color: #334155; text-decoration: none; display: inline-flex; align-items: center;">
-                            <i class="fa-solid fa-phone topbar-icon me-1.5" style="color: #e03627; font-size: 0.85rem;"></i><span style="color: #334155;">+91 98765 43210</span>
-                        </a>
-                        <span class="topbar-divider" style="color: #cbd5e1;">|</span>
-                        <a href="mailto:placement@rku.ac.in" class="topbar-link" style="color: #334155; text-decoration: none; display: inline-flex; align-items: center;">
-                            <i class="fa-solid fa-envelope topbar-icon me-1.5" style="color: #e03627; font-size: 0.85rem;"></i><span style="color: #334155;">placement@rku.ac.in</span>
-                        </a>
-                        <div class="topbar-socials d-flex align-items-center gap-1.5 ms-2">
-                            <a href="https://facebook.com" target="_blank" class="social-circle-btn" title="Facebook" style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: linear-gradient(135deg, #e03627, #c5281b); color: #ffffff !important; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-facebook-f" style="color: #ffffff !important; font-size: 0.72rem;"></i></a>
-                            <a href="https://linkedin.com" target="_blank" class="social-circle-btn" title="LinkedIn" style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: linear-gradient(135deg, #e03627, #c5281b); color: #ffffff !important; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-linkedin-in" style="color: #ffffff !important; font-size: 0.72rem;"></i></a>
-                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="Instagram" style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: linear-gradient(135deg, #e03627, #c5281b); color: #ffffff !important; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-instagram" style="color: #ffffff !important; font-size: 0.72rem;"></i></a>
-                            <a href="https://youtube.com" target="_blank" class="social-circle-btn" title="YouTube" style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: linear-gradient(135deg, #e03627, #c5281b); color: #ffffff !important; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 6px rgba(224,54,39,0.25);"><i class="fa-brands fa-youtube" style="color: #ffffff !important; font-size: 0.72rem;"></i></a>
+                const createMarqueeItems = () => {
+                    return marqueeCompanies.map(c => `
+                        <div class="about-recruiter-logo-clean-item">
+                            ${c.logoBase64
+                            ? `<img src="${c.logoBase64}" alt="${c.name}">`
+                            : `<span style="font-family: var(--font-heading, 'Outfit'); font-weight: 700; font-size: 1.15rem; color: #0f2942; text-align: center;">${c.name}</span>`
+                        }
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    `).join('');
+                };
 
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid px-lg-5">
-                <!-- Brand Logo -->
-                <a class="navbar-brand d-flex align-items-center" href="Index.aspx" id="navbarBrandLink">
-                    <img src="assets/images/RKU LOGO.png" alt="RK University Placement Portal" class="me-2" style="height: 48px; width: auto; max-width: 240px; object-fit: contain;">
-                </a>
-
-                <!-- Mobile Toggle -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggleButton">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Navigation Links -->
-                <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="Index.aspx" id="navHome">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="About.aspx" id="navAbout">About Us</a>
-                        </li>
-
-                        <li class="nav-item dropdown" id="navItemPlacement">
-                            <a class="nav-link nav-placement-btn dropdown-toggle" href="#" id="navDrives" data-bs-toggle="dropdown" aria-expanded="false">Placement <i class="fa-solid fa-chevron-down placement-caret"></i>
-                            </a>
-                            <ul class="dropdown-menu nav-placement-dropdown" aria-labelledby="navDrives">
-                                <li><a class="dropdown-item" href="PlacementAbout.aspx" id="navPlacementAbout">About Us</a></li>
-                                <li><a class="dropdown-item" href="PlacementCampusDrives.aspx" id="navPlacementCampus">Campus Drives</a></li>
-                                <li><a class="dropdown-item" href="PlacementStudentSelection.aspx" id="navPlacementSelection">Student Selection</a></li>
-                                <li><a class="dropdown-item" href="PlacementLiaisonOfficers.aspx" id="navPlacementLiaison">Liaison Officers</a></li>
-                                <li><a class="dropdown-item" href="PlacmentProminentRecruiters.aspx" id="navPlacementRecruiters">Prominent Recruiters</a></li>
-                                <li><a class="dropdown-item" href="PlacementPolicy.aspx" id="navPlacementPolicy">Placement Policy</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Companies.aspx" id="navCompanies">Companies</a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="SuccessStories.aspx" id="navStories">Success Stories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Contact.aspx" id="navContact">Contact</a>
-                        </li>
-                    </ul>
-
-                    <!-- User Actions -->
-                    <div class="navbar-actions d-flex align-items-center">
-                        <a href="#" class="icon-btn" title="Search" id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></a>
-                        <a href="#" class="icon-btn position-relative" title="Notifications" id="btnNotifications">
-                            <i class="fa-regular fa-bell"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-rku-red border border-light rounded-circle"></span>
-                        </a>
-                        <a href="Login.aspx" class="btn btn-login" id="btnLogin">Login</a>
-                        <a href="Register.aspx" class="btn btn-register" id="btnRegister">Register</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        </header>
+                trackHtml = createMarqueeItems() + createMarqueeItems();
+                recruitersTrack.innerHTML = trackHtml;
+            }
+        }
+    </script>
 </asp:Content>
-
-
-

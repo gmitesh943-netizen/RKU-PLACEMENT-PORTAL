@@ -1,6 +1,5 @@
 using System;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 
@@ -9,11 +8,8 @@ namespace RKU_PLACEMENT_PORTAL
     public partial class Login : System.Web.UI.Page
     {
         SqlConnection con;
-        SqlDataAdapter da;
-        DataSet ds;
         SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
-        int i;
 
         protected void Page_Load(object sender, EventArgs e)
         {

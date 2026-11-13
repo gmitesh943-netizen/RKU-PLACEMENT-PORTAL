@@ -1,6 +1,5 @@
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -61,12 +60,6 @@ namespace RKU_PLACEMENT_PORTAL
         {
             txtSearch.Text = "";
             ddlDepartment.SelectedIndex = 0;
-            fillgrid();
-        }
-
-        // Backward compatibility
-        void LoadPublicDrives()
-        {
             fillgrid();
         }
     }

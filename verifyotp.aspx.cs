@@ -1,16 +1,10 @@
 using System;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Web.UI;
 
 namespace RKU_PLACEMENT_PORTAL
 {
     public partial class verifyotp : System.Web.UI.Page
     {
-   
-   
-        string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["ResetEmail"] == null || Session["ResetOtp"] == null)
@@ -44,11 +38,6 @@ namespace RKU_PLACEMENT_PORTAL
             {
                 lblOtpError.Text = "Invalid OTP.";
             }
-        }
-
-        protected void fpVerifyOtpBtn_Click(object sender, ImageClickEventArgs e)
-        {
-            fpVerifyOtpBtn_Click(sender, (EventArgs)e);
         }
 
         protected void btnResendOtp_Click(object sender, EventArgs e)

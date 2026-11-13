@@ -1,17 +1,6 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="SuccessStories.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.SuccessStories" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
-
-
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Success Stories | Placement Portal | RK University</title>
-
         <!-- Meta Tags for SEO -->
         <meta name="description" content="Read inspiring placement success stories of RK University students. View top package achievers, student testimonials, and video interviews.">
         <meta name="keywords" content="RK University Success Stories, Top Placements, Hall of Fame RKU, Student Testimonials, TPO Rajkot">
@@ -37,15 +26,6 @@
           }
         }
         </script>
-
-        <!-- Bootstrap 5 CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- FontAwesome Icons -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="css/style.css" rel="stylesheet">
 
         <style>
 
@@ -1062,9 +1042,9 @@
                     }
             }
         </style>
-    </head>
-    <body>
+</asp:Content>
 
+<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
         <!-- ==========================================
              1. HEADER TOPBAR & NAVBAR
              ========================================== -->
@@ -1157,181 +1137,8 @@
             </div>
         </nav>
         </header>
+
 </asp:Content>
-
-
-
-<asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder3">
-
-    <!-- ==========================================
-         11. FOOTER
-         ========================================== -->
-    <footer class="footer pt-5" id="siteFooter">
-        <div class="container px-lg-5">
-            <div class="row g-4 pb-5">
-
-                <!-- Column 1: About Info -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer-logo d-flex align-items-center mb-3">
-                        <img src="assets/images/RKU LOGO.png" alt="RK University" class="me-2" style="height: 36px; width: auto; max-width: 220px; object-fit: contain;">
-                    </div>
-                    <p class="mb-4">Empowering students by bridging the gap between academia and corporate world. Providing quality training and dream placements.</p>
-                    <div class="footer-social-links" id="footerSocials">
-                        <a href="https://facebook.com" target="_blank" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://twitter.com" target="_blank" title="X (Twitter)" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://linkedin.com" target="_blank" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://instagram.com" target="_blank" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
-                    </div>
-                </div>
-
-                <!-- Column 2: Quick Links -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Quick Links</h5>
-                    <ul class="footer-links" id="footerQuickLinks">
-                        <li><a href="About.aspx">About Us</a></li>
-                        <li><a href="#">Academics</a></li>
-                        <li><a href="PlacementCampusDrives.aspx">Placement Drives</a></li>
-                        <li><a href="Companies.aspx">Companies</a></li>
-                        <li><a href="Contact.aspx">Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Students Links -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Students</h5>
-                    <ul class="footer-links" id="footerStudentLinks">
-                        <li><a href="Register.aspx">Student Registration</a></li>
-                        <li><a href="Login.aspx">Student Login</a></li>
-                        <li><a href="PlacementCampusDrives.aspx">Available Jobs</a></li>
-                        <li><a href="StudentApplications.aspx">Applied Jobs</a></li>
-                        <li><a href="#">Interview Schedule</a></li>
-                        <li><a href="#">Resume Builder</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Contact Placement Cell -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Placement Cell</h5>
-                    <div class="footer-contact-info" id="footerContactInfo">
-                        <p>
-                            <i class="fa-solid fa-location-dot"></i>
-                            <span>RK University, Rajkot - 360020,<br>
-                                Gujarat, India</span>
-                        </p>
-                        <p>
-                            <i class="fa-solid fa-phone"></i>
-                            <span>+91 98765 43210</span>
-                        </p>
-                        <p>
-                            <i class="fa-solid fa-envelope"></i>
-                            <a href="mailto:placement@rku.ac.in" id="linkFooterEmail">placement@rku.ac.in</a>
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Bottom Copyright -->
-        <div class="footer-bottom">
-            <div class="container px-lg-5">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
-                        <p class="mb-0" id="copyrightText">&copy; 2026 RK University Placement Portal. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <div class="footer-links d-inline-flex gap-3 mb-0" id="footerBottomLinks">
-                            <a href="#" style="font-size: 0.8rem;">Privacy Policy</a>
-                            <span style="color: rgba(255, 255, 255, 0.7);">|</span>
-                            <a href="#" style="font-size: 0.8rem;">Terms of Service</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Bootstrap 5 Bundle JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom JS -->
-    <script src="js/portal-db.js"></script>
-    <script src="js/main.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            renderDynamicSuccessStories();
-        });
-
-        function renderDynamicSuccessStories() {
-            // Featured story, stories grid, and hall of fame are bound from database (Success_Stories) in SuccessStories.aspx.cs.
-            // Only recruiters marquee is handled dynamically here.
-
-            // 5. Render Top Recruiters as 3 alternating marquee rows
-            const companies = PortalDB.getCompanies();
-            const row1 = document.getElementById('successStoriesRecruitersRow1');
-            const row2 = document.getElementById('successStoriesRecruitersRow2');
-            const row3 = document.getElementById('successStoriesRecruitersRow3');
-            if (row1 && row2 && row3 && companies.length > 0) {
-                const displayCompanies = companies.slice(0, 9);
-                const createLogoCard = (c) => `
-                    <div class="recruiter-logo-card d-flex align-items-center justify-content-center">
-                        ${c.logoBase64
-                        ? `<img src="${c.logoBase64}" alt="${c.name}" style="max-width:100%; max-height:100%; object-fit:contain;">`
-                        : `<span style="font-family: var(--font-heading); font-weight:bold; font-size:1rem; color: var(--rku-dark); text-align:center;">${c.name}</span>`
-                    }
-                    </div>
-                `;
-                const laneMarkup = displayCompanies.map(createLogoCard).join('') + displayCompanies.map(createLogoCard).join('');
-                row1.innerHTML = laneMarkup;
-                row2.innerHTML = laneMarkup;
-                row3.innerHTML = laneMarkup;
-            }
-        }
-    </script>
-    <!-- Code injected by live-server -->
-    <script>
-        // <![CDATA[  <-- For SVG support
-        if ('WebSocket' in window) {
-            (function () {
-                function refreshCSS() {
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-                    var head = document.getElementsByTagName("head")[0];
-                    for (var i = 0; i < sheets.length; ++i) {
-                        var elem = sheets[i];
-                        var parent = elem.parentElement || head;
-                        parent.removeChild(elem);
-                        var rel = elem.rel;
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                        }
-                        parent.appendChild(elem);
-                    }
-                }
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-                var socket = new WebSocket(address);
-                socket.onmessage = function (msg) {
-                    if (msg.data == 'reload') window.location.reload();
-                    else if (msg.data == 'refreshcss') refreshCSS();
-                };
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                    console.log('Live reload enabled.');
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                }
-            })();
-        }
-        else {
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-        }
-        // ]]>
-    </script>
-    </body>
-</html>
-</asp:Content>
-
-
-
 
 <asp:Content ID="Content7" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
 
@@ -1811,9 +1618,38 @@
             </div>
         </div>
     </section>
+
+    <!-- Dynamic Recruiters Marquee Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDynamicSuccessStories();
+        });
+
+        function renderDynamicSuccessStories() {
+            // Featured story, stories grid, and hall of fame are bound from database (Success_Stories) in SuccessStories.aspx.cs.
+            // Only recruiters marquee is handled dynamically here.
+
+            // 5. Render Top Recruiters as 3 alternating marquee rows
+            const companies = PortalDB.getCompanies();
+            const row1 = document.getElementById('successStoriesRecruitersRow1');
+            const row2 = document.getElementById('successStoriesRecruitersRow2');
+            const row3 = document.getElementById('successStoriesRecruitersRow3');
+            if (row1 && row2 && row3 && companies.length > 0) {
+                const displayCompanies = companies.slice(0, 9);
+                const createLogoCard = (c) => `
+                    <div class="recruiter-logo-card d-flex align-items-center justify-content-center">
+                        ${c.logoBase64
+                        ? `<img src="${c.logoBase64}" alt="${c.name}" style="max-width:100%; max-height:100%; object-fit:contain;">`
+                        : `<span style="font-family: var(--font-heading); font-weight:bold; font-size:1rem; color: var(--rku-dark); text-align:center;">${c.name}</span>`
+                    }
+                    </div>
+                `;
+                const laneMarkup = displayCompanies.map(createLogoCard).join('') + displayCompanies.map(createLogoCard).join('');
+                row1.innerHTML = laneMarkup;
+                row2.innerHTML = laneMarkup;
+                row3.innerHTML = laneMarkup;
+            }
+        }
+    </script>
+
 </asp:Content>
-
-
-
-
-

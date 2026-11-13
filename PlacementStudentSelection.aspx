@@ -459,38 +459,42 @@
         </div>
     </section>
 
-    <!-- ==========================================
-                
-         ========================================== -->
     <section class="py-5" style="background-color: var(--rku-bg-light);" id="mainLayoutSection">
         <div class="container px-lg-5">
 
             <!-- Filters Card -->
             <div class="summary-filter-card">
                 <p class="filter-label">Placement Summary</p>
-                <form id="filterForm">
-                    <div class="row g-3 align-items-center">
-                        <div class="col-md-5">
-                            <select class="filter-select" id="filterDept">
-                                <option value="all">SELECT ALL DEPARTMENTS</option>
-                                <option value="computer">Computer Engineering &amp; IT</option>
-                                <option value="management">Management &amp; Commerce</option>
-                                <option value="others">Other Departments</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <select class="filter-select" id="filterYear">
-                                <option value="all" selected>SELECT ALL YEARS</option>
-                                <option value="2024-25">2024-2025</option>
-                                <option value="2023-24">2023-2024</option>
-                                <option value="2022-23">2022-2023</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="submit" class="btn-search">SEARCH</button>
-                        </div>
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-5">
+                        <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="filter-select">
+                            <asp:ListItem Value="all" Text="SELECT ALL DEPARTMENTS" Selected="True"></asp:ListItem>
+                            <asp:ListItem Value="computer" Text="Computer Engineering &amp; IT"></asp:ListItem>
+                            <asp:ListItem Value="management" Text="Management &amp; Commerce"></asp:ListItem>
+                            <asp:ListItem Value="BCA" Text="BCA"></asp:ListItem>
+                            <asp:ListItem Value="B.Tech" Text="B.Tech"></asp:ListItem>
+                            <asp:ListItem Value="MCA" Text="MCA"></asp:ListItem>
+                            <asp:ListItem Value="BBA" Text="BBA"></asp:ListItem>
+                            <asp:ListItem Value="MBA" Text="MBA"></asp:ListItem>
+                            <asp:ListItem Value="M.Tech" Text="M.Tech"></asp:ListItem>
+                            <asp:ListItem Value="others" Text="Other Departments"></asp:ListItem>
+                        </asp:DropDownList>
                     </div>
-                </form>
+                    <div class="col-md-4">
+                        <asp:DropDownList ID="ddlYear" runat="server" CssClass="filter-select">
+                            <asp:ListItem Value="all" Text="SELECT ALL YEARS" Selected="True"></asp:ListItem>
+                            <asp:ListItem Value="2026" Text="2026"></asp:ListItem>
+                            <asp:ListItem Value="2025" Text="2025"></asp:ListItem>
+                            <asp:ListItem Value="2024" Text="2024-2025"></asp:ListItem>
+                            <asp:ListItem Value="2023" Text="2023-2024"></asp:ListItem>
+                            <asp:ListItem Value="2022" Text="2022-2023"></asp:ListItem>
+                            <asp:ListItem Value="2021" Text="2021-2022"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Button ID="btnSearch" runat="server" Text="SEARCH" CssClass="btn-search" OnClick="btnSearch_Click" />
+                    </div>
+                </div>
             </div>
 
             <!-- Stats Bar Navy -->
@@ -642,112 +646,3 @@
         </div>
     </section>
 </asp:Content>
-
-
-<asp:Content ID="Content7" runat="server" ContentPlaceHolderID="ContentPlaceHolder3">
-
-
-    <!-- ==========================================
-         4. FOOTER
-         ========================================== -->
-    <footer class="footer pt-5" id="siteFooter">
-        <div class="container px-lg-5">
-            <div class="row g-4 pb-5">
-
-                <!-- Column 1: About Info -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer-logo d-flex align-items-center mb-3">
-                        <img src="assets/images/RKU LOGO.png" alt="RK University" class="me-2" style="height: 36px; width: auto; max-width: 220px; object-fit: contain;">
-                    </div>
-                    <p class="mb-4">Empowering students by bridging the gap between academia and corporate world. Providing quality training and dream placements.</p>
-                    <div class="footer-social-links" id="footerSocials">
-                        <a href="https://facebook.com" target="_blank" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://twitter.com" target="_blank" title="X (Twitter)" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://linkedin.com" target="_blank" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://instagram.com" target="_blank" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
-                    </div>
-                </div>
-
-                <!-- Column 2: Quick Links -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Quick Links</h5>
-                    <ul class="footer-links" id="footerQuickLinks">
-                        <li><a href="About.aspx">About Us</a></li>
-                        <li><a href="#">Academics</a></li>
-                        <li><a href="PlacementCampusDrives.aspx">Placement Drives</a></li>
-                        <li><a href="Companies.aspx">Companies</a></li>
-                        <li><a href="Contact.aspx">Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Students Links -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Students</h5>
-                    <ul class="footer-links" id="footerStudentLinks">
-                        <li><a href="Register.aspx">Student Registration</a></li>
-                        <li><a href="Login.aspx">Student Login</a></li>
-                        <li><a href="PlacementCampusDrives.aspx">Available Jobs</a></li>
-                        <li><a href="StudentApplications.aspx">Applied Jobs</a></li>
-                        <li><a href="#">Interview Schedule</a></li>
-                        <li><a href="#">Resume Builder</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Contact Placement Cell -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Placement Cell</h5>
-                    <div class="footer-contact-info" id="footerContactInfo">
-                        <p>
-                            <i class="fa-solid fa-location-dot"></i>
-                            <span>RK University, Rajkot - 360020,<br>
-                                Gujarat, India</span>
-                        </p>
-                        <p>
-                            <i class="fa-solid fa-phone"></i>
-                            <span>+91 98765 43210</span>
-                        </p>
-                        <p>
-                            <i class="fa-solid fa-envelope"></i>
-                            <a href="mailto:placement@rku.ac.in" id="linkFooterEmail">placement@rku.ac.in</a>
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Bottom Copyright -->
-        <div class="footer-bottom">
-            <div class="container px-lg-5">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
-                        <p class="mb-0" id="copyrightText">&copy; 2026 RK University Placement Portal. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <div class="footer-links d-inline-flex gap-3 mb-0" id="footerBottomLinks">
-                            <a href="#" style="font-size: 0.8rem;">Privacy Policy</a>
-                            <span style="color: rgba(255, 255, 255, 0.7);">|</span>
-                            <a href="#" style="font-size: 0.8rem;">Terms of Service</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Bootstrap 5 Bundle JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom JS -->
-    <script src="js/portal-db.js"></script>
-    <script src="js/main.js"></script>
-
-    <script>
-        // DataList rendered directly from database via ASP.NET
-    </script>
-    </body>
-</html>
-</asp:Content>
-
-
-

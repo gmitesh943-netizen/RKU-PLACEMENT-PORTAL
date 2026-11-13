@@ -86,9 +86,5 @@ namespace RKU_PLACEMENT_PORTAL
             Session.Remove("ResetRole");
         }
 
-        protected void fpResetPasswordBtn_Click(object sender, ImageClickEventArgs e)
-        {
-            fpResetPasswordBtn_Click(sender, (EventArgs)e);
-        }
     }
 }

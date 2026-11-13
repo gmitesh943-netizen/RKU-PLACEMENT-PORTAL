@@ -1,16 +1,6 @@
 <%@ Page Title="Placement Policy | Placement Portal | RK University" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="PlacementPolicy.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.PlacementPolicy" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-
-<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Placement Policy | Placement Portal | RK University</title>
-
         <!-- Meta Tags for SEO -->
         <meta name="description" content="Official Training and Placement Policy of RK University. Rules for campus placement drives, One Student One Job policy, eligibility criteria, and student code of conduct.">
         <meta name="keywords" content="RK University Placement Policy, T&P Rules, One Student One Job Policy, TPO Rajkot, Campus Drive Guidelines, Student Eligibility, Code of Conduct">
@@ -71,15 +61,6 @@
           ]
         }
         </script>
-
-        <!-- Bootstrap 5 CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- FontAwesome Icons -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="css/style.css" rel="stylesheet">
 
         <style>
             /* Sticky Sidebar Wrapper */
@@ -400,9 +381,9 @@
                 }
             }
         </style>
-    </head>
-    <body>
+</asp:Content>
 
+<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
         <!-- ==========================================
              1. HEADER TOPBAR & NAVBAR
              ========================================== -->
@@ -491,6 +472,7 @@
             </div>
         </nav>
         </header>
+
 </asp:Content>
 
 <asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
@@ -840,6 +822,5 @@
             }
         }
     </script>
-    </body>
-    </html>
+
 </asp:Content>

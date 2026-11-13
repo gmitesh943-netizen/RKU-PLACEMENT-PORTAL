@@ -1,12 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data.SqlClient;
-using System.Data;
-using System.Configuration;
 
 namespace RKU_PLACEMENT_PORTAL
 {
@@ -14,8 +10,6 @@ namespace RKU_PLACEMENT_PORTAL
     {
         SqlConnection con;
         SqlCommand cmd;
-        SqlDataAdapter da;
-        DataSet ds;
 
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
@@ -54,14 +48,6 @@ namespace RKU_PLACEMENT_PORTAL
             compPassword.Text = "";
             compConfirmPassword.Text = "";
         }
-
-       
-
-        
-
-       
-
-     
        
         // Student Registration 
         protected void Button1_Click1(object sender, EventArgs e)
@@ -133,10 +119,5 @@ namespace RKU_PLACEMENT_PORTAL
         protected void hfRole_ValueChanged(object sender, EventArgs e)
         {
         }
-
-      
-       
-       
-
     }
 }

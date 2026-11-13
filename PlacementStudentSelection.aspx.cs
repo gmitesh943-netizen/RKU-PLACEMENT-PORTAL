@@ -1,10 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
@@ -16,7 +10,6 @@ namespace RKU_PLACEMENT_PORTAL
         SqlConnection con;
         SqlDataAdapter da;
         DataSet ds;
-        SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["rku"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -37,7 +30,36 @@ namespace RKU_PLACEMENT_PORTAL
         void datalist()
         {
             getcon();
-            da = new SqlDataAdapter("select * from Placed_Students", con);
+            string q = "select * from Placed_Students where 1=1";
+
+            string dept = ddlDepartment.SelectedValue;
+            if (!string.IsNullOrEmpty(dept) && dept != "all")
+            {
+                if (dept == "computer")
+                {
+                    q += " and (Department like '%computer%' or Department like '%bca%' or Department like '%it%' or Department like '%tech%')";
+                }
+                else if (dept == "management")
+                {
+                    q += " and (Department like '%management%' or Department like '%bba%' or Department like '%mba%')";
+                }
+                else if (dept == "others")
+                {
+                    q += " and (Department not like '%computer%' and Department not like '%bca%' and Department not like '%it%' and Department not like '%management%' and Department not like '%bba%' and Department not like '%mba%')";
+                }
+                else
+                {
+                    q += " and (Department = '" + dept + "' or Department like '%" + dept + "%')";
+                }
+            }
+
+            string yr = ddlYear.SelectedValue;
+            if (!string.IsNullOrEmpty(yr) && yr != "all")
+            {
+                q += " and (PlacementYear = '" + yr + "' or PlacementYear like '%" + yr + "%')";
+            }
+
+            da = new SqlDataAdapter(q, con);
             ds = new DataSet();
             da.Fill(ds);
 
@@ -49,6 +71,11 @@ namespace RKU_PLACEMENT_PORTAL
             if (totalPages > 0 && page >= totalPages)
             {
                 page = totalPages - 1;
+                ViewState["page"] = page;
+            }
+            else if (page < 0)
+            {
+                page = 0;
                 ViewState["page"] = page;
             }
 
@@ -71,6 +98,13 @@ namespace RKU_PLACEMENT_PORTAL
                 dt2.ImportRow(dt.Rows[i]);
             }
             return dt2;
+        }
+
+        // Search Button
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            ViewState["page"] = 0;
+            datalist();
         }
 
         // Previous Button

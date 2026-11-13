@@ -76,10 +76,6 @@ namespace RKU_PLACEMENT_PORTAL
             lblMsg.Text = "Account not found.";
         }
 
-        protected void fpSendOtpBtn_Click(object sender, ImageClickEventArgs e)
-        {
-            fpSendOtpBtn_Click(sender, (EventArgs)e);
-        }
 
         private void GenerateAndSendOtp(string email, string role, string name)
         {

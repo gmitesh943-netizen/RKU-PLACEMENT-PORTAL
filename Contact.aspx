@@ -1,16 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MainMaster.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="RKU_PLACEMENT_PORTAL.Contact" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
-
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Contact Us | RK University Placement Portal</title>
-
         <!-- Meta Tags for SEO -->
         <meta name="description" content="Contact RK University Placement Cell. Reach out to us for placement queries, corporate recruitment partnerships, and career guidance.">
         <meta name="keywords" content="RK University Contact, Placement Cell Contact, RK University Rajkot, TPO Contact, Placement Office">
@@ -46,13 +36,6 @@
         }
         </script>
 
-        <!-- Bootstrap 5 CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- FontAwesome Icons -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
         <link href="css/style.css" rel="stylesheet">
 
         <style>
@@ -580,9 +563,9 @@
                 }
             }
         </style>
-    </head>
-    <body>
+</asp:Content>
 
+<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
         <!-- ==========================================
              1. HEADER TOPBAR & NAVBAR
              ========================================== -->
@@ -675,191 +658,8 @@
             </div>
         </nav>
         </header>
-</asp:Content>
-
-<asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder3">
-
-
-    <!-- ==========================================
-         7. FOOTER
-         ========================================== -->
-    <footer class="footer pt-5" id="siteFooter">
-        <div class="container px-lg-5">
-            <div class="row g-4 pb-5">
-
-                <!-- Column 1: About Info -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer-logo d-flex align-items-center mb-3">
-                        <img src="assets/images/RKU LOGO.png" alt="RK University" class="me-2" style="height: 36px; width: auto; max-width: 220px; object-fit: contain;">
-                    </div>
-                    <p class="mb-4">Empowering students by bridging the gap between academia and corporate world. Providing quality training and dream placements.</p>
-                    <div class="footer-social-links" id="footerSocials">
-                        <a href="https://facebook.com" target="_blank" title="Facebook" id="socialFb"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://twitter.com" target="_blank" title="X (Twitter)" id="socialTw"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://linkedin.com" target="_blank" title="LinkedIn" id="socialLi"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://instagram.com" target="_blank" title="Instagram" id="socialIg"><i class="fa-brands fa-instagram"></i></a>
-                    </div>
-                </div>
-
-                <!-- Column 2: Quick Links -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Quick Links</h5>
-                    <ul class="footer-links" id="footerQuickLinks">
-                        <li><a href="About.aspx">About Us</a></li>
-                        <li><a href="#">Academics</a></li>
-                        <li><a href="PlacementCampusDrives.aspx">Placement Drives</a></li>
-                        <li><a href="Companies.aspx">Companies</a></li>
-                        <li><a href="Contact.aspx">Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Students Links -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Students</h5>
-                    <ul class="footer-links" id="footerStudentLinks">
-                        <li><a href="Register.aspx">Student Registration</a></li>
-                        <li><a href="Login.aspx">Student Login</a></li>
-                        <li><a href="PlacementCampusDrives.aspx">Available Jobs</a></li>
-                        <li><a href="StudentApplications.aspx">Applied Jobs</a></li>
-                        <li><a href="#">Interview Schedule</a></li>
-                        <li><a href="#">Resume Builder</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Contact Placement Cell -->
-                <div class="col-lg-3 col-md-6">
-                    <h5>Placement Cell</h5>
-                    <div class="footer-contact-info" id="footerContactInfo">
-                        <p>
-                            <i class="fa-solid fa-location-dot"></i>
-                            <span>RK University, Rajkot - 360020,<br>
-                                Gujarat, India</span>
-                        </p>
-                        <p>
-                            <i class="fa-solid fa-phone"></i>
-                            <span>+91 98765 43210</span>
-                        </p>
-                        <p>
-                            <i class="fa-solid fa-envelope"></i>
-                            <a href="mailto:placement@rku.ac.in" id="linkFooterEmail">placement@rku.ac.in</a>
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Bottom Copyright -->
-        <div class="footer-bottom">
-            <div class="container px-lg-5">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
-                        <p class="mb-0" id="copyrightText">&copy; 2026 RK University Placement Portal. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <div class="footer-links d-inline-flex gap-3 mb-0" id="footerBottomLinks">
-                            <a href="#" style="font-size: 0.8rem;">Privacy Policy</a>
-                            <span style="color: rgba(255, 255, 255, 0.7);">|</span>
-                            <a href="#" style="font-size: 0.8rem;">Terms of Service</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-
-    <!-- Bootstrap 5 Bundle JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom JS -->
-    <script src="js/main.js"></script>
-
-    <script>
-        // ===== Contact Tabs =====
-        document.addEventListener('DOMContentLoaded', function () {
-            const tabBtns = document.querySelectorAll('.contact-tab-btn');
-            const tabPanels = document.querySelectorAll('.contact-tab-panel');
-
-            tabBtns.forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    tabBtns.forEach(function (b) { b.classList.remove('active'); });
-                    tabPanels.forEach(function (p) { p.classList.remove('active'); });
-
-                    btn.classList.add('active');
-                    var target = btn.getAttribute('data-tab');
-                    document.getElementById('panel' + target.charAt(0).toUpperCase() + target.slice(1)).classList.add('active');
-                });
-            });
-
-            // ===== Contact Form Submit =====
-            var form = document.getElementById('contactForm');
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-                var captcha = document.getElementById('captchaCheck');
-                if (!captcha.checked) {
-                    alert('Please verify that you are not a robot.');
-                    return;
-                }
-                // Simulate success feedback
-                var btn = document.getElementById('btnSendMessage');
-                var originalText = btn.innerHTML;
-                btn.innerHTML = '<i class="fa-solid fa-circle-check me-2"></i>Message Sent!';
-                btn.style.backgroundColor = '#28a745';
-                setTimeout(function () {
-                    btn.innerHTML = originalText;
-                    btn.style.backgroundColor = '';
-                    form.reset();
-                }, 3000);
-            });
-        });
-    </script>
-
-    <!-- Code injected by live-server -->
-    <script>
-        // <![CDATA[  <-- For SVG support
-        if ('WebSocket' in window) {
-            (function () {
-                function refreshCSS() {
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-                    var head = document.getElementsByTagName("head")[0];
-                    for (var i = 0; i < sheets.length; ++i) {
-                        var elem = sheets[i];
-                        var parent = elem.parentElement || head;
-                        parent.removeChild(elem);
-                        var rel = elem.rel;
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                        }
-                        parent.appendChild(elem);
-                    }
-                }
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-                var socket = new WebSocket(address);
-                socket.onmessage = function (msg) {
-                    if (msg.data == 'reload') window.location.reload();
-                    else if (msg.data == 'refreshcss') refreshCSS();
-                };
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                    console.log('Live reload enabled.');
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                }
-            })();
-        }
-        else {
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-        }
-        // ]]>
-    </script>
-    </body>
-</html>
-
-
 
 </asp:Content>
-
 
 <asp:Content ID="Content7" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
 
@@ -1066,7 +866,6 @@
                             </div>
 
                         </div>
-                        </form>
                     </div>
                 </div>
 
@@ -1402,7 +1201,34 @@
             </div>
         </div>
     </section>
+
+    <!-- Contact Tabs & Validation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabBtns = document.querySelectorAll('.contact-tab-btn');
+            const tabPanels = document.querySelectorAll('.contact-tab-panel');
+
+            tabBtns.forEach(function (btn) {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    tabBtns.forEach(function (b) { b.classList.remove('active'); });
+                    tabPanels.forEach(function (p) { p.classList.remove('active'); });
+
+                    btn.classList.add('active');
+                    var target = btn.getAttribute('data-tab');
+                    var panel = document.getElementById('panel' + target.charAt(0).toUpperCase() + target.slice(1));
+                    if (panel) panel.classList.add('active');
+                });
+            });
+        });
+
+        function validateContactForm() {
+            var captcha = document.getElementById('captchaCheck');
+            if (captcha && !captcha.checked) {
+                alert('Please verify that you are not a robot.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </asp:Content>
-
-
-
